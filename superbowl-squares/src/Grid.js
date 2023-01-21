@@ -1,6 +1,5 @@
 import React from 'react';
 import GridLayout from "react-grid-layout";
-import './Grid.css';
 
 export class Grid extends React.Component {
     render() {
@@ -80,7 +79,7 @@ export class Grid extends React.Component {
                 layout={layout}
                 cols={10}
                 rowHeight={31}
-                width={435}
+                width={434}
                 style={{backgroundColor: 'gray'}}
             >
                 <div key="1_0" style={graySquare(0, 0)}>1</div>
@@ -108,11 +107,12 @@ export class Grid extends React.Component {
                 <div key="1_2" style={graySquare(-10, 0)}>21</div>
                 <div key="2_2" style={graySquare(-10, -5)}>22</div>
                 <div key="3_2" style={graySquare(-10, -10)}>23</div>
-                <div key="4_2" style={blackSquare(-10, -15)}>BC</div>
+                <div key="4_2" style={graySquare(-10, -15)}>24</div>
                 <div key="5_2" style={graySquare(-10, -20)}>25</div>
                 <div key="6_2" style={graySquare(-10, -25)}>26</div>
                 <div key="7_2" style={graySquare(-10, -30)}>27</div>
-                <div key="8_2" style={blackSquare(-10, -35, '9px')}>Long<br></br>Name</div>
+                {/* <div key="8_2" style={blackSquare(-10, -35, '9px')}>Long<br></br>Name</div> */}
+                <div key="8_2" style={graySquare(-10, -35)}>28</div>
                 <div key="9_2" style={graySquare(-10, -40)}>29</div>
                 <div key="10_2" style={graySquare(-10, -45)}>30</div>
                
@@ -151,7 +151,7 @@ export class Grid extends React.Component {
 
                 <div key="1_6" style={graySquare(-30, 0)}>61</div>
                 <div key="2_6" style={graySquare(-30, -5)}>62</div>
-                <div key="3_6" style={graySquare(-30, -10)}>🏈</div>
+                <div key="3_6" style={graySquare(-30, -10)}>63</div>
                 <div key="4_6" style={graySquare(-30, -15)}>64</div>
                 <div key="5_6" style={graySquare(-30, -20)}>65</div>
                 <div key="6_6" style={graySquare(-30, -25)}>66</div>
