@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { Grid } from './Grid.js';
 import reportWebVitals from './reportWebVitals';
-import { FlexGrid } from './FlexGrid';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
   
