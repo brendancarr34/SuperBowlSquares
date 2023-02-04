@@ -50,6 +50,32 @@ export class Grid extends React.Component {
             }
         }
 
+        function greenSquare(top, left, font_size) {
+            let margins = top + 'px -10px -10px ' + left + 'px';
+            return {
+                display: 'flex', 
+                'justify-content': 'center', 
+                'align-items': 'center', 
+                backgroundColor: 'green', 
+                color: 'white',
+                'font-size': font_size,
+                margin: margins
+            }
+        }
+
+        function pinkSquare(top, left, font_size) {
+            let margins = top + 'px -10px -10px ' + left + 'px';
+            return {
+                display: 'flex', 
+                'justify-content': 'center', 
+                'align-items': 'center', 
+                backgroundColor: 'pink', 
+                color: 'black',
+                'font-size': font_size,
+                margin: margins
+            }
+        }
+
         function unknownNumber(top, left) {
             let margins = top + 'px -10px -10px ' + left + 'px';
             return {
@@ -92,7 +118,7 @@ export class Grid extends React.Component {
                 <div key="0_0" style={unknownNumber(0, 0)}></div>
                 <div key="1_0" style={unknownNumber(0, 0)}>❔</div>
                 <div key="2_0" style={unknownNumber(0, -5)}>❔</div>
-                <div key="3_0" style={unknownNumber(0, -10)}>❔</div>
+                <div key="3_0" style={greenSquare(0, -10)}>5</div>
                 <div key="4_0" style={unknownNumber(0, -15)}>❔</div>
                 <div key="5_0" style={unknownNumber(0, -20)}>❔</div>
                 <div key="6_0" style={unknownNumber(0, -25)}>❔</div>
@@ -122,19 +148,19 @@ export class Grid extends React.Component {
                 <div key="6_2" style={graySquare(-5,  -25)}>16</div>
                 <div key="7_2" style={graySquare(-5,  -30)}>17</div>
                 <div key="8_2" style={graySquare(-5,  -35)}>18</div>
-                <div key="9_2" style={graySquare(-5,  -40)}>19</div>
+                <div key="9_2" style={pinkSquare(-5,  -40)}>HC</div>
                 <div key="10_2" style={graySquare(-5,  -45)}>20</div>
                 
                 <div key="0_3" style={unknownNumber(-10, 0)}>❔</div>
-                <div key="1_3" style={blackSquare(-10, 0)}>BC</div>
+                <div key="1_3" style={pinkSquare(-10, 0)}>BC</div>
                 <div key="2_3" style={graySquare(-10, -5)}>22</div>
                 <div key="3_3" style={graySquare(-10, -10)}>23</div>
                 <div key="4_3" style={graySquare(-10, -15)}>24</div>
                 <div key="5_3" style={graySquare(-10, -20)}>25</div>
                 <div key="6_3" style={graySquare(-10, -25)}>26</div>
                 <div key="7_3" style={graySquare(-10, -30)}>27</div>
-                {/* <div key="8_3" style={blackSquare(-10, -35, '9px')}>Long<br></br>Name</div> */}
-                <div key="8_3" style={graySquare(-10, -35)}>28</div>
+                <div key="8_3" style={pinkSquare(-10, -35, '9px')}>Long<br/>Name</div>
+                {/* <div key="8_3" style={graySquare(-10, -35)}>28</div> */}
                 <div key="9_3" style={graySquare(-10, -40)}>29</div>
                 <div key="10_3" style={graySquare(-10, -45)}>30</div>
                
@@ -153,7 +179,7 @@ export class Grid extends React.Component {
                 <div key="0_5" style={unknownNumber(-20, 0)}>❔</div>
                 <div key="1_5" style={graySquare(-20, 0)}>41</div>
                 <div key="2_5" style={graySquare(-20, -5)}>42</div>
-                <div key="3_5" style={graySquare(-20, -10)}>43</div>
+                <div key="3_5" style={pinkSquare(-20, -10)}>HC</div>
                 <div key="4_5" style={graySquare(-20, -15)}>44</div>
                 <div key="5_5" style={graySquare(-20, -20)}>45</div>
                 <div key="6_5" style={graySquare(-20, -25)}>46</div>
