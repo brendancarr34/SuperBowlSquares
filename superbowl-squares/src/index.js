@@ -1,16 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-<<<<<<< HEAD
-import './index.css';
-import { Grid } from './Grid.js';
-import reportWebVitals from './reportWebVitals';
-=======
 import { Home } from './components/v2/Home.js'
 import { Grid } from './components/v1/Grid.js';
 import { FlexGrid } from './components/v2/FlexGrid.js';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
->>>>>>> develop
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
