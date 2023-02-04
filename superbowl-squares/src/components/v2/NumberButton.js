@@ -1,8 +1,8 @@
 import React from 'react';
 import { MDBBtn } from 'mdb-react-ui-kit';
 
-export function NumberButton() {
-    const color = { backgroundColor: "blue" ,
+export function NumberButton(props) {
+    const style = { backgroundColor: "blue" ,
     'color': "white",
      'font-size': 10,
      'padding':0,
@@ -11,8 +11,8 @@ export function NumberButton() {
     };
 
     return (
-        <MDBBtn className="square-md" style={color}>
-            1
+        <MDBBtn disabled className="square-md" style={style}>
+            {props.number}
         </MDBBtn>
     );
 }
