@@ -3,7 +3,8 @@ import Table from 'react-bootstrap/Table';
 import { NumberButton } from './NumberButton.js';
 import { StateButton } from './StateButton.js';
 
-export function ButtonRow() {
+export function ButtonRow(props) {
+    
     function center() {
         return {
             textAlign:'center',
@@ -16,7 +17,7 @@ export function ButtonRow() {
     return (
         <tr style={center()}>
             <td style={center()}>
-                <NumberButton number='9' />
+                <NumberButton number={props.number} />
             </td>
             <td style={center()}>
                 <StateButton />
