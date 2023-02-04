@@ -1,9 +1,9 @@
-import React from 'react';
-import { NumberButton } from './NumberButton';
-import { StateButton } from './StateButton';
-import { CornerButton } from './CornerButton';
+import React, { useState } from 'react';
+import Table from 'react-bootstrap/Table';
+import { NumberButton } from './NumberButton.js';
+import { StateButton } from './StateButton.js';
 
-export function NumberRow() {
+export function ButtonRow() {
     function center() {
         return {
             textAlign:'center',
@@ -16,37 +16,37 @@ export function NumberRow() {
     return (
         <tr style={center()}>
             <td style={center()}>
-                <CornerButton />
+                <NumberButton number='9' />
             </td>
             <td style={center()}>
-                <NumberButton />
+                <StateButton />
             </td>
             <td style={center()}>
-                <NumberButton />
+                <StateButton />
             </td>
             <td style={center()}>
-                <NumberButton />
+                <StateButton />
             </td>
             <td style={center()}>
-                <NumberButton />
+                <StateButton />
             </td>  
             <td style={center()}>
-                <NumberButton />
+                <StateButton />
             </td> 
             <td style={center()}>
-                <NumberButton />
+                <StateButton />
             </td>
             <td style={center()}>
-                <NumberButton />
+                <StateButton />
             </td>
             <td style={center()}>
-                <NumberButton />
+                <StateButton />
             </td>
             <td style={center()}>
-                <NumberButton />
+                <StateButton />
             </td>
             <td style={center()}>
-                <NumberButton />
+                <StateButton />
             </td>                 
         </tr>
     );

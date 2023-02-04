@@ -7,26 +7,12 @@ import Button from 'react-bootstrap/Button';
 import { ButtonRow } from './ButtonRow.js';
 import { NumberRow } from './NumberRow.js';
 
-function unknownNumber() {
-    return {
-        display: 'flex', 
-        'justify-content': 'center', 
-        'align-items': 'center', 
-        backgroundColor: 'gray', 
-        color: 'black'
-    }
-}
-
-function center() {
-    return {textAlign:'center'}
-}
-
 export function FlexGrid() {
     return (
         <Container>
             <Row>
                 <Col style={center()}>
-                    <h1>Super Bowl Squares</h1>
+                    <h1 style={{'padding':15}}>Super Bowl Squares</h1>
                 </Col>
             </Row>
             <Row>
@@ -34,8 +20,8 @@ export function FlexGrid() {
                 <Col style={unknownNumber()}></Col>
                 <Col style={unknownNumber()}>
                     <Table style={{'padding':0, 'margin':0}}>
-                        <tbody style={{'padding':0, 'margin':0}}>
-                            <NumberRow />
+                        <tbody>
+                            <NumberRow numbers={['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']}/>
                             <ButtonRow />
                             <ButtonRow />
                             <ButtonRow />
@@ -64,6 +50,20 @@ export function FlexGrid() {
             </Row>
         </Container>
     );
+}
+
+function unknownNumber() {
+    return {
+        display: 'flex', 
+        'justify-content': 'center', 
+        'align-items': 'center', 
+        backgroundColor: 'gray', 
+        color: 'black'
+    }
+}
+
+function center() {
+    return {textAlign:'center'}
 }
 
 export default FlexGrid;
