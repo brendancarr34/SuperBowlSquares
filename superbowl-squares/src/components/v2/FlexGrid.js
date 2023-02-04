@@ -15,6 +15,9 @@ export function FlexGrid() {
                     <h1 style={{'padding':15}}>Super Bowl Squares</h1>
                 </Col>
             </Row>
+            <Row style={unknownNumber()}>
+                <br/>
+            </Row>
             <Row>
                 <Col style={unknownNumber()}></Col>
                 <Col style={unknownNumber()}></Col>
@@ -22,31 +25,30 @@ export function FlexGrid() {
                     <Table style={{'padding':0, 'margin':0}}>
                         <tbody>
                             <NumberRow numbers={['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']}/>
-                            <ButtonRow />
-                            <ButtonRow />
-                            <ButtonRow />
-                            <ButtonRow />
-                            <ButtonRow />
-                            <ButtonRow />
-                            <ButtonRow />
-                            <ButtonRow />
-                            <ButtonRow />
-                            <ButtonRow />
+                            <ButtonRow number={'?'}/>
+                            <ButtonRow number={'1'}/>
+                            <ButtonRow number={'2'}/>
+                            <ButtonRow number={'3'}/>
+                            <ButtonRow number={'4'}/>
+                            <ButtonRow number={'5'}/>
+                            <ButtonRow number={'6'}/>
+                            <ButtonRow number={'7'}/>
+                            <ButtonRow number={'8'}/>
+                            <ButtonRow number={'9'}/>
                         </tbody>
                     </Table>
                 </Col>
                 <Col style={unknownNumber()}></Col>
                 <Col style={unknownNumber()}></Col>
             </Row>
+            <Row style={unknownNumber()}>
+                <br/>
+            </Row>
             <Row>
-                <Col>
-                    <div>
-                        <p style={{'color':'white'}}>test</p>
-                    </div>
-                </Col>
+                <br/>
             </Row>
             <Row style={{'padding':10, 'margin':10}}>
-                <Button style={{}}>Submit</Button>
+                <Button style={black()}>Submit</Button>
             </Row>
         </Container>
     );
@@ -64,6 +66,13 @@ function unknownNumber() {
 
 function center() {
     return {textAlign:'center'}
+}
+
+function black() {
+    return {
+        backgroundColor:"black",
+        'border':'black'
+    }
 }
 
 export default FlexGrid;
