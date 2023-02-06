@@ -4,10 +4,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import { ButtonRow } from './ButtonRow.js';
-import { NumberRow } from './NumberRow.js';
+import { ButtonRow } from '../ButtonRow.js';
+import { NumberRow } from '../NumberRow.js';
+import { Link } from "react-router-dom";
 
-export function FlexGrid() {
+export function EditBoard() {
+
+    const topNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
+    const sideNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
+
     return (
         <Container>
             <Row>
@@ -24,17 +29,17 @@ export function FlexGrid() {
                 <Col style={unknownNumber()}>
                     <Table style={{'padding':0, 'margin':0}}>
                         <tbody>
-                            <NumberRow numbers={['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']}/>
-                            <ButtonRow number={'?'}/>
-                            <ButtonRow number={'1'}/>
-                            <ButtonRow number={'2'}/>
-                            <ButtonRow number={'3'}/>
-                            <ButtonRow number={'4'}/>
-                            <ButtonRow number={'5'}/>
-                            <ButtonRow number={'6'}/>
-                            <ButtonRow number={'7'}/>
-                            <ButtonRow number={'8'}/>
-                            <ButtonRow number={'9'}/>
+                            <NumberRow numbers={topNumbers}/>
+                            <ButtonRow number={sideNumbers[0]}/>
+                            <ButtonRow number={sideNumbers[1]}/>
+                            <ButtonRow number={sideNumbers[2]}/>
+                            <ButtonRow number={sideNumbers[3]}/>
+                            <ButtonRow number={sideNumbers[4]}/>
+                            <ButtonRow number={sideNumbers[5]}/>
+                            <ButtonRow number={sideNumbers[6]}/>
+                            <ButtonRow number={sideNumbers[7]}/>
+                            <ButtonRow number={sideNumbers[8]}/>
+                            <ButtonRow number={sideNumbers[9]}/>
                         </tbody>
                     </Table>
                 </Col>
@@ -48,7 +53,11 @@ export function FlexGrid() {
                 <br/>
             </Row>
             <Row style={{'padding':10, 'margin':10}}>
-                <Button style={black()}>Submit</Button>
+                <Button style={black()}>
+                    <Link to='/super-bowl-squares' style={link()}>
+                        Submit
+                    </Link>
+                </Button>
             </Row>
         </Container>
     );
@@ -75,4 +84,9 @@ function black() {
     }
 }
 
-export default FlexGrid;
+function link() {
+    return {
+        color:'white',
+        'text-decoration': 'none'
+    }
+}
