@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import Table from 'react-bootstrap/Table';
-import { NumberButton } from './NumberButton.js';
-import { StateButton } from './StateButton.js';
+import React from 'react';
+import { NumberButton } from '../NumberButton.js';
+import { EditBoardButton } from './EditBoardButton.js';
 
-export function ButtonRow(props) {
+export function EditBoardRow(props) {
     
     function center() {
         return {
@@ -19,35 +18,37 @@ export function ButtonRow(props) {
             <td style={center()}>
                 <NumberButton number={props.number} />
             </td>
-            <td style={center()}>
-                <StateButton />
+            <td>
             </td>
             <td style={center()}>
-                <StateButton />
+                <EditBoardButton />
             </td>
             <td style={center()}>
-                <StateButton />
+                <EditBoardButton />
             </td>
             <td style={center()}>
-                <StateButton />
+                <EditBoardButton />
+            </td>
+            <td style={center()}>
+                <EditBoardButton />
             </td>  
             <td style={center()}>
-                <StateButton />
+                <EditBoardButton />
             </td> 
             <td style={center()}>
-                <StateButton />
+                <EditBoardButton />
             </td>
             <td style={center()}>
-                <StateButton />
+                <EditBoardButton />
             </td>
             <td style={center()}>
-                <StateButton />
+                <EditBoardButton />
             </td>
             <td style={center()}>
-                <StateButton />
+                <EditBoardButton />
             </td>
             <td style={center()}>
-                <StateButton />
+                <EditBoardButton />
             </td>                 
         </tr>
     );
