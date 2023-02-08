@@ -3,17 +3,16 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export function Home() {
 
     let navigate = useNavigate(); 
     const createGroup = () => { 
-        navigate('create-group');
+        navigate('/create-group');
     }
     const joinGroup = () => {
-        navigate('join-group');
+        navigate('/join-group');
     }
 
     return (

@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Home } from './components/v2/pages/Home.js'
+import { Home } from './components/v2/page/Home.js'
 import { Grid } from './components/v1/Grid.js';
-import { EditBoard } from './components/v2/components/EditBoard.js';
-import { ViewBoard } from './components/v2/components/ViewBoard.js';
-import { CreateGroup } from './components/v2/pages/CreateGroup.js';
-import { JoinGroup } from './components/v2/pages/JoinGroup.js';
-import { NotFound } from './components/v2/pages/NotFound.js';
+import { EditBoard } from './components/v2/component/EditBoard.js';
+import { ViewBoard } from './components/v2/component/ViewBoard.js';
+import { CreateGroup } from './components/v2/page/CreateGroup.js';
+import { JoinGroup } from './components/v2/page/JoinGroup.js';
+import { NotFound } from './components/v2/page/NotFound.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

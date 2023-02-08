@@ -4,9 +4,15 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-export function CreateGroup() {
+export function JoinGroup() {
+
+    let navigate = useNavigate(); 
+    const superBowlSquares = () => { 
+        navigate('/super-bowl-squares');
+    }
+
     return (
         <Container>
             <Row style={fullHeight()}>
@@ -16,7 +22,7 @@ export function CreateGroup() {
                 <Row>
                     <Col style={center()}>
                         <h1>
-                            Create a Group
+                            Join a Group
                         </h1>
                     </Col>
                 </Row>
@@ -25,29 +31,19 @@ export function CreateGroup() {
                         <Form>
                             <Form.Group className="mb-3">
                                 <Form.Label>Group Code</Form.Label>
-                                <Form.Control placeholder="Enter custom group code" />
-                                <Form.Text className="text-muted">
-                                    This is optional. If you leave this blank, 
-                                    a group code will be generated for you.
-                                </Form.Text>
+                                <Form.Control placeholder="" />
                             </Form.Group>
-                            <Form.Group className="mb-3">
+                            <Form.Group className="mb-3" controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control placeholder="Enter custom password" />
-                                <Form.Text className="text-muted">
-                                    This is optional. If you leave this blank, 
-                                    anyone with the link to your game will be able to edit squares.
-                                </Form.Text>
+                                <Form.Control type="password" placeholder="" />
                         </Form.Group>
                         </Form>
                     </Col>
                 </Row>
                 <Row>
                     <Col style={center()}>
-                        <Button style={black()}>
-                            <Link to='/super-bowl-squares' style={link()}>
-                                Start a New Game
-                            </Link>
+                        <Button style={black()} onClick={superBowlSquares}>
+                            Join a Game
                         </Button>
                     </Col>
                 </Row>
@@ -66,15 +62,7 @@ export function CreateGroup() {
 
     function center() {
         return {
-            textAlign:'center',
-        }
-    }
-
-    function wide() {
-        return {
-            'width':'75vw',
-            margin:0,
-            padding:0
+            textAlign:'center'
         }
     }
 
@@ -91,6 +79,14 @@ export function CreateGroup() {
         return {
             color:'white',
             'text-decoration': 'none'
+        }
+    }
+
+    function wide() {
+        return {
+            'width':'75vw',
+            margin:0,
+            padding:0
         }
     }
 }

@@ -11,8 +11,6 @@ export function CornerButton() {
     };
 
     return (
-        <MDBBtn disabled className="square-md" style={color}>
-            1
-        </MDBBtn>
+        <MDBBtn disabled className="square-md" style={color}/>
     );
 }
