@@ -25,16 +25,13 @@ export function EditBoard() {
     const row0 = [false, false, false, false, false, false, false, false, false, false];
 
     let navigate = useNavigate();
-    const superBowlSquares = () => { 
-        navigate('/super-bowl-squares');
+    const viewSquares = () => { 
+        navigate('/super-bowl-squares', { replace: true });
     }
 
     return (
         <Container>
             <Row style={fullHeight()}>
-                {/* <Row>
-                    <br/>
-                </Row> */}
                 <Row>
                     <Col style={center()}>
                         <h1 style={{'padding':15}}>Claim Squares</h1>
@@ -79,7 +76,7 @@ export function EditBoard() {
                         </Form>
                     </Col>
                     <Col>
-                        <Button disabled={false} style={black()} onClick={superBowlSquares}>
+                        <Button disabled={false} style={black()} onClick={viewSquares}>
                             Submit
                         </Button>
                     </Col>
