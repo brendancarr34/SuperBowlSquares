@@ -1,6 +1,6 @@
 import React from 'react';
 import { NumberButton } from './NumberButton';
-import { CornerButton } from './CornerButton';
+import { CornerButton } from './component/CornerButton';
 
 export function NumberRow(props) {
     function center() {
@@ -16,6 +16,9 @@ export function NumberRow(props) {
         <tr style={center()}>
             <td style={center()}>
                 <CornerButton />
+            </td>
+            <td>
+
             </td>
             <td style={center()}>
                 <NumberButton number={props.numbers[0]}/>

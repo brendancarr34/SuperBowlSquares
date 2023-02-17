@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { MDBBtn } from "mdb-react-ui-kit";
-import './StateButton.css'
+import '../style/Button.css'
 
-export function StateButton() {
+export function EditBoardButton() {
     
     const [active, setActive] = useState(false);
+    const [taken, setTaken] = useState(false);
     const [text, setText] = useState("X");
     
     const handleClick = () => {
@@ -21,8 +22,7 @@ export function StateButton() {
     };
     
     return (
-        <MDBBtn className="square-md" onClick={handleClick}
-                style={colorOnClick}>
+        <MDBBtn className="square-md" onClick={handleClick} style={colorOnClick}>
             {text}
         </MDBBtn>
     );
