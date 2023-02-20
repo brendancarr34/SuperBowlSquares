@@ -1,16 +1,38 @@
-import React from 'react';
+import React, { useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 export function CreateGroup() {
+    const [groupName, setGroupName] = useState("");
+    const empty_row = [
+        false, false, false, false,false, 
+        false, false, false,false, false,
+    ];
 
     let navigate = useNavigate(); 
     const superBowlSquares = () => { 
+        // console.log(groupName)
+        // let db = getFirestore();
+        // if groupName already exists, create a group name
+        // check if group exists, if not add the group
+        // const groupRef = doc(db, 'group', groupName);
+        // setDoc(groupRef, { row1: empty_row }, { merge: true });
+        // setDoc(groupRef, { row1: empty_row });
+        createGroup(groupName);
+        setGroupName("");
         navigate('/super-bowl-squares');
+    }
+
+    const createGroup = (groupName1) => {
+        console.log(groupName1)
+        let db = getFirestore();
+        const groupRef = doc(db, 'group', groupName1);
+        setDoc(groupRef, { row1: empty_row });
     }
 
     return (
@@ -29,7 +51,7 @@ export function CreateGroup() {
                 <Row style={wide()}>
                     <Col style={wide()}>
                         <Form>
-                            <Form.Group className="mb-3">
+                            <Form.Group className="mb-3" onChange={(e) => setGroupName(e.target.value)}>
                                 <Form.Label>Group Code</Form.Label>
                                 <Form.Control placeholder="Enter custom group code" />
                                 <Form.Text className="text-muted">
@@ -63,20 +85,22 @@ export function CreateGroup() {
         return {
             height:'90vh',
             display: 'flex', 
-            'justify-content': 'center', 
-            'align-items': 'center'
+            justifyContent: 'center', 
+            alignItems: 'center'
         }
     }
 
     function center() {
         return {
             textAlign:'center',
+            margin:0,
+            padding:0
         }
     }
 
     function wide() {
         return {
-            'width':'75vw',
+            width:'75vw',
             margin:0,
             padding:0
         }
@@ -85,8 +109,8 @@ export function CreateGroup() {
     function black() {
         return {
             backgroundColor:"black",
-            'border':'black',
-            'width':'75vw',
+            border:'black',
+            width:'75vw',
             padding:20
         }
     }

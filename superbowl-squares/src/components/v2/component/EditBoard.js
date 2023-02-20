@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,26 +8,69 @@ import { EditBoardRow } from './EditBoardRow.js';
 import { NumberRow } from '../NumberRow.js';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+
+const topNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
+const sideNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
+const empty_row = [
+    false, false, false, false,false, 
+    false, false, false,false, false,
+];
+const empty_board = [
+    empty_row, empty_row, 
+    empty_row, empty_row, 
+    empty_row, empty_row,
+    empty_row, empty_row, 
+    empty_row, empty_row,
+];
 
 export function EditBoard() {
+    let [data, setData] = useState(empty_board);
 
-    const topNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
-    const sideNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
-    const row1 = [false, false, false, false, false, false, false, false, false, false];
-    const row2 = [false, false, false, false, false, false, false, false, false, false];
-    const row3 = [false, false, false, false, false, false, false, false, false, false];
-    const row4 = [false, false, false, false, false, false, false, false, false, false];
-    const row5 = [false, false, false, false, false, false, false, false, false, false];
-    const row6 = [false, false, false, false, false, false, false, false, false, false];
-    const row7 = [false, false, false, false, false, false, false, false, false, false];
-    const row8 = [false, false, false, false, false, false, false, false, false, false];
-    const row9 = [false, false, false, false, false, false, false, false, false, false];
-    const row0 = [false, false, false, false, false, false, false, false, false, false];
+    useEffect(() => {
+        const firestore = getFirestore();
+        const docRef = doc(firestore, 'group/group1');
+        async function readGameData() {
+            const mySnapshot = await getDoc(docRef);
+            if (mySnapshot.exists()) {
+                const docData = mySnapshot.data();
+                const row0 = docData.row0;
+                const row1 = docData.row1;
+                const row2 = docData.row2;
+                const row3 = docData.row3;
+                const row4 = docData.row4;
+                const row5 = docData.row5;
+                const row6 = docData.row6;
+                const row7 = docData.row7;
+                const row8 = docData.row8;
+                const row9 = docData.row9;
+                var game = [row0, row1, row2, row3, row4, row5, row6, row7, row8, row9];
+                var gameData = [];
+    
+                for (let i in game) {
+                    var row = game[i];
+                    var zero = row.charAt(1) === '1';
+                    var one = row.charAt(3) === '1';
+                    var two = row.charAt(5) === '1';
+                    var three = row.charAt(7) === '1';
+                    var four = row.charAt(9) === '1';
+                    var five = row.charAt(11) === '1';
+                    var six = row.charAt(13) === '1';
+                    var seven = row.charAt(15) === '1';
+                    var eight = row.charAt(17) === '1';
+                    var nine = row.charAt(19) === '1';
+                    gameData.push([zero, one, two, three, four, five, six, seven, eight, nine]);
+                };
+                setData(gameData);
+            };
+        };
+        readGameData();
+    }, []);
 
     let navigate = useNavigate();
     const viewSquares = () => { 
         navigate('/super-bowl-squares', { replace: true });
-    }
+    };
 
     return (
         <Container>
@@ -40,21 +83,21 @@ export function EditBoard() {
                 <Row>
                     <Col/>
                     <Col/>
-                    <Col style={unknownNumber()}>
+                    <Col style={board()}>
                         <Table style={{'padding':0, 'margin':0}}>
                             <tbody>
                                 <NumberRow numbers={topNumbers}/>
                                 <p/>
-                                <EditBoardRow number={sideNumbers[0]}/>
-                                <EditBoardRow number={sideNumbers[1]}/>
-                                <EditBoardRow number={sideNumbers[2]}/>
-                                <EditBoardRow number={sideNumbers[3]}/>
-                                <EditBoardRow number={sideNumbers[4]}/>
-                                <EditBoardRow number={sideNumbers[5]}/>
-                                <EditBoardRow number={sideNumbers[6]}/>
-                                <EditBoardRow number={sideNumbers[7]}/>
-                                <EditBoardRow number={sideNumbers[8]}/>
-                                <EditBoardRow number={sideNumbers[9]}/>
+                                <EditBoardRow number={sideNumbers[0]} active={data[0]}/>
+                                <EditBoardRow number={sideNumbers[1]} active={data[1]}/>
+                                <EditBoardRow number={sideNumbers[2]} active={data[2]}/>
+                                <EditBoardRow number={sideNumbers[3]} active={data[3]}/>
+                                <EditBoardRow number={sideNumbers[4]} active={data[4]}/>
+                                <EditBoardRow number={sideNumbers[5]} active={data[5]}/>
+                                <EditBoardRow number={sideNumbers[6]} active={data[6]}/>
+                                <EditBoardRow number={sideNumbers[7]} active={data[7]}/>
+                                <EditBoardRow number={sideNumbers[8]} active={data[8]}/>
+                                <EditBoardRow number={sideNumbers[9]} active={data[9]}/>
                             </tbody>
                         </Table>
                     </Col>
@@ -84,9 +127,9 @@ export function EditBoard() {
             </Row>
         </Container>
     );
-}
+};
 
-function unknownNumber() {
+function board() {
     return {
         display: 'flex', 
         'justify-content': 'center', 

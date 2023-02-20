@@ -62,7 +62,7 @@ export function Home() {
     function center() {
         return {
             textAlign:'center',
-            'justify-content':'center'
+            justifyContent:'center'
         }
     }
 
@@ -71,7 +71,7 @@ export function Home() {
             'position': 'absolute',
             'bottom': '0',
             'width': '100%',
-            'text-align': 'center'
+            textAlign: 'center'
         }
     }
 
@@ -88,8 +88,8 @@ export function Home() {
         return {
             height:'90vh',
             display: 'flex', 
-            'justify-content': 'center', 
-            'align-items': 'center'
+            justifyContent: 'center', 
+            alignItems: 'center'
         }
     }
 }
