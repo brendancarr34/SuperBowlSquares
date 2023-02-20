@@ -4,28 +4,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import { EditBoardRow } from './EditBoardRow.js';
-import { NumberRow } from '../NumberRow.js';
+import { EditBoardRow } from '../component/row/EditBoardRow.js';
+import { NumberRow } from '../component/row/NumberRow.js';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-
-const topNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
-const sideNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
-const empty_row = [
-    false, false, false, false,false, 
-    false, false, false,false, false,
-];
-const empty_board = [
-    empty_row, empty_row, 
-    empty_row, empty_row, 
-    empty_row, empty_row,
-    empty_row, empty_row, 
-    empty_row, empty_row,
-];
+import { topNumbers, sideNumbers, emptyBoard } from '../data/EmptyBoardData.js';
 
 export function EditBoard() {
-    let [data, setData] = useState(empty_board);
+    let [boardData, setBoardData] = useState(emptyBoard);
 
     useEffect(() => {
         const firestore = getFirestore();
@@ -61,7 +48,7 @@ export function EditBoard() {
                     var nine = row.charAt(19) === '1';
                     gameData.push([zero, one, two, three, four, five, six, seven, eight, nine]);
                 };
-                setData(gameData);
+                setBoardData(gameData);
             };
         };
         readGameData();
@@ -87,17 +74,16 @@ export function EditBoard() {
                         <Table style={{'padding':0, 'margin':0}}>
                             <tbody>
                                 <NumberRow numbers={topNumbers}/>
-                                <p/>
-                                <EditBoardRow number={sideNumbers[0]} active={data[0]}/>
-                                <EditBoardRow number={sideNumbers[1]} active={data[1]}/>
-                                <EditBoardRow number={sideNumbers[2]} active={data[2]}/>
-                                <EditBoardRow number={sideNumbers[3]} active={data[3]}/>
-                                <EditBoardRow number={sideNumbers[4]} active={data[4]}/>
-                                <EditBoardRow number={sideNumbers[5]} active={data[5]}/>
-                                <EditBoardRow number={sideNumbers[6]} active={data[6]}/>
-                                <EditBoardRow number={sideNumbers[7]} active={data[7]}/>
-                                <EditBoardRow number={sideNumbers[8]} active={data[8]}/>
-                                <EditBoardRow number={sideNumbers[9]} active={data[9]}/>
+                                <EditBoardRow number={sideNumbers[0]} active={boardData[0]}/>
+                                <EditBoardRow number={sideNumbers[1]} active={boardData[1]}/>
+                                <EditBoardRow number={sideNumbers[2]} active={boardData[2]}/>
+                                <EditBoardRow number={sideNumbers[3]} active={boardData[3]}/>
+                                <EditBoardRow number={sideNumbers[4]} active={boardData[4]}/>
+                                <EditBoardRow number={sideNumbers[5]} active={boardData[5]}/>
+                                <EditBoardRow number={sideNumbers[6]} active={boardData[6]}/>
+                                <EditBoardRow number={sideNumbers[7]} active={boardData[7]}/>
+                                <EditBoardRow number={sideNumbers[8]} active={boardData[8]}/>
+                                <EditBoardRow number={sideNumbers[9]} active={boardData[9]}/>
                             </tbody>
                         </Table>
                     </Col>
@@ -131,10 +117,10 @@ export function EditBoard() {
 
 function board() {
     return {
-        display: 'flex', 
-        'justify-content': 'center', 
-        'align-items': 'center', 
-        backgroundColor: 'gray', 
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'gray',
         color: 'black',
         padding: 15
     }
@@ -144,8 +130,8 @@ function fullHeight() {
     return {
         height:'85vh',
         display: 'flex', 
-        'justify-content': 'center', 
-        'align-items': 'center'
+        justifyContent: 'center', 
+        alignItems: 'center'
     }
 }
 
@@ -159,7 +145,7 @@ function center() {
 function black() {
     return {
         backgroundColor:"black",
-        'border':'black',
+        border:'black',
         padding: 0,
         width:'100%',
         height:'85%'

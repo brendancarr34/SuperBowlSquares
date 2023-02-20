@@ -5,34 +5,19 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { createGroup } from '../hook/createGroupHook';
 
 export function CreateGroup() {
+
     const [groupName, setGroupName] = useState("");
-    const empty_row = [
-        false, false, false, false,false, 
-        false, false, false,false, false,
-    ];
+    const [groupPassword, setGroupPassword] = useState("");
 
     let navigate = useNavigate(); 
     const superBowlSquares = () => { 
-        // console.log(groupName)
-        // let db = getFirestore();
-        // if groupName already exists, create a group name
-        // check if group exists, if not add the group
-        // const groupRef = doc(db, 'group', groupName);
-        // setDoc(groupRef, { row1: empty_row }, { merge: true });
-        // setDoc(groupRef, { row1: empty_row });
-        createGroup(groupName);
+        createGroup(groupName, groupPassword);
         setGroupName("");
+        setGroupPassword("");
         navigate('/super-bowl-squares');
-    }
-
-    const createGroup = (groupName1) => {
-        console.log(groupName1)
-        let db = getFirestore();
-        const groupRef = doc(db, 'group', groupName1);
-        setDoc(groupRef, { row1: empty_row });
     }
 
     return (
@@ -48,18 +33,18 @@ export function CreateGroup() {
                         </h1>
                     </Col>
                 </Row>
-                <Row style={wide()}>
-                    <Col style={wide()}>
+                <Row style={width75()}>
+                    <Col style={width75()}>
                         <Form>
                             <Form.Group className="mb-3" onChange={(e) => setGroupName(e.target.value)}>
-                                <Form.Label>Group Code</Form.Label>
-                                <Form.Control placeholder="Enter custom group code" />
+                                <Form.Label>Group Name</Form.Label>
+                                <Form.Control placeholder="Enter custom group name" />
                                 <Form.Text className="text-muted">
                                     This is optional. If you leave this blank, 
-                                    a group code will be generated for you.
+                                    a group name will be generated for you.
                                 </Form.Text>
                             </Form.Group>
-                            <Form.Group className="mb-3">
+                            <Form.Group className="mb-3" onChange={(e) => setGroupPassword(e.target.value)}>
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control placeholder="Enter custom password" />
                                 <Form.Text className="text-muted">
@@ -72,7 +57,7 @@ export function CreateGroup() {
                 </Row>
                 <Row>
                     <Col style={center()}>
-                        <Button style={black()} onClick={superBowlSquares}>
+                        <Button style={blackButton()} onClick={superBowlSquares}>
                                 Start a New Game
                         </Button>
                     </Col>
@@ -98,7 +83,7 @@ export function CreateGroup() {
         }
     }
 
-    function wide() {
+    function width75() {
         return {
             width:'75vw',
             margin:0,
@@ -106,7 +91,7 @@ export function CreateGroup() {
         }
     }
 
-    function black() {
+    function blackButton() {
         return {
             backgroundColor:"black",
             border:'black',

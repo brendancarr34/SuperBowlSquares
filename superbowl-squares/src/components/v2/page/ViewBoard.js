@@ -4,25 +4,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import { ViewBoardRow } from './ViewBoardRow.js';
-import { NumberRow } from '../NumberRow.js';
+import { ViewBoardRow } from '../component/row/ViewBoardRow.js';
+import { NumberRow } from '../component/row/NumberRow.js';
 import { useNavigate } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { topNumbers, sideNumbers, emptyBoard } from '../data/EmptyBoardData.js';
 
 export function ViewBoard() {
 
-    const topNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
-    const sideNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
-    const empty_row = [false, false,false, false,false, false,false, false,false, false];
-    const empty_board = [
-        empty_row, empty_row, 
-        empty_row, empty_row, 
-        empty_row, empty_row,
-        empty_row, empty_row, 
-        empty_row, empty_row
-    ];
-
-    let [data, setData] = useState(empty_board);
+    let [data, setData] = useState(emptyBoard);
 
     useEffect(() => {
         const firestore = getFirestore();
@@ -84,7 +74,7 @@ export function ViewBoard() {
                     <Col/>
                     <Col/>
                     <Col >
-                        <Container>
+                        <Container style={{'padding':0, 'margin':0}}>
                             <Row style={gray()}>
                                 <Table style={{'padding':0, 'margin':0}}>
                                     <tbody>
@@ -129,8 +119,8 @@ export function ViewBoard() {
     function gray() {
         return {
             display: 'flex', 
-            'justifyContent': 'center', 
-            'alignItems': 'center', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
             backgroundColor: 'gray', 
             color: 'black',
             padding: 15
@@ -139,26 +129,26 @@ export function ViewBoard() {
     
     function center() {
         return {
-            textAlign:'center',
-            width:'100%'
+            textAlign: 'center',
+            width: '100%'
         }
     }
     
     function black() {
         return {
-            backgroundColor:"black",
-            'border':'black',
+            backgroundColor: 'black',
+            border: 'black',
             padding: 20,
-            width:'100%'
+            width: '100%'
         }
     }
 
     function fullHeight() {
         return {
-            height:'85vh',
+            height: '85vh',
             display: 'flex', 
-            'justifyContent': 'center', 
-            'alignItems': 'center'
+            justifyContent: 'center', 
+            alignItems: 'center'
         }
     }
 }

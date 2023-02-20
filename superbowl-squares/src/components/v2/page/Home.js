@@ -35,7 +35,7 @@ export function Home() {
                     <Col style={center()}>
                         <Row>
                             <Col>
-                                <Button style={black()} onClick={createGroup}>
+                                <Button style={blackButton()} onClick={createGroup}>
                                     Create a Group
                                 </Button>
                             </Col>
@@ -45,7 +45,7 @@ export function Home() {
                         </Row>
                         <Row>
                             <Col>
-                                <Button style={black()} onClick={joinGroup}>
+                                <Button style={blackButton()} onClick={joinGroup}>
                                         Join a Group
                                 </Button>
                             </Col>
@@ -59,37 +59,37 @@ export function Home() {
         </Container>
     )
 
+    function fullHeight() {
+        return {
+            height: '90vh',
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center'
+        }
+    }
+
     function center() {
         return {
-            textAlign:'center',
-            justifyContent:'center'
+            textAlign: 'center',
+            justifyContent: 'center'
+        }
+    }
+
+    function blackButton() {
+        return {
+            backgroundColor: 'black',
+            padding: 20,
+            border: 'black',
+            width: 155
         }
     }
 
     function lowerText() {
         return {
-            'position': 'absolute',
-            'bottom': '0',
-            'width': '100%',
+            position: 'absolute',
+            bottom: '0',
+            width: '100%',
             textAlign: 'center'
-        }
-    }
-
-    function black() {
-        return {
-            'backgroundColor':'black',
-            'padding':20,
-            'border':'black',
-            width:155
-        }
-    }
-
-    function fullHeight() {
-        return {
-            height:'90vh',
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center'
         }
     }
 }

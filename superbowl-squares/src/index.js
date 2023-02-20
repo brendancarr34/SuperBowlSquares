@@ -4,8 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './components/v2/page/Home.js'
 import { Grid } from './components/v1/Grid.js';
-import { EditBoard } from './components/v2/component/EditBoard.js';
-import { ViewBoard } from './components/v2/component/ViewBoard.js';
+import { EditBoard } from './components/v2/page/EditBoard.js';
+import { ViewBoard } from './components/v2/page/ViewBoard.js';
 import { CreateGroup } from './components/v2/page/CreateGroup.js';
 import { JoinGroup } from './components/v2/page/JoinGroup.js';
 import { NotFound } from './components/v2/page/NotFound.js';
