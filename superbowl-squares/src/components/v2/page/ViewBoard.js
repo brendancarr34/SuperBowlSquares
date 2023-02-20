@@ -4,8 +4,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import { ViewBoardRow } from '../component/ViewBoardRow.js';
-import { NumberRow } from '../component/NumberRow.js';
+import { ViewBoardRow } from '../component/row/ViewBoardRow.js';
+import { NumberRow } from '../component/row/NumberRow.js';
 import { useNavigate } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { topNumbers, sideNumbers, emptyBoard } from '../data/EmptyBoardData.js';
@@ -74,7 +74,7 @@ export function ViewBoard() {
                     <Col/>
                     <Col/>
                     <Col >
-                        <Container>
+                        <Container style={{'padding':0, 'margin':0}}>
                             <Row style={gray()}>
                                 <Table style={{'padding':0, 'margin':0}}>
                                     <tbody>

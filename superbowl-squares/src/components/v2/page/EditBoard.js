@@ -4,8 +4,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import { EditBoardRow } from '../component/EditBoardRow.js';
-import { NumberRow } from '../component/NumberRow.js';
+import { EditBoardRow } from '../component/row/EditBoardRow.js';
+import { NumberRow } from '../component/row/NumberRow.js';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
@@ -74,7 +74,6 @@ export function EditBoard() {
                         <Table style={{'padding':0, 'margin':0}}>
                             <tbody>
                                 <NumberRow numbers={topNumbers}/>
-                                <p/>
                                 <EditBoardRow number={sideNumbers[0]} active={boardData[0]}/>
                                 <EditBoardRow number={sideNumbers[1]} active={boardData[1]}/>
                                 <EditBoardRow number={sideNumbers[2]} active={boardData[2]}/>
