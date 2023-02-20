@@ -129,23 +129,23 @@ export function ViewBoard() {
     
     function center() {
         return {
-            textAlign:'center',
-            width:'100%'
+            textAlign: 'center',
+            width: '100%'
         }
     }
     
     function black() {
         return {
-            backgroundColor:"black",
-            border:'black',
+            backgroundColor: 'black',
+            border: 'black',
             padding: 20,
-            width:'100%'
+            width: '100%'
         }
     }
 
     function fullHeight() {
         return {
-            height:'85vh',
+            height: '85vh',
             display: 'flex', 
             justifyContent: 'center', 
             alignItems: 'center'

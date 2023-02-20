@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { createGroup } from '../hook/createGroupHook';
 
 export function CreateGroup() {
+
     const [groupName, setGroupName] = useState("");
     const [groupPassword, setGroupPassword] = useState("");
 
@@ -32,8 +33,8 @@ export function CreateGroup() {
                         </h1>
                     </Col>
                 </Row>
-                <Row style={wide()}>
-                    <Col style={wide()}>
+                <Row style={width75()}>
+                    <Col style={width75()}>
                         <Form>
                             <Form.Group className="mb-3" onChange={(e) => setGroupName(e.target.value)}>
                                 <Form.Label>Group Name</Form.Label>
@@ -56,7 +57,7 @@ export function CreateGroup() {
                 </Row>
                 <Row>
                     <Col style={center()}>
-                        <Button style={black()} onClick={superBowlSquares}>
+                        <Button style={blackButton()} onClick={superBowlSquares}>
                                 Start a New Game
                         </Button>
                     </Col>
@@ -82,7 +83,7 @@ export function CreateGroup() {
         }
     }
 
-    function wide() {
+    function width75() {
         return {
             width:'75vw',
             margin:0,
@@ -90,7 +91,7 @@ export function CreateGroup() {
         }
     }
 
-    function black() {
+    function blackButton() {
         return {
             backgroundColor:"black",
             border:'black',

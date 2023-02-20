@@ -55,8 +55,8 @@ export function JoinGroup() {
         return {
             height:'90vh',
             display: 'flex', 
-            'justify-content': 'center', 
-            'align-items': 'center'
+            justifyContent: 'center', 
+            alignItems: 'center'
         }
     }
 
@@ -69,22 +69,15 @@ export function JoinGroup() {
     function black() {
         return {
             backgroundColor:"black",
-            'border':'black',
-            'width':'75vw',
+            border:'black',
+            width:'75vw',
             padding:20
-        }
-    }
-
-    function link() {
-        return {
-            color:'white',
-            'text-decoration': 'none'
         }
     }
 
     function wide() {
         return {
-            'width':'75vw',
+            width:'75vw',
             margin:0,
             padding:0
         }
