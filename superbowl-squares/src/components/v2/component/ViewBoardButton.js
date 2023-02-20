@@ -9,7 +9,7 @@ export function ViewBoardButton(props) {
     const color = {  
         backgroundColor: active ? "red" : "white" ,
         'color': active ? "black" : "white",
-        'font-size': 15,
+        'fontSize': 15,
         'padding':0,
         'margin':0,
         'border':'1px solid black',

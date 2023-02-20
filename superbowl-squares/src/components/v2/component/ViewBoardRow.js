@@ -53,7 +53,7 @@ export function ViewBoardRow(props) {
             textAlign:'center',
             'padding':0,
             'margin':0,
-            'border-bottom': '1pt solid gray'
+            'borderBottom': '1pt solid gray'
         }
     }
 }

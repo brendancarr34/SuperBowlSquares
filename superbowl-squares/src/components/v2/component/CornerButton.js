@@ -4,7 +4,7 @@ import { MDBBtn } from 'mdb-react-ui-kit';
 export function CornerButton() {
     const color = { backgroundColor: "gray" ,
     'color': "gray",
-     'font-size': 10,
+     'fontSize': 10,
      'padding':0,
      'margin':0,
      'border':'1px solid gray'

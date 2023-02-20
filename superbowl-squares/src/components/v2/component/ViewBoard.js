@@ -83,37 +83,43 @@ export function ViewBoard() {
                 <Row>
                     <Col/>
                     <Col/>
-                    <Col style={gray()}>
-                        <Table style={{'padding':0, 'margin':0}}>
-                            <tbody>
-                                <NumberRow numbers={topNumbers}/>
-                                <p/>
-                                <ViewBoardRow number={sideNumbers[0]} active={data[0]}/>
-                                <ViewBoardRow number={sideNumbers[1]} active={data[1]}/>
-                                <ViewBoardRow number={sideNumbers[2]} active={data[2]}/>
-                                <ViewBoardRow number={sideNumbers[3]} active={data[3]}/>
-                                <ViewBoardRow number={sideNumbers[4]} active={data[4]}/>
-                                <ViewBoardRow number={sideNumbers[5]} active={data[5]}/>
-                                <ViewBoardRow number={sideNumbers[6]} active={data[6]}/>
-                                <ViewBoardRow number={sideNumbers[7]} active={data[7]}/>
-                                <ViewBoardRow number={sideNumbers[8]} active={data[8]}/>
-                                <ViewBoardRow number={sideNumbers[9]} active={data[9]}/>
-                            </tbody>
-                        </Table>
+                    <Col >
+                        <Container>
+                            <Row style={gray()}>
+                                <Table style={{'padding':0, 'margin':0}}>
+                                    <tbody>
+                                        <NumberRow numbers={topNumbers}/>
+                                        <ViewBoardRow number={sideNumbers[0]} active={data[0]}/>
+                                        <ViewBoardRow number={sideNumbers[1]} active={data[1]}/>
+                                        <ViewBoardRow number={sideNumbers[2]} active={data[2]}/>
+                                        <ViewBoardRow number={sideNumbers[3]} active={data[3]}/>
+                                        <ViewBoardRow number={sideNumbers[4]} active={data[4]}/>
+                                        <ViewBoardRow number={sideNumbers[5]} active={data[5]}/>
+                                        <ViewBoardRow number={sideNumbers[6]} active={data[6]}/>
+                                        <ViewBoardRow number={sideNumbers[7]} active={data[7]}/>
+                                        <ViewBoardRow number={sideNumbers[8]} active={data[8]}/>
+                                        <ViewBoardRow number={sideNumbers[9]} active={data[9]}/>
+                                    </tbody>
+                                </Table>
+                            </Row>
+                            <Row>
+                                <br/>
+                            </Row>
+                            <Row>
+                                <Button style={black()} onClick={claimSquares}>
+                                        Claim Squares
+                                </Button>
+                            </Row>
+                        </Container>
                     </Col>
                     <Col/>
                     <Col/>
-                </Row>
-                <Row>
-                    <br/>
-                    <p style={{color:'black'}}>
-                        {data}
-                    </p>
-                </Row>
-                <Row>
-                    <Button style={black()} onClick={claimSquares}>
-                            Claim Squares
-                    </Button>
+                    <Row>
+                        <br/>
+                        <p style={{color:'black'}}>
+                            {data}
+                        </p>
+                    </Row>
                 </Row>
             </Row>
         </Container>
