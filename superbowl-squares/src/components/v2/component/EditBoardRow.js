@@ -13,6 +13,8 @@ export function EditBoardRow(props) {
         }
     }
 
+    const activeArr = props.active;
+
     return (
         <tr style={center()}>
             <td style={center()}>
@@ -21,34 +23,34 @@ export function EditBoardRow(props) {
             <td>
             </td>
             <td style={center()}>
-                <EditBoardButton />
+                <EditBoardButton taken={activeArr[0]}/>
             </td>
             <td style={center()}>
-                <EditBoardButton />
+                <EditBoardButton taken={activeArr[1]}/>
             </td>
             <td style={center()}>
-                <EditBoardButton />
+                <EditBoardButton taken={activeArr[2]}/>
             </td>
             <td style={center()}>
-                <EditBoardButton />
+                <EditBoardButton taken={activeArr[3]}/>
             </td>  
             <td style={center()}>
-                <EditBoardButton />
+                <EditBoardButton taken={activeArr[4]}/>
             </td> 
             <td style={center()}>
-                <EditBoardButton />
+                <EditBoardButton taken={activeArr[5]}/>
             </td>
             <td style={center()}>
-                <EditBoardButton />
+                <EditBoardButton taken={activeArr[6]}/>
             </td>
             <td style={center()}>
-                <EditBoardButton />
+                <EditBoardButton taken={activeArr[7]}/>
             </td>
             <td style={center()}>
-                <EditBoardButton />
+                <EditBoardButton taken={activeArr[8]}/>
             </td>
             <td style={center()}>
-                <EditBoardButton />
+                <EditBoardButton taken={activeArr[9]}/>
             </td>                 
         </tr>
     );
