@@ -4,25 +4,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import { ViewBoardRow } from './ViewBoardRow.js';
-import { NumberRow } from './NumberRow.js';
+import { ViewBoardRow } from '../component/ViewBoardRow.js';
+import { NumberRow } from '../component/NumberRow.js';
 import { useNavigate } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
+import { topNumbers, sideNumbers, emptyBoard } from '../data/EmptyBoardData.js';
 
 export function ViewBoard() {
 
-    const topNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
-    const sideNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
-    const empty_row = [false, false,false, false,false, false,false, false,false, false];
-    const empty_board = [
-        empty_row, empty_row, 
-        empty_row, empty_row, 
-        empty_row, empty_row,
-        empty_row, empty_row, 
-        empty_row, empty_row
-    ];
-
-    let [data, setData] = useState(empty_board);
+    let [data, setData] = useState(emptyBoard);
 
     useEffect(() => {
         const firestore = getFirestore();
@@ -129,8 +119,8 @@ export function ViewBoard() {
     function gray() {
         return {
             display: 'flex', 
-            'justifyContent': 'center', 
-            'alignItems': 'center', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
             backgroundColor: 'gray', 
             color: 'black',
             padding: 15
@@ -147,7 +137,7 @@ export function ViewBoard() {
     function black() {
         return {
             backgroundColor:"black",
-            'border':'black',
+            border:'black',
             padding: 20,
             width:'100%'
         }
@@ -157,8 +147,8 @@ export function ViewBoard() {
         return {
             height:'85vh',
             display: 'flex', 
-            'justifyContent': 'center', 
-            'alignItems': 'center'
+            justifyContent: 'center', 
+            alignItems: 'center'
         }
     }
 }

@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
 import { createGroup } from '../hook/createGroupHook';
-// import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 export function CreateGroup() {
     const [groupName, setGroupName] = useState("");
@@ -19,13 +18,6 @@ export function CreateGroup() {
         setGroupPassword("");
         navigate('/super-bowl-squares');
     }
-
-    // const createGroup = (groupName1) => {
-    //     console.log(groupName1)
-    //     let db = getFirestore();
-    //     const groupRef = doc(db, 'group', groupName1);
-    //     setDoc(groupRef, { row1: empty_row });
-    // }
 
     return (
         <Container>
@@ -44,11 +36,11 @@ export function CreateGroup() {
                     <Col style={wide()}>
                         <Form>
                             <Form.Group className="mb-3" onChange={(e) => setGroupName(e.target.value)}>
-                                <Form.Label>Group Code</Form.Label>
-                                <Form.Control placeholder="Enter custom group code" />
+                                <Form.Label>Group Name</Form.Label>
+                                <Form.Control placeholder="Enter custom group name" />
                                 <Form.Text className="text-muted">
                                     This is optional. If you leave this blank, 
-                                    a group code will be generated for you.
+                                    a group name will be generated for you.
                                 </Form.Text>
                             </Form.Group>
                             <Form.Group className="mb-3" onChange={(e) => setGroupPassword(e.target.value)}>
