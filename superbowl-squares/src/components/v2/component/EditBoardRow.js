@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberButton } from '../NumberButton.js';
+import { NumberButton } from './NumberButton.js';
 import { EditBoardButton } from './EditBoardButton.js';
 
 export function EditBoardRow(props) {

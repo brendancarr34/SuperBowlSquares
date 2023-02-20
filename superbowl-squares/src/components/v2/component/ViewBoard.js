@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { ViewBoardRow } from './ViewBoardRow.js';
-import { NumberRow } from '../NumberRow.js';
+import { NumberRow } from './NumberRow.js';
 import { useNavigate } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 

@@ -5,35 +5,27 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { createGroup } from '../hook/createGroupHook';
+// import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 export function CreateGroup() {
     const [groupName, setGroupName] = useState("");
-    const empty_row = [
-        false, false, false, false,false, 
-        false, false, false,false, false,
-    ];
+    const [groupPassword, setGroupPassword] = useState("");
 
     let navigate = useNavigate(); 
     const superBowlSquares = () => { 
-        // console.log(groupName)
-        // let db = getFirestore();
-        // if groupName already exists, create a group name
-        // check if group exists, if not add the group
-        // const groupRef = doc(db, 'group', groupName);
-        // setDoc(groupRef, { row1: empty_row }, { merge: true });
-        // setDoc(groupRef, { row1: empty_row });
-        createGroup(groupName);
+        createGroup(groupName, groupPassword);
         setGroupName("");
+        setGroupPassword("");
         navigate('/super-bowl-squares');
     }
 
-    const createGroup = (groupName1) => {
-        console.log(groupName1)
-        let db = getFirestore();
-        const groupRef = doc(db, 'group', groupName1);
-        setDoc(groupRef, { row1: empty_row });
-    }
+    // const createGroup = (groupName1) => {
+    //     console.log(groupName1)
+    //     let db = getFirestore();
+    //     const groupRef = doc(db, 'group', groupName1);
+    //     setDoc(groupRef, { row1: empty_row });
+    // }
 
     return (
         <Container>
@@ -59,7 +51,7 @@ export function CreateGroup() {
                                     a group code will be generated for you.
                                 </Form.Text>
                             </Form.Group>
-                            <Form.Group className="mb-3">
+                            <Form.Group className="mb-3" onChange={(e) => setGroupPassword(e.target.value)}>
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control placeholder="Enter custom password" />
                                 <Form.Text className="text-muted">

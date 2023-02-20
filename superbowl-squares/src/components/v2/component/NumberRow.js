@@ -1,6 +1,6 @@
 import React from 'react';
 import { NumberButton } from './NumberButton';
-import { CornerButton } from './component/CornerButton';
+import { CornerButton } from './CornerButton';
 
 export function NumberRow(props) {
     function center() {

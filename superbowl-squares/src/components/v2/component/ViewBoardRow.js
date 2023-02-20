@@ -1,5 +1,5 @@
 import React from 'react';
-import { NumberButton } from '../NumberButton.js';
+import { NumberButton } from './NumberButton.js';
 import { ViewBoardButton } from './ViewBoardButton.js';
 
 export function ViewBoardRow(props) {
