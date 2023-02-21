@@ -25,8 +25,8 @@ export function NotFound() {
         return {
             height:'90vh',
             display: 'flex', 
-            'justify-content': 'center', 
-            'align-items': 'center'
+            justifyContent: 'center', 
+            alignItems: 'center'
         }
     }
 
