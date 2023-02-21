@@ -14,10 +14,11 @@ import { topNumbers, sideNumbers, emptyBoard } from '../data/EmptyBoardData.js';
 export function EditBoard() {
     
     let [gameData, setGameData] = useState(emptyBoard);
+    let groupName =  'group1'
 
     useEffect(() => {
         const firestore = getFirestore();
-        const docRef = doc(firestore, 'group/group2');
+        const docRef = doc(firestore, 'group', groupName);
         async function readGameData() {
             const mySnapshot = await getDoc(docRef);
             if (mySnapshot.exists()) {
@@ -41,7 +42,6 @@ export function EditBoard() {
 
     let navigate = useNavigate();
     const viewSquares = () => { 
-        var groupName = 'group2';
         const db = getFirestore();
         const groupRef = doc(db, 'group', groupName);
         setDoc(groupRef, {
@@ -58,16 +58,17 @@ export function EditBoard() {
                 row9: gameData[9]
             }
         }, { merge: true });
+        console.log("Successfully claimed squares!");
         navigate('/super-bowl-squares', { replace: true });
     };
 
-    const falseArr = [false, false, false, false, false, false, false, false, false, false];
-
     const getActiveButtons = (ids, activeArr) => {
         const row = Math.floor(ids[0] / 10);
-        gameData[row] = activeArr;
-        console.log("ids: " + ids + ", activeArr: " + activeArr);
-        console.log("gameData: " + gameData);
+        for (let i = 0; i < 10; i++) {
+            if (activeArr[i] === true) {
+                gameData[row][i] = true;
+            }
+        }
     }
 
     return (

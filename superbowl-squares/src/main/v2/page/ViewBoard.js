@@ -14,9 +14,11 @@ export function ViewBoard() {
 
     let [gameData, setGameData] = useState(emptyBoard);
 
+    let groupName = 'group1';
+
     useEffect(() => {
         const firestore = getFirestore();
-        const docRef = doc(firestore, 'group/group2');
+        const docRef = doc(firestore, 'group', groupName);
         async function readGameData() {
             const mySnapshot = await getDoc(docRef);
             if (mySnapshot.exists()) {

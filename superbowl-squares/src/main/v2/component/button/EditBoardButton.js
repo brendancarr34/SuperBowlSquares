@@ -14,7 +14,6 @@ export function EditBoardButton(props) {
             setActive(!active);
             !active ? setText("🏈") : setText("X");
             props.isActive(id, !active);
-            console.log("id: " + id + ", active: " + !active);
         }
     };
 
