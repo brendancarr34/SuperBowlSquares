@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useNavigate } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -6,7 +7,6 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { ViewBoardRow } from '../component/row/ViewBoardRow.js';
 import { NumberRow } from '../component/row/NumberRow.js';
-import { useNavigate } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { topNumbers, sideNumbers, emptyBoard } from '../data/EmptyBoardData.js';
 

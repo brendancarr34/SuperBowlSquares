@@ -4,6 +4,7 @@ import '../../style/Button.css'
 
 export function EditBoardButton(props) {
     
+    const id = props.id;
     const [active, setActive] = useState(false);
     const taken = props.taken;
     const [text, setText] = useState("X");
@@ -11,7 +12,9 @@ export function EditBoardButton(props) {
     const handleClick = () => {
         if (!taken) {
             setActive(!active);
-            !active ? setText("🏈") : setText("X")
+            !active ? setText("🏈") : setText("X");
+            props.isActive(id, !active);
+            console.log("id: " + id + ", active: " + !active);
         }
     };
 
