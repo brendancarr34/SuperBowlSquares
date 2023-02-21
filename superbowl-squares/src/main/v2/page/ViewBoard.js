@@ -12,47 +12,31 @@ import { topNumbers, sideNumbers, emptyBoard } from '../data/EmptyBoardData.js';
 
 export function ViewBoard() {
 
-    let [data, setData] = useState(emptyBoard);
+    let [gameData, setGameData] = useState(emptyBoard);
 
     useEffect(() => {
         const firestore = getFirestore();
-        const docRef = doc(firestore, 'group/group1');
+        const docRef = doc(firestore, 'group/group2');
         async function readGameData() {
             const mySnapshot = await getDoc(docRef);
             if (mySnapshot.exists()) {
                 const docData = mySnapshot.data();
-                const row0 = docData.row0;
-                const row1 = docData.row1;
-                const row2 = docData.row2;
-                const row3 = docData.row3;
-                const row4 = docData.row4;
-                const row5 = docData.row5;
-                const row6 = docData.row6;
-                const row7 = docData.row7;
-                const row8 = docData.row8;
-                const row9 = docData.row9;
-                var game = [row0, row1, row2, row3, row4, row5, row6, row7, row8, row9];
-                var gameData = [];
-    
-                for (let i in game) {
-                    var row = game[i];
-                    var zero = row.charAt(1) === '1';
-                    var one = row.charAt(3) === '1';
-                    var two = row.charAt(5) === '1';
-                    var three = row.charAt(7) === '1';
-                    var four = row.charAt(9) === '1';
-                    var five = row.charAt(11) === '1';
-                    var six = row.charAt(13) === '1';
-                    var seven = row.charAt(15) === '1';
-                    var eight = row.charAt(17) === '1';
-                    var nine = row.charAt(19) === '1';
-                    gameData.push([zero, one, two, three, four, five, six, seven, eight, nine]);
-                }
-                setData(gameData);
-            }
-        }
+                var gameRows = [];
+                gameRows.push(docData.gameData.row0);
+                gameRows.push(docData.gameData.row1);
+                gameRows.push(docData.gameData.row2);
+                gameRows.push(docData.gameData.row3);
+                gameRows.push(docData.gameData.row4);
+                gameRows.push(docData.gameData.row5);
+                gameRows.push(docData.gameData.row6);
+                gameRows.push(docData.gameData.row7);
+                gameRows.push(docData.gameData.row8);
+                gameRows.push(docData.gameData.row9);
+                setGameData(gameRows);
+            };
+        };
         readGameData();
-    }, [])
+    }, []);
 
     let navigate = useNavigate();
     const claimSquares = () => { 
@@ -79,16 +63,16 @@ export function ViewBoard() {
                                 <Table style={{'padding':0, 'margin':0}}>
                                     <tbody>
                                         <NumberRow numbers={topNumbers}/>
-                                        <ViewBoardRow number={sideNumbers[0]} active={data[0]}/>
-                                        <ViewBoardRow number={sideNumbers[1]} active={data[1]}/>
-                                        <ViewBoardRow number={sideNumbers[2]} active={data[2]}/>
-                                        <ViewBoardRow number={sideNumbers[3]} active={data[3]}/>
-                                        <ViewBoardRow number={sideNumbers[4]} active={data[4]}/>
-                                        <ViewBoardRow number={sideNumbers[5]} active={data[5]}/>
-                                        <ViewBoardRow number={sideNumbers[6]} active={data[6]}/>
-                                        <ViewBoardRow number={sideNumbers[7]} active={data[7]}/>
-                                        <ViewBoardRow number={sideNumbers[8]} active={data[8]}/>
-                                        <ViewBoardRow number={sideNumbers[9]} active={data[9]}/>
+                                        <ViewBoardRow number={sideNumbers[0]} active={gameData[0]}/>
+                                        <ViewBoardRow number={sideNumbers[1]} active={gameData[1]}/>
+                                        <ViewBoardRow number={sideNumbers[2]} active={gameData[2]}/>
+                                        <ViewBoardRow number={sideNumbers[3]} active={gameData[3]}/>
+                                        <ViewBoardRow number={sideNumbers[4]} active={gameData[4]}/>
+                                        <ViewBoardRow number={sideNumbers[5]} active={gameData[5]}/>
+                                        <ViewBoardRow number={sideNumbers[6]} active={gameData[6]}/>
+                                        <ViewBoardRow number={sideNumbers[7]} active={gameData[7]}/>
+                                        <ViewBoardRow number={sideNumbers[8]} active={gameData[8]}/>
+                                        <ViewBoardRow number={sideNumbers[9]} active={gameData[9]}/>
                                     </tbody>
                                 </Table>
                             </Row>
@@ -106,9 +90,6 @@ export function ViewBoard() {
                     <Col/>
                     <Row>
                         <br/>
-                        <p style={{color:'black'}}>
-                            {data}
-                        </p>
                     </Row>
                 </Row>
             </Row>
