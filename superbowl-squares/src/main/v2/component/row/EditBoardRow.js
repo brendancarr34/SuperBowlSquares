@@ -12,7 +12,6 @@ export function EditBoardRow(props) {
     const isButtonActive = (id, active) => {
         const index = id % 10;
         activeArr[index] = active;
-        console.log("index : " + index + ", active: " + active + ", activeArr: " + activeArr);
         props.activeButtons(ids, activeArr)
     }
 
