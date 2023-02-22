@@ -21,7 +21,7 @@ function generateUUID() {
 export const createGroup = (groupName, groupPassword) => {
     // if groupName is empty, create a group name
     if (groupName === "") {
-        groupName = generateUUID();
+        groupName = generateUUID().substring(0,8);
     }
     // check if group exists, if not add the group
     let db = getFirestore();
@@ -43,5 +43,6 @@ export const createGroup = (groupName, groupPassword) => {
             row9: empty_row
         } 
     });
-    console.log("Succesfully created group: " + groupName)
+    console.log("Succesfully created group: " + groupName);
+    return groupName;
 }

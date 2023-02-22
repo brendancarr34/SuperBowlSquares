@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,11 +12,15 @@ import { topNumbers, sideNumbers, emptyBoard } from '../data/EmptyBoardData.js';
 
 export function ViewBoard() {
 
-    let [gameData, setGameData] = useState(emptyBoard);
+    const location = useLocation();
 
-    let groupName = 'group1';
+    let [gameData, setGameData] = useState(emptyBoard);
+    let [name, setName] = useState("defaultName")
+
+    let groupName = location.state.groupName;
 
     useEffect(() => {
+        setName(location.state.name);
         const firestore = getFirestore();
         const docRef = doc(firestore, 'group', groupName);
         async function readGameData() {
@@ -42,7 +46,9 @@ export function ViewBoard() {
 
     let navigate = useNavigate();
     const claimSquares = () => { 
-        navigate('/claim-squares', { replace: true });
+        navigate('/claim-squares', { replace: true, state: {
+            groupName: groupName
+        } });
     }
 
     return (
@@ -79,8 +85,20 @@ export function ViewBoard() {
                                 </Table>
                             </Row>
                             <Row>
-                                <br/>
+                                <Col style={{'padding':0, 'margin':0}}>
+                                    <Button style={black()} >
+                                        test
+                                    </Button>
+                                </Col>
+                                <Col>
+                                    <br/>
+                                    <h5 style={center()}>Group Name: {groupName}</h5>
+                                    <br/>
+                                </Col>
                             </Row>
+                            {/* <br/>
+                            <h5 style={center()}>Group Name: {groupName}</h5>
+                            <br/> */}
                             <Row>
                                 <Button style={black()} onClick={claimSquares}>
                                         Claim Squares
@@ -90,13 +108,9 @@ export function ViewBoard() {
                     </Col>
                     <Col/>
                     <Col/>
-                    <Row>
-                        <br/>
-                    </Row>
                 </Row>
             </Row>
         </Container>
-
     );
 
     function gray() {
@@ -112,7 +126,10 @@ export function ViewBoard() {
     
     function center() {
         return {
+            display: 'flex', 
+            justifyContent: 'center',
             textAlign: 'center',
+            alignItems: 'center',
             width: '100%'
         }
     }

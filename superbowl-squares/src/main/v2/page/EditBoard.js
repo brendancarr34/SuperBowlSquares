@@ -1,20 +1,24 @@
 import React, {useEffect, useState} from 'react';
+import { useNavigate, useLocation } from "react-router-dom";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import { EditBoardRow } from '../component/row/EditBoardRow.js';
 import { NumberRow } from '../component/row/NumberRow.js';
-import Form from 'react-bootstrap/Form';
-import { useNavigate } from "react-router-dom";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 import { topNumbers, sideNumbers, emptyBoard } from '../data/EmptyBoardData.js';
 
 export function EditBoard() {
+
+    const location = useLocation();
     
     let [gameData, setGameData] = useState(emptyBoard);
-    let groupName =  'group1'
+    let [playerName, setPlayerName] = useState("");
+    let [playerInitials, setPlayerInitials] = useState("");
+    let groupName =  location.state.groupName;
 
     useEffect(() => {
         const firestore = getFirestore();
@@ -59,7 +63,10 @@ export function EditBoard() {
             }
         }, { merge: true });
         console.log("Successfully claimed squares!");
-        navigate('/super-bowl-squares', { replace: true });
+        navigate('/super-bowl-squares', { 
+            replace: true, 
+            state: { name: playerName, initials: playerInitials, groupName: groupName } 
+        });
     };
 
     const getActiveButtons = (ids, activeArr) => {
@@ -148,10 +155,10 @@ export function EditBoard() {
                 <Row>
                     <Col>
                         <Form>
-                            <Form.Group className="mb-3">
+                            <Form.Group className="mb-3" onChange={(e) => setPlayerName(e.target.value)}>
                                 <Form.Control placeholder="First & Last Name" />
                             </Form.Group>
-                            <Form.Group className="mb-3">
+                            <Form.Group className="mb-3" onChange={(e) => setPlayerInitials(e.target.value)}>
                                 <Form.Control placeholder="Initials" />
                             </Form.Group>
                         </Form>
