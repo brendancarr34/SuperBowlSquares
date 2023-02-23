@@ -5,15 +5,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import { ViewBoardRow } from '../component/row/ViewBoardRow.js';
 import { NumberRow } from '../component/row/NumberRow.js';
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import { topNumbers, sideNumbers, emptyBoard } from '../data/EmptyBoardData.js';
+import { topNumbers, sideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 
 export function ViewBoard() {
 
     const location = useLocation();
 
+    let [gameNameData, setGameNameData] = useState(emptyNameBoard);
     let [gameData, setGameData] = useState(emptyBoard);
     let [name, setName] = useState("defaultName")
 
@@ -39,6 +41,19 @@ export function ViewBoard() {
                 gameRows.push(docData.gameData.row8);
                 gameRows.push(docData.gameData.row9);
                 setGameData(gameRows);
+                var gameNameRows = [];
+                gameNameRows.push(docData.gameData.row0_players)
+                gameNameRows.push(docData.gameData.row1_players)
+                gameNameRows.push(docData.gameData.row2_players)
+                gameNameRows.push(docData.gameData.row3_players)
+                gameNameRows.push(docData.gameData.row4_players)
+                gameNameRows.push(docData.gameData.row5_players)
+                gameNameRows.push(docData.gameData.row6_players)
+                gameNameRows.push(docData.gameData.row7_players)
+                gameNameRows.push(docData.gameData.row8_players)
+                gameNameRows.push(docData.gameData.row9_players)
+                setGameNameData(gameNameRows);
+                console.log("set gameNAmeData:" + gameNameData);
             };
         };
         readGameData();
@@ -71,34 +86,36 @@ export function ViewBoard() {
                                 <Table style={{'padding':0, 'margin':0}}>
                                     <tbody>
                                         <NumberRow numbers={topNumbers}/>
-                                        <ViewBoardRow number={sideNumbers[0]} active={gameData[0]}/>
-                                        <ViewBoardRow number={sideNumbers[1]} active={gameData[1]}/>
-                                        <ViewBoardRow number={sideNumbers[2]} active={gameData[2]}/>
-                                        <ViewBoardRow number={sideNumbers[3]} active={gameData[3]}/>
-                                        <ViewBoardRow number={sideNumbers[4]} active={gameData[4]}/>
-                                        <ViewBoardRow number={sideNumbers[5]} active={gameData[5]}/>
-                                        <ViewBoardRow number={sideNumbers[6]} active={gameData[6]}/>
-                                        <ViewBoardRow number={sideNumbers[7]} active={gameData[7]}/>
-                                        <ViewBoardRow number={sideNumbers[8]} active={gameData[8]}/>
-                                        <ViewBoardRow number={sideNumbers[9]} active={gameData[9]}/>
+                                        <ViewBoardRow number={sideNumbers[0]} active={gameData[0]} text={gameNameData[0]}/>
+                                        <ViewBoardRow number={sideNumbers[1]} active={gameData[1]} text={gameNameData[1]}/>
+                                        <ViewBoardRow number={sideNumbers[2]} active={gameData[2]} text={gameNameData[2]}/>
+                                        <ViewBoardRow number={sideNumbers[3]} active={gameData[3]} text={gameNameData[3]}/>
+                                        <ViewBoardRow number={sideNumbers[4]} active={gameData[4]} text={gameNameData[4]}/>
+                                        <ViewBoardRow number={sideNumbers[5]} active={gameData[5]} text={gameNameData[5]}/>
+                                        <ViewBoardRow number={sideNumbers[6]} active={gameData[6]} text={gameNameData[6]}/>
+                                        <ViewBoardRow number={sideNumbers[7]} active={gameData[7]} text={gameNameData[7]}/>
+                                        <ViewBoardRow number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]}/>
+                                        <ViewBoardRow number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]}/>
                                     </tbody>
                                 </Table>
                             </Row>
-                            <Row>
+                            <Row style={pad()}>
                                 <Col style={{'padding':0, 'margin':0}}>
-                                    <Button style={black()} >
-                                        test
-                                    </Button>
+                                    <Row style={{'padding':0, 'margin':0}}>
+                                        <Form.Select>
+                                            <option>Select a User</option>
+                                            <option value="1">BC</option>
+                                            <option value="2">ET</option>
+                                            <option value="3">KL</option>
+                                        </Form.Select>
+                                    </Row>
                                 </Col>
-                                <Col>
-                                    <br/>
-                                    <h5 style={center()}>Group Name: {groupName}</h5>
-                                    <br/>
+                                <Col style={center()}>
+                                    <Row style={center()}>
+                                        <p>Group Name: {groupName}</p>
+                                    </Row>
                                 </Col>
                             </Row>
-                            {/* <br/>
-                            <h5 style={center()}>Group Name: {groupName}</h5>
-                            <br/> */}
                             <Row>
                                 <Button style={black()} onClick={claimSquares}>
                                         Claim Squares
@@ -123,14 +140,23 @@ export function ViewBoard() {
             padding: 15
         }
     }
+
+    function pad() {
+        return {
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center',
+            paddingTop: 15,
+            paddingBottom: 15
+        }
+    }
     
     function center() {
         return {
             display: 'flex', 
             justifyContent: 'center',
             textAlign: 'center',
-            alignItems: 'center',
-            width: '100%'
+            alignItems: 'center'
         }
     }
     

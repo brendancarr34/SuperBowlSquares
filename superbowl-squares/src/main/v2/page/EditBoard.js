@@ -9,13 +9,14 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { EditBoardRow } from '../component/row/EditBoardRow.js';
 import { NumberRow } from '../component/row/NumberRow.js';
-import { topNumbers, sideNumbers, emptyBoard } from '../data/EmptyBoardData.js';
+import { topNumbers, sideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 
 export function EditBoard() {
 
     const location = useLocation();
     
     let [gameData, setGameData] = useState(emptyBoard);
+    let [gameNameData, setGameNameData] = useState(emptyNameBoard);
     let [playerName, setPlayerName] = useState("");
     let [playerInitials, setPlayerInitials] = useState("");
     let groupName =  location.state.groupName;
@@ -39,6 +40,19 @@ export function EditBoard() {
                 gameRows.push(docData.gameData.row8);
                 gameRows.push(docData.gameData.row9);
                 setGameData(gameRows);
+                var gameNameRows = [];
+                gameNameRows.push(docData.gameData.row0_players)
+                gameNameRows.push(docData.gameData.row1_players)
+                gameNameRows.push(docData.gameData.row2_players)
+                gameNameRows.push(docData.gameData.row3_players)
+                gameNameRows.push(docData.gameData.row4_players)
+                gameNameRows.push(docData.gameData.row5_players)
+                gameNameRows.push(docData.gameData.row6_players)
+                gameNameRows.push(docData.gameData.row7_players)
+                gameNameRows.push(docData.gameData.row8_players)
+                gameNameRows.push(docData.gameData.row9_players)
+                setGameNameData(gameNameRows);
+                console.log("set gameNAmeDate:" + gameNameData);
             };
         };
         readGameData();
@@ -46,23 +60,35 @@ export function EditBoard() {
 
     let navigate = useNavigate();
     const viewSquares = () => { 
+        console.log("gameNameData:" + gameNameData[8]);
         const db = getFirestore();
         const groupRef = doc(db, 'group', groupName);
         setDoc(groupRef, {
             gameData: {
                 row0: gameData[0],
+                row0_players: gameNameData[0],
                 row1: gameData[1],
+                row1_players: gameNameData[1],
                 row2: gameData[2],
+                row2_players: gameNameData[2],
                 row3: gameData[3],
+                row3_players: gameNameData[3],
                 row4: gameData[4],
+                row4_players: gameNameData[4],
                 row5: gameData[5],
+                row5_players: gameNameData[5],
                 row6: gameData[6],
+                row6_players: gameNameData[6],
                 row7: gameData[7],
+                row7_players: gameNameData[7],
                 row8: gameData[8],
-                row9: gameData[9]
+                row8_players: gameNameData[8],
+                row9: gameData[9],
+                row9_players: gameNameData[9]
             }
         }, { merge: true });
         console.log("Successfully claimed squares!");
+        console.log("gameNameData:" + gameNameData);
         navigate('/super-bowl-squares', { 
             replace: true, 
             state: { name: playerName, initials: playerInitials, groupName: groupName } 
@@ -74,6 +100,9 @@ export function EditBoard() {
         for (let i = 0; i < 10; i++) {
             if (activeArr[i] === true) {
                 gameData[row][i] = true;
+                gameNameData[row][i] = playerInitials;
+            } else {
+                gameNameData[row][i] = '';
             }
         }
     }
