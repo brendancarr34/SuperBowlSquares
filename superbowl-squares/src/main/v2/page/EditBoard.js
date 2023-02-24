@@ -10,21 +10,29 @@ import Form from 'react-bootstrap/Form';
 import { EditBoardRow } from '../component/row/EditBoardRow.js';
 import { NumberRow } from '../component/row/NumberRow.js';
 import { topNumbers, sideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
+import { readGameData } from '../hook/readGameDataHook.js';
 
 export function EditBoard() {
 
     const location = useLocation();
+
+    let groupName =  location.state.groupName;
     
     let [gameData, setGameData] = useState(emptyBoard);
     let [gameNameData, setGameNameData] = useState(emptyNameBoard);
+
+    let [activeButtonData, setActiveButtonData] = useState(emptyBoard);
+
     let [playerName, setPlayerName] = useState("");
     let [playerInitials, setPlayerInitials] = useState("");
-    let groupName =  location.state.groupName;
 
+    // initialize exisitng game data
     useEffect(() => {
+        console.log("Test2");
         const firestore = getFirestore();
         const docRef = doc(firestore, 'group', groupName);
         async function readGameData() {
+            console.log("Test3");
             const mySnapshot = await getDoc(docRef);
             if (mySnapshot.exists()) {
                 const docData = mySnapshot.data();
@@ -40,6 +48,7 @@ export function EditBoard() {
                 gameRows.push(docData.gameData.row8);
                 gameRows.push(docData.gameData.row9);
                 setGameData(gameRows);
+                console.log("set gameDAta:" + gameData)
                 var gameNameRows = [];
                 gameNameRows.push(docData.gameData.row0_players)
                 gameNameRows.push(docData.gameData.row1_players)
@@ -52,15 +61,35 @@ export function EditBoard() {
                 gameNameRows.push(docData.gameData.row8_players)
                 gameNameRows.push(docData.gameData.row9_players)
                 setGameNameData(gameNameRows);
-                console.log("set gameNAmeDate:" + gameNameData);
             };
         };
         readGameData();
+
+        // let gameDataArr = readGameData(groupName);
+        // setGameData(gameDataArr[0]);
+        // setGameNameData(gameDataArr[1]);
     }, []);
 
     let navigate = useNavigate();
     const viewSquares = () => { 
-        console.log("gameNameData:" + gameNameData[8]);
+        console.log("initial gameNameData:" + gameNameData);
+        console.log("active buttons: " + activeButtonData)
+        for (let i = 0; i < 10; i++) {
+            for (let j = 0; j < 10; j++) {
+                if (activeButtonData[i][j] === true) {
+                    gameData[i][j] = true;
+                    gameNameData[i][j] = playerInitials;
+                }
+            }
+        }
+        setActiveButtonData(emptyBoard);
+
+        console.log("gameData:" + gameData);
+        console.log("gameNameData:" + gameNameData);
+
+
+
+        // set new gameData and gameNameData
         const db = getFirestore();
         const groupRef = doc(db, 'group', groupName);
         setDoc(groupRef, {
@@ -88,23 +117,37 @@ export function EditBoard() {
             }
         }, { merge: true });
         console.log("Successfully claimed squares!");
-        console.log("gameNameData:" + gameNameData);
         navigate('/super-bowl-squares', { 
             replace: true, 
             state: { name: playerName, initials: playerInitials, groupName: groupName } 
         });
     };
 
+    // const getActiveButtons = (ids, activeArr) => {
+    //     const row = Math.floor(ids[0] / 10);
+    //     for (let i = 0; i < 10; i++) {
+    //         if (activeArr[i] === true) {
+    //             gameData[row][i] = true;
+    //             gameNameData[row][i] = playerInitials;
+    //         } else {
+    //             gameData[row][i] = false;
+    //             gameNameData[row][i] = '';
+    //         }
+    //     }
+    // }
+
     const getActiveButtons = (ids, activeArr) => {
         const row = Math.floor(ids[0] / 10);
         for (let i = 0; i < 10; i++) {
             if (activeArr[i] === true) {
-                gameData[row][i] = true;
-                gameNameData[row][i] = playerInitials;
+                activeButtonData[row][i] = true;
             } else {
-                gameNameData[row][i] = '';
+                activeButtonData[row][i] = false;
             }
+            // activeButtonData[row][i] = activeArr[i];
         }
+        console.log(row);
+        console.log(activeButtonData);
     }
 
     return (
@@ -185,9 +228,11 @@ export function EditBoard() {
                     <Col>
                         <Form>
                             <Form.Group className="mb-3" onChange={(e) => setPlayerName(e.target.value)}>
+                            {/* <Form.Group className="mb-3" onChange={(e) => playerName = (e.target.value)}> */}
                                 <Form.Control placeholder="First & Last Name" />
                             </Form.Group>
                             <Form.Group className="mb-3" onChange={(e) => setPlayerInitials(e.target.value)}>
+                            {/* <Form.Group className="mb-3" onChange={(e) => playerInitials = (e.target.value)}> */}
                                 <Form.Control placeholder="Initials" />
                             </Form.Group>
                         </Form>

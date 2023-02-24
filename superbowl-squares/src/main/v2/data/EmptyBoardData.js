@@ -4,21 +4,35 @@ export const empty_row = [
     false, false, false, false,false, 
     false, false, false,false, false,
 ];
-export const emptyBoard = [
-    empty_row, empty_row, 
-    empty_row, empty_row, 
-    empty_row, empty_row,
-    empty_row, empty_row, 
-    empty_row, empty_row,
-];
+export const emptyBoard = () => {
+    return [
+        [false, false, false, false,false, false, false, false,false, false], 
+        [false, false, false, false,false, false, false, false,false, false], 
+        [false, false, false, false,false, false, false, false,false, false], 
+        [false, false, false, false,false, false, false, false,false, false], 
+        [false, false, false, false,false, false, false, false,false, false], 
+        [false, false, false, false,false, false, false, false,false, false], 
+        [false, false, false, false,false, false, false, false,false, false], 
+        [false, false, false, false,false, false, false, false,false, false], 
+        [false, false, false, false,false, false, false, false,false, false], 
+        [false, false, false, false,false, false, false, false,false, false], 
+    ];
+} 
 
 export const emptyNameRow = [
     '','','','','','','','','',''
 ]
-export const emptyNameBoard = [
-    emptyNameRow, emptyNameRow,
-    emptyNameRow, emptyNameRow,
-    emptyNameRow, emptyNameRow,
-    emptyNameRow, emptyNameRow,
-    emptyNameRow, emptyNameRow
-]
+export const emptyNameBoard = () => { 
+    return [
+        ['','','','','','','','','',''],
+        ['','','','','','','','','',''], 
+        ['','','','','','','','','',''],
+        ['','','','','','','','','',''],
+        ['','','','','','','','','',''],
+        ['','','','','','','','','',''],
+        ['','','','','','','','','',''],
+        ['','','','','','','','','',''],
+        ['','','','','','','','','',''],
+        ['','','','','','','','','',''],
+    ]
+}

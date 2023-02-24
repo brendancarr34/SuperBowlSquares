@@ -17,12 +17,11 @@ export function ViewBoard() {
 
     let [gameNameData, setGameNameData] = useState(emptyNameBoard);
     let [gameData, setGameData] = useState(emptyBoard);
-    let [name, setName] = useState("defaultName")
 
     let groupName = location.state.groupName;
 
     useEffect(() => {
-        setName(location.state.name);
+        console.log("Test");
         const firestore = getFirestore();
         const docRef = doc(firestore, 'group', groupName);
         async function readGameData() {
@@ -53,7 +52,6 @@ export function ViewBoard() {
                 gameNameRows.push(docData.gameData.row8_players)
                 gameNameRows.push(docData.gameData.row9_players)
                 setGameNameData(gameNameRows);
-                console.log("set gameNAmeData:" + gameNameData);
             };
         };
         readGameData();
