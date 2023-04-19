@@ -1,5 +1,5 @@
 import { getFirestore, doc, setDoc } from "firebase/firestore";
-import { empty_row } from "../data/EmptyBoardData";
+import { empty_row, emptyNameRow } from "../data/EmptyBoardData";
 
 function generateUUID() {
     var d = new Date().getTime();
@@ -21,7 +21,7 @@ function generateUUID() {
 export const createGroup = (groupName, groupPassword) => {
     // if groupName is empty, create a group name
     if (groupName === "") {
-        groupName = generateUUID();
+        groupName = generateUUID().substring(0,8);
     }
     // check if group exists, if not add the group
     let db = getFirestore();
@@ -32,16 +32,27 @@ export const createGroup = (groupName, groupPassword) => {
         password: groupPassword,
         gameData: {
             row0: empty_row,
+            row0_players: emptyNameRow,
             row1: empty_row,
+            row1_players: emptyNameRow,
             row2: empty_row,
+            row2_players: emptyNameRow,
             row3: empty_row,
+            row3_players: emptyNameRow,
             row4: empty_row,
+            row4_players: emptyNameRow,
             row5: empty_row,
+            row5_players: emptyNameRow,
             row6: empty_row,
+            row6_players: emptyNameRow,
             row7: empty_row,
+            row7_players: emptyNameRow,
             row8: empty_row,
-            row9: empty_row
+            row8_players: emptyNameRow,
+            row9: empty_row,
+            row9_players: emptyNameRow
         } 
     });
-    console.log("Succesfully created group: " + groupName)
+    console.log("Succesfully created group: " + groupName);
+    return groupName;
 }

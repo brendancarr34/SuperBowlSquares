@@ -14,10 +14,10 @@ export function CreateGroup() {
 
     let navigate = useNavigate(); 
     const superBowlSquares = () => { 
-        createGroup(groupName, groupPassword);
+        let name = createGroup(groupName, groupPassword);
         setGroupName("");
         setGroupPassword("");
-        navigate('/super-bowl-squares');
+        navigate('/super-bowl-squares', {state: { groupName: name }});
     }
 
     return (
