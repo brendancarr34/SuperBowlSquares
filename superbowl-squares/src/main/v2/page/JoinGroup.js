@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -8,9 +8,13 @@ import { useNavigate } from "react-router-dom";
 
 export function JoinGroup() {
 
+    const [groupName, setGroupName] = useState("");
+    const [groupPassword, setGroupPassword] = useState("");
+
     let navigate = useNavigate(); 
     const superBowlSquares = () => { 
-        navigate('/super-bowl-squares');
+        console.log("group: " + groupName + ", password: " + groupPassword)
+        navigate('/super-bowl-squares', {state: { groupName: groupName }});
     }
 
     return (
@@ -29,14 +33,14 @@ export function JoinGroup() {
                 <Row style={wide()}>
                     <Col style={wide()}>
                         <Form>
-                            <Form.Group className="mb-3">
+                            <Form.Group className="mb-3" onChange={(e) => setGroupName(e.target.value)}>
                                 <Form.Label>Group Code</Form.Label>
                                 <Form.Control placeholder="" />
                             </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicPassword">
+                            <Form.Group className="mb-3" controlId="formBasicPassword" onChange={(e) => setGroupPassword(e.target.value)}>
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" placeholder="" />
-                        </Form.Group>
+                            </Form.Group>
                         </Form>
                     </Col>
                 </Row>
