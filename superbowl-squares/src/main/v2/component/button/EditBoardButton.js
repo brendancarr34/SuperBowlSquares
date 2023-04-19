@@ -27,6 +27,7 @@ export function EditBoardButton(props) {
     
     return (
         <MDBBtn className="square-md" onClick={handleClick} style={editBoardButtonStyle()}>
+        {/* <MDBBtn className="square-md" onMouseDown={handleClick} style={editBoardButtonStyle()}> */}
             {text}
         </MDBBtn>
     );
