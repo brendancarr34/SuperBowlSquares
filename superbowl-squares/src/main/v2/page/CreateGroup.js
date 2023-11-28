@@ -5,20 +5,28 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
-import { createGroup } from '../hook/createGroupHook';
+import axios from 'axios';
 
 export function CreateGroup() {
 
+    let navigate = useNavigate(); 
     const [groupName, setGroupName] = useState("");
     const [groupPassword, setGroupPassword] = useState("");
 
-    let navigate = useNavigate(); 
-    const superBowlSquares = () => { 
-        let name = createGroup(groupName, groupPassword);
-        setGroupName("");
-        setGroupPassword("");
-        navigate('/super-bowl-squares', {state: { groupName: name }});
-    }
+    const handleButtonClick = async () => {
+        try {
+          // Make the API call using Axios
+          const url = 'http://localhost:3001/api/group/add/' + groupName
+          const response = await axios.post(url, {
+            name: groupName,
+            password: groupPassword
+          });
+          navigate('/super-bowl-squares', {state: { groupName: groupName }});
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          console.log(error.response.data.error)
+        }
+      };
 
     return (
         <Container>
@@ -57,7 +65,7 @@ export function CreateGroup() {
                 </Row>
                 <Row>
                     <Col style={center()}>
-                        <Button style={blackButton()} onClick={superBowlSquares}>
+                        <Button style={blackButton()} onClick={handleButtonClick}>
                                 Start a New Game
                         </Button>
                     </Col>

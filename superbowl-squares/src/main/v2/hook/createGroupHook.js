@@ -51,7 +51,8 @@ export const createGroup = (groupName, groupPassword) => {
             row8_players: emptyNameRow,
             row9: empty_row,
             row9_players: emptyNameRow
-        } 
+        } ,
+        players: []
     });
     console.log("Succesfully created group: " + groupName);
     return groupName;

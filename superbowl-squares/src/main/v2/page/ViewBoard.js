@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Select from 'react-select'
 import { ViewBoardRow } from '../component/row/ViewBoardRow.js';
 import { NumberRow } from '../component/row/NumberRow.js';
 import { getFirestore, doc, getDoc } from "firebase/firestore";
@@ -17,11 +18,21 @@ export function ViewBoard() {
 
     let [gameNameData, setGameNameData] = useState(emptyNameBoard);
     let [gameData, setGameData] = useState(emptyBoard);
+    let [players, setPlayers] = useState([]);
+    let playerInitials = [];
+    let [selectOptions, setSelectOptions] = useState([]);
+
+    function addItem(item) {
+        // setSelectOptions([...selectOptions, item]);
+        // let arr = [];
+        // selectOptions.forEach(element => arr.push(element));
+        // arr.push(item);
+        // setSelectOptions(arr);
+      }
 
     let groupName = location.state.groupName;
 
     useEffect(() => {
-        console.log("Test");
         const firestore = getFirestore();
         const docRef = doc(firestore, 'group', groupName);
         async function readGameData() {
@@ -52,6 +63,33 @@ export function ViewBoard() {
                 gameNameRows.push(docData.gameData.row8_players)
                 gameNameRows.push(docData.gameData.row9_players)
                 setGameNameData(gameNameRows);
+                // setSelectOptions([]);
+                console.log("docData: " + docData.players)
+                const dataPlayers = await docData.players;
+                setPlayers(dataPlayers);
+                // console.log("test1")
+                // console.log("players2:" + players2);
+                // console.log("test2");
+                // setPlayers(players2);
+                // playerstest = players2;
+                console.log("players:" + players);
+                players = dataPlayers;
+                console.log("players2: " + players)
+                console.log("players0: " + players[0].initials);
+                players.forEach(element => console.log("initials: " + element.initials + ", name: " + element.name));
+                // selectOptions = [];
+                players.forEach(element => selectOptions.push({value: element.name, label: element.initials}));
+                console.log("selectOptions: " + selectOptions);
+                // console.log("Test initials: " + playerstest[0][1].initials);
+                // playerInitials = [];
+                // playerstest[0].forEach(element => playerInitials.push(element.initials));
+                // console.log("initials arr: " + playerInitials);
+                // selectOptions = [];
+                // for (let i = 0; i < players.length; i++) {
+                //     addItem({value: "test" + i, label: players[i].initials});
+                // }
+                // console.log("selectOptions: " + selectOptions[0].value);
+                // selectOptions.forEach(element => console.log("value: " + element.value + ", label: " + element.label));
             };
         };
         readGameData();
@@ -63,6 +101,12 @@ export function ViewBoard() {
             groupName: groupName
         } });
     }
+
+    // let selectOptions2 = [
+    //     {value: 1, label: "1"}
+    // ];
+    // selectOptions.forEach(element => selectOptions2.push(element.value));
+    
 
     return (
         <Container>
@@ -100,12 +144,13 @@ export function ViewBoard() {
                             <Row style={pad()}>
                                 <Col style={{'padding':0, 'margin':0}}>
                                     <Row style={{'padding':0, 'margin':0}}>
-                                        <Form.Select>
+                                        {/* <Form.Select options={selectOptions}>
                                             <option>Select a User</option>
                                             <option value="1">BC</option>
                                             <option value="2">ET</option>
                                             <option value="3">KL</option>
-                                        </Form.Select>
+                                        </Form.Select> */}
+                                        <Select style={{'padding':0, 'margin':0}} options={selectOptions}/>
                                     </Row>
                                 </Col>
                                 <Col style={center()}>
