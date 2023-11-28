@@ -20,19 +20,17 @@ export function EditBoard() {
     
     let [gameData, setGameData] = useState(emptyBoard);
     let [gameNameData, setGameNameData] = useState(emptyNameBoard);
-
     let [activeButtonData, setActiveButtonData] = useState(emptyBoard);
+    let [players, setPlayers] = useState([]);
 
     let [playerName, setPlayerName] = useState("");
     let [playerInitials, setPlayerInitials] = useState("");
 
     // initialize exisitng game data
     useEffect(() => {
-        console.log("Test2");
         const firestore = getFirestore();
         const docRef = doc(firestore, 'group', groupName);
         async function readGameData() {
-            console.log("Test3");
             const mySnapshot = await getDoc(docRef);
             if (mySnapshot.exists()) {
                 const docData = mySnapshot.data();
@@ -48,7 +46,6 @@ export function EditBoard() {
                 gameRows.push(docData.gameData.row8);
                 gameRows.push(docData.gameData.row9);
                 setGameData(gameRows);
-                console.log("set gameDAta:" + gameData)
                 var gameNameRows = [];
                 gameNameRows.push(docData.gameData.row0_players)
                 gameNameRows.push(docData.gameData.row1_players)
@@ -61,6 +58,7 @@ export function EditBoard() {
                 gameNameRows.push(docData.gameData.row8_players)
                 gameNameRows.push(docData.gameData.row9_players)
                 setGameNameData(gameNameRows);
+                setPlayers(docData.players);
             };
         };
         readGameData();
@@ -72,8 +70,6 @@ export function EditBoard() {
 
     let navigate = useNavigate();
     const viewSquares = () => { 
-        console.log("initial gameNameData:" + gameNameData);
-        console.log("active buttons: " + activeButtonData)
         for (let i = 0; i < 10; i++) {
             for (let j = 0; j < 10; j++) {
                 if (activeButtonData[i][j] === true) {
@@ -84,10 +80,7 @@ export function EditBoard() {
         }
         setActiveButtonData(emptyBoard);
 
-        console.log("gameData:" + gameData);
-        console.log("gameNameData:" + gameNameData);
-
-
+        players.push({initials: playerInitials, name: playerName});
 
         // set new gameData and gameNameData
         const db = getFirestore();
@@ -116,6 +109,9 @@ export function EditBoard() {
                 row9_players: gameNameData[9]
             }
         }, { merge: true });
+        setDoc(groupRef, {
+            players: players
+        }, { merge: true});
         console.log("Successfully claimed squares!");
         navigate('/super-bowl-squares', { 
             replace: true, 
@@ -144,10 +140,7 @@ export function EditBoard() {
             } else {
                 activeButtonData[row][i] = false;
             }
-            // activeButtonData[row][i] = activeArr[i];
         }
-        console.log(row);
-        console.log(activeButtonData);
     }
 
     return (
