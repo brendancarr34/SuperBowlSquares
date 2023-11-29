@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { empty_row, emptyNameRow } from "../data/EmptyBoardData";
+import '../style/Button.css'
 
 function generateUUID() {
     var d = new Date().getTime();
@@ -34,7 +35,7 @@ export function CreateGroup() {
 
     const handleButtonClick = async () => {
         try {
-            // TODO - add logic for empty groupName
+            // TODO - review/fix logic for empty groupName
             // if groupName is empty, create a group name
             if (groupName === "") {
                 groupName = generateUUID().substring(0,6);
@@ -42,6 +43,7 @@ export function CreateGroup() {
 
           // Make the API call using Axios
           const url = 'http://localhost:3001/api/group/add/' + groupName
+          // TODO - handle error when unable to make API call
           const response = await axios.post(url, {
             name: groupName,
             password: groupPassword,
@@ -72,8 +74,14 @@ export function CreateGroup() {
           navigate('/super-bowl-squares', {state: { groupName: groupName }});
         } catch (error) {
           console.error('Error fetching data:', error);
-          console.log(error.response.data.error)
-          setError(error.response.data.error)
+          if (error.response != null) {
+            console.log(error.response.data.error);
+            setError(error.response.data.error);
+          } else if (error.code == 'ERR_NETWORK') {
+            setError('Network Error');
+          } else {
+            setError('Unknown Error');
+          }
         }
       };
 
@@ -101,12 +109,6 @@ export function CreateGroup() {
                                     a group name will be generated for you.
                                 </Form.Text>
                             </Form.Group>
-                            {error && (
-                                <div className="error-popup">
-                                <p>{error}</p>
-                                <button onClick={() => setError(null)}>X</button>
-                                </div>
-                            )}
                             <Form.Group className="mb-3" onChange={(e) => setGroupPassword(e.target.value)}>
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control placeholder="Enter custom password" />
@@ -124,6 +126,12 @@ export function CreateGroup() {
                                 Start a New Game
                         </Button>
                     </Col>
+                    {error && (
+                                <div className="error-popup">
+                                <p>{error}</p>
+                                <button onClick={() => setError(null)}>X</button>
+                                </div>
+                            )}
                 </Row>
             </Row>
         </Container>
@@ -160,6 +168,12 @@ export function CreateGroup() {
             border:'black',
             width:'75vw',
             padding:20
+        }
+    }
+
+    function input() {
+        return {
+            color: error ? 'red' : 'black'
         }
     }
 }
