@@ -68,7 +68,8 @@ export function CreateGroup() {
                 row8_players: emptyNameRow,
                 row9: empty_row,
                 row9_players: emptyNameRow
-            }
+            },
+            players: []
           });
           setError(null);
           navigate('/super-bowl-squares', {state: { groupName: groupName }});
