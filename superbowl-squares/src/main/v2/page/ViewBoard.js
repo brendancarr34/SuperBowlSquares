@@ -92,32 +92,23 @@ export function ViewBoard() {
                     <Col/>
                     <Col >
                         <Container style={{'padding':0, 'margin':0}}>
-                            {
-                                !data ?
-                                (
-                                    <p style={center()}>Loading...</p>
-                                )
-                                :
-                                (
-                                    <Row style={gray()}>
-                                        <Table style={{'padding':0, 'margin':0}}>
-                                            <tbody>
-                                                <NumberRow numbers={topNumbers}/>
-                                                <ViewBoardRow number={sideNumbers[0]} active={gameData[0]} text={gameNameData[0]}/>
-                                                <ViewBoardRow number={sideNumbers[1]} active={gameData[1]} text={gameNameData[1]}/>
-                                                <ViewBoardRow number={sideNumbers[2]} active={gameData[2]} text={gameNameData[2]}/>
-                                                <ViewBoardRow number={sideNumbers[3]} active={gameData[3]} text={gameNameData[3]}/>
-                                                <ViewBoardRow number={sideNumbers[4]} active={gameData[4]} text={gameNameData[4]}/>
-                                                <ViewBoardRow number={sideNumbers[5]} active={gameData[5]} text={gameNameData[5]}/>
-                                                <ViewBoardRow number={sideNumbers[6]} active={gameData[6]} text={gameNameData[6]}/>
-                                                <ViewBoardRow number={sideNumbers[7]} active={gameData[7]} text={gameNameData[7]}/>
-                                                <ViewBoardRow number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]}/>
-                                                <ViewBoardRow number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]}/>
-                                            </tbody>
-                                        </Table>
-                                    </Row>
-                                )
-                            }
+                            <Row style={gray()}>
+                                <Table style={{'padding':0, 'margin':0}}>
+                                    <tbody>
+                                        <NumberRow numbers={topNumbers}/>
+                                        <ViewBoardRow number={sideNumbers[0]} active={gameData[0]} text={gameNameData[0]}/>
+                                        <ViewBoardRow number={sideNumbers[1]} active={gameData[1]} text={gameNameData[1]}/>
+                                        <ViewBoardRow number={sideNumbers[2]} active={gameData[2]} text={gameNameData[2]}/>
+                                        <ViewBoardRow number={sideNumbers[3]} active={gameData[3]} text={gameNameData[3]}/>
+                                        <ViewBoardRow number={sideNumbers[4]} active={gameData[4]} text={gameNameData[4]}/>
+                                        <ViewBoardRow number={sideNumbers[5]} active={gameData[5]} text={gameNameData[5]}/>
+                                        <ViewBoardRow number={sideNumbers[6]} active={gameData[6]} text={gameNameData[6]}/>
+                                        <ViewBoardRow number={sideNumbers[7]} active={gameData[7]} text={gameNameData[7]}/>
+                                        <ViewBoardRow number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]}/>
+                                        <ViewBoardRow number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]}/>
+                                    </tbody>
+                                </Table>
+                            </Row>
                             <Row style={pad()}>
                                 <Col style={{'padding':0, 'margin':0}}>
                                     <Row style={{'padding':0, 'margin':0}}>
