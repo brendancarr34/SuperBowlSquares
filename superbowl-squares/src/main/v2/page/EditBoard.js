@@ -81,29 +81,29 @@ export function EditBoard() {
             setData(response.data);
 
             var gameRows = [];
-            gameRows.push(data.gameData.row0);
-            gameRows.push(data.gameData.row1);
-            gameRows.push(data.gameData.row2);
-            gameRows.push(data.gameData.row3);
-            gameRows.push(data.gameData.row4);
-            gameRows.push(data.gameData.row5);
-            gameRows.push(data.gameData.row6);
-            gameRows.push(data.gameData.row7);
-            gameRows.push(data.gameData.row8);
-            gameRows.push(data.gameData.row9);
+            gameRows.push(response.data.gameData.row0);
+            gameRows.push(response.data.gameData.row1);
+            gameRows.push(response.data.gameData.row2);
+            gameRows.push(response.data.gameData.row3);
+            gameRows.push(response.data.gameData.row4);
+            gameRows.push(response.data.gameData.row5);
+            gameRows.push(response.data.gameData.row6);
+            gameRows.push(response.data.gameData.row7);
+            gameRows.push(response.data.gameData.row8);
+            gameRows.push(response.data.gameData.row9);
             setGameData(gameRows);
 
             var gameNameRows = [];
-            gameNameRows.push(data.gameData.row0_players)
-            gameNameRows.push(data.gameData.row1_players)
-            gameNameRows.push(data.gameData.row2_players)
-            gameNameRows.push(data.gameData.row3_players)
-            gameNameRows.push(data.gameData.row4_players)
-            gameNameRows.push(data.gameData.row5_players)
-            gameNameRows.push(data.gameData.row6_players)
-            gameNameRows.push(data.gameData.row7_players)
-            gameNameRows.push(data.gameData.row8_players)
-            gameNameRows.push(data.gameData.row9_players)
+            gameNameRows.push(response.data.gameData.row0_players)
+            gameNameRows.push(response.data.gameData.row1_players)
+            gameNameRows.push(response.data.gameData.row2_players)
+            gameNameRows.push(response.data.gameData.row3_players)
+            gameNameRows.push(response.data.gameData.row4_players)
+            gameNameRows.push(response.data.gameData.row5_players)
+            gameNameRows.push(response.data.gameData.row6_players)
+            gameNameRows.push(response.data.gameData.row7_players)
+            gameNameRows.push(response.data.gameData.row8_players)
+            gameNameRows.push(response.data.gameData.row9_players)
             setGameNameData(gameNameRows);
 
             setPlayers(response.players);
@@ -119,9 +119,9 @@ export function EditBoard() {
 
     let navigate = useNavigate();
 
-    const viewSquares2 = async () => {
+    const claimSquares = async () => {
         try {
-            const response = await axios.post('http://localhost:3001/api/game/brendan1', {
+            const response = await axios.post('http://localhost:3001/api/game/claimSquares/brendan1', {
                 activeButtonData: activeButtonData, 
                 initials: playerInitials,
                 name: playerName
@@ -299,7 +299,7 @@ export function EditBoard() {
                         </Form>
                     </Col>
                     <Col>
-                        <Button disabled={false} style={black()} onClick={viewSquares}>
+                        <Button disabled={false} style={black()} onClick={claimSquares}>
                             Submit
                         </Button>
                     </Col>
