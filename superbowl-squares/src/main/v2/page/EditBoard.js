@@ -29,48 +29,7 @@ export function EditBoard() {
     let [playerInitials, setPlayerInitials] = useState("");
 
     const [responseData, setResponseData] = useState(null);
-
-
-    // useEffect(() => {
-    //     const firestore = getFirestore();
-    //     const docRef = doc(firestore, 'group', groupName);
-    //     async function readGameData() {
-    //         const mySnapshot = await getDoc(docRef);
-    //         if (mySnapshot.exists()) {
-    //             const docData = mySnapshot.data();
-    //             var gameRows = [];
-    //             gameRows.push(docData.gameData.row0);
-    //             gameRows.push(docData.gameData.row1);
-    //             gameRows.push(docData.gameData.row2);
-    //             gameRows.push(docData.gameData.row3);
-    //             gameRows.push(docData.gameData.row4);
-    //             gameRows.push(docData.gameData.row5);
-    //             gameRows.push(docData.gameData.row6);
-    //             gameRows.push(docData.gameData.row7);
-    //             gameRows.push(docData.gameData.row8);
-    //             gameRows.push(docData.gameData.row9);
-    //             setGameData(gameRows);
-    //             var gameNameRows = [];
-    //             gameNameRows.push(docData.gameData.row0_players)
-    //             gameNameRows.push(docData.gameData.row1_players)
-    //             gameNameRows.push(docData.gameData.row2_players)
-    //             gameNameRows.push(docData.gameData.row3_players)
-    //             gameNameRows.push(docData.gameData.row4_players)
-    //             gameNameRows.push(docData.gameData.row5_players)
-    //             gameNameRows.push(docData.gameData.row6_players)
-    //             gameNameRows.push(docData.gameData.row7_players)
-    //             gameNameRows.push(docData.gameData.row8_players)
-    //             gameNameRows.push(docData.gameData.row9_players)
-    //             setGameNameData(gameNameRows);
-    //             setPlayers(docData.players);
-    //         };
-    //     };
-    //     readGameData();
-
-    //     // let gameDataArr = readGameData(groupName);
-    //     // setGameData(gameDataArr[0]);
-    //     // setGameNameData(gameDataArr[1]);
-    // }, []);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         // Function to fetch data from the API
@@ -78,7 +37,7 @@ export function EditBoard() {
         try {
             const response = await axios.get('http://localhost:3001/api/game/brendan1');
 
-            setData(response.data);
+            // setData(response.data);
 
             var gameRows = [];
             gameRows.push(response.data.gameData.row0);
@@ -121,16 +80,30 @@ export function EditBoard() {
 
     const claimSquares = async () => {
         try {
+            console.log('active button data: ' + activeButtonData);
             const response = await axios.post('http://localhost:3001/api/game/claimSquares/brendan1', {
                 activeButtonData: activeButtonData, 
                 initials: playerInitials,
                 name: playerName
             });
 
-            setResponseData(response.data);
+            // setResponseData(response.data);
+            console.log('data: ' + response.data.message);
         }
         catch (error) {
-            
+            console.error('Error claiming squares', error);
+            if (error.response != null) {
+                console.log(error.response.data.error);
+                setError(error.response.data.error);
+                if (error.response.data.validSquares) {
+                    console.log('read valid squares: ' + error.response.data.validSquares);
+                    setActiveButtonData(error.response.data.validSquares);
+                }
+            } else if (error.code === 'ERR_NETWORK') {
+                setError('Network Error');
+            } else {
+                setError('Unknown Error');
+            }
         }
         
     }
