@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './main/v2/page/Home.js'
 import { Grid } from './main/v1/Grid.js';
 import { EditBoard } from './main/v2/page/EditBoard.js';
+import GridComponent from './main/v2/page/GridComponent.js';
 import { ViewBoard } from './main/v2/page/ViewBoard.js';
 import { CreateGroup } from './main/v2/page/CreateGroup.js';
 import { JoinGroup } from './main/v2/page/JoinGroup.js';
@@ -21,7 +22,7 @@ root.render(
                 <Route path="/v1" element={<Grid />} />
                 <Route path="/create-group" element={<CreateGroup />} />
                 <Route path="/join-group" element={<JoinGroup />} />
-                <Route path='/claim-squares' element={<EditBoard />} />
+                <Route path='/claim-squares' element={<GridComponent />} />
                 <Route path="/*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
