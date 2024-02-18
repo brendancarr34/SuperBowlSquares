@@ -255,7 +255,7 @@ export function EditBoard() {
                         </Table>
                     </Col> */}
                     <Col style={board()}>
-                        <GridComponent2 groupId={groupName}/>
+                        <GridComponent groupId={groupName}/>
                     </Col>
                     <Col/>
                     <Col/>
