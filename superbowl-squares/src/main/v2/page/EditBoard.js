@@ -13,6 +13,7 @@ import { topNumbers, sideNumbers, emptyBoard, emptyNameBoard } from '../data/Emp
 import { readGameData } from '../hook/readGameDataHook.js';
 import axios from 'axios';
 import GridComponent from './GridComponent.js';
+import GridComponent2 from './GridComponent2.js';
 
 export function EditBoard() {
 
@@ -254,7 +255,7 @@ export function EditBoard() {
                         </Table>
                     </Col> */}
                     <Col style={board()}>
-                        <GridComponent/>
+                        <GridComponent2 groupId={groupName}/>
                     </Col>
                     <Col/>
                     <Col/>

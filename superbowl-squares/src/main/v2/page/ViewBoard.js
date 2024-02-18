@@ -29,7 +29,7 @@ export function ViewBoard() {
         // Function to fetch data from the API
         const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/api/game/brendan12');
+            const response = await axios.get('http://localhost:3001/api/game/' + groupName);
 
             setData(response.data);
 
