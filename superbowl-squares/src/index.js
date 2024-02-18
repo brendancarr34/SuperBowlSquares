@@ -22,7 +22,7 @@ root.render(
                 <Route path="/v1" element={<Grid />} />
                 <Route path="/create-group" element={<CreateGroup />} />
                 <Route path="/join-group" element={<JoinGroup />} />
-                <Route path='/claim-squares' element={<GridComponent />} />
+                <Route path='/claim-squares' element={<EditBoard />} />
                 <Route path="/*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>

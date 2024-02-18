@@ -12,6 +12,7 @@ import { NumberRow } from '../component/row/NumberRow.js';
 import { topNumbers, sideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 import { readGameData } from '../hook/readGameDataHook.js';
 import axios from 'axios';
+import GridComponent from './GridComponent.js';
 
 export function EditBoard() {
 
@@ -195,7 +196,7 @@ export function EditBoard() {
                 <Row>
                     <Col/>
                     <Col/>
-                    <Col style={board()}>
+                    {/* <Col style={board()}>
                         <Table style={{'padding':0, 'margin':0}}>
                             <tbody>
                                 <NumberRow numbers={topNumbers}/>
@@ -251,6 +252,9 @@ export function EditBoard() {
                                     activeButtons={getActiveButtons}/>
                             </tbody>
                         </Table>
+                    </Col> */}
+                    <Col style={board()}>
+                        <GridComponent/>
                     </Col>
                     <Col/>
                     <Col/>
