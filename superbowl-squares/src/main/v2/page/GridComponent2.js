@@ -18,7 +18,7 @@ const GridComponent2 = (props) => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/game/' + groupId);
+      const response = await axios.get('http://10.0.0.65:3001/api/game/' + groupId);
       const gameRows = [
         response.data.gameData.row0,
         response.data.gameData.row1,
@@ -66,7 +66,7 @@ const GridComponent2 = (props) => {
   };
 
   const handleSubmit = () => {
-    axios.post('http://localhost:3001/api/game/api/validateAndClaimSquares/' + groupId, { maps: getClickedButtons() })
+    axios.post('http://10.0.0.65:3001/api/game/api/validateAndClaimSquares/' + groupId, { maps: getClickedButtons() })
       .then(response => {
         console.log('Submit successful:', response);
       })

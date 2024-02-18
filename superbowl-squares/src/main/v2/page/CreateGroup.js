@@ -42,7 +42,7 @@ export function CreateGroup() {
             }
 
           // Make the API call using Axios
-          const url = 'http://localhost:3001/api/group/add/' + groupName
+          const url = 'http://10.0.0.65:3001/api/group/add/' + groupName
           // TODO - handle error when unable to make API call
           const response = await axios.post(url, {
             name: groupName,
