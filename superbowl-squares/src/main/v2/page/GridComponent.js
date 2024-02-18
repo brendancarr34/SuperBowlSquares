@@ -7,12 +7,15 @@ const GridComponent = () => {
   const [variableMaps, setVariableMaps] = useState([]);
 
   useEffect(() => {
+
+    console.log("updateClickedState: " + updateClickedState);
+
     fetchData();
   }, [updateClickedState]);
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/game/brendan1');
+      const response = await axios.get('http://localhost:3001/api/game/brendan11');
       const gameRows = [
         response.data.gameData.row0,
         response.data.gameData.row1,
@@ -36,12 +39,14 @@ const GridComponent = () => {
               updatedGridData[row][col].disabled = false;
             }
           });
+          // setUpdateClickedState(false);
+          setVariableMaps([]);
           return updatedGridData;
         });
 
         // Reset the updateClickedState flag and variableMaps
-        setUpdateClickedState(false);
-        setVariableMaps([]);
+        // setUpdateClickedState(false);
+        // setVariableMaps([]);
       } else {
         // If updateClickedState is false, update the entire gridData
         setGridData(gameRows.map(row => row.map(value => ({ clicked: false, disabled: value }))));
@@ -83,7 +88,7 @@ const GridComponent = () => {
         }
       });
     });
-    console.log('clicked buttons:' + clickedButtons);
+    // console.log('clicked button:' + clickedButtons[0].row+ ', '+ clickedButtons[0].col);
     return clickedButtons;
   };
 
@@ -102,7 +107,7 @@ const GridComponent = () => {
                       backgroundColor: item.clicked ? 'green' : item.disabled ? 'red' : 'white',
                     }}
                   >
-                    {item.clicked ? 'X' : 'Click me'}
+                    {item.clicked ? 'X' : 'X'}
                   </button>
                 </td>
               ))}
