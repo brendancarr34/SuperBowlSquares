@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { MDBBtn } from "mdb-react-ui-kit";
+import '../style/Button.css';
 import axios from 'axios';
 
 const GridComponent2 = (props) => {
@@ -35,6 +37,7 @@ const GridComponent2 = (props) => {
       // If updateClickedState is true, update only the clicked state
       if (updateClickedState) {
         setGridData(prevGridData => {
+          console.log('prevGridData: ' + JSON.stringify(prevGridData));
           const updatedGridData = [...prevGridData];
           variableMaps.forEach(({ row, col }) => {
             if (row >= 0 && row < updatedGridData.length && col >= 0 && col < updatedGridData[row].length) {
@@ -66,6 +69,7 @@ const GridComponent2 = (props) => {
   };
 
   const handleSubmit = () => {
+    console.log('clickedButtons:' + JSON.stringify(getClickedButtons()));
     axios.post('http://10.0.0.65:3001/api/game/api/validateAndClaimSquares/' + groupId, { maps: getClickedButtons() })
       .then(response => {
         console.log('Submit successful:', response);
@@ -74,6 +78,7 @@ const GridComponent2 = (props) => {
         console.error('Error submitting data:', error);
         if (error.response && error.response.data && error.response.data.validMaps) {
           // Set the flag to update the clicked state and store validMaps in variableMaps
+          console.log('validMaps: ' + JSON.stringify(error.response.data.validMaps));
           setUpdateClickedState(true);
           setVariableMaps(error.response.data.validMaps);
         }
@@ -102,16 +107,16 @@ const GridComponent2 = (props) => {
           {gridData.map((row, rowIndex) => (
             <tr key={rowIndex}>
               {row.map((item, colIndex) => (
-                <td key={colIndex}>
-                  <button
+                <td key={colIndex} style={editBoardRowStyle()}>
+                  <MDBBtn className="square-md"
                     onClick={() => handleButtonClick(rowIndex, colIndex)}
                     disabled={item.disabled}
                     style={{
-                      backgroundColor: item.clicked ? 'green' : item.disabled ? 'red' : 'white',
+                      backgroundColor: item.clicked ? 'green' : item.disabled ? 'red' : 'white', border: '1px solid black',
                     }}
                   >
                     {item.clicked ? 'X' : 'X'}
-                  </button>
+                  </MDBBtn>
                 </td>
               ))}
             </tr>
@@ -122,5 +127,14 @@ const GridComponent2 = (props) => {
     </div>
   );
 };
+
+function editBoardRowStyle() {
+          return {
+              textAlign:'center',
+              padding: 0,
+              margin: 0,
+              borderBottom: '1pt solid gray'
+          }
+      }
 
 export default GridComponent2;
