@@ -21,7 +21,7 @@
 
 .hover-text {
   position: absolute;
-  top: -20px; /* Adjust this value to position the hover text */
+  top: -30px; /* Adjust this value to position the hover text */
   left: 50%; /* Adjust this value to center the hover text horizontally */
   transform: translateX(-50%);
   display: none;

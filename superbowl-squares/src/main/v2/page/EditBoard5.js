@@ -17,16 +17,13 @@ export function EditBoard5() {
   const [clickedButtons, setClickedButtons] = useState([]);
   const [showErrorModal, setShowErrorModal] = useState(false); // State for showing error modal
   const [showApiErrorModal, setShowApiErrorModal] = useState(false); // State for showing API error modal
+  const [showTakenInitialsModal, setShowTakenInitialsModal] = useState(false);
 
   let navigate = useNavigate();
 
   useEffect(() => {
     // fetchData();
   }, [clickedButtons]);
-
-  const handleBack = async () => {
-
-  }
 
   const handleSubmit = async () => {
     try {
@@ -65,6 +62,10 @@ export function EditBoard5() {
         setClickedButtons(error.response.data.validMaps);
       } else {
         // Handle other error scenarios...
+        if (error.response && error.response.data && error.response.data.error && error.response.data.error == 'initials already exist') {
+          console.log(error.response.data.error)
+          setShowTakenInitialsModal(true);
+        }
       }
     }
   };
@@ -138,7 +139,22 @@ export function EditBoard5() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      {/* Error Modal for Empty Clicked Buttons */}
+      <Modal show={showTakenInitialsModal} onHide={() => setShowTakenInitialsModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Error</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>These initials are taken.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowTakenInitialsModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </Container>
+    
   );
 }
 

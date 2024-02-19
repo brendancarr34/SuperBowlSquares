@@ -18,7 +18,7 @@ export function ViewBoardButton2(props) {
     //     }
     // };
 
-    // const hoverName = JSON.stringify(playerNames);
+    // const hoverName = JSON.stringify(playerNames);   
     const hoverName = playerNames[text];
 
     return (
@@ -35,7 +35,7 @@ export function ViewBoardButton2(props) {
         return {
             backgroundColor: active ? "red" : "white" ,
             color: active ? "black" : "white",
-            fontSize: 15,
+            fontSize: 13,
             padding: 0,
             margin: 0,
             border: '1px solid black',
