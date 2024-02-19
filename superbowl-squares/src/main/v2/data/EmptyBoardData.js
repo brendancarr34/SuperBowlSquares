@@ -6,16 +6,16 @@ export const empty_row = [
 ];
 export const emptyBoard = () => {
     return [
-        [false, false, false, false,false, false, false, false,false, false], 
-        [false, false, false, false,false, false, false, false,false, false], 
-        [false, false, false, false,false, false, false, false,false, false], 
-        [false, false, false, false,false, false, false, false,false, false], 
-        [false, false, false, false,false, false, false, false,false, false], 
-        [false, false, false, false,false, false, false, false,false, false], 
-        [false, false, false, false,false, false, false, false,false, false], 
-        [false, false, false, false,false, false, false, false,false, false], 
-        [false, false, false, false,false, false, false, false,false, false], 
-        [false, false, false, false,false, false, false, false,false, false], 
+        [false, false, false, false, false, false, false, false,false, false], 
+        [false, false, false, false, false, false, false, false,false, false], 
+        [false, false, false, false, false, false, false, false,false, false], 
+        [false, false, false, false, false, false, false, false,false, false], 
+        [false, false, false, false, false, false, false, false,false, false], 
+        [false, false, false, false, false, false, false, false,false, false], 
+        [false, false, false, false, false, false, false, false,false, false], 
+        [false, false, false, false, false, false, false, false,false, false], 
+        [false, false, false, false, false, false, false, false,false, false], 
+        [false, false, false, false, false, false, false, false,false, false], 
     ];
 } 
 

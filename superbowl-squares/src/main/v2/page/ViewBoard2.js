@@ -7,13 +7,13 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Select from 'react-select'
-import { ViewBoardRow } from '../component/row/ViewBoardRow.js';
+import { ViewBoardRow2 } from '../component/row/ViewBoardRow2.js';
 import { NumberRow } from '../component/row/NumberRow.js';
 import { topNumbers, sideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 import axios from 'axios';
 import GridComponent from './GridComponent.js';
 
-export function ViewBoard() {
+export function ViewBoard2() {
 
     const location = useLocation();
     let groupName = location.state.groupName;
@@ -21,7 +21,7 @@ export function ViewBoard() {
     const [data, setData] = useState(null);
     const [gameNameData, setGameNameData] = useState(emptyNameBoard);
     const [gameData, setGameData] = useState(emptyBoard);
-    const [players, setPlayers] = useState([]);
+    let [players, setPlayers] = useState({});
     const [selectOptions, setSelectOptions] = useState([]);
 
     useEffect(() => {
@@ -59,10 +59,21 @@ export function ViewBoard() {
             gameNameRows.push(response.data.gameData.row9_players)
             setGameNameData(gameNameRows);
 
-            console.log("players: " + JSON.stringify(response.data.players));
+            // console.log("players: " + JSON.stringify(response.data.players));
 
-            setPlayers(response.players);
+            const playerData = response.data.players;
             
+            const initialsMap = {};
+            playerData.forEach(map => {
+                // Extract 'initials' and 'playerName' from each map
+                const { initials, playerName } = map;
+                // console.log('initials, name: ' + initials + ', ' + playerName);
+                // Add the entry to the initialsMap
+                initialsMap[initials] = playerName;
+            });
+            // console.log('initialsMap: ' + JSON.stringify(initialsMap));
+            setPlayers(initialsMap);
+            // console.log('players: ' + JSON.stringify(players));
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -99,16 +110,16 @@ export function ViewBoard() {
                                 <Table style={{'padding':0, 'margin':0}}>
                                     <tbody>
                                         <NumberRow numbers={topNumbers}/>
-                                        <ViewBoardRow number={sideNumbers[0]} active={gameData[0]} text={gameNameData[0]}/>
-                                        <ViewBoardRow number={sideNumbers[1]} active={gameData[1]} text={gameNameData[1]}/>
-                                        <ViewBoardRow number={sideNumbers[2]} active={gameData[2]} text={gameNameData[2]}/>
-                                        <ViewBoardRow number={sideNumbers[3]} active={gameData[3]} text={gameNameData[3]}/>
-                                        <ViewBoardRow number={sideNumbers[4]} active={gameData[4]} text={gameNameData[4]}/>
-                                        <ViewBoardRow number={sideNumbers[5]} active={gameData[5]} text={gameNameData[5]}/>
-                                        <ViewBoardRow number={sideNumbers[6]} active={gameData[6]} text={gameNameData[6]}/>
-                                        <ViewBoardRow number={sideNumbers[7]} active={gameData[7]} text={gameNameData[7]}/>
-                                        <ViewBoardRow number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]}/>
-                                        <ViewBoardRow number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]}/>
+                                        <ViewBoardRow2 number={sideNumbers[0]} active={gameData[0]} text={gameNameData[0]} playerNames={players}/>
+                                        <ViewBoardRow2 number={sideNumbers[1]} active={gameData[1]} text={gameNameData[1]} playerNames={players}/>
+                                        <ViewBoardRow2 number={sideNumbers[2]} active={gameData[2]} text={gameNameData[2]} playerNames={players}/>
+                                        <ViewBoardRow2 number={sideNumbers[3]} active={gameData[3]} text={gameNameData[3]} playerNames={players}/>
+                                        <ViewBoardRow2 number={sideNumbers[4]} active={gameData[4]} text={gameNameData[4]} playerNames={players}/>
+                                        <ViewBoardRow2 number={sideNumbers[5]} active={gameData[5]} text={gameNameData[5]} playerNames={players}/>
+                                        <ViewBoardRow2 number={sideNumbers[6]} active={gameData[6]} text={gameNameData[6]} playerNames={players}/>
+                                        <ViewBoardRow2 number={sideNumbers[7]} active={gameData[7]} text={gameNameData[7]} playerNames={players}/>
+                                        <ViewBoardRow2 number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]} playerNames={players}/>
+                                        <ViewBoardRow2 number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]} playerNames={players}/>
                                     </tbody>
                                 </Table>
                             </Row>
@@ -125,9 +136,9 @@ export function ViewBoard() {
                                         <Select style={{'padding':0, 'margin':0}} options={selectOptions}/>
                                     </Row>
                                 </Col>
-                                <Col style={center()}>
-                                    <Row style={center()}>
-                                        <p>Group Name: {groupName}</p>
+                                <Col style={center2()}>
+                                    <Row style={center2()}>
+                                        <p style={center2()}>Group Name: {groupName}</p>
                                     </Row>
                                 </Col>
                             </Row>
@@ -172,6 +183,15 @@ export function ViewBoard() {
             justifyContent: 'center',
             textAlign: 'center',
             alignItems: 'center'
+        }
+    }
+
+    function center2() {
+        return {
+            // display: 'flex', 
+            // justifyContent: 'center',
+            // textAlign: 'center',
+            // alignItems: 'center'
         }
     }
     

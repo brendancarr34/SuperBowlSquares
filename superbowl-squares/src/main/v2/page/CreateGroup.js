@@ -5,20 +5,86 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
-import { createGroup } from '../hook/createGroupHook';
+import axios from 'axios';
+import { empty_row, emptyNameRow } from "../data/EmptyBoardData";
+import '../style/Button.css'
+
+function generateUUID() {
+    var d = new Date().getTime();
+    var d2 = (performance && performance.now && (performance.now()*1000)) || 0;
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16;
+        if(d > 0){
+            r = (d + r)%16 | 0;
+            d = Math.floor(d/16);
+        } else {
+            r = (d2 + r)%16 | 0;
+            d2 = Math.floor(d2/16);
+        }
+        return (c === 'x' ? r : (r&0x7|0x8)).toString(16);
+    });
+    return uuid;
+};
 
 export function CreateGroup() {
 
+    let navigate = useNavigate(); 
     const [groupName, setGroupName] = useState("");
     const [groupPassword, setGroupPassword] = useState("");
+    const [error, setError] = useState(null);
 
-    let navigate = useNavigate(); 
-    const superBowlSquares = () => { 
-        let name = createGroup(groupName, groupPassword);
-        setGroupName("");
-        setGroupPassword("");
-        navigate('/super-bowl-squares', {state: { groupName: name }});
-    }
+    const handleButtonClick = async () => {
+        try {
+            // TODO - review/fix logic for empty groupName
+            // if groupName is empty, create a group name
+            if (groupName === "") {
+                groupName = generateUUID().substring(0,6);
+            }
+
+          // Make the API call using Axios
+          const url = 'http://10.0.0.65:3001/api/group/add/' + groupName
+          // TODO - handle error when unable to make API call
+          const response = await axios.post(url, {
+            name: groupName,
+            password: groupPassword,
+            gameData: {
+                row0: empty_row,
+                row0_players: emptyNameRow,
+                row1: empty_row,
+                row1_players: emptyNameRow,
+                row2: empty_row,
+                row2_players: emptyNameRow,
+                row3: empty_row,
+                row3_players: emptyNameRow,
+                row4: empty_row,
+                row4_players: emptyNameRow,
+                row5: empty_row,
+                row5_players: emptyNameRow,
+                row6: empty_row,
+                row6_players: emptyNameRow,
+                row7: empty_row,
+                row7_players: emptyNameRow,
+                row8: empty_row,
+                row8_players: emptyNameRow,
+                row9: empty_row,
+                row9_players: emptyNameRow
+            },
+            players: []
+          });
+          setError(null);
+          navigate('/super-bowl-squares', {state: { groupName: groupName }});
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          if (error.response != null) {
+            console.log(error.response.data.error);
+            setError(error.response.data.error);
+          } else if (error.code == 'ERR_NETWORK') {
+            setError('Network Error');
+          } else {
+            setError('Unknown Error');
+          }
+        }
+      };
 
     return (
         <Container>
@@ -57,10 +123,16 @@ export function CreateGroup() {
                 </Row>
                 <Row>
                     <Col style={center()}>
-                        <Button style={blackButton()} onClick={superBowlSquares}>
+                        <Button style={blackButton()} onClick={handleButtonClick}>
                                 Start a New Game
                         </Button>
                     </Col>
+                    {error && (
+                                <div className="error-popup">
+                                <p>{error}</p>
+                                <button onClick={() => setError(null)}>X</button>
+                                </div>
+                            )}
                 </Row>
             </Row>
         </Container>
@@ -97,6 +169,12 @@ export function CreateGroup() {
             border:'black',
             width:'75vw',
             padding:20
+        }
+    }
+
+    function input() {
+        return {
+            color: error ? 'red' : 'black'
         }
     }
 }

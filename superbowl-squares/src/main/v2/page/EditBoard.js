@@ -11,6 +11,9 @@ import { EditBoardRow } from '../component/row/EditBoardRow.js';
 import { NumberRow } from '../component/row/NumberRow.js';
 import { topNumbers, sideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 import { readGameData } from '../hook/readGameDataHook.js';
+import axios from 'axios';
+import GridComponent from './GridComponent.js';
+import GridComponent2 from './GridComponent2.js';
 
 export function EditBoard() {
 
@@ -18,62 +21,98 @@ export function EditBoard() {
 
     let groupName =  location.state.groupName;
     
+    const [data, setData] = useState(null);
     let [gameData, setGameData] = useState(emptyBoard);
     let [gameNameData, setGameNameData] = useState(emptyNameBoard);
-
     let [activeButtonData, setActiveButtonData] = useState(emptyBoard);
+    let [players, setPlayers] = useState([]);
 
     let [playerName, setPlayerName] = useState("");
     let [playerInitials, setPlayerInitials] = useState("");
 
-    // initialize exisitng game data
-    useEffect(() => {
-        console.log("Test2");
-        const firestore = getFirestore();
-        const docRef = doc(firestore, 'group', groupName);
-        async function readGameData() {
-            console.log("Test3");
-            const mySnapshot = await getDoc(docRef);
-            if (mySnapshot.exists()) {
-                const docData = mySnapshot.data();
-                var gameRows = [];
-                gameRows.push(docData.gameData.row0);
-                gameRows.push(docData.gameData.row1);
-                gameRows.push(docData.gameData.row2);
-                gameRows.push(docData.gameData.row3);
-                gameRows.push(docData.gameData.row4);
-                gameRows.push(docData.gameData.row5);
-                gameRows.push(docData.gameData.row6);
-                gameRows.push(docData.gameData.row7);
-                gameRows.push(docData.gameData.row8);
-                gameRows.push(docData.gameData.row9);
-                setGameData(gameRows);
-                console.log("set gameDAta:" + gameData)
-                var gameNameRows = [];
-                gameNameRows.push(docData.gameData.row0_players)
-                gameNameRows.push(docData.gameData.row1_players)
-                gameNameRows.push(docData.gameData.row2_players)
-                gameNameRows.push(docData.gameData.row3_players)
-                gameNameRows.push(docData.gameData.row4_players)
-                gameNameRows.push(docData.gameData.row5_players)
-                gameNameRows.push(docData.gameData.row6_players)
-                gameNameRows.push(docData.gameData.row7_players)
-                gameNameRows.push(docData.gameData.row8_players)
-                gameNameRows.push(docData.gameData.row9_players)
-                setGameNameData(gameNameRows);
-            };
-        };
-        readGameData();
+    const [responseData, setResponseData] = useState(null);
+    const [error, setError] = useState(null);
 
-        // let gameDataArr = readGameData(groupName);
-        // setGameData(gameDataArr[0]);
-        // setGameNameData(gameDataArr[1]);
+    useEffect(() => {
+        // Function to fetch data from the API
+        const fetchData = async () => {
+        try {
+            const response = await axios.get('http://10.0.0.65:3001/api/game/brendan1');
+
+            // setData(response.data);
+
+            var gameRows = [];
+            gameRows.push(response.data.gameData.row0);
+            gameRows.push(response.data.gameData.row1);
+            gameRows.push(response.data.gameData.row2);
+            gameRows.push(response.data.gameData.row3);
+            gameRows.push(response.data.gameData.row4);
+            gameRows.push(response.data.gameData.row5);
+            gameRows.push(response.data.gameData.row6);
+            gameRows.push(response.data.gameData.row7);
+            gameRows.push(response.data.gameData.row8);
+            gameRows.push(response.data.gameData.row9);
+            setGameData(gameRows);
+
+            var gameNameRows = [];
+            gameNameRows.push(response.data.gameData.row0_players)
+            gameNameRows.push(response.data.gameData.row1_players)
+            gameNameRows.push(response.data.gameData.row2_players)
+            gameNameRows.push(response.data.gameData.row3_players)
+            gameNameRows.push(response.data.gameData.row4_players)
+            gameNameRows.push(response.data.gameData.row5_players)
+            gameNameRows.push(response.data.gameData.row6_players)
+            gameNameRows.push(response.data.gameData.row7_players)
+            gameNameRows.push(response.data.gameData.row8_players)
+            gameNameRows.push(response.data.gameData.row9_players)
+            setGameNameData(gameNameRows);
+
+            setPlayers(response.players);
+            
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+        };
+
+        // Call the fetch function
+        fetchData();
     }, []);
 
     let navigate = useNavigate();
+
+    const claimSquares = async () => {
+        try {
+            console.log('active button data: ' + activeButtonData);
+            const response = await axios.post('http://10.0.0.65:3001/api/game/claimSquares/brendan1', {
+                activeButtonData: activeButtonData, 
+                initials: playerInitials,
+                name: playerName
+            });
+
+            // setResponseData(response.data);
+            console.log('data: ' + response.data.message);
+        }
+        catch (error) {
+            console.error('Error claiming squares', error);
+            if (error.response != null) {
+                console.log(error.response.data.error);
+                setError(error.response.data.error);
+                if (error.response.data.validSquares) {
+                    console.log('read valid squares: ' + error.response.data.validSquares);
+                    setActiveButtonData(error.response.data.validSquares);
+                }
+            } else if (error.code === 'ERR_NETWORK') {
+                setError('Network Error');
+            } else {
+                setError('Unknown Error');
+            }
+        }
+        
+    }
+
+
+    
     const viewSquares = () => { 
-        console.log("initial gameNameData:" + gameNameData);
-        console.log("active buttons: " + activeButtonData)
         for (let i = 0; i < 10; i++) {
             for (let j = 0; j < 10; j++) {
                 if (activeButtonData[i][j] === true) {
@@ -84,10 +123,7 @@ export function EditBoard() {
         }
         setActiveButtonData(emptyBoard);
 
-        console.log("gameData:" + gameData);
-        console.log("gameNameData:" + gameNameData);
-
-
+        players.push({initials: playerInitials, name: playerName});
 
         // set new gameData and gameNameData
         const db = getFirestore();
@@ -116,6 +152,9 @@ export function EditBoard() {
                 row9_players: gameNameData[9]
             }
         }, { merge: true });
+        setDoc(groupRef, {
+            players: players
+        }, { merge: true});
         console.log("Successfully claimed squares!");
         navigate('/super-bowl-squares', { 
             replace: true, 
@@ -144,10 +183,7 @@ export function EditBoard() {
             } else {
                 activeButtonData[row][i] = false;
             }
-            // activeButtonData[row][i] = activeArr[i];
         }
-        console.log(row);
-        console.log(activeButtonData);
     }
 
     return (
@@ -161,7 +197,7 @@ export function EditBoard() {
                 <Row>
                     <Col/>
                     <Col/>
-                    <Col style={board()}>
+                    {/* <Col style={board()}>
                         <Table style={{'padding':0, 'margin':0}}>
                             <tbody>
                                 <NumberRow numbers={topNumbers}/>
@@ -217,6 +253,9 @@ export function EditBoard() {
                                     activeButtons={getActiveButtons}/>
                             </tbody>
                         </Table>
+                    </Col> */}
+                    <Col style={board()}>
+                        <GridComponent groupId={groupName}/>
                     </Col>
                     <Col/>
                     <Col/>
@@ -238,7 +277,7 @@ export function EditBoard() {
                         </Form>
                     </Col>
                     <Col>
-                        <Button disabled={false} style={black()} onClick={viewSquares}>
+                        <Button disabled={false} style={black()} onClick={claimSquares}>
                             Submit
                         </Button>
                     </Col>

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { MDBBtn } from 'mdb-react-ui-kit';
 
-export function ViewBoardButton(props) {
+export function ViewBoardButton2(props) {
 
     const active = props.active;
     const text = props.text;
+    const playerNames = props.playerNames;
 
     // const handleMouseEnter = () => {
     //     console.log('Mouse entered the button ' + text);
@@ -17,11 +18,14 @@ export function ViewBoardButton(props) {
     //     }
     // };
 
+    // const hoverName = JSON.stringify(playerNames);   
+    const hoverName = playerNames[text];
+
     return (
         <div className="button-container">
             <MDBBtn disabled className="square-md" style={viewBoardButtonStyle()}>
                 {text}
-                <span className="hover-text" style={nullify()}>{text ? text : null}</span>
+                <span className="hover-text" style={nullify()}>{text ? hoverName : null}</span>
             </MDBBtn>
         </div>
 
@@ -31,7 +35,7 @@ export function ViewBoardButton(props) {
         return {
             backgroundColor: active ? "red" : "white" ,
             color: active ? "black" : "white",
-            fontSize: 15,
+            fontSize: 13,
             padding: 0,
             margin: 0,
             border: '1px solid black',
