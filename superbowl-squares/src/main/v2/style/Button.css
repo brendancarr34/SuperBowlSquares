@@ -14,3 +14,23 @@
   box-shadow: none;
   background-color: transparent;
 }
+
+.button-container {
+  position: relative;
+}
+
+.hover-text {
+  position: absolute;
+  top: -20px; /* Adjust this value to position the hover text */
+  left: 50%; /* Adjust this value to center the hover text horizontally */
+  transform: translateX(-50%);
+  display: none;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.button-container:hover .hover-text {
+  display: block;
+}

@@ -6,10 +6,25 @@ export function ViewBoardButton(props) {
     const active = props.active;
     const text = props.text;
 
+    // const handleMouseEnter = () => {
+    //     console.log('Mouse entered the button ' + text);
+    // };
+
+    // const handleHover = () => {
+    //     if (text)
+    //     {
+    //         console.log('Button hovered over: ' + text);
+    //     }
+    // };
+
     return (
-        <MDBBtn disabled className="square-md" style={viewBoardButtonStyle()}>
-            {text}
-        </MDBBtn>
+        <div className="button-container">
+            <MDBBtn disabled className="square-md" style={viewBoardButtonStyle()}>
+                {text}
+                <span className="hover-text" style={nullify()}>{text ? text : null}</span>
+            </MDBBtn>
+        </div>
+
     )
 
     function viewBoardButtonStyle() {  
@@ -23,5 +38,13 @@ export function ViewBoardButton(props) {
             textAlign: 'center'
         }
     };
+
+    function nullify() {
+        if (!text) {
+            return {
+                display: 'none'
+            }
+        }
+    }
 }
 

@@ -15,6 +15,7 @@ export function EditBoard3() {
   const [playerName, setPlayerName] = useState("");
   const [playerInitials, setPlayerInitials] = useState("");
   const [clickedButtons, setClickedButtons] = useState([]);
+  // let [activeButtonData, setActiveButtonData] = useState(emptyBoard);
 
   let navigate = useNavigate();
 
@@ -49,6 +50,7 @@ export function EditBoard3() {
       console.error('Error submitting data:', error);
       if (error.response && error.response.data && error.response.data.validMaps) {
         // Set the clicked buttons and update the grid
+        // setActiveButtonData(error.response.data.validSquares);
         setClickedButtons(error.response.data.validMaps);
       } else {
         // Handle other error scenarios...
@@ -64,9 +66,13 @@ export function EditBoard3() {
         </Col>
       </Row>
       <Row>
+        <Col/>
+        <Col/>
         <Col style={board()}>
           <GridComponent2 groupId={groupName} setClickedButtons={setClickedButtons} />
         </Col>
+        <Col/>
+        <Col/>
       </Row>
       <Row>
         <Col>
