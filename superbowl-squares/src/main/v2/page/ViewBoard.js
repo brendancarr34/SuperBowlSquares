@@ -60,6 +60,8 @@ export function ViewBoard() {
             gameNameRows.push(response.data.gameData.row9_players)
             setGameNameData(gameNameRows);
 
+            console.log("players: " + JSON.stringify(response.data.players));
+
             setPlayers(response.players);
             
         } catch (error) {

@@ -11,6 +11,7 @@ import { CreateGroup } from './main/v2/page/CreateGroup.js';
 import { JoinGroup } from './main/v2/page/JoinGroup.js';
 import { NotFound } from './main/v2/page/NotFound.js';
 import { EditBoard3 } from './main/v2/page/EditBoard3.js';
+import EditBoard4 from './main/v2/page/EditBoard4.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -23,7 +24,7 @@ root.render(
                 <Route path="/v1" element={<Grid />} />
                 <Route path="/create-group" element={<CreateGroup />} />
                 <Route path="/join-group" element={<JoinGroup />} />
-                <Route path='/claim-squares' element={<EditBoard3 />} />
+                <Route path='/claim-squares' element={<EditBoard4 />} />
                 <Route path="/*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
