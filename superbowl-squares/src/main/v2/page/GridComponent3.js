@@ -9,10 +9,8 @@ const GridComponent3 = (props) => {
 
   const [gridData, setGridData] = useState([]);
 
-
   useEffect(() => {
     // Update the grid data when clickedButtons changes
-    console.log('fetchingData');
     fetchData().then(() => {
       setGridData(prevGridData => updateGridData(prevGridData));
     })
@@ -20,7 +18,6 @@ const GridComponent3 = (props) => {
 
   const fetchData = async () => {
     try {
-      console.log('calling fetch data 2');
       const response = await axios.get(`http://10.0.0.65:3001/api/game/${groupId}`);
       const gameRows = [
         response.data.gameData.row0,
@@ -36,14 +33,12 @@ const GridComponent3 = (props) => {
       ];
       
       setGridData(gameRows.map(row => row.map(value => ({ clicked: false, disabled: value }))));
-      console.log('done setting gridData');
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   }
 
   const handleButtonClick = (row, col) => {
-    console.log('clicked: (' + row +', '+col+')')
     const newGridData = [...gridData];
     newGridData[row][col] = { clicked: !newGridData[row][col].clicked, disabled: newGridData[row][col].disabled };
     setGridData(newGridData);

@@ -10,27 +10,21 @@ import axios from 'axios';
 import GridComponent3 from './GridComponent3';
 
 export function EditBoard5() {
+  
   const location = useLocation();
   let groupName =  location.state.groupName;
+  
   const [playerName, setPlayerName] = useState("");
   const [playerInitials, setPlayerInitials] = useState("");
   const [clickedButtons, setClickedButtons] = useState([]);
   const [showErrorModal, setShowErrorModal] = useState(false); // State for showing error modal
   const [showApiErrorModal, setShowApiErrorModal] = useState(false); // State for showing API error modal
   const [showTakenInitialsModal, setShowTakenInitialsModal] = useState(false);
-  const [updateDisabled, setUpdateDisabled] = useState(false);
 
   let navigate = useNavigate();
 
-  // useEffect(() => {
-  //   // fetchData();
-  // }, [clickedButtons]);
-
   const handleSubmit = async () => {
     try {
-      console.log('Submit button clicked');
-      console.log('Clicked buttons:', clickedButtons);
-
       // Check if playerName and playerInitials are not empty
       if ((!playerName.trim() || !playerInitials.trim()) && (clickedButtons.length > 0)) {
         setShowErrorModal(true); // Show error modal if fields are empty
@@ -50,7 +44,7 @@ export function EditBoard5() {
         console.log('Submit successful:', response.data);
       }
 
-      // Handle successful submission logic...
+      // Successful submission logic
       navigate('/super-bowl-squares', { 
         replace: true, 
         state: { name: playerName, initials: playerInitials, groupName: groupName } 
@@ -59,14 +53,12 @@ export function EditBoard5() {
       console.error('Error submitting data:', error);
       if (error.response && error.response.data && error.response.data.validMaps) {
         // Set the clicked buttons and update the grid
-        // setActiveButtonData(error.response.data.validSquares);
-        // setUpdateDisabled(true);
-
-        console.log('error response (validMaps): ' + JSON.stringify(error.response.data.validMaps));
         setClickedButtons(error.response.data.validMaps);
       } else {
-        // Handle other error scenarios...
-        if (error.response && error.response.data && error.response.data.error && error.response.data.error == 'initials already exist') {
+        // Handle initials already exist scenario
+        if (error.response && error.response.data 
+              && error.response.data.error 
+              && error.response.data.error == 'initials already exist') {
           console.log(error.response.data.error)
           setShowTakenInitialsModal(true);
         }
@@ -204,7 +196,6 @@ function pad() {
   return {
       display: 'flex', 
       justifyContent: 'center', 
-      // alignItems: 'center',
       paddingTop: 15,
       paddingBottom: 15
   }
