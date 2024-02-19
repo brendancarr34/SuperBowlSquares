@@ -4,15 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from './main/v2/page/Home.js'
 import { Grid } from './main/v1/Grid.js';
-import { EditBoard } from './main/v2/page/EditBoard.js';
-import GridComponent from './main/v2/page/GridComponent.js';
 import { ViewBoard2 } from './main/v2/page/ViewBoard2.js';
 import { CreateGroup } from './main/v2/page/CreateGroup.js';
 import { JoinGroup } from './main/v2/page/JoinGroup.js';
 import { NotFound } from './main/v2/page/NotFound.js';
-import { EditBoard3 } from './main/v2/page/EditBoard3.js';
-import EditBoard4 from './main/v2/page/EditBoard4.js';
-import EditBoard5 from './main/v2/page/EditBoard5.js';
+import { EditBoard5 } from './main/v2/page/EditBoard5.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

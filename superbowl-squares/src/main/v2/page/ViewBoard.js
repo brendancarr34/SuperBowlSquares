@@ -9,7 +9,6 @@ import Form from 'react-bootstrap/Form';
 import Select from 'react-select'
 import { ViewBoardRow } from '../component/row/ViewBoardRow.js';
 import { NumberRow } from '../component/row/NumberRow.js';
-import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { topNumbers, sideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 import axios from 'axios';
 import GridComponent from './GridComponent.js';

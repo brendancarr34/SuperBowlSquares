@@ -44,12 +44,6 @@ const GridComponent3 = (props) => {
     setClickedButtons(clickedButtons);
   };
 
-  const handleSubmit = () => {
-    const clickedButtons = getClickedButtons();
-    console.log('clickedButtons:', clickedButtons);
-    setClickedButtons(clickedButtons);
-  };
-
   const getClickedButtons = () => {
     const clickedButtons = [];
     gridData.forEach((row, rowIndex) => {
@@ -87,7 +81,6 @@ const GridComponent3 = (props) => {
           ))}
         </tbody>
       </table>
-      {/* <button onClick={handleSubmit}>Submit</button> */}
     </div>
   );
 };
