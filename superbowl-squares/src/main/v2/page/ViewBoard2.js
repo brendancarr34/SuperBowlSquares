@@ -139,9 +139,9 @@ export function ViewBoard2() {
                                         <Select style={{'padding':0, 'margin':0}} options={selectOptions}/>
                                     </Row>
                                 </Col>
-                                <Col style={center()}>
-                                    <Row style={center()}>
-                                        <p>Group Name: {groupName}</p>
+                                <Col style={center2()}>
+                                    <Row style={center2()}>
+                                        <p style={center2()}>Group Name: {groupName}</p>
                                     </Row>
                                 </Col>
                             </Row>
@@ -186,6 +186,15 @@ export function ViewBoard2() {
             justifyContent: 'center',
             textAlign: 'center',
             alignItems: 'center'
+        }
+    }
+
+    function center2() {
+        return {
+            // display: 'flex', 
+            // justifyContent: 'center',
+            // textAlign: 'center',
+            // alignItems: 'center'
         }
     }
     

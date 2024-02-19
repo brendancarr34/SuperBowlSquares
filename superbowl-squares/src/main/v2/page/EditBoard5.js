@@ -9,7 +9,7 @@ import Modal from 'react-bootstrap/Modal'; // Import Modal
 import axios from 'axios';
 import GridComponent3 from './GridComponent3';
 
-export function EditBoard4() {
+export function EditBoard5() {
   const location = useLocation();
   let groupName =  location.state.groupName;
   const [playerName, setPlayerName] = useState("");
@@ -21,17 +21,12 @@ export function EditBoard4() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
   }, [clickedButtons]);
 
-  const fetchData = async () => {
-    try {
-      console.log('Fetching data from API...');
-      // Fetch data logic goes here...
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+  const handleBack = async () => {
+
+  }
 
   const handleSubmit = async () => {
     try {
@@ -44,15 +39,16 @@ export function EditBoard4() {
         return; // Exit early if fields are empty
       }
 
-      // // Check if clickedButtons is empty
-      // if (clickedButtons.length === 0) {
-      //   setShowApiErrorModal(true); // Show API error modal if clickedButtons is empty
-      //   return; // Exit early if clickedButtons is empty
-      // }
+      // Check if clickedButtons is empty
+      if (clickedButtons.length === 0) {
+        setShowApiErrorModal(true); // Show API error modal if clickedButtons is empty
+        return; // Exit early if clickedButtons is empty
+      }
 
       if (clickedButtons.length > 0) {
-        const response = await axios.post(`http://10.0.0.65:3001/api/game/api/validateAndClaimSquaresV3/${groupName}`, { maps: clickedButtons, initials: playerInitials, playerName: playerName });
-
+        console.log('MAKING API POST game/api/validateAndClaimSquaresV3/${groupName}');
+        const response = await axios.post(`http://10.0.0.65:3001/api/game/api/validateAndClaimSquaresV3/${groupName}`, 
+              { maps: clickedButtons, initials: playerInitials, playerName: playerName });
         console.log('Submit successful:', response.data);
       }
 
@@ -73,6 +69,14 @@ export function EditBoard4() {
     }
   };
 
+  // Function to handle going back
+  const handleGoBack = () => {
+    navigate('/super-bowl-squares', {
+      replace: true,
+      state: { name: playerName, initials: playerInitials, groupName: groupName }
+    });
+  };
+
   return (
     <Container>
       <Row>
@@ -80,16 +84,18 @@ export function EditBoard4() {
           <h1 style={{ padding: 15 }}>Claim Squares</h1>
         </Col>
       </Row>
+      <Row style={pad()}>
+        <Button onClick={handleGoBack} style={blackPad()}>Go Back</Button>
+      </Row>
+      <Row style={center()}>
+          <p>Group Name: {groupName}</p>
+      </Row>
       <Row>
-        <Col/>
-        <Col/>
         <Col style={board()}>
           <GridComponent3 groupId={groupName} setClickedButtons={setClickedButtons} />
         </Col>
-        <Col/>
-        <Col/>
       </Row>
-      <Row>
+      <Row style={pad()}>
         <Col>
           <Form>
             <Form.Group className="mb-3" onChange={(e) => setPlayerName(e.target.value)}>
@@ -164,4 +170,24 @@ function black() {
   }
 }
 
-export default EditBoard4;
+function blackPad() {
+  return {
+    backgroundColor: "black",
+    border: 'black',
+    padding: 10,
+    width: '100%',
+    height: '85%'
+  }
+}
+
+function pad() {
+  return {
+      display: 'flex', 
+      justifyContent: 'center', 
+      // alignItems: 'center',
+      paddingTop: 15,
+      paddingBottom: 15
+  }
+}
+
+export default EditBoard5;

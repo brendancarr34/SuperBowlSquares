@@ -79,7 +79,7 @@ const GridComponent3 = (props) => {
                       border: '1px solid black',
                     }}
                   >
-                    {item.clicked ? 'X' : 'X'}
+                    {item.clicked ? '🏈' : ' '}
                   </MDBBtn>
                 </td>
               ))}
