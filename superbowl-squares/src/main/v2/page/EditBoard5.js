@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal'; // Import Modal
+import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import GridComponent3 from './GridComponent3';
 
@@ -18,12 +18,13 @@ export function EditBoard5() {
   const [showErrorModal, setShowErrorModal] = useState(false); // State for showing error modal
   const [showApiErrorModal, setShowApiErrorModal] = useState(false); // State for showing API error modal
   const [showTakenInitialsModal, setShowTakenInitialsModal] = useState(false);
+  const [updateDisabled, setUpdateDisabled] = useState(false);
 
   let navigate = useNavigate();
 
-  useEffect(() => {
-    // fetchData();
-  }, [clickedButtons]);
+  // useEffect(() => {
+  //   // fetchData();
+  // }, [clickedButtons]);
 
   const handleSubmit = async () => {
     try {
@@ -59,6 +60,9 @@ export function EditBoard5() {
       if (error.response && error.response.data && error.response.data.validMaps) {
         // Set the clicked buttons and update the grid
         // setActiveButtonData(error.response.data.validSquares);
+        // setUpdateDisabled(true);
+
+        console.log('error response (validMaps): ' + JSON.stringify(error.response.data.validMaps));
         setClickedButtons(error.response.data.validMaps);
       } else {
         // Handle other error scenarios...
@@ -93,7 +97,7 @@ export function EditBoard5() {
       </Row>
       <Row>
         <Col style={board()}>
-          <GridComponent3 groupId={groupName} setClickedButtons={setClickedButtons} />
+          <GridComponent3 groupId={groupName} setClickedButtons={setClickedButtons} clickedButtons={clickedButtons}/>
         </Col>
       </Row>
       <Row style={pad()}>

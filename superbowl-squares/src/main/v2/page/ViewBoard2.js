@@ -59,7 +59,7 @@ export function ViewBoard2() {
             gameNameRows.push(response.data.gameData.row9_players)
             setGameNameData(gameNameRows);
 
-            console.log("players: " + JSON.stringify(response.data.players));
+            // console.log("players: " + JSON.stringify(response.data.players));
 
             const playerData = response.data.players;
             
@@ -67,15 +67,13 @@ export function ViewBoard2() {
             playerData.forEach(map => {
                 // Extract 'initials' and 'playerName' from each map
                 const { initials, playerName } = map;
-                console.log('initials, name: ' + initials + ', ' + playerName);
+                // console.log('initials, name: ' + initials + ', ' + playerName);
                 // Add the entry to the initialsMap
                 initialsMap[initials] = playerName;
             });
-            console.log('initialsMap: ' + JSON.stringify(initialsMap));
+            // console.log('initialsMap: ' + JSON.stringify(initialsMap));
             setPlayers(initialsMap);
-            console.log('players: ' + JSON.stringify(players));
-            
-            
+            // console.log('players: ' + JSON.stringify(players));
         } catch (error) {
             console.error('Error fetching data:', error);
         }

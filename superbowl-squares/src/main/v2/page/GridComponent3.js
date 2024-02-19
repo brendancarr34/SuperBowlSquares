@@ -1,20 +1,26 @@
+// In GridComponent3
 import React, { useState, useEffect } from 'react';
 import { MDBBtn } from "mdb-react-ui-kit";
 import '../style/Button.css';
 import axios from 'axios';
 
 const GridComponent3 = (props) => {
-  const groupId = props.groupId;
-  const setClickedButtons = props.setClickedButtons;
+  const { groupId, setClickedButtons, clickedButtons } = props;
 
   const [gridData, setGridData] = useState([]);
 
+
   useEffect(() => {
-    fetchData();
-  }, []);
+    // Update the grid data when clickedButtons changes
+    console.log('fetchingData');
+    fetchData().then(() => {
+      setGridData(prevGridData => updateGridData(prevGridData));
+    })
+  }, [clickedButtons]);
 
   const fetchData = async () => {
     try {
+      console.log('calling fetch data 2');
       const response = await axios.get(`http://10.0.0.65:3001/api/game/${groupId}`);
       const gameRows = [
         response.data.gameData.row0,
@@ -28,12 +34,13 @@ const GridComponent3 = (props) => {
         response.data.gameData.row8,
         response.data.gameData.row9,
       ];
-
+      
       setGridData(gameRows.map(row => row.map(value => ({ clicked: false, disabled: value }))));
+      console.log('done setting gridData');
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  };
+  }
 
   const handleButtonClick = (row, col) => {
     console.log('clicked: (' + row +', '+col+')')
@@ -54,6 +61,16 @@ const GridComponent3 = (props) => {
       });
     });
     return clickedButtons;
+  };
+
+  // Function to update grid data based on clickedButtons
+  const updateGridData = (prevGridData) => {
+    return prevGridData.map((row, rowIndex) => {
+      return row.map((item, colIndex) => {
+        const isClicked = clickedButtons.some(btn => btn.row === rowIndex && btn.col === colIndex);
+        return { ...item, clicked: isClicked };
+      });
+    });
   };
 
   return (
