@@ -46,7 +46,7 @@ export function Home() {
                         <Row>
                             <Col>
                                 <Button style={blackButton()} onClick={joinGroup}>
-                                        Join a Group
+                                    Join a Group
                                 </Button>
                             </Col>
                         </Row>

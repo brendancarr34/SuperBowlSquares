@@ -5,20 +5,18 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Select from 'react-select'
 import { ViewBoardRow2 } from '../component/row/ViewBoardRow2.js';
 import { NumberRow } from '../component/row/NumberRow.js';
 import { topNumbers, sideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 import axios from 'axios';
-import GridComponent from './GridComponent.js';
 
 export function ViewBoard2() {
 
     const location = useLocation();
     let groupName = location.state.groupName;
 
-    const [data, setData] = useState(null);
+    // const [data, setData] = useState(null);
     const [gameNameData, setGameNameData] = useState(emptyNameBoard);
     const [gameData, setGameData] = useState(emptyBoard);
     let [players, setPlayers] = useState({});
@@ -31,7 +29,7 @@ export function ViewBoard2() {
             // const response = await axios.get('http://localhost:3001/api/game/' + groupName);
             const response = await axios.get('http://10.0.0.65:3001/api/game/' + groupName);
 
-            setData(response.data);
+            // setData(response.data);
 
             var gameRows = [];
             gameRows.push(response.data.gameData.row0);
@@ -59,21 +57,19 @@ export function ViewBoard2() {
             gameNameRows.push(response.data.gameData.row9_players)
             setGameNameData(gameNameRows);
 
-            // console.log("players: " + JSON.stringify(response.data.players));
-
             const playerData = response.data.players;
             
             const initialsMap = {};
+            const options = [];
             playerData.forEach(map => {
                 // Extract 'initials' and 'playerName' from each map
                 const { initials, playerName } = map;
-                // console.log('initials, name: ' + initials + ', ' + playerName);
                 // Add the entry to the initialsMap
                 initialsMap[initials] = playerName;
+                options.push({value: initials, label: `${initials} - ${playerName}`});
             });
-            // console.log('initialsMap: ' + JSON.stringify(initialsMap));
             setPlayers(initialsMap);
-            // console.log('players: ' + JSON.stringify(players));
+            setSelectOptions(options);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -89,6 +85,10 @@ export function ViewBoard2() {
             groupName: groupName
         } });
     }  
+
+    const handleInitialSelect = async () => {
+
+    }
 
     return (
         <Container>
@@ -133,7 +133,7 @@ export function ViewBoard2() {
                                             <option value="2">ET</option>
                                             <option value="3">KL</option>
                                         </Form.Select> */}
-                                        <Select style={{'padding':0, 'margin':0}} options={selectOptions}/>
+                                        <Select style={{'padding':0, 'margin':0}} options={selectOptions} onChange={handleInitialSelect}/>
                                     </Row>
                                 </Col>
                                 <Col style={center2()}>
