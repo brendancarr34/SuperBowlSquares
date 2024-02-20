@@ -22,7 +22,7 @@ export function ViewBoardButton3(props) {
 
     function viewBoardButtonStyle() {  
         return {
-            backgroundColor: (text == selectedOption) ? 'blue' : active ? "red" : "white" ,
+            backgroundColor: (text == selectedOption) ? 'green' : active ? "red" : "white" ,
             color: active ? "black" : "white",
             fontSize: 13,
             padding: 0,

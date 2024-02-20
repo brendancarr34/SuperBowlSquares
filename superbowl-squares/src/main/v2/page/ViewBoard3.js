@@ -21,6 +21,7 @@ export function ViewBoard3() {
     const [gameData, setGameData] = useState(emptyBoard);
     let [players, setPlayers] = useState({});
     const [selectOptions, setSelectOptions] = useState([]);
+    const [allSquaresClaimed, setAllSquaresClaimed] = useState(false);
 
     useEffect(() => {
         // Function to fetch data from the API
@@ -70,6 +71,9 @@ export function ViewBoard3() {
             });
             setPlayers(initialsMap);
             setSelectOptions(options);
+
+            const allSquaresClaimedResponse = response.data.allSquaresClaimed;
+            setAllSquaresClaimed(allSquaresClaimedResponse);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -79,9 +83,6 @@ export function ViewBoard3() {
         fetchData();
     }, []);
 
-    // useEffect(() => {
-    //     console.log(selectedOption);
-    // }, [selectedOption])
 
     let navigate = useNavigate();
     const claimSquares = () => { 
@@ -148,9 +149,16 @@ export function ViewBoard3() {
                                 </Col>
                             </Row>
                             <Row>
-                                <Button style={black()} onClick={claimSquares}>
-                                        Claim Squares
-                                </Button>
+                                {
+                                    !allSquaresClaimed ?
+                                        <Button style={black()} onClick={claimSquares}>
+                                            Claim Squares
+                                        </Button>
+                                        : 
+                                        <Button style={black()} onClick={claimSquares}>
+                                            Set Board Numbers
+                                        </Button>
+                                }
                             </Row>
                         </Container>
                     </Col>

@@ -63,33 +63,46 @@ const GridComponent3 = (props) => {
     });
   };
 
-  return (
-    <div>
-      <table>
-        <tbody>
-          {gridData.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {row.map((item, colIndex) => (
-                <td key={colIndex} style={editBoardRowStyle()}>
-                  <MDBBtn
-                    className="square-md"
-                    onClick={() => handleButtonClick(rowIndex, colIndex)}
-                    disabled={item.disabled}
-                    style={{
-                      backgroundColor: item.clicked ? 'green' : item.disabled ? 'red' : 'white',
-                      border: '1px solid black',
-                    }}
-                  >
-                    {item.clicked ? '🏈' : ' '}
-                  </MDBBtn>
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+  if (gridData) {
+    return (
+      <div>
+        <table>
+          <tbody>
+            {gridData.map((row, rowIndex) => (
+              <tr key={rowIndex}>
+                {row.map((item, colIndex) => (
+                  <td key={colIndex} style={editBoardRowStyle()}>
+                    <MDBBtn
+                      className="square-md"
+                      onClick={() => handleButtonClick(rowIndex, colIndex)}
+                      disabled={item.disabled}
+                      style={{
+                        backgroundColor: item.clicked ? 'green' : item.disabled ? 'red' : 'white',
+                        border: '1px solid black',
+                      }}
+                    >
+                      {item.clicked ? '🏈' : ' '}
+                    </MDBBtn>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  else {
+    return (
+      <div>
+        <p>
+          Loading...
+        </p>
+      </div>
+    );
+  }
+  
 };
 
 function editBoardRowStyle() {
