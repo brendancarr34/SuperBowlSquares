@@ -20,16 +20,11 @@ const GridComponent3 = (props) => {
     try {
       const response = await axios.get(`http://10.0.0.65:3001/api/game/${groupId}`);
       const gameRows = [
-        response.data.gameData.row0,
-        response.data.gameData.row1,
-        response.data.gameData.row2,
-        response.data.gameData.row3,
-        response.data.gameData.row4,
-        response.data.gameData.row5,
-        response.data.gameData.row6,
-        response.data.gameData.row7,
-        response.data.gameData.row8,
-        response.data.gameData.row9,
+        response.data.gameData.row0, response.data.gameData.row1,
+        response.data.gameData.row2, response.data.gameData.row3,
+        response.data.gameData.row4, response.data.gameData.row5, 
+        response.data.gameData.row6, response.data.gameData.row7,
+        response.data.gameData.row8, response.data.gameData.row9,
       ];
       
       setGridData(gameRows.map(row => row.map(value => ({ clicked: false, disabled: value }))));
