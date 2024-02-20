@@ -75,11 +75,9 @@ export function ViewBoard3() {
                 setAllSquaresClaimed(allSquaresClaimedResponse);
 
                 const topNumbersResponse = response.data.topNumbers;
-                console.log('topNumbersResponse: ' + topNumbersResponse);
                 setTopNumbers(topNumbersResponse);
 
                 const sideNumbersResponse = response.data.sideNumbers;
-                console.log('sideNumbersResponse: ' + sideNumbersResponse);
                 setSideNumbers(sideNumbersResponse);
             } catch (error) {
                 console.error('Error fetching data:', error);

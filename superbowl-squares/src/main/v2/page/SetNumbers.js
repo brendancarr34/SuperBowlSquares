@@ -4,47 +4,47 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import { useNavigate, useLocation } from "react-router-dom";
+import NumberInputBoxes from '../component/NumberInputBoxes';
 
-export function SetNumbersAndTeams() {
+export function SetNumbers() {
 
     const location = useLocation();
     let groupName =  location.state.groupName;
-
-    let navigate = useNavigate(); 
-    const handleSetNumbers = () => {
-        navigate('/set-numbers', { 
-            replace: true, 
-            state: {
-                groupName: groupName
-            } 
-        });
-    }
 
     return (
         <Container>
             <Row style={fullHeight()}>
                 <Col style={center()}>
-                    <Row style={center()}>
-                        <h1>
-                            SetNumbersAndTeams
-                        </h1>
-                        <p>
-                            group: {groupName}
-                        </p>
-                    </Row>
                     <Row>
                         <Col>
-                            <Button style={blackButton()}>
-                                Set Teams
-                            </Button>
+                            <h1>
+                                Set Numbers
+                            </h1>
+                            <p>
+                                group: {groupName}
+                            </p>
+                            <br/>
+                            <br/>
+                            <h6>
+                                Top Numbers
+                            </h6>
+                            <NumberInputBoxes/>
+                            <br/>
+                            <br/>
+                            <h6>
+                                Side Numbers
+                            </h6>
+                            <NumberInputBoxes/>
                         </Col>
                     </Row>
                     <Row>
                         <br/>
+                        <br/>
+                        <br/>
                     </Row>
                     <Row>
                         <Col>
-                            <Button style={blackButton()} onClick={handleSetNumbers}>
+                            <Button style={blackButton()}>
                                 Set Numbers
                             </Button>
                         </Col>
@@ -66,7 +66,7 @@ export function SetNumbersAndTeams() {
     function center() {
         return {
             textAlign:'center',
-            height: '30vh'
+            // height: '30vh'
         }
     }
 

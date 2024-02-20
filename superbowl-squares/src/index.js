@@ -10,6 +10,7 @@ import { JoinGroup } from './main/v2/page/JoinGroup.js';
 import { NotFound } from './main/v2/page/NotFound.js';
 import { EditBoard5 } from './main/v2/page/EditBoard5.js';
 import { SetNumbersAndTeams } from './main/v2/page/SetNumbersAndTeams.js';
+import { SetNumbers } from './main/v2/page/SetNumbers.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -25,6 +26,7 @@ root.render(
                 <Route path='/claim-squares' element={<EditBoard5 />} />
                 <Route path="/*" element={<NotFound />} />
                 <Route path='/set-number-and-teams' element={<SetNumbersAndTeams />} />
+                <Route path='/set-numbers' element={<SetNumbers/>} />
             </Routes>
         </BrowserRouter>
     </React.StrictMode>

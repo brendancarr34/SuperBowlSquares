@@ -72,8 +72,13 @@ export function CreateGroup() {
             players: [],
             allSquaresClaimed: false,
             numbersSet: false,
+            teamsSet: false,
             topNumbers: emptyTopNumbers,
-            sideNumbers: emptySideNumbers
+            sideNumbers: emptySideNumbers,
+            teams: {
+                top: '',
+                side: ''
+            }
           });
           setError(null);
           navigate('/super-bowl-squares', {state: { groupName: groupName }});
