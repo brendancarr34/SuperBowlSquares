@@ -89,12 +89,17 @@ export function ViewBoard3() {
         navigate('/claim-squares', { replace: true, state: {
             groupName: groupName
         } });
-    }  
+    }
+
+    const setNumbersAndTeams = () => {
+        navigate('/set-number-and-teams', { replace: true, state: {
+            groupName: groupName
+        } });
+    }
 
     const [selectedOption, setSelectedOption] = useState("none");
 
     const handleInitialSelect = selectedOption => {
-        console.log('selected option: ' + selectedOption.value)
         setSelectedOption(selectedOption.value);
     }
 
@@ -155,8 +160,8 @@ export function ViewBoard3() {
                                             Claim Squares
                                         </Button>
                                         : 
-                                        <Button style={black()} onClick={claimSquares}>
-                                            Set Board Numbers
+                                        <Button style={black()} onClick={setNumbersAndTeams}>
+                                            Set Numbers & Teams
                                         </Button>
                                 }
                             </Row>
