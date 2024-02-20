@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { empty_row, emptyNameRow } from "../data/EmptyBoardData";
+import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, sideNumbers, topNumbers } from "../data/EmptyBoardData";
 import '../style/Button.css'
 
 function generateUUID() {
@@ -71,7 +71,9 @@ export function CreateGroup() {
             },
             players: [],
             allSquaresClaimed: false,
-            numbersSet: false
+            numbersSet: false,
+            topNumbers: emptyTopNumbers,
+            sideNumbers: emptySideNumbers
           });
           setError(null);
           navigate('/super-bowl-squares', {state: { groupName: groupName }});

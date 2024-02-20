@@ -1,5 +1,5 @@
-export const topNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
-export const sideNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
+export const emptyTopNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
+export const emptySideNumbers = ['?', '?', '?', '?', '?', '?', '?', '?', '?', '?'];
 export const empty_row = [
     false, false, false, false,false, 
     false, false, false,false, false,

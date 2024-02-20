@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Select from 'react-select'
 import { ViewBoardRow3 } from '../component/row/ViewBoardRow3.js';
 import { NumberRow } from '../component/row/NumberRow.js';
-import { topNumbers, sideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
+import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 import axios from 'axios';
 
 export function ViewBoard3() {
@@ -16,67 +16,74 @@ export function ViewBoard3() {
     const location = useLocation();
     let groupName = location.state.groupName;
 
-    // const [data, setData] = useState(null);
     const [gameNameData, setGameNameData] = useState(emptyNameBoard);
     const [gameData, setGameData] = useState(emptyBoard);
     let [players, setPlayers] = useState({});
     const [selectOptions, setSelectOptions] = useState([]);
     const [allSquaresClaimed, setAllSquaresClaimed] = useState(false);
+    const [topNumbers, setTopNumbers] = useState(emptyTopNumbers);
+    const [sideNumbers, setSideNumbers] = useState([]);
 
     useEffect(() => {
         // Function to fetch data from the API
         const fetchData = async () => {
-        try {
-            // const response = await axios.get('http://localhost:3001/api/game/' + groupName);
-            const response = await axios.get('http://10.0.0.65:3001/api/game/' + groupName);
+            try {
+                // const response = await axios.get('http://localhost:3001/api/game/' + groupName);
+                const response = await axios.get('http://10.0.0.65:3001/api/game/' + groupName);
 
-            // setData(response.data);
+                var gameRows = [];
+                gameRows.push(response.data.gameData.row0);
+                gameRows.push(response.data.gameData.row1);
+                gameRows.push(response.data.gameData.row2);
+                gameRows.push(response.data.gameData.row3);
+                gameRows.push(response.data.gameData.row4);
+                gameRows.push(response.data.gameData.row5);
+                gameRows.push(response.data.gameData.row6);
+                gameRows.push(response.data.gameData.row7);
+                gameRows.push(response.data.gameData.row8);
+                gameRows.push(response.data.gameData.row9);
+                setGameData(gameRows);
 
-            var gameRows = [];
-            gameRows.push(response.data.gameData.row0);
-            gameRows.push(response.data.gameData.row1);
-            gameRows.push(response.data.gameData.row2);
-            gameRows.push(response.data.gameData.row3);
-            gameRows.push(response.data.gameData.row4);
-            gameRows.push(response.data.gameData.row5);
-            gameRows.push(response.data.gameData.row6);
-            gameRows.push(response.data.gameData.row7);
-            gameRows.push(response.data.gameData.row8);
-            gameRows.push(response.data.gameData.row9);
-            setGameData(gameRows);
+                var gameNameRows = [];
+                gameNameRows.push(response.data.gameData.row0_players)
+                gameNameRows.push(response.data.gameData.row1_players)
+                gameNameRows.push(response.data.gameData.row2_players)
+                gameNameRows.push(response.data.gameData.row3_players)
+                gameNameRows.push(response.data.gameData.row4_players)
+                gameNameRows.push(response.data.gameData.row5_players)
+                gameNameRows.push(response.data.gameData.row6_players)
+                gameNameRows.push(response.data.gameData.row7_players)
+                gameNameRows.push(response.data.gameData.row8_players)
+                gameNameRows.push(response.data.gameData.row9_players)
+                setGameNameData(gameNameRows);
 
-            var gameNameRows = [];
-            gameNameRows.push(response.data.gameData.row0_players)
-            gameNameRows.push(response.data.gameData.row1_players)
-            gameNameRows.push(response.data.gameData.row2_players)
-            gameNameRows.push(response.data.gameData.row3_players)
-            gameNameRows.push(response.data.gameData.row4_players)
-            gameNameRows.push(response.data.gameData.row5_players)
-            gameNameRows.push(response.data.gameData.row6_players)
-            gameNameRows.push(response.data.gameData.row7_players)
-            gameNameRows.push(response.data.gameData.row8_players)
-            gameNameRows.push(response.data.gameData.row9_players)
-            setGameNameData(gameNameRows);
+                const playerData = response.data.players;
+                
+                const initialsMap = {};
+                const options = [{value: 'none', label: 'none'}];
+                playerData.forEach(map => {
+                    // Extract 'initials' and 'playerName' from each map
+                    const { initials, playerName } = map;
+                    // Add the entry to the initialsMap
+                    initialsMap[initials] = playerName;
+                    options.push({value: initials, label: `${initials} - ${playerName}`});
+                });
+                setPlayers(initialsMap);
+                setSelectOptions(options);
 
-            const playerData = response.data.players;
-            
-            const initialsMap = {};
-            const options = [];
-            playerData.forEach(map => {
-                // Extract 'initials' and 'playerName' from each map
-                const { initials, playerName } = map;
-                // Add the entry to the initialsMap
-                initialsMap[initials] = playerName;
-                options.push({value: initials, label: `${initials} - ${playerName}`});
-            });
-            setPlayers(initialsMap);
-            setSelectOptions(options);
+                const allSquaresClaimedResponse = response.data.allSquaresClaimed;
+                setAllSquaresClaimed(allSquaresClaimedResponse);
 
-            const allSquaresClaimedResponse = response.data.allSquaresClaimed;
-            setAllSquaresClaimed(allSquaresClaimedResponse);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+                const topNumbersResponse = response.data.topNumbers;
+                console.log('topNumbersResponse: ' + topNumbersResponse);
+                setTopNumbers(topNumbersResponse);
+
+                const sideNumbersResponse = response.data.sideNumbers;
+                console.log('sideNumbersResponse: ' + sideNumbersResponse);
+                setSideNumbers(sideNumbersResponse);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
         };
 
         // Call the fetch function
@@ -86,15 +93,21 @@ export function ViewBoard3() {
 
     let navigate = useNavigate();
     const claimSquares = () => { 
-        navigate('/claim-squares', { replace: true, state: {
-            groupName: groupName
-        } });
+        navigate('/claim-squares', { 
+            replace: true, 
+            state: {
+                groupName: groupName
+            } 
+        });
     }
 
     const setNumbersAndTeams = () => {
-        navigate('/set-number-and-teams', { replace: true, state: {
-            groupName: groupName
-        } });
+        navigate('/set-number-and-teams', { 
+            replace: true, 
+            state: {
+                groupName: groupName
+            } 
+        });
     }
 
     const [selectedOption, setSelectedOption] = useState("none");
