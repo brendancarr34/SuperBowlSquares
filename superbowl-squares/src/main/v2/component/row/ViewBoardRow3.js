@@ -10,7 +10,7 @@ export function ViewBoardRow3(props) {
     const selectedOption = props.selectedOption;
     const allSquaresClaimed = props.allSquaresClaimed;
 
-    console.log('ViewBoardRow3 allSquaresClaimed: ' + allSquaresClaimed);
+    // console.log('ViewBoardRow3 allSquaresClaimed: ' + allSquaresClaimed);
 
     return (
         <tr style={viewBoardRowStyle()}>

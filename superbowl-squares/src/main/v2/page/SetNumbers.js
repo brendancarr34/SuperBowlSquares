@@ -25,16 +25,8 @@ export function SetNumbers() {
                             </p>
                             <br/>
                             <br/>
-                            <h6>
-                                Top Numbers
-                            </h6>
                             <NumberInputBoxes/>
                             <br/>
-                            <br/>
-                            <h6>
-                                Side Numbers
-                            </h6>
-                            <NumberInputBoxes/>
                         </Col>
                     </Row>
                     <Row>

@@ -11,7 +11,7 @@ export function ViewBoardButton3(props) {
  
     const hoverName = playerNames[text];
 
-    console.log('ViewBoardButton3 allSquaresClaimed: ' + allSquaresClaimed);
+    // console.log('ViewBoardButton3 allSquaresClaimed: ' + allSquaresClaimed);
 
     return (
         <div className="button-container">
