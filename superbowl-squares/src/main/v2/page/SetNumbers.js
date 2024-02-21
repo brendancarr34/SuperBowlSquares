@@ -1,12 +1,13 @@
-// SetNumbers.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import { useNavigate, useLocation } from "react-router-dom";
 import NumberInputBoxes from '../component/NumberInputBoxes';
 import axios from 'axios';
+import { emptyTopNumbers } from '../data/EmptyBoardData';
 
 export function SetNumbers() {
     const location = useLocation();
@@ -18,6 +19,31 @@ export function SetNumbers() {
         inputsTop: Array(10).fill(''),
         inputsBottom: Array(10).fill('')
     });
+
+    useEffect(() => {
+        // Function to fetch data from the API
+        const fetchData = async () => {
+            try {
+                // const response = await axios.get('http://localhost:3001/api/game/' + groupName);
+                const response = await axios.get('http://10.0.0.65:3001/api/game/' + groupName);
+                if (response.data.topNumbers != emptyTopNumbers && response.data.sideNumbers != emptyTopNumbers) {
+                    setInputsState({
+                        inputsTop: response.data.topNumbers, 
+                        inputsBottom: response.data.sideNumbers
+                    });
+                }
+            }
+            catch (error) {
+
+            }
+        }
+
+        fetchData();
+    }, []);
+
+    // State for modal visibility and error message
+    const [showModal, setShowModal] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     // Function to handle input changes
     const handleInputChange = (inputs) => {
@@ -37,16 +63,29 @@ export function SetNumbers() {
         } catch (error) {
             console.error('Error fetching data:', error);
             if (error.response != null) {
-              console.log(error.response.data.error);
-            //   setError(error.response.data.error);
-            } else if (error.code == 'ERR_NETWORK') {
-                console.log('Network Error');
-            //   setError('Network Error');
+                const errorMessage = error.response.data.message;
+                setErrorMessage(errorMessage);
+                setShowModal(true);
+            } else if (error.code === 'ERR_NETWORK') {
+                setErrorMessage('Network Error');
+                setShowModal(true);
             } else {
-                console.log('Unknown Error');
-            //   setError('Unknown Error');
+                setErrorMessage('Unknown Error');
+                setShowModal(true);
             }
         }
+    };
+
+    const handleGoBackClick = () => {
+        navigate('/super-bowl-squares', {
+            replace: true,
+            state: { groupName: groupName }
+          });
+    }
+
+    // Function to close the modal
+    const handleCloseModal = () => {
+        setShowModal(false);
     };
 
     return (
@@ -60,7 +99,7 @@ export function SetNumbers() {
                             <br/>
                             <br/>
                             {/* Pass handleInputChange function as a prop */}
-                            <NumberInputBoxes onInputChange={handleInputChange} />
+                            <NumberInputBoxes onInputChange={handleInputChange} inputsTop={inputsState.inputsTop} inputsBottom={inputsState.inputsBottom}/>
                             <br/>
                         </Col>
                     </Row>
@@ -77,12 +116,33 @@ export function SetNumbers() {
                             </Button>
                         </Col>
                     </Row>
+                    <Row>
+                        <br/>
+                    </Row>
+                    <Row>
+                        <Col>
+                            {/* Attach event handler to the button */}
+                            <Button style={blackButton()} onClick={handleGoBackClick}>
+                                Go Back
+                            </Button>
+                        </Col>
+                    </Row>
                 </Col>
             </Row>
+            {/* Modal */}
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Error</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{errorMessage}</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     )
-
-    // Remaining functions remain the same
 }
 
 function fullHeight() {

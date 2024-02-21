@@ -1,9 +1,11 @@
 // NumberInputBoxes.js
 import React, { useState } from 'react';
 
-function NumberInputBoxes({ onInputChange }) {
-  const [inputsTop, setInputsTop] = useState(Array(10).fill(''));
-  const [inputsBottom, setInputsBottom] = useState(Array(10).fill(''));
+function NumberInputBoxes(props) {
+  const [inputsTop, setInputsTop] = useState(props.inputsTop);
+  const [inputsBottom, setInputsBottom] = useState(props.inputsBottom);
+
+  const onInputChange = props.onInputChange;
 
   const handleInputChangeTop = (index, value) => {
     if (value.length > 1 || isNaN(value)) return; // Allow only one digit
