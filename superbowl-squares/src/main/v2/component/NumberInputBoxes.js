@@ -1,6 +1,7 @@
+// NumberInputBoxes.js
 import React, { useState } from 'react';
 
-function NumberInputBoxes() {
+function NumberInputBoxes({ onInputChange }) {
   const [inputsTop, setInputsTop] = useState(Array(10).fill(''));
   const [inputsBottom, setInputsBottom] = useState(Array(10).fill(''));
 
@@ -10,6 +11,7 @@ function NumberInputBoxes() {
     const newInputsTop = [...inputsTop];
     newInputsTop[index] = value;
     setInputsTop(newInputsTop);
+    onInputChange({ inputsTop: newInputsTop, inputsBottom });
 
     // Move focus to the next input box
     if (index < 9 && value !== '') {
@@ -23,6 +25,7 @@ function NumberInputBoxes() {
     const newInputsBottom = [...inputsBottom];
     newInputsBottom[index] = value;
     setInputsBottom(newInputsBottom);
+    onInputChange({ inputsTop, inputsBottom: newInputsBottom });
 
     // Move focus to the next input box
     if (index < 9 && value !== '') {
@@ -61,7 +64,7 @@ function NumberInputBoxes() {
         ))}
       </div>
       <br/>
-      <h4>Side Numbers</h4>
+      <h4>Left-Side Numbers</h4>
       <div>
         {inputsBottom.map((value, index) => (
           <input
