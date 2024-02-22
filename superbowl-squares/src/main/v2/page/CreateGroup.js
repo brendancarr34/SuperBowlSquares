@@ -81,7 +81,8 @@ export function CreateGroup() {
             }
           });
           setError(null);
-          navigate('/super-bowl-squares', {state: { groupName: groupName }});
+        //   navigate('/super-bowl-squares', {state: { groupName: groupName }});
+        navigate('/create-group-preferences', {state: { groupName: groupName }});
         } catch (error) {
           console.error('Error fetching data:', error);
           if (error.response != null) {
@@ -133,7 +134,7 @@ export function CreateGroup() {
                 <Row>
                     <Col style={center()}>
                         <Button style={blackButton()} onClick={handleButtonClick}>
-                                Start a New Game
+                            Next
                         </Button>
                     </Col>
                     {error && (

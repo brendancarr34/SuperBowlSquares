@@ -7,8 +7,11 @@ export function ViewBoardButton3(props) {
     const text = props.text;
     const playerNames = props.playerNames;
     const selectedOption = props.selectedOption;
+    const allSquaresClaimed = props.allSquaresClaimed;
  
     const hoverName = playerNames[text];
+
+    // console.log('ViewBoardButton3 allSquaresClaimed: ' + allSquaresClaimed);
 
     return (
         <div className="button-container">
@@ -22,7 +25,7 @@ export function ViewBoardButton3(props) {
 
     function viewBoardButtonStyle() {  
         return {
-            backgroundColor: (text == selectedOption) ? 'green' : active ? "red" : "white" ,
+            backgroundColor: (text == selectedOption) ? 'green' : allSquaresClaimed ? 'white' : active ? "red" : "white" ,
             color: active ? "black" : "white",
             fontSize: 13,
             padding: 0,

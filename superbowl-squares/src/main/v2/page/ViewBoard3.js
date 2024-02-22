@@ -18,11 +18,11 @@ export function ViewBoard3() {
 
     const [gameNameData, setGameNameData] = useState(emptyNameBoard);
     const [gameData, setGameData] = useState(emptyBoard);
-    let [players, setPlayers] = useState({});
+    const [players, setPlayers] = useState({});
     const [selectOptions, setSelectOptions] = useState([]);
     const [allSquaresClaimed, setAllSquaresClaimed] = useState(false);
     const [topNumbers, setTopNumbers] = useState(emptyTopNumbers);
-    const [sideNumbers, setSideNumbers] = useState([]);
+    const [sideNumbers, setSideNumbers] = useState(emptySideNumbers);
 
     useEffect(() => {
         // Function to fetch data from the API
@@ -117,9 +117,7 @@ export function ViewBoard3() {
     return (
         <Container>
             <Row style={fullHeight()}>
-                <Row>
-                    <br/>
-                </Row>
+                <Row/>
                 <Row>
                     <Col style={center()}>
                         <h1 style={{'padding':15}}>Super Bowl Squares</h1>
@@ -134,16 +132,16 @@ export function ViewBoard3() {
                                 <Table style={{'padding':0, 'margin':0}}>
                                     <tbody>
                                         <NumberRow numbers={topNumbers}/>
-                                        <ViewBoardRow3 number={sideNumbers[0]} active={gameData[0]} text={gameNameData[0]} playerNames={players} selectedOption={selectedOption}/>
-                                        <ViewBoardRow3 number={sideNumbers[1]} active={gameData[1]} text={gameNameData[1]} playerNames={players} selectedOption={selectedOption}/>
-                                        <ViewBoardRow3 number={sideNumbers[2]} active={gameData[2]} text={gameNameData[2]} playerNames={players} selectedOption={selectedOption}/>
-                                        <ViewBoardRow3 number={sideNumbers[3]} active={gameData[3]} text={gameNameData[3]} playerNames={players} selectedOption={selectedOption}/>
-                                        <ViewBoardRow3 number={sideNumbers[4]} active={gameData[4]} text={gameNameData[4]} playerNames={players} selectedOption={selectedOption}/>
-                                        <ViewBoardRow3 number={sideNumbers[5]} active={gameData[5]} text={gameNameData[5]} playerNames={players} selectedOption={selectedOption}/>
-                                        <ViewBoardRow3 number={sideNumbers[6]} active={gameData[6]} text={gameNameData[6]} playerNames={players} selectedOption={selectedOption}/>
-                                        <ViewBoardRow3 number={sideNumbers[7]} active={gameData[7]} text={gameNameData[7]} playerNames={players} selectedOption={selectedOption}/>
-                                        <ViewBoardRow3 number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]} playerNames={players} selectedOption={selectedOption}/>
-                                        <ViewBoardRow3 number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]} playerNames={players} selectedOption={selectedOption}/>
+                                        <ViewBoardRow3 number={sideNumbers[0]} active={gameData[0]} text={gameNameData[0]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                        <ViewBoardRow3 number={sideNumbers[1]} active={gameData[1]} text={gameNameData[1]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                        <ViewBoardRow3 number={sideNumbers[2]} active={gameData[2]} text={gameNameData[2]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                        <ViewBoardRow3 number={sideNumbers[3]} active={gameData[3]} text={gameNameData[3]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                        <ViewBoardRow3 number={sideNumbers[4]} active={gameData[4]} text={gameNameData[4]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                        <ViewBoardRow3 number={sideNumbers[5]} active={gameData[5]} text={gameNameData[5]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                        <ViewBoardRow3 number={sideNumbers[6]} active={gameData[6]} text={gameNameData[6]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                        <ViewBoardRow3 number={sideNumbers[7]} active={gameData[7]} text={gameNameData[7]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                        <ViewBoardRow3 number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                        <ViewBoardRow3 number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
                                     </tbody>
                                 </Table>
                             </Row>
@@ -158,9 +156,9 @@ export function ViewBoard3() {
                                         />
                                     </Row>
                                 </Col>
-                                <Col style={center2()}>
+                                <Col style={center()}>
                                     <Row style={center2()}>
-                                        <p style={center2()}>Group Name: {groupName}</p>
+                                        <p>Group Name: {groupName}</p>
                                     </Row>
                                 </Col>
                             </Row>
