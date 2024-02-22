@@ -11,6 +11,7 @@ import { NotFound } from './main/v2/page/NotFound.js';
 import { EditBoard5 } from './main/v2/page/EditBoard5.js';
 import { SetNumbersAndTeams } from './main/v2/page/SetNumbersAndTeams.js';
 import { SetNumbers } from './main/v2/page/SetNumbers.js';
+import { CreateGroupPreferences } from './main/v2/page/CreateGroupPreferences.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -22,6 +23,7 @@ root.render(
                 <Route path="/super-bowl-squares" element={<ViewBoard3 />} />
                 <Route path="/v1" element={<Grid />} />
                 <Route path="/create-group" element={<CreateGroup />} />
+                <Route path="/create-group-preferences" element={<CreateGroupPreferences/>} />
                 <Route path="/join-group" element={<JoinGroup />} />
                 <Route path='/claim-squares' element={<EditBoard5 />} />
                 <Route path="/*" element={<NotFound />} />

@@ -18,11 +18,11 @@ export function ViewBoard3() {
 
     const [gameNameData, setGameNameData] = useState(emptyNameBoard);
     const [gameData, setGameData] = useState(emptyBoard);
-    let [players, setPlayers] = useState({});
+    const [players, setPlayers] = useState({});
     const [selectOptions, setSelectOptions] = useState([]);
     const [allSquaresClaimed, setAllSquaresClaimed] = useState(false);
     const [topNumbers, setTopNumbers] = useState(emptyTopNumbers);
-    const [sideNumbers, setSideNumbers] = useState([]);
+    const [sideNumbers, setSideNumbers] = useState(emptySideNumbers);
 
     useEffect(() => {
         // Function to fetch data from the API
@@ -72,9 +72,7 @@ export function ViewBoard3() {
                 setSelectOptions(options);
 
                 const allSquaresClaimedResponse = response.data.allSquaresClaimed;
-                console.log('allSquaresClaimedResponse: ' + allSquaresClaimedResponse);
                 setAllSquaresClaimed(allSquaresClaimedResponse);
-                console.log('allSquaresClaimed: ' + allSquaresClaimed);
 
                 const topNumbersResponse = response.data.topNumbers;
                 setTopNumbers(topNumbersResponse);
@@ -119,9 +117,7 @@ export function ViewBoard3() {
     return (
         <Container>
             <Row style={fullHeight()}>
-                <Row>
-                    <br/>
-                </Row>
+                <Row/>
                 <Row>
                     <Col style={center()}>
                         <h1 style={{'padding':15}}>Super Bowl Squares</h1>
@@ -160,9 +156,9 @@ export function ViewBoard3() {
                                         />
                                     </Row>
                                 </Col>
-                                <Col style={center2()}>
+                                <Col style={center()}>
                                     <Row style={center2()}>
-                                        <p style={center2()}>Group Name: {groupName}</p>
+                                        <p>Group Name: {groupName}</p>
                                     </Row>
                                 </Col>
                             </Row>

@@ -26,7 +26,7 @@ export function SetNumbersAndTeams() {
                 <Col style={center()}>
                     <Row style={center()}>
                         <h1>
-                            SetNumbersAndTeams
+                            Set Numbers & Teams
                         </h1>
                         <p>
                             group: {groupName}
