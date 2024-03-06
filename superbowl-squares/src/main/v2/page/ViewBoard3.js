@@ -163,8 +163,8 @@ export function ViewBoard3() {
                         </Col>
                     </Row>
                 </Row>
-                <Row>
-                    <Col>
+                <Row style={{'padding':0, 'margin':0}}>
+                    <Col style={{'padding':0, 'margin':0}}>
                         <Container>
                             <Row style={pad()}>
                                 <Col style={{'padding':0, 'margin':0}}>
@@ -178,7 +178,7 @@ export function ViewBoard3() {
                                 </Col>
                                 <Col style={center()}>
                                     <Row style={center()}>
-                                        <p>Group Name: {groupName}</p>
+                                        <p style={center()}>Group Name: {groupName}</p>
                                     </Row>
                                 </Col>
                             </Row>
