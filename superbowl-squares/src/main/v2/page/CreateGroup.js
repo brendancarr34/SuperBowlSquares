@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, sideNumbers, topNumbers } from "../data/EmptyBoardData";
 import '../style/Button.css'
+import { host } from '../../../config';
 
 function generateUUID() {
     var d = new Date().getTime();
@@ -42,7 +43,7 @@ export function CreateGroup() {
             }
 
           // Make the API call using Axios
-          const url = 'http://10.0.0.65:3001/api/group/add/' + groupName
+          const url = 'http://' + host + ':3001/api/group/add/' + groupName
           // TODO - handle error when unable to make API call
           const response = await axios.post(url, {
             name: groupName,
@@ -81,8 +82,9 @@ export function CreateGroup() {
             }
           });
           setError(null);
-        //   navigate('/super-bowl-squares', {state: { groupName: groupName }});
-        navigate('/create-group-preferences', {state: { groupName: groupName }});
+          console.log("test");
+          navigate('/super-bowl-squares', {state: { groupName: groupName }});
+        // navigate('/create-group-preferences', {state: { groupName: groupName }});
         } catch (error) {
           console.error('Error fetching data:', error);
           if (error.response != null) {

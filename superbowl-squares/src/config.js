@@ -1,0 +1,1 @@
+export const host = '10.0.0.64';

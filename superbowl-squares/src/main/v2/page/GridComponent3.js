@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { MDBBtn } from "mdb-react-ui-kit";
 import '../style/Button.css';
 import axios from 'axios';
+import { host } from '../../../config';
 
 const GridComponent3 = (props) => {
   const { groupId, setClickedButtons, clickedButtons } = props;
@@ -18,7 +19,7 @@ const GridComponent3 = (props) => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://10.0.0.65:3001/api/game/${groupId}`);
+      const response = await axios.get(`http://${host}:3001/api/game/${groupId}`);
       const gameRows = [
         response.data.gameData.row0, response.data.gameData.row1,
         response.data.gameData.row2, response.data.gameData.row3,

@@ -14,6 +14,7 @@ import { readGameData } from '../hook/readGameDataHook.js';
 import axios from 'axios';
 import GridComponent from './GridComponent.js';
 import GridComponent2 from './GridComponent2.js';
+import { host } from '../../../config';
 
 export function EditBoard() {
 
@@ -37,7 +38,7 @@ export function EditBoard() {
         // Function to fetch data from the API
         const fetchData = async () => {
         try {
-            const response = await axios.get('http://10.0.0.65:3001/api/game/brendan1');
+            const response = await axios.get('http://' + host + ':3001/api/game/brendan1');
 
             // setData(response.data);
 
@@ -83,7 +84,7 @@ export function EditBoard() {
     const claimSquares = async () => {
         try {
             console.log('active button data: ' + activeButtonData);
-            const response = await axios.post('http://10.0.0.65:3001/api/game/claimSquares/brendan1', {
+            const response = await axios.post('http://' + host + ':3001/api/game/claimSquares/brendan1', {
                 activeButtonData: activeButtonData, 
                 initials: playerInitials,
                 name: playerName

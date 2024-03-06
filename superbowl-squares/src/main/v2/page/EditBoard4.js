@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal'; // Import Modal
 import axios from 'axios';
 import GridComponent3 from './GridComponent3';
+import { host } from '../../../config';
 
 export function EditBoard4() {
   const location = useLocation();
@@ -51,7 +52,7 @@ export function EditBoard4() {
       // }
 
       if (clickedButtons.length > 0) {
-        const response = await axios.post(`http://10.0.0.65:3001/api/game/api/validateAndClaimSquaresV3/${groupName}`, { maps: clickedButtons, initials: playerInitials, playerName: playerName });
+        const response = await axios.post(`http://${host}:3001/api/game/api/validateAndClaimSquaresV3/${groupName}`, { maps: clickedButtons, initials: playerInitials, playerName: playerName });
 
         console.log('Submit successful:', response.data);
       }

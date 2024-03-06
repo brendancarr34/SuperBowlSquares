@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import GridComponent2 from './GridComponent2';
+import { host } from '../../../config';
 
 export function EditBoard2() {
   const location = useLocation();
@@ -36,7 +37,7 @@ export function EditBoard2() {
       console.log('Submit button clicked');
       console.log('Clicked buttons:', clickedButtons);
 
-      const response = await axios.post(`http://10.0.0.65:3001/api/game/api/validateAndClaimSquares/${groupName}`, { maps: clickedButtons });
+      const response = await axios.post(`http://${host}:3001/api/game/api/validateAndClaimSquares/${groupName}`, { maps: clickedButtons });
 
       console.log('Submit successful:', response.data);
 

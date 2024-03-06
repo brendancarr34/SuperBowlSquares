@@ -10,6 +10,7 @@ import { ViewBoardRow3 } from '../component/row/ViewBoardRow3.js';
 import { NumberRow } from '../component/row/NumberRow.js';
 import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 import axios from 'axios';
+import { host } from '../../../config';
 
 export function ViewBoard3() {
 
@@ -29,7 +30,7 @@ export function ViewBoard3() {
         const fetchData = async () => {
             try {
                 // const response = await axios.get('http://localhost:3001/api/game/' + groupName);
-                const response = await axios.get('http://10.0.0.65:3001/api/game/' + groupName);
+                const response = await axios.get('http://' + host + ':3001/api/game/' + groupName);
 
                 var gameRows = [];
                 gameRows.push(response.data.gameData.row0);
@@ -117,35 +118,48 @@ export function ViewBoard3() {
     return (
         <Container>
             <Row style={fullHeight()}>
-                <Row/>
                 <Row>
-                    <Col style={center()}>
+                    <Col xs={12} style={center()}>
                         <h1 style={{'padding':15}}>Super Bowl Squares</h1>
                     </Col>
                 </Row>
+                <Row style={center()}>
+                    <Row style={center2()}>
+                        <Col xs={12} style={center()}>
+                            <p style={{'padding':3, 'margin':3, transform: 'translateX(20px)', // TODO
+            transformOrigin: 'center', }}>San Francisco Forty-Niners</p>
+                        </Col>
+                    </Row>
+                    <Row style={center2()}>
+                        <Col xs={1} >
+                            <p style={center4()}>Kansas City Chiefs</p>
+                        </Col>
+                        <Col xs={11} style={center2()}>
+                            <Container style={{'padding':0, 'margin':0}}>
+                                <Row style={gray()}>
+                                    <Table style={{'padding':0, 'margin':0}}>
+                                        <tbody>
+                                            <NumberRow numbers={topNumbers}/>
+                                            <ViewBoardRow3 number={sideNumbers[0]} active={gameData[0]} text={gameNameData[0]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                            <ViewBoardRow3 number={sideNumbers[1]} active={gameData[1]} text={gameNameData[1]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                            <ViewBoardRow3 number={sideNumbers[2]} active={gameData[2]} text={gameNameData[2]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                            <ViewBoardRow3 number={sideNumbers[3]} active={gameData[3]} text={gameNameData[3]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                            <ViewBoardRow3 number={sideNumbers[4]} active={gameData[4]} text={gameNameData[4]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                            <ViewBoardRow3 number={sideNumbers[5]} active={gameData[5]} text={gameNameData[5]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                            <ViewBoardRow3 number={sideNumbers[6]} active={gameData[6]} text={gameNameData[6]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                            <ViewBoardRow3 number={sideNumbers[7]} active={gameData[7]} text={gameNameData[7]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                            <ViewBoardRow3 number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                            <ViewBoardRow3 number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                        </tbody>
+                                    </Table>
+                                </Row>
+                            </Container>
+                        </Col>
+                    </Row>
+                </Row>
                 <Row>
-                    <Col/>
-                    <Col/>
-                    <Col >
-                        <Container style={{'padding':0, 'margin':0}}>
-                            <Row style={gray()}>
-                                <Table style={{'padding':0, 'margin':0}}>
-                                    <tbody>
-                                        <NumberRow numbers={topNumbers}/>
-                                        <ViewBoardRow3 number={sideNumbers[0]} active={gameData[0]} text={gameNameData[0]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                        <ViewBoardRow3 number={sideNumbers[1]} active={gameData[1]} text={gameNameData[1]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                        <ViewBoardRow3 number={sideNumbers[2]} active={gameData[2]} text={gameNameData[2]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                        <ViewBoardRow3 number={sideNumbers[3]} active={gameData[3]} text={gameNameData[3]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                        <ViewBoardRow3 number={sideNumbers[4]} active={gameData[4]} text={gameNameData[4]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                        <ViewBoardRow3 number={sideNumbers[5]} active={gameData[5]} text={gameNameData[5]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                        <ViewBoardRow3 number={sideNumbers[6]} active={gameData[6]} text={gameNameData[6]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                        <ViewBoardRow3 number={sideNumbers[7]} active={gameData[7]} text={gameNameData[7]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                        <ViewBoardRow3 number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                        <ViewBoardRow3 number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                    </tbody>
-                                </Table>
-                            </Row>
-
+                    <Col>
+                        <Container>
                             <Row style={pad()}>
                                 <Col style={{'padding':0, 'margin':0}}>
                                     <Row style={{'padding':0, 'margin':0}}>
@@ -157,7 +171,7 @@ export function ViewBoard3() {
                                     </Row>
                                 </Col>
                                 <Col style={center()}>
-                                    <Row style={center2()}>
+                                    <Row style={center()}>
                                         <p>Group Name: {groupName}</p>
                                     </Row>
                                 </Col>
@@ -176,8 +190,6 @@ export function ViewBoard3() {
                             </Row>
                         </Container>
                     </Col>
-                    <Col/>
-                    <Col/>
                 </Row>
             </Row>
         </Container>
@@ -189,6 +201,17 @@ export function ViewBoard3() {
             justifyContent: 'center', 
             alignItems: 'center', 
             backgroundColor: 'gray', 
+            color: 'black',
+            padding: 15
+        }
+    }
+
+    function blue() {
+        return {
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            backgroundColor: 'blue', 
             color: 'black',
             padding: 15
         }
@@ -215,10 +238,43 @@ export function ViewBoard3() {
 
     function center2() {
         return {
+            display: 'flex', 
+            justifyContent: 'center',
+            textAlign: 'center',
+            alignItems: 'center',
+            padding:0,
+            margin:0,
+            flexWrap: 'nowrap'
+        }
+    }
+
+    function center3() {
+        return {
+            display: 'grid', 
+            gridTemplateColumns: '1fr',
             // display: 'flex', 
-            // justifyContent: 'center',
+            // justifyContent: 'flex-end',
             // textAlign: 'center',
-            // alignItems: 'center'
+            // alignItems: 'center',
+            padding:0,
+            margin:0
+        }
+    }
+
+    function center4() {
+        return {
+            // display: 'grid', 
+            // gridTemplateColumns: '1fr',
+            // justifySelf: 'end',
+            // justifyContent: 'flex-end',
+            // textAlign: 'center',
+            // alignItems: 'center',
+            padding:0,
+            margin:0,
+            transform: 'rotate(-90deg) translateX(-80px) translateY(-10px)', // TODO
+            transformOrigin: 'center', 
+            whiteSpace: 'nowrap', 
+            // flexWrap: 'nowrap'
         }
     }
     
@@ -236,7 +292,8 @@ export function ViewBoard3() {
             height: '85vh',
             display: 'flex', 
             justifyContent: 'center', 
-            alignItems: 'center'
+            alignItems: 'center',
+
         }
     }
 }

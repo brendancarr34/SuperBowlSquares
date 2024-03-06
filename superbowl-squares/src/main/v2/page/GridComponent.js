@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { host } from '../../../config';
 
 const GridComponent = () => {
   const [gridData, setGridData] = useState([]);
@@ -15,7 +16,7 @@ const GridComponent = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://10.0.0.65:3001/api/game/brendan12');
+      const response = await axios.get('http://' + host + ':3001/api/game/brendan12');
       const gameRows = [
         response.data.gameData.row0,
         response.data.gameData.row1,
@@ -63,7 +64,7 @@ const GridComponent = () => {
   };
 
   const handleSubmit = () => {
-    axios.post('http://10.0.0.65:3001/api/game/api/validateAndClaimSquares/brendan12', { maps: getClickedButtons() })
+    axios.post('http://' + host + ':3001/api/game/api/validateAndClaimSquares/brendan12', { maps: getClickedButtons() })
       .then(response => {
         console.log('Submit successful:', response);
       })

@@ -27,7 +27,7 @@ export function ViewBoard2() {
         const fetchData = async () => {
         try {
             // const response = await axios.get('http://localhost:3001/api/game/' + groupName);
-            const response = await axios.get('http://10.0.0.65:3001/api/game/' + groupName);
+            const response = await axios.get('http://' + host + ':3001/api/game/' + groupName);
 
             // setData(response.data);
 

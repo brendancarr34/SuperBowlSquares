@@ -8,6 +8,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import NumberInputBoxes from '../component/NumberInputBoxes';
 import axios from 'axios';
 import { emptyTopNumbers } from '../data/EmptyBoardData';
+import { host } from '../../../config';
 
 export function SetNumbers() {
     const location = useLocation();
@@ -25,7 +26,7 @@ export function SetNumbers() {
         const fetchData = async () => {
             try {
                 // const response = await axios.get('http://localhost:3001/api/game/' + groupName);
-                const response = await axios.get('http://10.0.0.65:3001/api/game/' + groupName);
+                const response = await axios.get('http://' + host + ':3001/api/game/' + groupName);
                 if (response.data.topNumbers != emptyTopNumbers && response.data.sideNumbers != emptyTopNumbers) {
                     setInputsState({
                         inputsTop: response.data.topNumbers, 
@@ -53,7 +54,7 @@ export function SetNumbers() {
     // Function to handle button click
     const handleSetNumbersClick = async () => {
         try {
-            await axios.post(`http://10.0.0.65:3001/api/game/api/setNumbers/${groupName}`, 
+            await axios.post(`http://${host}:3001/api/game/api/setNumbers/${groupName}`, 
                 { topNumbers: inputsState.inputsTop, sideNumbers: inputsState.inputsBottom });
 
             navigate('/super-bowl-squares', {
