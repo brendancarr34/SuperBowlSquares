@@ -50,7 +50,8 @@ export function NumberRow(props) {
             padding: 0,
             margin: 0,
             borderBottom: '1pt solid gray',
-            paddingBottom: '15px'
+            paddingBottom: '15px',
+            paddingTop: '15px'
         }
     }
 }

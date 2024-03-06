@@ -11,6 +11,7 @@ import { NumberRow } from '../component/row/NumberRow.js';
 import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 import axios from 'axios';
 import { host } from '../../../config';
+import { VerticalTextComponent } from './VerticalTextComponent.js';
 
 export function ViewBoard3() {
 
@@ -24,6 +25,8 @@ export function ViewBoard3() {
     const [allSquaresClaimed, setAllSquaresClaimed] = useState(false);
     const [topNumbers, setTopNumbers] = useState(emptyTopNumbers);
     const [sideNumbers, setSideNumbers] = useState(emptySideNumbers);
+
+    const [sideTeam, setSideTeam] = useState('test');
 
     useEffect(() => {
         // Function to fetch data from the API
@@ -124,15 +127,18 @@ export function ViewBoard3() {
                     </Col>
                 </Row>
                 <Row style={center()}>
-                    <Row style={center2()}>
-                        <Col xs={12} style={center()}>
-                            <p style={{'padding':3, 'margin':3, transform: 'translateX(20px)', // TODO
-            transformOrigin: 'center', }}>San Francisco Forty-Niners</p>
+                    <Row style={minDiv()}>
+                        {/* <Col xs={1}> 
+                            <p></p>
+                        </Col> */}
+                        <Col xs={12} style={center2()}>
+                            <p style={{'margin':0}}>San Francisco Forty-Niners</p>
                         </Col>
                     </Row>
                     <Row style={center2()}>
-                        <Col xs={1} >
-                            <p style={center4()}>Kansas City Chiefs</p>
+                        <Col xs={1} style={{'padding':0, 'margin':0}}>
+                            
+                            <VerticalTextComponent style={{'padding':0, 'margin':0}} text={sideTeam} />
                         </Col>
                         <Col xs={11} style={center2()}>
                             <Container style={{'padding':0, 'margin':0}}>
@@ -202,7 +208,8 @@ export function ViewBoard3() {
             alignItems: 'center', 
             backgroundColor: 'gray', 
             color: 'black',
-            padding: 15
+            padding: 0,
+            margin: 0
         }
     }
 
@@ -232,7 +239,9 @@ export function ViewBoard3() {
             display: 'flex', 
             justifyContent: 'center',
             textAlign: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            padding:0,
+            margin:0,
         }
     }
 
@@ -271,10 +280,22 @@ export function ViewBoard3() {
             // alignItems: 'center',
             padding:0,
             margin:0,
-            transform: 'rotate(-90deg) translateX(-80px) translateY(-10px)', // TODO
+            transform: 'rotate(-90deg) translateX(-75px) translateY(-10px)', // TODO
             transformOrigin: 'center', 
             whiteSpace: 'nowrap', 
             // flexWrap: 'nowrap'
+        }
+    }
+
+    function minDiv() {
+        return {
+            display: 'inline-block',
+            // width: 0,
+            // height: 0
+            height: '20',
+            'white-space': 'nowrap',
+            padding: 0,
+            margin: 0
         }
     }
     

@@ -12,6 +12,7 @@ import { EditBoard5 } from './main/v2/page/EditBoard5.js';
 import { SetNumbersAndTeams } from './main/v2/page/SetNumbersAndTeams.js';
 import { SetNumbers } from './main/v2/page/SetNumbers.js';
 import { CreateGroupPreferences } from './main/v2/page/CreateGroupPreferences.js';
+import { VerticalTextComponent } from './main/v2/page/VerticalTextComponent.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -29,6 +30,7 @@ root.render(
                 <Route path="/*" element={<NotFound />} />
                 <Route path='/set-number-and-teams' element={<SetNumbersAndTeams />} />
                 <Route path='/set-numbers' element={<SetNumbers/>} />
+                <Route path='/test' element={<VerticalTextComponent text={'Test Text'} />} />
             </Routes>
         </BrowserRouter>
     </React.StrictMode>

@@ -10,6 +10,7 @@ import { ViewBoardRow2 } from '../component/row/ViewBoardRow2.js';
 import { NumberRow } from '../component/row/NumberRow.js';
 import { topNumbers, sideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 import axios from 'axios';
+import { host } from '../../../config';
 
 export function ViewBoard2() {
 
