@@ -45,6 +45,31 @@ export function ViewBoard3() {
     //     };
     // }, [navigate]);
 
+    // Function to update select options
+    const updateSelectOptions = (playerData) => {
+        const newOptions = []; // Start with 'none' option
+        const initialsMap = {};
+
+        // Add new options
+        playerData.forEach(map => {
+            const { initials, playerName } = map;
+            initialsMap[initials] = playerName;
+            newOptions.push({ value: initials, label: `${initials} - ${playerName}` });
+        });
+
+        // Alphabetically sort options except 'none' option
+        newOptions.sort((a, b) => a.label.localeCompare(b.label));
+
+        const options = [{ value: 'None', label: 'None' }];
+        newOptions.forEach(map => {
+            const { value, label} = map;
+            options.push({ value: value, label: label});
+        })
+
+        setPlayers(initialsMap);
+        setSelectOptions(options);
+    };
+
     useEffect(() => {
         // Function to fetch data from the API
         const fetchData = async () => {
@@ -78,30 +103,8 @@ export function ViewBoard3() {
                 gameNameRows.push(response.data.gameData.row9_players)
                 setGameNameData(gameNameRows);
 
-                const playerData = response.data.players;
-                
-                const initialsMap = {};
-                const options = [{value: 'None', label: 'None'}];
-                playerData.forEach(map => {
-                    // Extract 'initials' and 'playerName' from each map
-                    const { initials, playerName } = map;
-                    // Add the entry to the initialsMap
-                    initialsMap[initials] = playerName;
-                    options.push({value: initials, label: `${initials} - ${playerName}`});
-                });
-
-                // Alphabetically sort options except 'none' option
-                options.slice(1).sort((a, b) => a.label.localeCompare(b.label));
-
-                // Move 'none' option to the beginning
-                const noneOptionIndex = options.findIndex(option => option.value === 'none');
-                if (noneOptionIndex !== -1) {
-                    const noneOption = options.splice(noneOptionIndex, 1)[0];
-                    options.unshift(noneOption);
-                }
-
-                setPlayers(initialsMap);
-                setSelectOptions(options);
+                // Update select options when data is fetched
+                updateSelectOptions(response.data.players);
 
                 const allSquaresClaimedResponse = response.data.allSquaresClaimed;
                 setAllSquaresClaimed(allSquaresClaimedResponse);
