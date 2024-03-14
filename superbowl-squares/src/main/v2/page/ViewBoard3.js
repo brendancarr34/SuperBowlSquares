@@ -27,8 +27,8 @@ export function ViewBoard3() {
     const [allSquaresClaimed, setAllSquaresClaimed] = useState(false);
     const [topNumbers, setTopNumbers] = useState(emptyTopNumbers);
     const [sideNumbers, setSideNumbers] = useState(emptySideNumbers);
-    const [topTeam, setTopTeam] = useState('test');
-    const [sideTeam, setSideTeam] = useState('???');
+    const [topTeam, setTopTeam] = useState('');
+    const [sideTeam, setSideTeam] = useState('')
 
     // useEffect(() => {
     //     // Listen for the popstate event
@@ -81,7 +81,7 @@ export function ViewBoard3() {
                 const playerData = response.data.players;
                 
                 const initialsMap = {};
-                const options = [{value: 'none', label: 'none'}];
+                const options = [{value: 'None', label: 'None'}];
                 playerData.forEach(map => {
                     // Extract 'initials' and 'playerName' from each map
                     const { initials, playerName } = map;
@@ -89,6 +89,17 @@ export function ViewBoard3() {
                     initialsMap[initials] = playerName;
                     options.push({value: initials, label: `${initials} - ${playerName}`});
                 });
+
+                // Alphabetically sort options except 'none' option
+                options.slice(1).sort((a, b) => a.label.localeCompare(b.label));
+
+                // Move 'none' option to the beginning
+                const noneOptionIndex = options.findIndex(option => option.value === 'none');
+                if (noneOptionIndex !== -1) {
+                    const noneOption = options.splice(noneOptionIndex, 1)[0];
+                    options.unshift(noneOption);
+                }
+
                 setPlayers(initialsMap);
                 setSelectOptions(options);
 
@@ -206,6 +217,9 @@ export function ViewBoard3() {
                                                 value={selectedOption}
                                                 isSearchable={false}
                                                 menuPlacement="top"
+                                                // menuPortalTarget={document.body} // Render the menu outside the DOM tree
+                                                // menuPosition="fixed" // Ensures the menu stays fixed in its position
+                                                // menuStyle={{ maxHeight: '6000px' }} // Set the max height of the menu
                                         />
                                     </Row>
                                 </Col>

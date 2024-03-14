@@ -26,6 +26,14 @@ export function EditBoard5() {
 
   const handleSubmit = async () => {
     try {
+
+      if (!playerName.trim() && !playerInitials.trim() && clickedButtons.length == 0) {
+        navigate('/super-bowl-squares', { 
+          replace: true, 
+          state: { name: playerName, initials: playerInitials, groupName: groupName } 
+        });
+      }
+
       // Check if playerName and playerInitials are not empty
       if ((!playerName.trim() || !playerInitials.trim()) && (clickedButtons.length > 0)) {
         setShowErrorModal(true); // Show error modal if fields are empty
@@ -78,12 +86,9 @@ export function EditBoard5() {
   return (
     <Container>
       <Row>
-        <Col style={center()}>
-          <h1 style={{ padding: 15 }}>Claim Squares</h1>
+        <Col style={center2()}>
+          <h1 style={{'padding':15, 'paddingTop':50}}>Claim Squares</h1>
         </Col>
-      </Row>
-      <Row style={pad()}>
-        <Button onClick={handleGoBack} style={blackPad()}>Go Back</Button>
       </Row>
       <Row style={center()}>
           <p>Group Name: {groupName}</p>
@@ -94,7 +99,7 @@ export function EditBoard5() {
         </Col>
       </Row>
       <Row style={pad()}>
-        <Col>
+        <Col style={{'padding':0, 'margin':0, 'paddingRight':5}}>
           <Form>
             <Form.Group className="mb-3" onChange={(e) => setPlayerName(e.target.value)}>
               <Form.Control placeholder="First & Last Name" />
@@ -104,11 +109,14 @@ export function EditBoard5() {
             </Form.Group>
           </Form>
         </Col>
-        <Col>
+        <Col style={{'padding':0, 'margin':0, 'paddingLeft':5}}>
           <Button disabled={false} style={black()} onClick={handleSubmit}>
             Submit
           </Button>
         </Col>
+      </Row>
+      <Row style={pad2()}>
+        <Button onClick={handleGoBack} style={blackPad()}>Cancel</Button>
       </Row>
 
       {/* Error Modal for Empty Fields */}
@@ -173,19 +181,37 @@ function center() {
   }
 }
 
+function center2() {
+  return {
+    display: 'flex', 
+    justifyContent: 'center',
+    textAlign: 'center',
+    alignItems: 'center',
+    padding:0,
+    margin:0,
+    // textAlign: 'center',
+    // width: '100%',
+    // paddingTop: 50
+  }
+}
+
 function black() {
   return {
     backgroundColor: "black",
     border: 'black',
     padding: 0,
     width: '100%',
-    height: '85%'
+    height: '85%',
+    // marginLeft: 5,
+    // marginRight: 5,
+    // paddingLeft:5
   }
 }
 
 function blackPad() {
   return {
-    backgroundColor: "black",
+    backgroundColor: "grey",
+    color: 'black',
     border: 'black',
     padding: 10,
     width: '100%',
@@ -198,7 +224,20 @@ function pad() {
       display: 'flex', 
       justifyContent: 'center', 
       paddingTop: 15,
-      paddingBottom: 15
+      paddingRight: 15,
+      paddingLeft:15
+  }
+}
+
+function pad2() {
+  return {
+      display: 'flex', 
+      justifyContent: 'center', 
+      // paddingTop: 15,
+      // paddingBottom: 15,
+      paddingBottom: 15,
+      paddingRight: 15,
+      paddingLeft:15
   }
 }
 
