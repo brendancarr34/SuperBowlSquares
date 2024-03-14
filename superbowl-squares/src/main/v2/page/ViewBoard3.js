@@ -15,6 +15,8 @@ import { VerticalTextComponent } from './VerticalTextComponent.js';
 
 export function ViewBoard3() {
 
+    let navigate = useNavigate();
+
     const location = useLocation();
     let groupName = location.state.groupName;
 
@@ -25,8 +27,23 @@ export function ViewBoard3() {
     const [allSquaresClaimed, setAllSquaresClaimed] = useState(false);
     const [topNumbers, setTopNumbers] = useState(emptyTopNumbers);
     const [sideNumbers, setSideNumbers] = useState(emptySideNumbers);
-
+    const [topTeam, setTopTeam] = useState('test');
     const [sideTeam, setSideTeam] = useState('???');
+
+    // useEffect(() => {
+    //     // Listen for the popstate event
+    //     const handlePopstate = () => {
+    //         // Navigate back to ViewBoard3 if the user clicks the back button
+    //         navigate('/super-bowl-squares', {replace: true, state: { groupName: groupName }});
+    //     };
+
+    //     window.addEventListener('popstate', handlePopstate);
+
+    //     return () => {
+    //         // Remove the event listener when the component unmounts
+    //         window.removeEventListener('popstate', handlePopstate);
+    //     };
+    // }, [navigate]);
 
     useEffect(() => {
         // Function to fetch data from the API
@@ -83,6 +100,12 @@ export function ViewBoard3() {
 
                 const sideNumbersResponse = response.data.sideNumbers;
                 setSideNumbers(sideNumbersResponse);
+
+                const topTeamResponse = response.data.teams.top;
+                setTopTeam(topTeamResponse);
+
+                const sideTeamResponse = response.data.teams.side;
+                setSideTeam(sideTeamResponse);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -92,8 +115,6 @@ export function ViewBoard3() {
         fetchData();
     }, []);
 
-
-    let navigate = useNavigate();
     const claimSquares = () => { 
         navigate('/claim-squares', { 
             replace: true, 
@@ -132,7 +153,7 @@ export function ViewBoard3() {
                             <VerticalTextComponent style={{'padding':0, 'margin':0}} text={' '} />
                         </Col>
                         <Col xs={10} sm={8} md={6} lg={4} style={center2()}>
-                            <p style={{'margin':5}}>???</p>
+                            <p style={{'margin':5}}>{topTeam}</p>
                         </Col>
                         <Col xs={1} style={{'padding':0, 'margin':0}}>
                             <VerticalTextComponent style={{'padding':0, 'margin':0}} text={' '} />
@@ -183,6 +204,8 @@ export function ViewBoard3() {
                                                 options={selectOptions} 
                                                 onChange={handleInitialSelect} 
                                                 value={selectedOption}
+                                                isSearchable={false}
+                                                menuPlacement="top"
                                         />
                                     </Row>
                                 </Col>

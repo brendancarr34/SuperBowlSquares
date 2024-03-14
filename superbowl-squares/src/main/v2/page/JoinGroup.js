@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -12,6 +12,22 @@ export function JoinGroup() {
     const [groupPassword, setGroupPassword] = useState("");
 
     let navigate = useNavigate(); 
+
+    useEffect(() => {
+        // Listen for the popstate event
+        const handlePopstate = () => {
+            // Navigate back to ViewBoard3 if the user clicks the back button
+            navigate('/join-group', { replace: true ,state: { groupName: groupName }});
+        };
+
+        window.addEventListener('popstate', handlePopstate);
+
+        return () => {
+            // Remove the event listener when the component unmounts
+            window.removeEventListener('popstate', handlePopstate);
+        };
+    }, [navigate]);
+
     const superBowlSquares = () => { 
         console.log("group: " + groupName + ", password: " + groupPassword)
         navigate('/super-bowl-squares', {state: { groupName: groupName }});

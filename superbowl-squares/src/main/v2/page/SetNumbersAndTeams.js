@@ -20,6 +20,15 @@ export function SetNumbersAndTeams() {
         });
     }
 
+    const handleSetTeams = () => {
+        navigate('/set-teams', { 
+            replace: true, 
+            state: {
+                groupName: groupName
+            } 
+        });
+    }
+
     return (
         <Container>
             <Row style={fullHeight()}>
@@ -34,7 +43,7 @@ export function SetNumbersAndTeams() {
                     </Row>
                     <Row>
                         <Col>
-                            <Button style={blackButton()}>
+                            <Button style={blackButton()} onClick={handleSetTeams}>
                                 Set Teams
                             </Button>
                         </Col>

@@ -1,67 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate, useLocation } from "react-router-dom";
-import NumberInputBoxes from '../component/NumberInputBoxes';
 import axios from 'axios';
-import { emptyTopNumbers } from '../data/EmptyBoardData';
 import { host } from '../../../config';
 
-export function SetNumbers() {
+export function SetTeams() {
     const location = useLocation();
     let navigate = useNavigate();
     let groupName =  location.state.groupName;
 
-    // State to hold inputsTop and inputsBottom
-    const [inputsState, setInputsState] = useState({
-        inputsTop: Array(10).fill(''),
-        inputsBottom: Array(10).fill('')
+    // State to hold team names
+    const [teamNames, setTeamNames] = useState({
+        topTeam: '',
+        leftTeam: ''
     });
-
-    useEffect(() => {
-        // Function to fetch data from the API
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://' + host + ':3001/api/game/' + groupName);
-                if (response.data.topNumbers != emptyTopNumbers && response.data.sideNumbers != emptyTopNumbers) {
-                    setInputsState({
-                        inputsTop: response.data.topNumbers, 
-                        inputsBottom: response.data.sideNumbers
-                    });
-                }
-            }
-            catch (error) {
-
-            }
-        }
-
-        fetchData();
-    }, []);
 
     // State for modal visibility and error message
     const [showModal, setShowModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
     // Function to handle input changes
-    const handleInputChange = (inputs) => {
-        setInputsState(inputs);
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setTeamNames(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
     };
 
     // Function to handle button click
-    const handleSetNumbersClick = async () => {
+    const handleSetTeamsClick = async () => {
         try {
-            await axios.post(`http://${host}:3001/api/game/api/setNumbers/${groupName}`, 
-                { topNumbers: inputsState.inputsTop, sideNumbers: inputsState.inputsBottom });
+            await axios.post(`http://${host}:3001/api/game/api/setTeams/${groupName}`, 
+                { topTeam: teamNames.topTeam, sideTeam: teamNames.leftTeam });
 
             navigate('/super-bowl-squares', {
                 replace: true,
                 state: { groupName: groupName }
             });
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('Error setting teams:', error);
             if (error.response != null) {
                 const errorMessage = error.response.data.message;
                 setErrorMessage(errorMessage);
@@ -94,12 +76,22 @@ export function SetNumbers() {
                 <Col style={{'textAlign':'center'}}>
                     <Row>
                         <Col>
-                            <h1>Set Numbers</h1>
+                            <h1>Set Teams</h1>
                             <h6>Group: {groupName}</h6>
                             <br/>
                             <br/>
-                            {/* Pass handleInputChange function as a prop */}
-                            <NumberInputBoxes onInputChange={handleInputChange} inputsTop={inputsState.inputsTop} inputsBottom={inputsState.inputsBottom}/>
+                            <Row>
+                                <Col>
+                                    <label htmlFor="topTeam">Top Team</label>
+                                    <input type="text" id="topTeam" name="topTeam" value={teamNames.topTeam} onChange={handleInputChange} />
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <label htmlFor="leftTeam">Left-Side Team</label>
+                                    <input type="text" id="leftTeam" name="leftTeam" value={teamNames.leftTeam} onChange={handleInputChange} />
+                                </Col>
+                            </Row>
                             <br/>
                         </Col>
                     </Row>
@@ -110,9 +102,8 @@ export function SetNumbers() {
                     </Row>
                     <Row>
                         <Col>
-                            {/* Attach event handler to the button */}
-                            <Button style={blackButton()} onClick={handleSetNumbersClick}>
-                                Set Numbers
+                            <Button style={blackButton()} onClick={handleSetTeamsClick}>
+                                Set Teams
                             </Button>
                         </Col>
                     </Row>
@@ -121,7 +112,6 @@ export function SetNumbers() {
                     </Row>
                     <Row>
                         <Col>
-                            {/* Attach event handler to the button */}
                             <Button style={blackButton()} onClick={handleGoBackClick}>
                                 Go Back
                             </Button>
