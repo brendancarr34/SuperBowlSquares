@@ -17,7 +17,7 @@ export function ViewBoardRow3(props) {
             <td style={viewBoardRowStyle()}>
                 <NumberButton number={props.number} />
             </td>
-            <td>
+            <td style={{paddingLeft:10, margin:0, font:1}}>
             </td>
             <td style={viewBoardRowStyle()}>
                 <ViewBoardButton3 active={activeArr[0]} text={textArr[0]} playerNames={playerNames} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
@@ -57,7 +57,9 @@ export function ViewBoardRow3(props) {
             textAlign: 'center',
             padding: 0,
             margin: 0,
-            borderBottom: '1pt solid gray'
+            borderBottom: '1pt solid gray',
+            display: 'flex',
+            justifyContent: 'center',
         }
     }
 }

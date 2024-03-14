@@ -1,8 +1,8 @@
 .square-md {
-    width: 27px !important;
+    width: 25px !important;
     max-width: 100% !important;
     max-height: 100% !important;
-    height: 27px !important;
+    height: 25px !important;
     text-align: center;
     padding: 0px;
     border: "1px solid black";
@@ -17,6 +17,8 @@
 
 .button-container {
   position: relative;
+  padding:0px;
+  margin:0px
 }
 
 .hover-text {

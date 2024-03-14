@@ -26,7 +26,7 @@ export function ViewBoard3() {
     const [topNumbers, setTopNumbers] = useState(emptyTopNumbers);
     const [sideNumbers, setSideNumbers] = useState(emptySideNumbers);
 
-    const [sideTeam, setSideTeam] = useState('test');
+    const [sideTeam, setSideTeam] = useState('???');
 
     useEffect(() => {
         // Function to fetch data from the API
@@ -123,53 +123,63 @@ export function ViewBoard3() {
             <Row style={fullHeight()}>
                 <Row>
                     <Col xs={12} style={center()}>
-                        <h1 style={{'padding':15}}>Super Bowl Squares</h1>
+                        <h1 style={{'padding':15, 'paddingTop':50}}>Super Bowl Squares</h1>
                     </Col>
                 </Row>
                 <Row style={center()}>
-                    <Row style={minDiv()}>
-                        {/* <Col xs={1}> 
-                            <p></p>
-                        </Col> */}
-                        <Col xs={12} style={center2()}>
-                            <p style={{'margin':0}}>San Francisco Forty-Niners</p>
+                    <Row style={center5()}>
+                        <Col xs={1} style={{'padding':0, 'margin':0}}>
+                            <VerticalTextComponent style={{'padding':0, 'margin':0}} text={' '} />
+                        </Col>
+                        <Col xs={10} sm={8} md={6} lg={4} style={center2()}>
+                            <p style={{'margin':5}}>???</p>
+                        </Col>
+                        <Col xs={1} style={{'padding':0, 'margin':0}}>
+                            <VerticalTextComponent style={{'padding':0, 'margin':0}} text={' '} />
                         </Col>
                     </Row>
-                    <Row style={center2()}>
+                    <Row style={center5()}>
                         <Col xs={1} style={{'padding':0, 'margin':0}}>
-                            
                             <VerticalTextComponent style={{'padding':0, 'margin':0}} text={sideTeam} />
                         </Col>
-                        <Col xs={11} style={center2()}>
-                            <Container style={{'padding':0, 'margin':0}}>
+                        <Col xs={10} sm={8} md={6} lg={5} style={center3()}>
+                            <Container style={{'padding':0, 'margin':0, display: 'inline-block'}}>
                                 <Row style={gray()}>
-                                    <Table style={{'padding':0, 'margin':0}}>
-                                        <tbody>
-                                            <NumberRow numbers={topNumbers}/>
-                                            <ViewBoardRow3 number={sideNumbers[0]} active={gameData[0]} text={gameNameData[0]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                            <ViewBoardRow3 number={sideNumbers[1]} active={gameData[1]} text={gameNameData[1]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                            <ViewBoardRow3 number={sideNumbers[2]} active={gameData[2]} text={gameNameData[2]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                            <ViewBoardRow3 number={sideNumbers[3]} active={gameData[3]} text={gameNameData[3]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                            <ViewBoardRow3 number={sideNumbers[4]} active={gameData[4]} text={gameNameData[4]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                            <ViewBoardRow3 number={sideNumbers[5]} active={gameData[5]} text={gameNameData[5]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                            <ViewBoardRow3 number={sideNumbers[6]} active={gameData[6]} text={gameNameData[6]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                            <ViewBoardRow3 number={sideNumbers[7]} active={gameData[7]} text={gameNameData[7]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                            <ViewBoardRow3 number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                            <ViewBoardRow3 number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                        </tbody>
-                                    </Table>
+                                    <Col style={{whiteSpace: 'nowrap', display: 'block','padding':0, 'margin':0,}}>
+                                        <Table style={{'padding':0, 'margin':0, display: 'inline-block', 'fontSize': '0px'}}>
+                                            <tbody style={{'padding':0, 'margin':0, display: 'inline-block', 'fontSize': '0px'}}>
+                                                <NumberRow numbers={topNumbers}/>
+                                                <ViewBoardRow3 number={sideNumbers[0]} active={gameData[0]} text={gameNameData[0]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                                <ViewBoardRow3 number={sideNumbers[1]} active={gameData[1]} text={gameNameData[1]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                                <ViewBoardRow3 number={sideNumbers[2]} active={gameData[2]} text={gameNameData[2]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                                <ViewBoardRow3 number={sideNumbers[3]} active={gameData[3]} text={gameNameData[3]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                                <ViewBoardRow3 number={sideNumbers[4]} active={gameData[4]} text={gameNameData[4]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                                <ViewBoardRow3 number={sideNumbers[5]} active={gameData[5]} text={gameNameData[5]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                                <ViewBoardRow3 number={sideNumbers[6]} active={gameData[6]} text={gameNameData[6]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                                <ViewBoardRow3 number={sideNumbers[7]} active={gameData[7]} text={gameNameData[7]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                                <ViewBoardRow3 number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                                <ViewBoardRow3 number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                            </tbody>
+                                        </Table>
+                                    
+                                    </Col>
                                 </Row>
                             </Container>
                         </Col>
+                        <Col xs={1} style={{'padding':0, 'margin':0}}>
+                            
+                            <VerticalTextComponent style={{'padding':0, 'margin':0, color:'white'}} text={'test'} />
+                        </Col>
                     </Row>
+
                 </Row>
-                <Row style={{'padding':0, 'margin':0}}>
+                <Row style={{'paddingRight':10, 'margin':0, 'paddingLeft':10}}>
                     <Col style={{'padding':0, 'margin':0}}>
-                        <Container>
+                        <Container style={{'padding':0, 'margin':0}}>
                             <Row style={pad()}>
                                 <Col style={{'padding':0, 'margin':0}}>
                                     <Row style={{'padding':0, 'margin':0}}>
-                                        <Select style={{'padding':0, 'margin':0}} 
+                                        <Select style={{'padding':10, 'margin':0, 'paddingTop':10}} 
                                                 options={selectOptions} 
                                                 onChange={handleInitialSelect} 
                                                 value={selectedOption}
@@ -178,11 +188,12 @@ export function ViewBoard3() {
                                 </Col>
                                 <Col style={center()}>
                                     <Row style={center()}>
-                                        <p style={center()}>Group Name: {groupName}</p>
+                                        <p style={centerText()}>Group Name:</p>
+                                        <p style={centerText()}>{groupName}</p>
                                     </Row>
                                 </Col>
                             </Row>
-                            <Row>
+                            <Row style={{'padding':8, 'margin':0}}>
                                 {
                                     !allSquaresClaimed ?
                                         <Button style={black()} onClick={claimSquares}>
@@ -209,7 +220,8 @@ export function ViewBoard3() {
             backgroundColor: 'gray', 
             color: 'black',
             padding: 0,
-            margin: 0
+            margin: 0,
+            paddingBottom: 15
         }
     }
 
@@ -230,7 +242,9 @@ export function ViewBoard3() {
             justifyContent: 'center', 
             alignItems: 'center',
             paddingTop: 15,
-            paddingBottom: 15
+            paddingBottom: 15,
+            paddingRight:10,
+            paddingLeft:10
         }
     }
     
@@ -242,6 +256,18 @@ export function ViewBoard3() {
             alignItems: 'center',
             padding:0,
             margin:0,
+        }
+    }
+
+    function centerText() {
+        return {
+            display: 'flex', 
+            justifyContent: 'center',
+            textAlign: 'center',
+            alignItems: 'center',
+            padding:0,
+            margin:0,
+            fontSize:15
         }
     }
 
@@ -259,14 +285,14 @@ export function ViewBoard3() {
 
     function center3() {
         return {
-            display: 'grid', 
-            gridTemplateColumns: '1fr',
-            // display: 'flex', 
-            // justifyContent: 'flex-end',
-            // textAlign: 'center',
-            // alignItems: 'center',
-            padding:0,
-            margin:0
+            display: 'flex', 
+            justifyContent: 'center',
+            textAlign: 'center',
+            alignItems: 'center',
+            paddingRight:'0px',
+            margin:0,
+            flexWrap: 'nowrap',
+            paddingLeft:0
         }
     }
 
@@ -287,6 +313,19 @@ export function ViewBoard3() {
         }
     }
 
+    function center5() {
+        return {
+            display: 'flex', 
+            justifyContent: 'center',
+            textAlign: 'center',
+            alignItems: 'center',
+            padding:0,
+            margin:0,
+            flexWrap: 'nowrap',
+            // display: 'inline-block'
+        }
+    }
+
     function minDiv() {
         return {
             display: 'inline-block',
@@ -304,7 +343,8 @@ export function ViewBoard3() {
             backgroundColor: 'black',
             border: 'black',
             padding: 20,
-            width: '100%'
+            width: '100%',
+
         }
     }
 

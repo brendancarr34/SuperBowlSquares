@@ -10,7 +10,7 @@ export function CornerButton() {
         return {
             backgroundColor: "gray" ,
             color: "gray",
-            fontSize: 10,
+            fontSize: 16,
             padding: 0,
             margin:0,
             border:'1px solid gray'
