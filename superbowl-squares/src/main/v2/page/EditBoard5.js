@@ -105,7 +105,7 @@ export function EditBoard5() {
               <Form.Control placeholder="First & Last Name" />
             </Form.Group>
             <Form.Group className="mb-3" onChange={(e) => setPlayerInitials(e.target.value)}>
-              <Form.Control placeholder="Initials" />
+              <Form.Control placeholder="Initials" maxLength={3}/>
             </Form.Group>
           </Form>
         </Col>

@@ -27,7 +27,7 @@ export function ViewBoardButton3(props) {
         return {
             backgroundColor: (text == selectedOption) ? 'green' : allSquaresClaimed ? 'white' : active ? "red" : "white" ,
             color: active ? "black" : "white",
-            fontSize: 13,
+            fontSize: text && text.length > 2 ? 8 : 13,
             padding: 0,
             margin: 0,
             border: '1px solid black',
@@ -41,6 +41,10 @@ export function ViewBoardButton3(props) {
                 display: 'none'
             }
         }
+
+        return {
+            fontSize: 13, // Fixed font size for hover text
+        };
     }
 }
 

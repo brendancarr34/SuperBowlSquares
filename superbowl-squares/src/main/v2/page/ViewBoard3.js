@@ -28,7 +28,8 @@ export function ViewBoard3() {
     const [topNumbers, setTopNumbers] = useState(emptyTopNumbers);
     const [sideNumbers, setSideNumbers] = useState(emptySideNumbers);
     const [topTeam, setTopTeam] = useState('');
-    const [sideTeam, setSideTeam] = useState('')
+    const [sideTeam, setSideTeam] = useState('');
+    const [selectedOption, setSelectedOption] = useState("none");
 
     // useEffect(() => {
     //     // Listen for the popstate event
@@ -74,7 +75,6 @@ export function ViewBoard3() {
         // Function to fetch data from the API
         const fetchData = async () => {
             try {
-                // const response = await axios.get('http://localhost:3001/api/game/' + groupName);
                 const response = await axios.get('http://' + host + ':3001/api/game/' + groupName);
 
                 var gameRows = [];
@@ -147,8 +147,6 @@ export function ViewBoard3() {
         });
     }
 
-    const [selectedOption, setSelectedOption] = useState("none");
-
     const handleInitialSelect = selectedOption => {
         setSelectedOption(selectedOption.value);
     }
@@ -217,7 +215,11 @@ export function ViewBoard3() {
                                         <Select style={{'padding':10, 'margin':0, 'paddingTop':10}} 
                                                 options={selectOptions} 
                                                 onChange={handleInitialSelect} 
-                                                value={selectedOption}
+                                                value={
+                                                    selectedOption === 'none' || selectedOption === 'None'
+                                                        ? null
+                                                        : { value: selectedOption, label: players[selectedOption] }
+                                                }
                                                 isSearchable={false}
                                                 menuPlacement="top"
                                                 // menuPortalTarget={document.body} // Render the menu outside the DOM tree
