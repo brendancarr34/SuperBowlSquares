@@ -83,7 +83,8 @@ export function CreateGroup() {
           });
           setError(null);
           console.log("test");
-          navigate('/super-bowl-squares', {state: { groupName: groupName }});
+        //   navigate('/super-bowl-squares', {state: { groupName: groupName }});
+          navigate('/create-group-preferences', {state: { groupName: groupName }});
         // navigate('/create-group-preferences', {state: { groupName: groupName }});
         } catch (error) {
           console.error('Error fetching data:', error);
