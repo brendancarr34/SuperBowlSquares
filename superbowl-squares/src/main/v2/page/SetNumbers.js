@@ -65,16 +65,18 @@ export function SetNumbers() {
         const randomNumbersTop = getRandomNumbers();
         const randomNumbersBottom = getRandomNumbers();
 
-        // console.log('randomNumbersTop: ' + randomNumbersTop);
-        // console.log('randomNumbersBottom: ' + randomNumbersBottom);
+        console.log('randomNumbersTop: ' + randomNumbersTop);
+        console.log('randomNumbersBottom: ' + randomNumbersBottom);
 
-        // setInputsState({
-        //     inputsTop: randomNumbersTop,
-        //     inputsBottom: randomNumbersBottom
-        // });
+        const numbersMap = {
+            inputsTop: randomNumbersTop,
+            inputsBottom: randomNumbersBottom
+        }
 
-        // console.log('inputsState.inputsTop: ' + inputsState.inputsTop);
-        // console.log('inputsState.inputsBottom: ' + inputsState.inputsBottom);
+        setInputsState(numbersMap);
+
+        console.log('inputsState.inputsTop: ' + inputsState.inputsTop);
+        console.log('inputsState.inputsBottom: ' + inputsState.inputsBottom);
 
         // setInputsState(prevState => ({
         //     inputsTop: getRandomNumbers(),
@@ -88,10 +90,10 @@ export function SetNumbers() {
             await axios.post(`http://${host}:3001/api/game/api/setNumbers/${groupName}`,
                 { topNumbers: randomNumbersTop, sideNumbers: randomNumbersBottom });
 
-            navigate('/super-bowl-squares', {
-                replace: true,
-                state: { groupName: groupName }
-            });
+            // navigate('/super-bowl-squares', {
+            //     replace: true,
+            //     state: { groupName: groupName }
+            // });
         } catch (error) {
             console.error('Error fetching data:', error);
             if (error.response != null) {

@@ -9,6 +9,7 @@ import axios from 'axios';
 import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, sideNumbers, topNumbers } from "../data/EmptyBoardData";
 import '../style/Button.css'
 import { host } from '../../../config';
+import Modal from 'react-bootstrap/Modal';
 
 function generateUUID() {
     var d = new Date().getTime();
@@ -32,7 +33,19 @@ export function CreateGroup() {
     let navigate = useNavigate(); 
     const [groupName, setGroupName] = useState("");
     const [groupPassword, setGroupPassword] = useState("");
+    const [showErrorModal, setShowErrorModal] = useState(false); // State for showing error modal
     const [error, setError] = useState(null);
+
+    const handleGroupNameChange = (e) => {
+        let value = e.target.value;
+        // Convert spaces to hyphens
+        value = value.replace(/\s+/g, '-');
+        // Remove any punctuation other than spaces and hyphens
+        value = value.replace(/[^\w\s-]/gi, '');
+        // Convert input value to lowercase
+        value = value.toLowerCase();
+        setGroupName(value);
+    };
 
     const handleButtonClick = async () => {
         try {
@@ -79,7 +92,9 @@ export function CreateGroup() {
             teams: {
                 top: '',
                 side: ''
-            }
+            },
+            // TODO - add default preferences here? or handle this in the backend? 
+            // ...otherwise will need logic for when preferences don't exist
           });
           setError(null);
           console.log("test");
@@ -91,10 +106,13 @@ export function CreateGroup() {
           if (error.response != null) {
             console.log(error.response.data.error);
             setError(error.response.data.error);
+            setShowErrorModal(true);
           } else if (error.code == 'ERR_NETWORK') {
             setError('Network Error');
+            setShowErrorModal(true);
           } else {
             setError('Unknown Error');
+            setShowErrorModal(true);
           }
         }
       };
@@ -115,9 +133,12 @@ export function CreateGroup() {
                 <Row style={width75()}>
                     <Col style={width75()}>
                         <Form>
-                            <Form.Group className="mb-3" onChange={(e) => setGroupName(e.target.value)}>
+                            <Form.Group className="mb-3" >
                                 <Form.Label>Group Name</Form.Label>
-                                <Form.Control placeholder="Enter custom group name" />
+                                <Form.Control 
+                                    placeholder="Enter custom group name" 
+                                    onChange={handleGroupNameChange}
+                                    value={groupName}/>
                                 <Form.Text className="text-muted">
                                     This is optional. If you leave this blank, 
                                     a group name will be generated for you.
@@ -140,14 +161,27 @@ export function CreateGroup() {
                             Next
                         </Button>
                     </Col>
-                    {error && (
+                    {/* {error && (
                                 <div className="error-popup">
                                 <p>{error}</p>
                                 <button onClick={() => setError(null)}>X</button>
                                 </div>
-                            )}
+                            )} */}
                 </Row>
             </Row>
+
+            {/* Error Modal for Taken Group Name */}
+            <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)}>
+                <Modal.Header closeButton>
+                <Modal.Title>Error</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{error}</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={() => setShowErrorModal(false)}>
+                    Close
+                </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     )
 

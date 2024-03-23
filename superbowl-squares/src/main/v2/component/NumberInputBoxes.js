@@ -1,9 +1,13 @@
-// NumberInputBoxes.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function NumberInputBoxes(props) {
   const [inputsTop, setInputsTop] = useState(props.inputsTop);
   const [inputsBottom, setInputsBottom] = useState(props.inputsBottom);
+
+  useEffect(() => {
+    setInputsTop(props.inputsTop);
+    setInputsBottom(props.inputsBottom);
+  }, [props.inputsTop, props.inputsBottom]);
 
   const onInputChange = props.onInputChange;
 
@@ -14,11 +18,6 @@ function NumberInputBoxes(props) {
     newInputsTop[index] = value;
     setInputsTop(newInputsTop);
     onInputChange({ inputsTop: newInputsTop, inputsBottom });
-
-    // Move focus to the next input box
-    if (index < 9 && value !== '') {
-      document.getElementById(`input-top-${index + 1}`).focus();
-    }
   };
 
   const handleInputChangeBottom = (index, value) => {
@@ -28,11 +27,6 @@ function NumberInputBoxes(props) {
     newInputsBottom[index] = value;
     setInputsBottom(newInputsBottom);
     onInputChange({ inputsTop, inputsBottom: newInputsBottom });
-
-    // Move focus to the next input box
-    if (index < 9 && value !== '') {
-      document.getElementById(`input-bottom-${index + 1}`).focus();
-    }
   };
 
   const handleKeyDownTop = (index, e) => {
