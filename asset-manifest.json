@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/SuperBowlSquares/static/css/main.018b0bf7.css",
+    "main.js": "/SuperBowlSquares/static/js/main.51732abd.js",
+    "index.html": "/SuperBowlSquares/index.html",
+    "main.018b0bf7.css.map": "/SuperBowlSquares/static/css/main.018b0bf7.css.map",
+    "main.51732abd.js.map": "/SuperBowlSquares/static/js/main.51732abd.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.018b0bf7.css",
+    "static/js/main.51732abd.js"
+  ]
+}
