@@ -10,7 +10,7 @@ import { ViewBoardRow3 } from '../component/row/ViewBoardRow3.js';
 import { NumberRow } from '../component/row/NumberRow.js';
 import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 import axios from 'axios';
-import { host } from '../../../config';
+import { host, api_url } from '../../../config';
 import { VerticalTextComponent } from './VerticalTextComponent.js';
 
 export function ViewBoard3() {
@@ -75,7 +75,9 @@ export function ViewBoard3() {
         // Function to fetch data from the API
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://' + host + ':3001/api/game/' + groupName);
+                const url = api_url + 'api/game/' + groupName;
+                // const response = await axios.get('http://localhost:3001/api/game/' + groupName);
+                const response = await axios.get(url);
 
                 var gameRows = [];
                 gameRows.push(response.data.gameData.row0);

@@ -12,7 +12,7 @@ import { NumberRow } from '../component/row/NumberRow.js';
 import { topNumbers, sideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 import axios from 'axios';
 import GridComponent from './GridComponent.js';
-import { host } from '../../../config';
+import { host , api_url} from '../../../config';
 
 export function ViewBoard() {
 
@@ -29,8 +29,10 @@ export function ViewBoard() {
         // Function to fetch data from the API
         const fetchData = async () => {
         try {
+            // const url = 'http://' + host + ':3001/api/game/' + groupName;
+            const url = api_url + 'api/game/' + groupName;
             // const response = await axios.get('http://localhost:3001/api/game/' + groupName);
-            const response = await axios.get('http://' + host + ':3001/api/game/' + groupName);
+            const response = await axios.get(url);
 
             setData(response.data);
 

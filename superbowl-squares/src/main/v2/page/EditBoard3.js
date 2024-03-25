@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import GridComponent2 from './GridComponent2';
-import { host } from '../../../config';
+import { host , api_url} from '../../../config';
 
 export function EditBoard3() {
   const location = useLocation();

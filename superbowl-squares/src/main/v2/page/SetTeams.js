@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
-import { host } from '../../../config';
+import { host , api_url} from '../../../config';
 
 export function SetTeams() {
     const location = useLocation();
@@ -35,7 +35,9 @@ export function SetTeams() {
     // Function to handle button click
     const handleSetTeamsClick = async () => {
         try {
-            await axios.post(`http://${host}:3001/api/game/api/setTeams/${groupName}`, 
+            // const url = `http://${host}:3001/api/game/api/setTeams/${groupName}`;
+            const url = api_url + 'api/game/api/setTeams/' + groupName;
+            await axios.post(url, 
                 { topTeam: teamNames.topTeam, sideTeam: teamNames.leftTeam });
 
             navigate('/super-bowl-squares', {

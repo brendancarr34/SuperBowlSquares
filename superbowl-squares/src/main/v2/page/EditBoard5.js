@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import GridComponent3 from './GridComponent3';
-import { host } from '../../../config';
+import { host , api_url} from '../../../config';
 
 export function EditBoard5() {
   
@@ -48,7 +48,10 @@ export function EditBoard5() {
 
       if (clickedButtons.length > 0) {
         console.log('MAKING API POST game/api/validateAndClaimSquaresV3/${groupName}');
-        const response = await axios.post(`http://${host}:3001/api/game/api/validateAndClaimSquaresV3/${groupName}`, 
+        const url = api_url + 'api/game/api/validateAndClaimSquaresV3/' + groupName;
+        // const response = await axios.post(`http://${host}:3001/api/game/api/validateAndClaimSquaresV3/${groupName}`, 
+        //       { maps: clickedButtons, initials: playerInitials, playerName: playerName });
+        const response = await axios.post(url, 
               { maps: clickedButtons, initials: playerInitials, playerName: playerName });
         console.log('Submit successful:', response.data);
       }

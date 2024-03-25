@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { host } from '../../../config';
+import { host , api_url} from '../../../config';
 
 const GridComponent = () => {
   const [gridData, setGridData] = useState([]);

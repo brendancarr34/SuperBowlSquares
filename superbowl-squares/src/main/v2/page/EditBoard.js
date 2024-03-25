@@ -14,7 +14,7 @@ import { readGameData } from '../hook/readGameDataHook.js';
 import axios from 'axios';
 import GridComponent from './GridComponent.js';
 import GridComponent2 from './GridComponent2.js';
-import { host } from '../../../config';
+import { host , api_url} from '../../../config';
 
 export function EditBoard() {
 

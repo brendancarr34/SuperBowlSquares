@@ -7,7 +7,8 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import AutoSetNumbers from '../component/AutoSetNumbers';
 import axios from 'axios';
-import { host } from '../../../config';
+import { host , api_url} from '../../../config';
+import Form from 'react-bootstrap/Form';
 
 export function CreateGroupPreferences() {
 
@@ -18,6 +19,7 @@ export function CreateGroupPreferences() {
 
     // State to store autoSetNumbers
     const [autoSetNumbers, setAutoSetNumbers] = useState(false);
+    const [groupPassword, setGroupPassword] = useState("");
 
     // Function to handle checkbox change
     const handleToggleChange = (newValue) => {
@@ -27,7 +29,8 @@ export function CreateGroupPreferences() {
     const handleButtonClick = async () => {
         try {
             // Make the POST request to the API endpoint
-            const url = 'http://' + host + ':3001/api/game/api/setPreferences/' + groupName;
+            // const url = 'http://' + host + ':3001/api/game/api/setPreferences/' + groupName;
+            const url = api_url + 'api/game/api/setPreferences/' + groupName;
             const response = await axios.post(url, {
                 autoSetNumbers: autoSetNumbers
             });
@@ -55,6 +58,18 @@ export function CreateGroupPreferences() {
                     <Col style={center()}>
                         {/* Pass autoSetNumbers state and handleToggleChange function as props */}
                         <AutoSetNumbers autoSetNumbers={autoSetNumbers} handleToggleChange={handleToggleChange} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Form.Group className="mb-3" onChange={(e) => setGroupPassword(e.target.value)}>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control placeholder="Enter custom password" />
+                            <Form.Text className="text-muted">
+                                This is optional. If you leave this blank, 
+                                anyone with the link to your game will be able to edit squares.
+                            </Form.Text>
+                        </Form.Group>
                     </Col>
                 </Row>
                 <Row>

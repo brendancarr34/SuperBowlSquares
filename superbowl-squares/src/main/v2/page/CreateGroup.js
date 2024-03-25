@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, sideNumbers, topNumbers } from "../data/EmptyBoardData";
 import '../style/Button.css'
-import { host } from '../../../config';
+import { host , api_url} from '../../../config';
 import Modal from 'react-bootstrap/Modal';
 
 function generateUUID() {
@@ -56,7 +56,9 @@ export function CreateGroup() {
             }
 
           // Make the API call using Axios
-          const url = 'http://' + host + ':3001/api/group/add/' + groupName
+        //   const url = 'http://' + host + ':3001/api/group/add/' + groupName;
+        //   const url = 'https://superbowl-squares-api-2-xzyvynj7hq-uc.a.run.app/api/group/add/' + groupName;
+          const url = api_url + 'api/group/add/' + groupName;
           // TODO - handle error when unable to make API call
           const response = await axios.post(url, {
             name: groupName,
@@ -141,17 +143,19 @@ export function CreateGroup() {
                                     value={groupName}/>
                                 <Form.Text className="text-muted">
                                     This is optional. If you leave this blank, 
-                                    a group name will be generated for you.
+                                    a group name will be generated for you. Your 
+                                    group name should have only lowercase letters and 
+                                    dashes.
                                 </Form.Text>
                             </Form.Group>
-                            <Form.Group className="mb-3" onChange={(e) => setGroupPassword(e.target.value)}>
+                            {/* <Form.Group className="mb-3" onChange={(e) => setGroupPassword(e.target.value)}>
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control placeholder="Enter custom password" />
                                 <Form.Text className="text-muted">
                                     This is optional. If you leave this blank, 
                                     anyone with the link to your game will be able to edit squares.
                                 </Form.Text>
-                        </Form.Group>
+                            </Form.Group> */}
                         </Form>
                     </Col>
                 </Row>

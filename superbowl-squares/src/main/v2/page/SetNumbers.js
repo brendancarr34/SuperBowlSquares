@@ -8,7 +8,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import NumberInputBoxes from '../component/NumberInputBoxes';
 import axios from 'axios';
 import { emptyTopNumbers } from '../data/EmptyBoardData';
-import { host } from '../../../config';
+import { host , api_url} from '../../../config';
 
 export function SetNumbers() {
     const location = useLocation();
@@ -22,10 +22,16 @@ export function SetNumbers() {
     });
 
     useEffect(() => {
+
+        // console.log('inputsState.inputsTop 2: ' + inputsState.inputsTop);
+        // console.log('inputsState.inputsBottom 2: ' + inputsState.inputsBottom);
+
         // Function to fetch data from the API
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://' + host + ':3001/api/game/' + groupName);
+                // const url = 'http://' + host + ':3001/api/game/' + groupName;
+                const url = api_url + 'api/game/' + groupName;
+                const response = await axios.get(url);
                 if (response.data.topNumbers !== emptyTopNumbers && response.data.sideNumbers !== emptyTopNumbers) {
                     setInputsState({
                         inputsTop: response.data.topNumbers,
@@ -65,8 +71,8 @@ export function SetNumbers() {
         const randomNumbersTop = getRandomNumbers();
         const randomNumbersBottom = getRandomNumbers();
 
-        console.log('randomNumbersTop: ' + randomNumbersTop);
-        console.log('randomNumbersBottom: ' + randomNumbersBottom);
+        // console.log('randomNumbersTop: ' + randomNumbersTop);
+        // console.log('randomNumbersBottom: ' + randomNumbersBottom);
 
         const numbersMap = {
             inputsTop: randomNumbersTop,
@@ -75,8 +81,10 @@ export function SetNumbers() {
 
         setInputsState(numbersMap);
 
-        console.log('inputsState.inputsTop: ' + inputsState.inputsTop);
-        console.log('inputsState.inputsBottom: ' + inputsState.inputsBottom);
+        // console.log('inputsState.inputsTop: ' + inputsState.inputsTop);
+        // console.log('inputsState.inputsBottom: ' + inputsState.inputsBottom);
+        // console.log('numbersMap: ' + JSON.stringify(numbersMap));
+        // console.log('inputsState: ' + JSON.stringify(inputsState));
 
         // setInputsState(prevState => ({
         //     inputsTop: getRandomNumbers(),
@@ -86,34 +94,37 @@ export function SetNumbers() {
         // console.log('inputsState.inputsTop: ' + inputsState.inputsTop);
         // console.log('inputsState.inputsBottom: ' + inputsState.inputsBottom);
 
-        try {
-            await axios.post(`http://${host}:3001/api/game/api/setNumbers/${groupName}`,
-                { topNumbers: randomNumbersTop, sideNumbers: randomNumbersBottom });
+        // try {
+        //     await axios.post(`http://${host}:3001/api/game/api/setNumbers/${groupName}`,
+        //         { topNumbers: randomNumbersTop, sideNumbers: randomNumbersBottom });
 
-            // navigate('/super-bowl-squares', {
-            //     replace: true,
-            //     state: { groupName: groupName }
-            // });
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            if (error.response != null) {
-                const errorMessage = error.response.data.message;
-                setErrorMessage(errorMessage);
-                setShowModal(true);
-            } else if (error.code === 'ERR_NETWORK') {
-                setErrorMessage('Network Error');
-                setShowModal(true);
-            } else {
-                setErrorMessage('Unknown Error');
-                setShowModal(true);
-            }
-        }
+        //     // navigate('/super-bowl-squares', {
+        //     //     replace: true,
+        //     //     state: { groupName: groupName }
+        //     // });
+        // } catch (error) {
+        //     console.error('Error fetching data:', error);
+        //     if (error.response != null) {
+        //         const errorMessage = error.response.data.message;
+        //         setErrorMessage(errorMessage);
+        //         setShowModal(true);
+        //     } else if (error.code === 'ERR_NETWORK') {
+        //         setErrorMessage('Network Error');
+        //         setShowModal(true);
+        //     } else {
+        //         setErrorMessage('Unknown Error');
+        //         setShowModal(true);
+        //     }
+        // }
     };
 
     // Function to handle button click to set numbers
     const handleSetNumbersClick = async () => {
+        // console.log('handleSetNumbersClick...');
         try {
-            await axios.post(`http://${host}:3001/api/game/api/setNumbers/${groupName}`,
+            // const url = `http://${host}:3001/api/game/api/setNumbers/${groupName}`
+            const url = api_url + 'api/game/api/setNumbers/' + groupName;
+            await axios.post(url,
                 { topNumbers: inputsState.inputsTop, sideNumbers: inputsState.inputsBottom });
 
             navigate('/super-bowl-squares', {
