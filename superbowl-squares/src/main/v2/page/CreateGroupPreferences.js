@@ -9,6 +9,8 @@ import AutoSetNumbers from '../component/AutoSetNumbers';
 import axios from 'axios';
 import { host , api_url} from '../../../config';
 import Form from 'react-bootstrap/Form';
+import AddPassword from '../component/AddPassword';
+import AutoSetTeams from '../component/AutoSetTeams';
 
 export function CreateGroupPreferences() {
 
@@ -19,12 +21,23 @@ export function CreateGroupPreferences() {
 
     // State to store autoSetNumbers
     const [autoSetNumbers, setAutoSetNumbers] = useState(false);
+    const [addGroupPassword, setAddGroupPassword] = useState(false);
     const [groupPassword, setGroupPassword] = useState("");
+    const [autoSetTeams, setAutoSetTeams] = useState(false);
 
     // Function to handle checkbox change
     const handleToggleChange = (newValue) => {
         setAutoSetNumbers(newValue);
     };
+
+    // Function to handle add password checkbox change
+    const handleAddPasswordToggleChange = (newValue) => {
+        setAddGroupPassword(newValue);
+    }
+
+    const handleAutoSetTeamsChange = (newValue) => {
+        setAutoSetTeams(newValue);
+    }
 
     const handleButtonClick = async () => {
         try {
@@ -61,15 +74,21 @@ export function CreateGroupPreferences() {
                     </Col>
                 </Row>
                 <Row>
+                    <Col style={center()}>
+                        <AddPassword addGroupPassword={addGroupPassword} handleAddPasswordToggleChange={handleAddPasswordToggleChange} />
+                    </Col>
+                </Row>
+                <Row>
                     <Col>
-                        <Form.Group className="mb-3" onChange={(e) => setGroupPassword(e.target.value)}>
+                        {/* <Form.Group className="mb-3" onChange={(e) => setGroupPassword(e.target.value)}>
                             <Form.Label>Password</Form.Label>
                             <Form.Control placeholder="Enter custom password" />
                             <Form.Text className="text-muted">
                                 This is optional. If you leave this blank, 
                                 anyone with the link to your game will be able to edit squares.
                             </Form.Text>
-                        </Form.Group>
+                        </Form.Group> */}
+                        <AutoSetTeams autoSetTeams={autoSetTeams} handleAutoSetTeamsChange={handleAutoSetTeamsChange}/>
                     </Col>
                 </Row>
                 <Row>

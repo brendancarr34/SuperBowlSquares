@@ -19,7 +19,7 @@ function AutoSetNumbers({ autoSetNumbers, handleToggleChange }) {
           onChange={handleToggle}
         />
       </label>
-      <span>Automatically randomize the top & side-numbers once the board is full?</span>
+      <span>Automatically randomize the top & side numbers once the board is full?</span>
     </div>
   );
 }
