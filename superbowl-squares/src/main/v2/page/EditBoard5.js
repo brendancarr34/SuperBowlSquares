@@ -21,6 +21,7 @@ export function EditBoard5() {
   const [showErrorModal, setShowErrorModal] = useState(false); // State for showing error modal
   const [showApiErrorModal, setShowApiErrorModal] = useState(false); // State for showing API error modal
   const [showTakenInitialsModal, setShowTakenInitialsModal] = useState(false);
+  const [showClickedButtonsTakenModal, setShowClickedButtonsTakenModal] = useState(false);
 
   let navigate = useNavigate();
 
@@ -65,6 +66,7 @@ export function EditBoard5() {
       console.error('Error submitting data:', error);
       if (error.response && error.response.data && error.response.data.validMaps) {
         // Set the clicked buttons and update the grid
+        setShowClickedButtonsTakenModal(true);
         setClickedButtons(error.response.data.validMaps);
       } else {
         // Handle initials already exist scenario
@@ -156,6 +158,19 @@ export function EditBoard5() {
         <Modal.Body>These initials are taken.</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowTakenInitialsModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Error Modal for Clicked Buttons Taken */}
+      <Modal show={showClickedButtonsTakenModal} onHide={() => setShowClickedButtonsTakenModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Error</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Oh no! Someone took one or more of your squares! Please review your selected squares.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowClickedButtonsTakenModal(false)}>
             Close
           </Button>
         </Modal.Footer>
