@@ -148,7 +148,7 @@ export function SetNumbers() {
     };
 
     const handleGoBackClick = () => {
-        navigate('/super-bowl-squares', {
+        navigate('/set-number-and-teams', {
             replace: true,
             state: { groupName: groupName }
         });
@@ -204,8 +204,8 @@ export function SetNumbers() {
                     <Row>
                         <Col>
                             {/* Attach event handler to the button */}
-                            <Button style={blackButton()} onClick={handleGoBackClick}>
-                                Go Back
+                            <Button style={grayButton()} onClick={handleGoBackClick}>
+                                Cancel
                             </Button>
                         </Col>
                     </Row>
@@ -239,6 +239,15 @@ function fullHeight() {
 function blackButton() {
     return {
         backgroundColor: 'black',
+        padding: 20,
+        border: 'black',
+        width: 200
+    };
+}
+
+function grayButton() {
+    return {
+        backgroundColor: 'gray',
         padding: 20,
         border: 'black',
         width: 200

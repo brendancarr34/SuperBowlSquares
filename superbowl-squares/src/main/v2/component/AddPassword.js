@@ -17,7 +17,7 @@ function AddPassword({ addGroupPassword, handleAddPasswordToggleChange }) {
     <Row>
       <Col>
         <Row>
-          <div>
+          <div style={{ display: 'flex', alignItems: 'center', padding: 10 }}>
             <label style={{ marginRight: '10px' }}>
               <input
                 className="big-checkbox" // changed class to className
@@ -36,10 +36,10 @@ function AddPassword({ addGroupPassword, handleAddPasswordToggleChange }) {
                 <Form.Group className="mb-3" onChange={(e) => setGroupPassword(e.target.value)}>
                     {/* <Form.Label>Password</Form.Label> */}
                     <Form.Control placeholder="Enter custom password" />
-                    <Form.Text className="text-muted">
+                    {/* <Form.Text className="text-muted">
                         This is optional. If you leave this blank, 
                         anyone with the link to your game will be able to edit squares.
-                    </Form.Text>
+                    </Form.Text> */}
                 </Form.Group>
               </Col>
             )}

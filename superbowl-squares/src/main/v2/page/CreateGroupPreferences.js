@@ -25,18 +25,19 @@ export function CreateGroupPreferences() {
     const [groupPassword, setGroupPassword] = useState("");
     const [autoSetTeams, setAutoSetTeams] = useState(false);
 
-    // Function to handle checkbox change
-    const handleToggleChange = (newValue) => {
+    // Function to handle AutoSetNumbers checkbox change
+    const handleAutoSetNumberChange = (newValue) => {
         setAutoSetNumbers(newValue);
     };
+
+    // Function to handle AutoSetTeams checkbox change
+    const handleAutoSetTeamsChange = (newValue) => {
+        setAutoSetTeams(newValue);
+    }
 
     // Function to handle add password checkbox change
     const handleAddPasswordToggleChange = (newValue) => {
         setAddGroupPassword(newValue);
-    }
-
-    const handleAutoSetTeamsChange = (newValue) => {
-        setAutoSetTeams(newValue);
     }
 
     const handleButtonClick = async () => {
@@ -70,7 +71,7 @@ export function CreateGroupPreferences() {
                 <Row>
                     <Col style={center()}>
                         {/* Pass autoSetNumbers state and handleToggleChange function as props */}
-                        <AutoSetNumbers autoSetNumbers={autoSetNumbers} handleToggleChange={handleToggleChange} />
+                        <AutoSetNumbers autoSetNumbers={autoSetNumbers} handleToggleChange={handleAutoSetNumberChange} />
                     </Col>
                 </Row>
                 <Row>
@@ -79,15 +80,7 @@ export function CreateGroupPreferences() {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        {/* <Form.Group className="mb-3" onChange={(e) => setGroupPassword(e.target.value)}>
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control placeholder="Enter custom password" />
-                            <Form.Text className="text-muted">
-                                This is optional. If you leave this blank, 
-                                anyone with the link to your game will be able to edit squares.
-                            </Form.Text>
-                        </Form.Group> */}
+                    <Col style={center()}>
                         <AutoSetTeams autoSetTeams={autoSetTeams} handleAutoSetTeamsChange={handleAutoSetTeamsChange}/>
                     </Col>
                 </Row>

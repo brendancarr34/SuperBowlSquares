@@ -18,7 +18,7 @@ function AutoSetTeams({ autoSetTeams, handleAutoSetTeamsChange }) {
     <Row>
       <Col>
         <Row>
-          <div>
+          <div style={{ display: 'flex', alignItems: 'center', padding: 10 }}>
             <label style={{ marginRight: '10px' }}>
               <input
                 className="big-checkbox" // changed class to className
