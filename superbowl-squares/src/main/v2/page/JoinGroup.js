@@ -30,7 +30,7 @@ export function JoinGroup() {
 
     const superBowlSquares = () => { 
         console.log("group: " + groupName + ", password: " + groupPassword)
-        navigate('/super-bowl-squares', {state: { groupName: groupName }});
+        navigate('/SuperBowlSquares/super-bowl-squares', {state: { groupName: groupName }});
     }
 
     return (
