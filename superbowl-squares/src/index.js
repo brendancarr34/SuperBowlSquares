@@ -22,8 +22,8 @@ root.render(
     <React.StrictMode>
         <Router >
             <Routes>
-                <Route path="/SuperBowlSquares" element={<Home />} />
-                <Route path="/SuperBowlSquares/super-bowl-squares" element={<ViewBoard3 />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/super-bowl-squares" element={<ViewBoard3 />} />
                 <Route path="/v1" element={<Grid />} />
                 <Route path="/create-group" element={<CreateGroup />} />
                 <Route path="/create-group-preferences" element={<CreateGroupPreferences />} />
