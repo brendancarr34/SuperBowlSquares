@@ -7,8 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import AutoSetNumbers from '../component/AutoSetNumbers';
 import axios from 'axios';
-import { host , api_url} from '../../../config';
-import Form from 'react-bootstrap/Form';
+import { api_url} from '../../../config';
 import AddPassword from '../component/AddPassword';
 import AutoSetTeams from '../component/AutoSetTeams';
 
@@ -19,11 +18,12 @@ export function CreateGroupPreferences() {
 
     const navigate = useNavigate();
 
-    // State to store autoSetNumbers
     const [autoSetNumbers, setAutoSetNumbers] = useState(false);
     const [addGroupPassword, setAddGroupPassword] = useState(false);
-    const [groupPassword, setGroupPassword] = useState("");
     const [autoSetTeams, setAutoSetTeams] = useState(false);
+    const [groupPassword, setGroupPassword] = useState("");
+    const [team1, setTeam1] = useState("");
+    const [team2, setTeam2] = useState("");
 
     // Function to handle AutoSetNumbers checkbox change
     const handleAutoSetNumberChange = (newValue) => {
@@ -40,10 +40,29 @@ export function CreateGroupPreferences() {
         setAddGroupPassword(newValue);
     }
 
+    const handleSetGroupPassword = (newValue) => {
+        setGroupPassword(newValue);
+    }
+
+    const handleSetTeam1 = (newValue) => {
+        setTeam1(newValue);
+    }
+
+    const handleSetTeam2 = (newValue) => {
+        setTeam2(newValue);
+    }
+
     const handleButtonClick = async () => {
         try {
+            console.log(
+                "autoSetNumbers: " + autoSetNumbers + ",\n" +
+                "addGroupPassword: " + addGroupPassword + ",\n" + 
+                "autoSetTeams: " + autoSetTeams + ",\n" +
+                "groupPassword: " + groupPassword + ",\n" +
+                "team1: " + team1 + ",\n" +
+                "team2: " + team2
+            )
             // Make the POST request to the API endpoint
-            // const url = 'http://' + host + ':3001/api/game/api/setPreferences/' + groupName;
             const url = api_url + 'api/game/api/setPreferences/' + groupName;
             const response = await axios.post(url, {
                 autoSetNumbers: autoSetNumbers
@@ -76,12 +95,12 @@ export function CreateGroupPreferences() {
                 </Row>
                 <Row>
                     <Col style={center()}>
-                        <AddPassword addGroupPassword={addGroupPassword} handleAddPasswordToggleChange={handleAddPasswordToggleChange} />
+                        <AddPassword addGroupPassword={addGroupPassword} handleAddPasswordToggleChange={handleAddPasswordToggleChange} handleSetGroupPassword={handleSetGroupPassword}/>
                     </Col>
                 </Row>
                 <Row>
                     <Col style={center()}>
-                        <AutoSetTeams autoSetTeams={autoSetTeams} handleAutoSetTeamsChange={handleAutoSetTeamsChange}/>
+                        <AutoSetTeams autoSetTeams={autoSetTeams} handleAutoSetTeamsChange={handleAutoSetTeamsChange} handleSetTeam1={handleSetTeam1} handleSetTeam2={handleSetTeam2}/>
                     </Col>
                 </Row>
                 <Row>

@@ -13,6 +13,17 @@ export function JoinGroup() {
 
     let navigate = useNavigate(); 
 
+    const handleGroupNameChange = (e) => {
+        let value = e.target.value;
+        // Convert spaces to hyphens
+        value = value.replace(/\s+/g, '-');
+        // Remove any punctuation other than spaces and hyphens
+        value = value.replace(/[^\w\s-]/gi, '');
+        // Convert input value to lowercase
+        value = value.toLowerCase();
+        setGroupName(value);
+    };
+
     useEffect(() => {
         // Listen for the popstate event
         const handlePopstate = () => {
@@ -49,9 +60,11 @@ export function JoinGroup() {
                 <Row style={wide()}>
                     <Col style={wide()}>
                         <Form>
-                            <Form.Group className="mb-3" onChange={(e) => setGroupName(e.target.value)}>
+                            <Form.Group className="mb-3" >
                                 <Form.Label>Group Code</Form.Label>
-                                <Form.Control placeholder="" />
+                                <Form.Control placeholder=""
+                                onChange={handleGroupNameChange}
+                                value={groupName} />
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicPassword" onChange={(e) => setGroupPassword(e.target.value)}>
                                 <Form.Label>Password</Form.Label>

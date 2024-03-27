@@ -5,14 +5,24 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import '../style/AutoSetNumbersComponent.css'
 
-function AutoSetTeams({ autoSetTeams, handleAutoSetTeamsChange }) {
+function AutoSetTeams({ autoSetTeams, handleAutoSetTeamsChange, handleSetTeam1, handleSetTeam2 }) {
 
-    const [team1, setTeam1] = useState("");
-    const [team2, setTeam2] = useState("");
+    // const [team1, setTeam1] = useState("");
+    // const [team2, setTeam2] = useState("");
 
   const handleToggle = () => {
     handleAutoSetTeamsChange(!autoSetTeams); // Call the function passed from parent
   };
+
+  const handleTeam1Change = (e) => {
+    const newTeam1 = e.target.value;
+    handleSetTeam1(newTeam1);
+  }
+
+  const handleTeam2Change = (e) => {
+    const newTeam2 = e.target.value;
+    handleSetTeam2(newTeam2);
+  }
 
   return (
     <Row>
@@ -34,7 +44,7 @@ function AutoSetTeams({ autoSetTeams, handleAutoSetTeamsChange }) {
         <Row>
           {autoSetTeams && (
               <Col>
-                <Form.Group className="mb-3" onChange={(e) => setTeam1(e.target.value)}>
+                <Form.Group className="mb-3" onChange={handleTeam1Change}>
                     {/* <Form.Label>Password</Form.Label> */}
                     <Form.Control placeholder="Enter Team 1" />
                     {/* <Form.Text className="text-muted">
@@ -42,7 +52,7 @@ function AutoSetTeams({ autoSetTeams, handleAutoSetTeamsChange }) {
                         anyone with the link to your game will be able to edit squares.
                     </Form.Text> */}
                 </Form.Group>
-                <Form.Group className="mb-3" onChange={(e) => setTeam2(e.target.value)}>
+                <Form.Group className="mb-3" onChange={handleTeam2Change}>
                     {/* <Form.Label>Password</Form.Label> */}
                     <Form.Control placeholder="Enter Team 2" />
                     {/* <Form.Text className="text-muted">
