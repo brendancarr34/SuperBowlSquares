@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter as Router } from 'react-router-dom';
 import { Home } from './main/v2/page/Home.js'
 import { Grid } from './main/v1/Grid.js';
 import { ViewBoard3 } from './main/v2/page/ViewBoard3.js';
@@ -19,7 +20,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <React.StrictMode>
-        <BrowserRouter>
+        <Router >
             <Routes>
                 <Route path="/SuperBowlSquares" element={<Home />} />
                 <Route path="/SuperBowlSquares/super-bowl-squares" element={<ViewBoard3 />} />
@@ -34,6 +35,6 @@ root.render(
                 <Route path='/set-teams' element={<SetTeams />}/>
                 {/* <Route path='/test' element={<VerticalTextComponent text={'Test Text'} />} /> */}
             </Routes>
-        </BrowserRouter>
+        </Router>
     </React.StrictMode>
 );
