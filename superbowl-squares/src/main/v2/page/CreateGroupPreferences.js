@@ -89,24 +89,34 @@ export function CreateGroupPreferences() {
                 </Row>
                 <Row>
                     <Col style={center()}>
-                        {/* Pass autoSetNumbers state and handleToggleChange function as props */}
-                        <AutoSetNumbers autoSetNumbers={autoSetNumbers} handleToggleChange={handleAutoSetNumberChange} />
+                        <AutoSetNumbers 
+                            autoSetNumbers={autoSetNumbers} 
+                            handleToggleChange={handleAutoSetNumberChange} />
                     </Col>
                 </Row>
                 <Row>
                     <Col style={center()}>
-                        <AddPassword addGroupPassword={addGroupPassword} handleAddPasswordToggleChange={handleAddPasswordToggleChange} handleSetGroupPassword={handleSetGroupPassword}/>
+                        <AddPassword 
+                            addGroupPassword={addGroupPassword} 
+                            handleAddPasswordToggleChange={handleAddPasswordToggleChange} 
+                            handleSetGroupPassword={handleSetGroupPassword}/>
                     </Col>
                 </Row>
                 <Row>
                     <Col style={center()}>
-                        <AutoSetTeams autoSetTeams={autoSetTeams} handleAutoSetTeamsChange={handleAutoSetTeamsChange} handleSetTeam1={handleSetTeam1} handleSetTeam2={handleSetTeam2}/>
+                        <AutoSetTeams 
+                            autoSetTeams={autoSetTeams} 
+                            handleAutoSetTeamsChange={handleAutoSetTeamsChange} 
+                            handleSetTeam1={handleSetTeam1} 
+                            handleSetTeam2={handleSetTeam2}/>
                     </Col>
                 </Row>
                 <Row>
                     <Col style={center()}>
-                        <Button style={blackButton()} onClick={handleButtonClick}>
-                            Start a New Group
+                        <Button 
+                            style={blackButton()} 
+                            onClick={handleButtonClick}>
+                                Start a New Group
                         </Button>
                     </Col>
                 </Row>

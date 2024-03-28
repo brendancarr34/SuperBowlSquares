@@ -56,8 +56,6 @@ export function CreateGroup() {
             }
 
           // Make the API call using Axios
-        //   const url = 'http://' + host + ':3001/api/group/add/' + groupName;
-        //   const url = 'https://superbowl-squares-api-2-xzyvynj7hq-uc.a.run.app/api/group/add/' + groupName;
           const url = api_url + 'api/group/add/' + groupName;
           // TODO - handle error when unable to make API call
           const response = await axios.post(url, {
@@ -99,10 +97,7 @@ export function CreateGroup() {
             // ...otherwise will need logic for when preferences don't exist
           });
           setError(null);
-          console.log("test");
-        //   navigate('/super-bowl-squares', {state: { groupName: groupName }});
           navigate('/create-group-preferences', {state: { groupName: groupName }});
-        // navigate('/create-group-preferences', {state: { groupName: groupName }});
         } catch (error) {
           console.error('Error fetching data:', error);
           if (error.response != null) {
@@ -148,14 +143,6 @@ export function CreateGroup() {
                                     dashes.
                                 </Form.Text>
                             </Form.Group>
-                            {/* <Form.Group className="mb-3" onChange={(e) => setGroupPassword(e.target.value)}>
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control placeholder="Enter custom password" />
-                                <Form.Text className="text-muted">
-                                    This is optional. If you leave this blank, 
-                                    anyone with the link to your game will be able to edit squares.
-                                </Form.Text>
-                            </Form.Group> */}
                         </Form>
                     </Col>
                 </Row>
