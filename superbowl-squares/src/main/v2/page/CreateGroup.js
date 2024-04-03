@@ -6,34 +6,15 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, sideNumbers, topNumbers } from "../data/EmptyBoardData";
 import '../style/Button.css'
-import { host , api_url} from '../../../config';
+import { api_url} from '../../../config';
 import Modal from 'react-bootstrap/Modal';
-
-function generateUUID() {
-    var d = new Date().getTime();
-    var d2 = (performance && performance.now && (performance.now()*1000)) || 0;
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16;
-        if(d > 0){
-            r = (d + r)%16 | 0;
-            d = Math.floor(d/16);
-        } else {
-            r = (d2 + r)%16 | 0;
-            d2 = Math.floor(d2/16);
-        }
-        return (c === 'x' ? r : (r&0x7|0x8)).toString(16);
-    });
-    return uuid;
-};
 
 export function CreateGroup() {
 
     let navigate = useNavigate(); 
     const [groupName, setGroupName] = useState("");
-    const [groupPassword, setGroupPassword] = useState("");
-    const [showErrorModal, setShowErrorModal] = useState(false); // State for showing error modal
+    const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState(null);
 
     const handleGroupNameChange = (e) => {
@@ -47,72 +28,33 @@ export function CreateGroup() {
         setGroupName(value);
     };
 
-    const handleButtonClick = async () => {
+    const handleButtonClick2 = async () => {
         try {
-            // TODO - review/fix logic for empty groupName
-            // if groupName is empty, create a group name
-            if (groupName === "") {
-                groupName = generateUUID().substring(0,6);
-            }
+            const url = api_url + '/api/game/' + groupName
+            const response = await axios.get(url);
 
-          // Make the API call using Axios
-          const url = api_url + 'api/group/add/' + groupName;
-          // TODO - handle error when unable to make API call
-          const response = await axios.post(url, {
-            name: groupName,
-            password: groupPassword,
-            gameData: {
-                row0: empty_row,
-                row0_players: emptyNameRow,
-                row1: empty_row,
-                row1_players: emptyNameRow,
-                row2: empty_row,
-                row2_players: emptyNameRow,
-                row3: empty_row,
-                row3_players: emptyNameRow,
-                row4: empty_row,
-                row4_players: emptyNameRow,
-                row5: empty_row,
-                row5_players: emptyNameRow,
-                row6: empty_row,
-                row6_players: emptyNameRow,
-                row7: empty_row,
-                row7_players: emptyNameRow,
-                row8: empty_row,
-                row8_players: emptyNameRow,
-                row9: empty_row,
-                row9_players: emptyNameRow
-            },
-            players: [],
-            allSquaresClaimed: false,
-            numbersSet: false,
-            teamsSet: false,
-            topNumbers: emptyTopNumbers,
-            sideNumbers: emptySideNumbers,
-            teams: {
-                top: '',
-                side: ''
-            },
-            // TODO - add default preferences here? or handle this in the backend? 
-            // ...otherwise will need logic for when preferences don't exist
-          });
-          setError(null);
-          navigate('/create-group-preferences', {state: { groupName: groupName }});
+            setError("Group with name '" + groupName + "' already exists");
+            setShowErrorModal(true);
+
         } catch (error) {
-          console.error('Error fetching data:', error);
-          if (error.response != null) {
-            console.log(error.response.data.error);
-            setError(error.response.data.error);
-            setShowErrorModal(true);
-          } else if (error.code == 'ERR_NETWORK') {
-            setError('Network Error');
-            setShowErrorModal(true);
-          } else {
-            setError('Unknown Error');
-            setShowErrorModal(true);
-          }
+
+            if (error.response != null && 
+                    error.response.data.error == 'Document not found') {
+                navigate('/create-group-preferences', {state: { groupName: groupName }});
+            }
+            else if (error.response != null) {
+                setError(error.response.data.error);
+                setShowErrorModal(true);
+            }
+            else if (error.code == 'ERR_NETWORK') {
+                setError('Network Error');
+                setShowErrorModal(true);
+            } else {
+                setError('Unknown Error');
+                setShowErrorModal(true);
+            }
         }
-      };
+    };
 
     return (
         <Container>
@@ -148,16 +90,10 @@ export function CreateGroup() {
                 </Row>
                 <Row>
                     <Col style={center()}>
-                        <Button style={blackButton()} onClick={handleButtonClick}>
+                        <Button style={blackButton()} onClick={handleButtonClick2}>
                             Next
                         </Button>
                     </Col>
-                    {/* {error && (
-                                <div className="error-popup">
-                                <p>{error}</p>
-                                <button onClick={() => setError(null)}>X</button>
-                                </div>
-                            )} */}
                 </Row>
             </Row>
 
@@ -207,12 +143,6 @@ export function CreateGroup() {
             border:'black',
             width:'75vw',
             padding:20
-        }
-    }
-
-    function input() {
-        return {
-            color: error ? 'red' : 'black'
         }
     }
 }
