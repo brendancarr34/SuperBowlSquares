@@ -20,7 +20,7 @@ function AddPassword({ addGroupPassword, handleAddPasswordToggleChange, handleSe
     <Row>
       <Col>
         <Row>
-          <div style={{ display: 'flex', alignItems: 'center', padding: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', paddingLeft:10, paddingRight: 10 }}>
             <label style={{ marginRight: '10px' }}>
               <input
                 className="big-checkbox" // changed class to className
@@ -36,7 +36,7 @@ function AddPassword({ addGroupPassword, handleAddPasswordToggleChange, handleSe
         <Row>
           {addGroupPassword && (
               <Col>
-                <Form.Group className="mb-3" onChange={handleGroupPasswordChange}>
+                <Form.Group onChange={handleGroupPasswordChange} style={{margin:0, paddingTop:2, paddingBottom:2}}>
                     <Form.Control placeholder="Enter custom password" />
                 </Form.Group>
               </Col>

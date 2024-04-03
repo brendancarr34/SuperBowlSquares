@@ -12,6 +12,24 @@ import Modal from 'react-bootstrap/Modal';
 
 export function CreateGroup() {
 
+    function generateUUID() {
+        console.log('test2');
+        var d = new Date().getTime();
+        var d2 = (performance && performance.now && (performance.now()*1000)) || 0;
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16;
+            if(d > 0){
+                r = (d + r)%16 | 0;
+                d = Math.floor(d/16);
+            } else {
+                r = (d2 + r)%16 | 0;
+                d2 = Math.floor(d2/16);
+            }
+            return (c === 'x' ? r : (r&0x7|0x8)).toString(16);
+        });
+        return uuid;
+    };
+
     let navigate = useNavigate(); 
     const [groupName, setGroupName] = useState("");
     const [showErrorModal, setShowErrorModal] = useState(false);
@@ -30,6 +48,10 @@ export function CreateGroup() {
 
     const handleButtonClick2 = async () => {
         try {
+            if (groupName == '') {
+                navigate('/create-group-preferences', {state: { groupName: groupName }});
+            }
+
             const url = api_url + '/api/game/' + groupName
             const response = await axios.get(url);
 
@@ -40,6 +62,15 @@ export function CreateGroup() {
 
             if (error.response != null && 
                     error.response.data.error == 'Document not found') {
+
+                console.log('test');
+
+                if (groupName === "") {
+                    groupName = generateUUID().substring(0,6);
+                }
+
+                console.log("groupName: " + groupName);
+
                 navigate('/create-group-preferences', {state: { groupName: groupName }});
             }
             else if (error.response != null) {

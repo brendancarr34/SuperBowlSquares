@@ -15,7 +15,7 @@ function AutoSetNumbers({ autoSetNumbers, handleToggleChange }) {
     <Row>
       <Col>
         <Row>
-          <div style={{ display: 'flex', alignItems: 'center', padding: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', paddingLeft:10, paddingRight: 10 }}>
             <label style={{ marginRight: '10px' }}>
               <input
                 className="big-checkbox" // changed class to className

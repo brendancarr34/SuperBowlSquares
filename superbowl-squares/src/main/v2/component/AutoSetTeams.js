@@ -28,7 +28,7 @@ function AutoSetTeams({ autoSetTeams, handleAutoSetTeamsChange, handleSetTeam1, 
     <Row>
       <Col>
         <Row>
-          <div style={{ display: 'flex', alignItems: 'center', padding: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', paddingLeft:10, paddingRight: 10 }}>
             <label style={{ marginRight: '10px' }}>
               <input
                 className="big-checkbox" // changed class to className
@@ -44,7 +44,7 @@ function AutoSetTeams({ autoSetTeams, handleAutoSetTeamsChange, handleSetTeam1, 
         <Row>
           {autoSetTeams && (
               <Col>
-                <Form.Group className="mb-3" onChange={handleTeam1Change}>
+                <Form.Group onChange={handleTeam1Change} style={{margin:0, paddingTop:2, paddingBottom:2}}>
                     {/* <Form.Label>Password</Form.Label> */}
                     <Form.Control placeholder="Enter Team 1" />
                     {/* <Form.Text className="text-muted">
@@ -52,7 +52,7 @@ function AutoSetTeams({ autoSetTeams, handleAutoSetTeamsChange, handleSetTeam1, 
                         anyone with the link to your game will be able to edit squares.
                     </Form.Text> */}
                 </Form.Group>
-                <Form.Group className="mb-3" onChange={handleTeam2Change}>
+                <Form.Group onChange={handleTeam2Change} style={{margin:0, paddingTop:2, paddingBottom:2}}>
                     {/* <Form.Label>Password</Form.Label> */}
                     <Form.Control placeholder="Enter Team 2" />
                     {/* <Form.Text className="text-muted">

@@ -10,6 +10,7 @@ import axios from 'axios';
 import { api_url} from '../../../config';
 import AddPassword from '../component/AddPassword';
 import AutoSetTeams from '../component/AutoSetTeams';
+import AddVenmoInfo from '../component/AddVenmoInfo';
 import Modal from 'react-bootstrap/Modal';
 import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, } from "../data/EmptyBoardData";
 
@@ -32,8 +33,26 @@ function generateUUID() {
 
 export function CreateGroupPreferences() {
 
+    function generateUUID() {
+        console.log('test2');
+        var d = new Date().getTime();
+        var d2 = (performance && performance.now && (performance.now()*1000)) || 0;
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16;
+            if(d > 0){
+                r = (d + r)%16 | 0;
+                d = Math.floor(d/16);
+            } else {
+                r = (d2 + r)%16 | 0;
+                d2 = Math.floor(d2/16);
+            }
+            return (c === 'x' ? r : (r&0x7|0x8)).toString(16);
+        });
+        return uuid;
+    };
+
     const location = useLocation();
-    const groupName = location.state.groupName;
+    let groupName = location.state.groupName;
 
     const navigate = useNavigate();
 
@@ -45,6 +64,9 @@ export function CreateGroupPreferences() {
     const [team2, setTeam2] = useState("");
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState(null);
+
+    const [addVenmoInfo, setAddVenmoInfo] = useState(false);
+    const [venmoUsername, setVenmoUserName] = useState("");
 
     // Function to handle AutoSetNumbers checkbox change
     const handleAutoSetNumberChange = (newValue) => {
@@ -73,12 +95,23 @@ export function CreateGroupPreferences() {
         setGroupPassword(newValue);
     }
 
+    // Function to handle add Venmo info
+    const handleAddVenmoInfoToggleChange = (newValue) => {
+        setAddVenmoInfo(newValue);
+    }
+
+    const handleSetVenmoUsername = (newValue) => {
+        setVenmoUserName(newValue);
+    }
+
     const handleButtonClick2 = async () => {
 
         // if groupName is empty, create a group name
         if (groupName === "") {
             groupName = generateUUID().substring(0,6);
         }
+
+        console.log('groupName: ' + groupName);
 
         try {
             const url = api_url + 'api/group/add/' + groupName;
@@ -122,7 +155,8 @@ export function CreateGroupPreferences() {
                     autoSetNumbers: autoSetNumbers,
                     autoSetTeams: autoSetTeams,
                     team1: team1,
-                    team2: team2
+                    team2: team2,
+                    venmoUsername: venmoUsername
                 }
             });
 
@@ -170,12 +204,28 @@ export function CreateGroupPreferences() {
                     </Row>
                     <Row>
                         <Col style={center()}>
-                        <AddPassword 
+                            <AddPassword 
                                 addGroupPassword={addGroupPassword} 
                                 handleAddPasswordToggleChange={handleAddPasswordToggleChange} 
                                 handleSetGroupPassword={handleSetGroupPassword}/>
                         </Col>
                     </Row>
+                    <Row>
+                        <Col style={center()}>
+                            <AddVenmoInfo
+                                addVenmoInfo={addVenmoInfo} 
+                                handleAddVenmoInfoToggleChange={handleAddVenmoInfoToggleChange} 
+                                handleSetVenmoUsername={handleSetVenmoUsername}/>
+                        </Col>
+                    </Row>
+                    {/* <Row>
+                        <Col style={center()}>
+                            {/* <AddVenmoInfo
+                                addVenmoInfo={addVenmoInfo} 
+                                handleAddVenmoInfoToggleChange={handleAddVenmoInfoToggleChange} 
+                                handleSetVenmoUsername={handleSetVenmoUsername}/>
+                        </Col>
+                    </Row> */}
                 </Row>
                 <Row style = {height15()}>
                     <Col style={center()}>
@@ -214,7 +264,7 @@ export function CreateGroupPreferences() {
 
     function height15() {
         return {
-            height: '25vh',
+            height: '18vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
@@ -223,7 +273,7 @@ export function CreateGroupPreferences() {
 
     function height70() {
         return {
-            height: '50vh',
+            height: '54vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
