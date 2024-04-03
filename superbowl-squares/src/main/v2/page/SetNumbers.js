@@ -8,11 +8,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import NumberInputBoxes from '../component/NumberInputBoxes';
 import axios from 'axios';
 import { emptyTopNumbers } from '../data/EmptyBoardData';
+import { host , api_url} from '../../../config';
 
 export function SetNumbers() {
     const location = useLocation();
     let navigate = useNavigate();
-    let groupName =  location.state.groupName;
+    let groupName = location.state.groupName;
 
     // State to hold inputsTop and inputsBottom
     const [inputsState, setInputsState] = useState({
@@ -21,22 +22,26 @@ export function SetNumbers() {
     });
 
     useEffect(() => {
+
+        // console.log('inputsState.inputsTop 2: ' + inputsState.inputsTop);
+        // console.log('inputsState.inputsBottom 2: ' + inputsState.inputsBottom);
+
         // Function to fetch data from the API
         const fetchData = async () => {
             try {
-                // const response = await axios.get('http://localhost:3001/api/game/' + groupName);
-                const response = await axios.get('http://10.0.0.65:3001/api/game/' + groupName);
-                if (response.data.topNumbers != emptyTopNumbers && response.data.sideNumbers != emptyTopNumbers) {
+                // const url = 'http://' + host + ':3001/api/game/' + groupName;
+                const url = api_url + 'api/game/' + groupName;
+                const response = await axios.get(url);
+                if (response.data.topNumbers !== emptyTopNumbers && response.data.sideNumbers !== emptyTopNumbers) {
                     setInputsState({
-                        inputsTop: response.data.topNumbers, 
+                        inputsTop: response.data.topNumbers,
                         inputsBottom: response.data.sideNumbers
                     });
                 }
+            } catch (error) {
+                console.error('Error fetching data:', error);
             }
-            catch (error) {
-
-            }
-        }
+        };
 
         fetchData();
     }, []);
@@ -50,10 +55,76 @@ export function SetNumbers() {
         setInputsState(inputs);
     };
 
-    // Function to handle button click
+    // Function to handle button click to set random numbers
+    const handleRandomNumbersClick = async () => {
+        const getRandomNumbers = () => {
+            const randomNumbers = [];
+            while (randomNumbers.length < 10) {
+                const randomNumber = Math.floor(Math.random() * 10);
+                if (!randomNumbers.includes(randomNumber)) {
+                    randomNumbers.push(randomNumber);
+                }
+            }
+            return randomNumbers;
+        };
+
+        const randomNumbersTop = getRandomNumbers();
+        const randomNumbersBottom = getRandomNumbers();
+
+        // console.log('randomNumbersTop: ' + randomNumbersTop);
+        // console.log('randomNumbersBottom: ' + randomNumbersBottom);
+
+        const numbersMap = {
+            inputsTop: randomNumbersTop,
+            inputsBottom: randomNumbersBottom
+        }
+
+        setInputsState(numbersMap);
+
+        // console.log('inputsState.inputsTop: ' + inputsState.inputsTop);
+        // console.log('inputsState.inputsBottom: ' + inputsState.inputsBottom);
+        // console.log('numbersMap: ' + JSON.stringify(numbersMap));
+        // console.log('inputsState: ' + JSON.stringify(inputsState));
+
+        // setInputsState(prevState => ({
+        //     inputsTop: getRandomNumbers(),
+        //     inputsBottom: getRandomNumbers()
+        // }));
+
+        // console.log('inputsState.inputsTop: ' + inputsState.inputsTop);
+        // console.log('inputsState.inputsBottom: ' + inputsState.inputsBottom);
+
+        // try {
+        //     await axios.post(`http://${host}:3001/api/game/api/setNumbers/${groupName}`,
+        //         { topNumbers: randomNumbersTop, sideNumbers: randomNumbersBottom });
+
+        //     // navigate('/super-bowl-squares', {
+        //     //     replace: true,
+        //     //     state: { groupName: groupName }
+        //     // });
+        // } catch (error) {
+        //     console.error('Error fetching data:', error);
+        //     if (error.response != null) {
+        //         const errorMessage = error.response.data.message;
+        //         setErrorMessage(errorMessage);
+        //         setShowModal(true);
+        //     } else if (error.code === 'ERR_NETWORK') {
+        //         setErrorMessage('Network Error');
+        //         setShowModal(true);
+        //     } else {
+        //         setErrorMessage('Unknown Error');
+        //         setShowModal(true);
+        //     }
+        // }
+    };
+
+    // Function to handle button click to set numbers
     const handleSetNumbersClick = async () => {
+        // console.log('handleSetNumbersClick...');
         try {
-            await axios.post(`http://10.0.0.65:3001/api/game/api/setNumbers/${groupName}`, 
+            // const url = `http://${host}:3001/api/game/api/setNumbers/${groupName}`
+            const url = api_url + 'api/game/api/setNumbers/' + groupName;
+            await axios.post(url,
                 { topNumbers: inputsState.inputsTop, sideNumbers: inputsState.inputsBottom });
 
             navigate('/super-bowl-squares', {
@@ -77,11 +148,11 @@ export function SetNumbers() {
     };
 
     const handleGoBackClick = () => {
-        navigate('/super-bowl-squares', {
+        navigate('/set-number-and-teams', {
             replace: true,
             state: { groupName: groupName }
-          });
-    }
+        });
+    };
 
     // Function to close the modal
     const handleCloseModal = () => {
@@ -91,22 +162,33 @@ export function SetNumbers() {
     return (
         <Container>
             <Row style={fullHeight()}>
-                <Col style={center()}>
+                <Col style={{ textAlign: 'center' }}>
                     <Row>
                         <Col>
                             <h1>Set Numbers</h1>
                             <h6>Group: {groupName}</h6>
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                             {/* Pass handleInputChange function as a prop */}
-                            <NumberInputBoxes onInputChange={handleInputChange} inputsTop={inputsState.inputsTop} inputsBottom={inputsState.inputsBottom}/>
-                            <br/>
+                            <NumberInputBoxes onInputChange={handleInputChange} inputsTop={inputsState.inputsTop} inputsBottom={inputsState.inputsBottom} />
+                            <br />
                         </Col>
                     </Row>
                     <Row>
-                        <br/>
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
+                        <br />
+                    </Row>
+                    <Row>
+                        <Col>
+                            {/* Attach event handler to the button */}
+                            <Button style={blackButton()} onClick={handleRandomNumbersClick}>
+                                Generate Random Numbers
+                            </Button>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <br />
                     </Row>
                     <Row>
                         <Col>
@@ -117,13 +199,13 @@ export function SetNumbers() {
                         </Col>
                     </Row>
                     <Row>
-                        <br/>
+                        <br />
                     </Row>
                     <Row>
                         <Col>
                             {/* Attach event handler to the button */}
-                            <Button style={blackButton()} onClick={handleGoBackClick}>
-                                Go Back
+                            <Button style={grayButton()} onClick={handleGoBackClick}>
+                                Cancel
                             </Button>
                         </Col>
                     </Row>
@@ -142,23 +224,16 @@ export function SetNumbers() {
                 </Modal.Footer>
             </Modal>
         </Container>
-    )
+    );
 }
 
 function fullHeight() {
     return {
-        height:'90vh',
-        display: 'flex', 
-        justifyContent: 'center', 
+        height: '90vh',
+        display: 'flex',
+        justifyContent: 'center',
         alignItems: 'center'
-    }
-}
-
-function center() {
-    return {
-        textAlign:'center',
-        // height: '30vh'
-    }
+    };
 }
 
 function blackButton() {
@@ -166,6 +241,15 @@ function blackButton() {
         backgroundColor: 'black',
         padding: 20,
         border: 'black',
-        width: 155
-    }
+        width: 200
+    };
+}
+
+function grayButton() {
+    return {
+        backgroundColor: 'gray',
+        padding: 20,
+        border: 'black',
+        width: 200
+    };
 }

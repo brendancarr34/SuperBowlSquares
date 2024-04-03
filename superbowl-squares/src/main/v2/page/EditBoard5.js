@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import GridComponent3 from './GridComponent3';
+import { host , api_url} from '../../../config';
 
 export function EditBoard5() {
   
@@ -20,11 +21,20 @@ export function EditBoard5() {
   const [showErrorModal, setShowErrorModal] = useState(false); // State for showing error modal
   const [showApiErrorModal, setShowApiErrorModal] = useState(false); // State for showing API error modal
   const [showTakenInitialsModal, setShowTakenInitialsModal] = useState(false);
+  const [showClickedButtonsTakenModal, setShowClickedButtonsTakenModal] = useState(false);
 
   let navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
+
+      if (!playerName.trim() && !playerInitials.trim() && clickedButtons.length == 0) {
+        navigate('/super-bowl-squares', { 
+          replace: true, 
+          state: { name: playerName, initials: playerInitials, groupName: groupName } 
+        });
+      }
+
       // Check if playerName and playerInitials are not empty
       if ((!playerName.trim() || !playerInitials.trim()) && (clickedButtons.length > 0)) {
         setShowErrorModal(true); // Show error modal if fields are empty
@@ -39,7 +49,10 @@ export function EditBoard5() {
 
       if (clickedButtons.length > 0) {
         console.log('MAKING API POST game/api/validateAndClaimSquaresV3/${groupName}');
-        const response = await axios.post(`http://10.0.0.65:3001/api/game/api/validateAndClaimSquaresV3/${groupName}`, 
+        const url = api_url + 'api/game/api/validateAndClaimSquaresV3/' + groupName;
+        // const response = await axios.post(`http://${host}:3001/api/game/api/validateAndClaimSquaresV3/${groupName}`, 
+        //       { maps: clickedButtons, initials: playerInitials, playerName: playerName });
+        const response = await axios.post(url, 
               { maps: clickedButtons, initials: playerInitials, playerName: playerName });
         console.log('Submit successful:', response.data);
       }
@@ -53,6 +66,7 @@ export function EditBoard5() {
       console.error('Error submitting data:', error);
       if (error.response && error.response.data && error.response.data.validMaps) {
         // Set the clicked buttons and update the grid
+        setShowClickedButtonsTakenModal(true);
         setClickedButtons(error.response.data.validMaps);
       } else {
         // Handle initials already exist scenario
@@ -77,12 +91,9 @@ export function EditBoard5() {
   return (
     <Container>
       <Row>
-        <Col style={center()}>
-          <h1 style={{ padding: 15 }}>Claim Squares</h1>
+        <Col style={center2()}>
+          <h1 style={{'padding':15, 'paddingTop':50}}>Claim Squares</h1>
         </Col>
-      </Row>
-      <Row style={pad()}>
-        <Button onClick={handleGoBack} style={blackPad()}>Go Back</Button>
       </Row>
       <Row style={center()}>
           <p>Group Name: {groupName}</p>
@@ -93,21 +104,24 @@ export function EditBoard5() {
         </Col>
       </Row>
       <Row style={pad()}>
-        <Col>
+        <Col style={{'padding':0, 'margin':0, 'paddingRight':5}}>
           <Form>
             <Form.Group className="mb-3" onChange={(e) => setPlayerName(e.target.value)}>
               <Form.Control placeholder="First & Last Name" />
             </Form.Group>
             <Form.Group className="mb-3" onChange={(e) => setPlayerInitials(e.target.value)}>
-              <Form.Control placeholder="Initials" />
+              <Form.Control placeholder="Initials" maxLength={3}/>
             </Form.Group>
           </Form>
         </Col>
-        <Col>
+        <Col style={{'padding':0, 'margin':0, 'paddingLeft':5}}>
           <Button disabled={false} style={black()} onClick={handleSubmit}>
             Submit
           </Button>
         </Col>
+      </Row>
+      <Row style={pad2()}>
+        <Button onClick={handleGoBack} style={blackPad()}>Cancel</Button>
       </Row>
 
       {/* Error Modal for Empty Fields */}
@@ -149,6 +163,19 @@ export function EditBoard5() {
         </Modal.Footer>
       </Modal>
 
+      {/* Error Modal for Clicked Buttons Taken */}
+      <Modal show={showClickedButtonsTakenModal} onHide={() => setShowClickedButtonsTakenModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Error</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Oh no! Someone took one or more of your squares! Please review your selected squares.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowClickedButtonsTakenModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </Container>
     
   );
@@ -172,19 +199,37 @@ function center() {
   }
 }
 
+function center2() {
+  return {
+    display: 'flex', 
+    justifyContent: 'center',
+    textAlign: 'center',
+    alignItems: 'center',
+    padding:0,
+    margin:0,
+    // textAlign: 'center',
+    // width: '100%',
+    // paddingTop: 50
+  }
+}
+
 function black() {
   return {
     backgroundColor: "black",
     border: 'black',
     padding: 0,
     width: '100%',
-    height: '85%'
+    height: '85%',
+    // marginLeft: 5,
+    // marginRight: 5,
+    // paddingLeft:5
   }
 }
 
 function blackPad() {
   return {
-    backgroundColor: "black",
+    backgroundColor: "grey",
+    color: 'black',
     border: 'black',
     padding: 10,
     width: '100%',
@@ -197,7 +242,20 @@ function pad() {
       display: 'flex', 
       justifyContent: 'center', 
       paddingTop: 15,
-      paddingBottom: 15
+      paddingRight: 15,
+      paddingLeft:15
+  }
+}
+
+function pad2() {
+  return {
+      display: 'flex', 
+      justifyContent: 'center', 
+      // paddingTop: 15,
+      // paddingBottom: 15,
+      paddingBottom: 15,
+      paddingRight: 15,
+      paddingLeft:15
   }
 }
 

@@ -20,6 +20,22 @@ export function SetNumbersAndTeams() {
         });
     }
 
+    const handleSetTeams = () => {
+        navigate('/set-teams', { 
+            replace: true, 
+            state: {
+                groupName: groupName
+            } 
+        });
+    }
+
+    const handleGoBackClick = () => {
+        navigate('/super-bowl-squares', {
+            replace: true,
+            state: { groupName: groupName }
+          });
+    }
+
     return (
         <Container>
             <Row style={fullHeight()}>
@@ -34,7 +50,7 @@ export function SetNumbersAndTeams() {
                     </Row>
                     <Row>
                         <Col>
-                            <Button style={blackButton()}>
+                            <Button style={blackButton()} onClick={handleSetTeams}>
                                 Set Teams
                             </Button>
                         </Col>
@@ -46,6 +62,16 @@ export function SetNumbersAndTeams() {
                         <Col>
                             <Button style={blackButton()} onClick={handleSetNumbers}>
                                 Set Numbers
+                            </Button>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <br/>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Button style={grayButton()} onClick={handleGoBackClick}>
+                                Cancel
                             </Button>
                         </Col>
                     </Row>
@@ -73,6 +99,15 @@ export function SetNumbersAndTeams() {
     function blackButton() {
         return {
             backgroundColor: 'black',
+            padding: 20,
+            border: 'black',
+            width: 155
+        }
+    }
+
+    function grayButton() {
+        return {
+            backgroundColor: 'gray',
             padding: 20,
             border: 'black',
             width: 155
