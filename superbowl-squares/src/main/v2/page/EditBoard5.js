@@ -9,6 +9,7 @@ import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import GridComponent3 from './GridComponent3';
 import { host , api_url} from '../../../config';
+import ColorSelector from '../component/ColorSelector';
 
 export function EditBoard5() {
   
@@ -22,11 +23,14 @@ export function EditBoard5() {
   const [showApiErrorModal, setShowApiErrorModal] = useState(false); // State for showing API error modal
   const [showTakenInitialsModal, setShowTakenInitialsModal] = useState(false);
   const [showClickedButtonsTakenModal, setShowClickedButtonsTakenModal] = useState(false);
+  const [selectedColor, setSelectedColor] = useState('');
 
   let navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
+
+      console.log("selectedColor: " + selectedColor);
 
       if (!playerName.trim() && !playerInitials.trim() && clickedButtons.length == 0) {
         navigate('/super-bowl-squares', { 
@@ -115,9 +119,23 @@ export function EditBoard5() {
           </Form>
         </Col>
         <Col style={{'padding':0, 'margin':0, 'paddingLeft':5}}>
-          <Button disabled={false} style={black()} onClick={handleSubmit}>
-            Submit
-          </Button>
+          <Row style={{'padding':0, 'margin':0, height: '100%'}} >
+            <Col style={{'padding':0, 'margin':0}}>
+              <div style={{ height: '100%' }}>
+              <ColorSelector setColor={setSelectedColor} />
+              </div>
+              
+            </Col>
+            <Col style={{'padding':0, 'margin':0}}>
+              <div style ={{height: '100%'}}>
+              <Button disabled={false} style={black()} onClick={handleSubmit}>
+                Submit
+              </Button>
+
+              </div>
+
+            </Col>
+          </Row>
         </Col>
       </Row>
       <Row style={pad2()}>

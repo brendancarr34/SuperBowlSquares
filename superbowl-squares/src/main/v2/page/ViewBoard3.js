@@ -31,21 +31,6 @@ export function ViewBoard3() {
     const [sideTeam, setSideTeam] = useState('');
     const [selectedOption, setSelectedOption] = useState("none");
 
-    // useEffect(() => {
-    //     // Listen for the popstate event
-    //     const handlePopstate = () => {
-    //         // Navigate back to ViewBoard3 if the user clicks the back button
-    //         navigate('/super-bowl-squares', {replace: true, state: { groupName: groupName }});
-    //     };
-
-    //     window.addEventListener('popstate', handlePopstate);
-
-    //     return () => {
-    //         // Remove the event listener when the component unmounts
-    //         window.removeEventListener('popstate', handlePopstate);
-    //     };
-    // }, [navigate]);
-
     // Function to update select options
     const updateSelectOptions = (playerData) => {
         const newOptions = []; // Start with 'none' option
