@@ -5,12 +5,12 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import AutoSetNumbers from '../component/AutoSetNumbers';
+import AutoSetNumbers from '../components/AutoSetNumbers';
 import axios from 'axios';
 import { api_url} from '../../../config';
-import AddPassword from '../component/AddPassword';
-import AutoSetTeams from '../component/AutoSetTeams';
-import AddVenmoInfo from '../component/AddVenmoInfo';
+import AddPassword from '../components/AddPassword';
+import AutoSetTeams from '../components/AutoSetTeams';
+import AddVenmoInfo from '../components/AddVenmoInfo';
 import Modal from 'react-bootstrap/Modal';
 import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, } from "../data/EmptyBoardData";
 

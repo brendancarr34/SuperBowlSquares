@@ -4,11 +4,14 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export function JoinGroup() {
 
-    const [groupName, setGroupName] = useState("");
+    // let { groupNameProp } = useParams();
+    // console.log(groupNameProp);
+    // console.log(useParams());
+    const [groupName, setGroupName] = useState(useParams()['groupName']);
     const [groupPassword, setGroupPassword] = useState("");
 
     let navigate = useNavigate(); 

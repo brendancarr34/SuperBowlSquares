@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate, useLocation } from "react-router-dom";
-import NumberInputBoxes from '../component/NumberInputBoxes';
+import NumberInputBoxes from '../components/NumberInputBoxes';
 import axios from 'axios';
 import { emptyTopNumbers } from '../data/EmptyBoardData';
 import { host , api_url} from '../../../config';
