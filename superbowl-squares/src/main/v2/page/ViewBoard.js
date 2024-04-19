@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import Select from 'react-select'
 import { ViewBoardRow3 } from '../components/row/ViewBoardRow3.js';
 import { NumberRow } from '../components/row/NumberRow.js';
@@ -30,6 +31,7 @@ export function ViewBoard() {
     const [topTeam, setTopTeam] = useState('');
     const [sideTeam, setSideTeam] = useState('');
     const [selectedOption, setSelectedOption] = useState("none");
+    const [showModal, setShowModal] = useState(false);
 
     // Function to update select options
     const updateSelectOptions = (playerData) => {
@@ -54,6 +56,33 @@ export function ViewBoard() {
 
         setPlayers(initialsMap);
         setSelectOptions(options);
+    };
+
+    const copyToClipboard = () => {
+        // const gameLink = window.location.href;
+        const gameLink = 'https://brendancarr34.github.io/SuperBowlSquares/#/join-group/' + groupName
+    
+        // Create a temporary textarea element
+        const tempTextArea = document.createElement('textarea');
+        tempTextArea.value = gameLink;
+    
+        // Append the textarea to the document body
+        document.body.appendChild(tempTextArea);
+    
+        // Select the content of the textarea
+        tempTextArea.select();
+        
+        // Copy the selected text
+        document.execCommand('copy');
+    
+        // Remove the temporary textarea from the document body
+        document.body.removeChild(tempTextArea);
+
+        toggleModal();
+    };
+    
+    const toggleModal = () => {
+        setShowModal(!showModal);
     };
 
     useEffect(() => {
@@ -225,9 +254,18 @@ export function ViewBoard() {
                             <Row style={{'padding':8, 'margin':0}}>
                                 {
                                     !allSquaresClaimed ?
-                                        <Button style={black()} onClick={claimSquares}>
-                                            Claim Squares
-                                        </Button>
+                                        <Row style={{ 'padding': 8, 'margin': 0 }}>
+                                            <Col style={{ 'padding': 0, 'margin': 0, 'paddingRight': 7 }}>
+                                                <Button style={grayButton()} onClick={copyToClipboard}>
+                                                    Share Game
+                                                </Button>
+                                            </Col>
+                                            <Col style={{ 'padding': 0, 'margin': 0, 'paddingLeft': 7}}>
+                                                <Button style={black()} onClick={claimSquares}>
+                                                    Claim Squares
+                                                </Button>
+                                            </Col>
+                                        </Row>
                                         : 
                                         <Button style={black()} onClick={setNumbersAndTeams}>
                                             Set Numbers & Teams
@@ -238,6 +276,19 @@ export function ViewBoard() {
                     </Col>
                 </Row>
             </Row>
+
+            {/* Modal for Copied Link */}
+            <Modal show={showModal} onHide={() => toggleModal(false)}>
+                {/* <Modal.Header closeButton>
+                <Modal.Title></Modal.Title>
+                </Modal.Header> */}
+                <Modal.Body>Link copied to clipboard.</Modal.Body>
+                {/* <Modal.Footer>
+                {/* <Button variant="secondary" onClick={() => toggleModal(false)}>
+                    Close
+                </Button>
+            </Modal.Footer> */}
+            </Modal>
         </Container>
     );
 
@@ -374,6 +425,16 @@ export function ViewBoard() {
             padding: 20,
             width: '100%',
 
+        }
+    }
+
+    function grayButton() {
+        return {
+            backgroundColor: 'gray',
+            border: 'gray',
+            padding: 20,
+            width: '100%',
+            color: 'black'
         }
     }
 
