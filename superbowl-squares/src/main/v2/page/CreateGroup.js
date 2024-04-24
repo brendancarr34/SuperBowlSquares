@@ -49,14 +49,21 @@ export function CreateGroup() {
     const handleButtonClick2 = async () => {
         try {
             if (groupName == '') {
-                navigate('/create-group-preferences', {state: { groupName: groupName }});
+                // console.log('test2')
+                // setGroupName(generateUUID().substring(0,6));
+                // console.log('groupName:' + groupName);
+                // console.log('uuid: ' + generateUUID().substring(0,6));
+                let uuid = generateUUID().substring(0,6);
+                navigate('/create-group-preferences', {state: { groupName: uuid }});
+                
             }
-
-            const url = api_url + '/api/game/' + groupName
-            const response = await axios.get(url);
-
-            setError("Group with name '" + groupName + "' already exists");
-            setShowErrorModal(true);
+            else {
+                const url = api_url + '/api/game/' + groupName
+                const response = await axios.get(url);
+    
+                setError("Group with name '" + groupName + "' already exists");
+                setShowErrorModal(true);
+            }
 
         } catch (error) {
 
@@ -66,7 +73,8 @@ export function CreateGroup() {
                 console.log('test');
 
                 if (groupName === "") {
-                    groupName = generateUUID().substring(0,6);
+                    // groupName = generateUUID().substring(0,6);
+                    setGroupName(generateUUID().substring(0,6));
                 }
 
                 console.log("groupName: " + groupName);

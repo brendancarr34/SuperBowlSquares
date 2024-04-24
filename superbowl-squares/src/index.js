@@ -13,7 +13,7 @@ import { EditBoard } from './main/v2/page/EditBoard.js';
 import { SetNumbersAndTeams } from './main/v2/page/SetNumbersAndTeams.js';
 import { SetNumbers } from './main/v2/page/SetNumbers.js';
 import { CreateGroupPreferences } from './main/v2/page/CreateGroupPreferences.js';
-import { VerticalTextComponent } from './main/v2/page/VerticalTextComponent.js';
+import { VerticalTextComponent } from './main/v2/components/VerticalTextComponent.js';
 import { SetTeams } from './main/v2/page/SetTeams.js';
 import VenmoPaymentLink from './main/v2/components/VenmoPaymentLink.js';
 

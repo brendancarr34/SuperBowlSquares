@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
-import GridComponent3 from './GridComponent3';
+import GridComponent3 from '../components/GridComponent3';
 import { host , api_url} from '../../../config';
 import ColorSelector from '../components/ColorSelector';
 

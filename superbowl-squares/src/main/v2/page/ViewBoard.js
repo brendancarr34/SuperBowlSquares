@@ -12,7 +12,7 @@ import { NumberRow } from '../components/row/NumberRow.js';
 import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 import axios from 'axios';
 import { host, api_url } from '../../../config.js';
-import { VerticalTextComponent } from './VerticalTextComponent.js';
+import { VerticalTextComponent } from '../components/VerticalTextComponent.js';
 
 export function ViewBoard() {
 
@@ -228,7 +228,7 @@ export function ViewBoard() {
                             <Row style={pad()}>
                                 <Col style={{'padding':0, 'margin':0}}>
                                     <Row style={{'padding':0, 'margin':0}}>
-                                        <Select style={{'padding':10, 'margin':0, 'paddingTop':10}} 
+                                        <Select style={{'padding':0, 'margin':0}} 
                                                 options={selectOptions} 
                                                 onChange={handleInitialSelect} 
                                                 value={
@@ -251,16 +251,16 @@ export function ViewBoard() {
                                     </Row>
                                 </Col>
                             </Row>
-                            <Row style={{'padding':8, 'margin':0}}>
+                            <Row style={pad()}>
                                 {
                                     !allSquaresClaimed ?
-                                        <Row style={{ 'padding': 8, 'margin': 0 }}>
-                                            <Col style={{ 'padding': 0, 'margin': 0, 'paddingRight': 7 }}>
+                                        <Row style={{ 'padding': 0, 'margin': 0 }}>
+                                            <Col style={{ 'padding': 0, 'margin': 0, 'paddingRight': 10 , 'paddingLeft':10}}>
                                                 <Button style={grayButton()} onClick={copyToClipboard}>
                                                     Share Game
                                                 </Button>
                                             </Col>
-                                            <Col style={{ 'padding': 0, 'margin': 0, 'paddingLeft': 7}}>
+                                            <Col style={{ 'padding': 0, 'margin': 0, 'paddingLeft': 10, 'paddingRight': 10 }}>
                                                 <Button style={black()} onClick={claimSquares}>
                                                     Claim Squares
                                                 </Button>
