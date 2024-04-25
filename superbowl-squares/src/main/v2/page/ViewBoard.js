@@ -30,7 +30,7 @@ export function ViewBoard() {
     const [sideNumbers, setSideNumbers] = useState(emptySideNumbers);
     const [topTeam, setTopTeam] = useState('');
     const [sideTeam, setSideTeam] = useState('');
-    const [selectedOption, setSelectedOption] = useState("none");
+    const [selectedOption, setSelectedOption] = useState("None");
     const [showModal, setShowModal] = useState(false);
 
     // Function to update select options
@@ -231,9 +231,10 @@ export function ViewBoard() {
                                         <Select style={{'padding':0, 'margin':0}} 
                                                 options={selectOptions} 
                                                 onChange={handleInitialSelect} 
+                                                defaultValue={{ value: 'None', label: null }}
                                                 value={
                                                     selectedOption === 'none' || selectedOption === 'None'
-                                                        ? null
+                                                        ? 'None'
                                                         : { value: selectedOption, label: players[selectedOption] }
                                                 }
                                                 isSearchable={false}

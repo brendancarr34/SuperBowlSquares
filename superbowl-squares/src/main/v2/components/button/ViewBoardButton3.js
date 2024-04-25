@@ -25,12 +25,17 @@ export function ViewBoardButton3(props) {
 
     function viewBoardButtonStyle() {  
         return {
-            backgroundColor: (text == selectedOption) ? 'green' : allSquaresClaimed ? 'white' : active ? "red" : "white" ,
+            // backgroundColor: (text == selectedOption) ? 'green' : allSquaresClaimed ? 'white' : active ? "red" : "white" ,
+            // backgroundColor: allSquaresClaimed ? 'white' : active ? "red" : "white" ,
+            // backgroundColor: (text != selectedOption && selectedOption != 'none') ? 'white' : (selectedOption == 'none' && active) ? "red" : "white" ,
+            backgroundColor: (selectedOption == 'None' && active) ? "red" : (text == selectedOption) ? "red" : "white",
+
             color: active ? "black" : "white",
             fontSize: text && text.length > 2 ? 8 : 13,
             padding: 0,
             margin: 0,
             border: '1px solid black',
+            // border: (text == selectedOption) ? '3px solid blue' : '1px solid black',
             textAlign: 'center'
         }
     };

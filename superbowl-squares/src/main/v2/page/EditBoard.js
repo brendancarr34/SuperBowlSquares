@@ -120,17 +120,17 @@ export function EditBoard() {
         </Col>
         <Col style={{'padding':0, 'margin':0, 'paddingLeft':5}}>
           <Row style={{'padding':0, 'margin':0, height: '100%'}} >
-            <Col style={{'padding':0, 'margin':0}}>
+            <Col style={{'padding':0, 'margin':0, 'paddingRight':5}}>
               <div style={{ height: '100%' }}>
-              <ColorSelector setColor={setSelectedColor} />
+                <ColorSelector setColor={setSelectedColor} />
               </div>
               
             </Col>
-            <Col style={{'padding':0, 'margin':0}}>
+            <Col style={{'padding':0, 'margin':0, 'paddingLeft':5}}>
               <div style ={{height: '100%'}}>
-              <Button disabled={false} style={black()} onClick={handleSubmit}>
-                Submit
-              </Button>
+                <Button disabled={false} style={black()} onClick={handleSubmit}>
+                  Submit
+                </Button>
 
               </div>
 

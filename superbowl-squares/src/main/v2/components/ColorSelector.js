@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 function ColorSelector({ setColor }) {
   const [showColorPicker, setShowColorPicker] = useState(false);
@@ -76,16 +77,20 @@ function ColorSelector({ setColor }) {
           display: 'flex',
           flexDirection: 'row',
           cursor: 'pointer',
+          height: '100%'
         }}
-        onClick={handleColorBoxClick}
+        // onClick={handleColorBoxClick}
       >
-        <div
+        {/* <div
           style={{
             backgroundColor: selectedColor,
             width: 90,
             height: 90,
           }}
-        ></div>
+        ></div> */}
+        <Button style={{backgroundColor: selectedColor, width: '100%', height: '85%', border: selectedColor,}} onClick={handleColorBoxClick}>
+            Select a Color
+        </Button>
       </div>
       <Modal show={showColorPicker} onHide={() => setShowColorPicker(false)}>
         <Modal.Header closeButton>
@@ -115,6 +120,19 @@ function ColorSelector({ setColor }) {
       </Modal>
     </>
   );
+
+  function colorButtonStyle() {
+    return {
+      // backgroundColor: {selectedColor},
+      // border: 'black',
+      // padding: 0,
+      // width: '100%',
+      // height: '85%',
+      // marginLeft: 5,
+      // marginRight: 5,
+      // paddingLeft:5
+    }
+  }
 }
 
 export default ColorSelector;
