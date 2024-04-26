@@ -9,6 +9,7 @@ export function ViewBoardButton3(props) {
     const selectedOption = props.selectedOption;
     const allSquaresClaimed = props.allSquaresClaimed;
     const colorData = props.colorData;
+    const updateSelectedOption = props.updateSelectedOption;
     var playerColor = '';
 
     for (const element of colorData) {
@@ -20,10 +21,21 @@ export function ViewBoardButton3(props) {
     const hoverName = playerNames[text];
 
     // console.log('ViewBoardButton3 allSquaresClaimed: ' + allSquaresClaimed);
+    const handleClick = () => {
+        // if (active) {
+        //     updateSelectedOption(text);
+        // }
+        if (text) {
+            updateSelectedOption(text);
+        }
+        else {
+            updateSelectedOption('None');
+        }
+    };
 
     return (
         <div className="button-container">
-            <MDBBtn className="square-md" style={viewBoardButtonStyle()}>
+            <MDBBtn className="square-md" style={viewBoardButtonStyle()} onClick={handleClick}>
                 {text}
                 <span className="hover-text" style={nullify()}>{text ? hoverName : null}</span>
             </MDBBtn>
