@@ -5,6 +5,9 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate, useParams } from "react-router-dom";
+import { api_url} from '../../../config';
+import axios from 'axios';
+import Modal from 'react-bootstrap/Modal';
 
 export function JoinGroup() {
 
@@ -13,6 +16,8 @@ export function JoinGroup() {
     // console.log(useParams());
     const [groupName, setGroupName] = useState(useParams()['groupName']);
     const [groupPassword, setGroupPassword] = useState("");
+    const [showErrorModal, setShowErrorModal] = useState(false);
+    const [error, setError] = useState(null);
 
     let navigate = useNavigate(); 
 
@@ -42,9 +47,32 @@ export function JoinGroup() {
         };
     }, [navigate]);
 
-    const superBowlSquares = () => { 
-        console.log("group: " + groupName + ", password: " + groupPassword)
-        navigate('/super-bowl-squares', {state: { groupName: groupName }});
+    const superBowlSquares = async () => { 
+
+        try {
+            const url = api_url + 'api/group/api/joinGroup/' + groupName
+            // const url = 'http://localhost:3001/api/group/api/joinGroup/brendan';
+            // const url = 'http://localhost:3001/api/group/api/joinGroup/' + groupName;
+            const response = await axios.get(url);
+            // console.log('response: ' + JSON.stringify(response));
+    
+            console.log("group: " + groupName + ", password: " + groupPassword)
+            navigate('/super-bowl-squares', {state: { groupName: groupName }});
+        }
+        catch (error) {
+            if (error.response.data.error == 'Document not found') {
+                setError("Group with name '" + groupName + "' does not exist.")
+                setShowErrorModal(true);
+            }
+            else if (error.code == 'ERR_NETWORK') {
+                setError('Network Error');
+                setShowErrorModal(true);
+            } else {
+                setError('Unknown Error');
+                setShowErrorModal(true);
+            }
+        }
+        
     }
 
     return (
@@ -84,6 +112,18 @@ export function JoinGroup() {
                     </Col>
                 </Row>
             </Row>
+
+            <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)}>
+                <Modal.Header closeButton>
+                <Modal.Title>Error</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{error}</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={() => setShowErrorModal(false)}>
+                    Close
+                </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     )
 

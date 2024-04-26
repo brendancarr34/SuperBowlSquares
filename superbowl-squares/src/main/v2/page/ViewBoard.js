@@ -32,6 +32,7 @@ export function ViewBoard() {
     const [sideTeam, setSideTeam] = useState('');
     const [selectedOption, setSelectedOption] = useState("None");
     const [showModal, setShowModal] = useState(false);
+    const [colorData, setColorData] = useState([])
 
     // Function to update select options
     const updateSelectOptions = (playerData) => {
@@ -136,6 +137,10 @@ export function ViewBoard() {
 
                 const sideTeamResponse = response.data.teams.side;
                 setSideTeam(sideTeamResponse);
+
+                const existingColorData = response.data.colorData;
+                setColorData(existingColorData);
+                // console.log(response.data.colorData);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -198,16 +203,16 @@ export function ViewBoard() {
                                         <Table style={{'padding':0, 'margin':0, display: 'inline-block', 'fontSize': '0px'}}>
                                             <tbody style={{'padding':0, 'margin':0, display: 'inline-block', 'fontSize': '0px'}}>
                                                 <NumberRow numbers={topNumbers}/>
-                                                <ViewBoardRow3 number={sideNumbers[0]} active={gameData[0]} text={gameNameData[0]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                                <ViewBoardRow3 number={sideNumbers[1]} active={gameData[1]} text={gameNameData[1]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                                <ViewBoardRow3 number={sideNumbers[2]} active={gameData[2]} text={gameNameData[2]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                                <ViewBoardRow3 number={sideNumbers[3]} active={gameData[3]} text={gameNameData[3]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                                <ViewBoardRow3 number={sideNumbers[4]} active={gameData[4]} text={gameNameData[4]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                                <ViewBoardRow3 number={sideNumbers[5]} active={gameData[5]} text={gameNameData[5]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                                <ViewBoardRow3 number={sideNumbers[6]} active={gameData[6]} text={gameNameData[6]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                                <ViewBoardRow3 number={sideNumbers[7]} active={gameData[7]} text={gameNameData[7]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                                <ViewBoardRow3 number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
-                                                <ViewBoardRow3 number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed}/>
+                                                <ViewBoardRow3 number={sideNumbers[0]} active={gameData[0]} text={gameNameData[0]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed} colorData={colorData}/>
+                                                <ViewBoardRow3 number={sideNumbers[1]} active={gameData[1]} text={gameNameData[1]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed} colorData={colorData}/>
+                                                <ViewBoardRow3 number={sideNumbers[2]} active={gameData[2]} text={gameNameData[2]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed} colorData={colorData}/>
+                                                <ViewBoardRow3 number={sideNumbers[3]} active={gameData[3]} text={gameNameData[3]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed} colorData={colorData}/>
+                                                <ViewBoardRow3 number={sideNumbers[4]} active={gameData[4]} text={gameNameData[4]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed} colorData={colorData}/>
+                                                <ViewBoardRow3 number={sideNumbers[5]} active={gameData[5]} text={gameNameData[5]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed} colorData={colorData}/>
+                                                <ViewBoardRow3 number={sideNumbers[6]} active={gameData[6]} text={gameNameData[6]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed} colorData={colorData}/>
+                                                <ViewBoardRow3 number={sideNumbers[7]} active={gameData[7]} text={gameNameData[7]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed} colorData={colorData}/>
+                                                <ViewBoardRow3 number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed} colorData={colorData}/>
+                                                <ViewBoardRow3 number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed} colorData={colorData}/>
                                             </tbody>
                                         </Table>
                                     
@@ -216,7 +221,6 @@ export function ViewBoard() {
                             </Container>
                         </Col>
                         <Col xs={1} style={{'padding':0, 'margin':0}}>
-                            
                             <VerticalTextComponent style={{'padding':0, 'margin':0, color:'white'}} text={'test'} />
                         </Col>
                     </Row>

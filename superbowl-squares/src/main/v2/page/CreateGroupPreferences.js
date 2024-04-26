@@ -157,7 +157,8 @@ export function CreateGroupPreferences() {
                     team1: team1,
                     team2: team2,
                     venmoUsername: venmoUsername
-                }
+                },
+                colorData: []
             });
 
             navigate('/super-bowl-squares', { state: { groupName: groupName } });

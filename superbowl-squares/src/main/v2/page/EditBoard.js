@@ -32,6 +32,7 @@ export function EditBoard() {
 
       console.log("selectedColor: " + selectedColor);
 
+      // If nothing is clicked or typed, go back to the main page
       if (!playerName.trim() && !playerInitials.trim() && clickedButtons.length == 0) {
         navigate('/super-bowl-squares', { 
           replace: true, 
@@ -52,12 +53,12 @@ export function EditBoard() {
       }
 
       if (clickedButtons.length > 0) {
-        console.log('MAKING API POST game/api/validateAndClaimSquaresV3/${groupName}');
-        const url = api_url + 'api/game/api/validateAndClaimSquaresV3/' + groupName;
-        // const response = await axios.post(`http://${host}:3001/api/game/api/validateAndClaimSquaresV3/${groupName}`, 
-        //       { maps: clickedButtons, initials: playerInitials, playerName: playerName });
+        console.log('MAKING API POST game/api/validateAndClaimSquaresV4/${groupName}');
+
+        const url = api_url + 'api/game/api/validateAndClaimSquaresV4/' + groupName;
         const response = await axios.post(url, 
-              { maps: clickedButtons, initials: playerInitials, playerName: playerName });
+              { maps: clickedButtons, initials: playerInitials, playerName: playerName, color: selectedColor });
+
         console.log('Submit successful:', response.data);
       }
 
