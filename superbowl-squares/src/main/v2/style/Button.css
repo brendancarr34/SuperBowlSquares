@@ -18,19 +18,24 @@
 .button-container {
   position: relative;
   /* position: absolute; */
-  top: 0;
+  /* top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  pointer-events: none; 
+  height: 100%;*/
+  /* pointer-events: none;   */
   padding:0px;
   margin:0px
 }
 
+.unclickable-button {
+  position: relative;
+  /* Add any other styles you want for your button */
+}
+
 .hover-text {
   position: absolute;
-  top: -30px; /* Adjust this value to position the hover text */
-  left: 50%; /* Adjust this value to center the hover text horizontally */
+  top: -30px;
+  left: 50%;
   transform: translateX(-50%);
   display: none;
   background-color: black;
