@@ -23,7 +23,7 @@ export function ViewBoardButton3(props) {
 
     return (
         <div className="button-container">
-            <MDBBtn disabled className="square-md" style={viewBoardButtonStyle()}>
+            <MDBBtn className="square-md unclickable-button" style={viewBoardButtonStyle()}>
                 {text}
                 <span className="hover-text" style={nullify()}>{text ? hoverName : null}</span>
             </MDBBtn>
