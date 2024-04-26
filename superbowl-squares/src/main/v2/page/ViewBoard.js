@@ -174,7 +174,7 @@ export function ViewBoard() {
 
     const updateSelectedOption = (option) => {
         if (selectedOption != 'None' ) {
-            console.log('test');
+            setSelectedOption('None');
         }
         else {
             setSelectedOption(option);
