@@ -11,9 +11,6 @@ import Modal from 'react-bootstrap/Modal';
 
 export function JoinGroup() {
 
-    // let { groupNameProp } = useParams();
-    // console.log(groupNameProp);
-    // console.log(useParams());
     const [groupName, setGroupName] = useState(useParams()['groupName']);
     const [groupPassword, setGroupPassword] = useState("");
     const [showErrorModal, setShowErrorModal] = useState(false);
@@ -31,6 +28,22 @@ export function JoinGroup() {
         value = value.toLowerCase();
         setGroupName(value);
     };
+
+    useEffect(() => {
+        const url = api_url + 'api/group/api/hasPassword/' + groupName;
+        axios.get(url)
+        .then(response => {
+            // Handle the response data
+            console.log(response.data);
+            if (!response.data) {
+                navigate('/super-bowl-squares', {state: { groupName: groupName }});
+            }
+          })
+          .catch(error => {
+            // Handle errors
+            console.error('Error fetching data:', error);
+          });
+    }, [])
 
     useEffect(() => {
         // Listen for the popstate event
@@ -51,11 +64,7 @@ export function JoinGroup() {
 
         try {
             const url = api_url + 'api/group/api/joinGroup/' + groupName
-            // const url = 'http://localhost:3001/api/group/api/joinGroup/brendan';
-            // const url = 'http://localhost:3001/api/group/api/joinGroup/' + groupName;
-            // const response = await axios.get(url);
-            const response = await axios.post(url, {submittedPassword: groupPassword});
-            // console.log('response: ' + JSON.stringify(response));
+            await axios.post(url, {submittedPassword: groupPassword});
     
             console.log("group: " + groupName + ", password: " + groupPassword)
             navigate('/super-bowl-squares', {state: { groupName: groupName }});

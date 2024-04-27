@@ -271,7 +271,7 @@ export function ViewBoard() {
                                 </Col>
                                 <Col style={center()}>
                                     <Row style={center()}>
-                                        <p style={centerText()}> - Menu - </p>
+                                        <p style={centerText()}> --- Insert Menu --- </p>
                                         {/* <p style={centerText()}>{groupName}</p> */}
                                     </Row>
                                 </Col>
