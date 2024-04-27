@@ -53,7 +53,8 @@ export function JoinGroup() {
             const url = api_url + 'api/group/api/joinGroup/' + groupName
             // const url = 'http://localhost:3001/api/group/api/joinGroup/brendan';
             // const url = 'http://localhost:3001/api/group/api/joinGroup/' + groupName;
-            const response = await axios.get(url);
+            // const response = await axios.get(url);
+            const response = await axios.post(url, {submittedPassword: groupPassword});
             // console.log('response: ' + JSON.stringify(response));
     
             console.log("group: " + groupName + ", password: " + groupPassword)
@@ -62,6 +63,10 @@ export function JoinGroup() {
         catch (error) {
             if (error.response.data.error == 'Document not found') {
                 setError("Group with name '" + groupName + "' does not exist.")
+                setShowErrorModal(true);
+            }
+            else if (error.response.data.error == 'Incorrect password') {
+                setError("Password is incorrect.")
                 setShowErrorModal(true);
             }
             else if (error.code == 'ERR_NETWORK') {
