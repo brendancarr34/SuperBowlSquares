@@ -184,9 +184,12 @@ export function ViewBoard() {
     return (
         <Container>
             <Row style={fullHeight()}>
-                <Row>
+                <Row style={{display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',}}>
                     <Col xs={12} style={center()}>
-                        <h1 style={{'padding':15, 'paddingTop':50}}>Super Bowl Squares</h1>
+                        <h1 style={{'paddingTop':50}}>Super Bowl Squares</h1>
+                        <p>groupName: {groupName}</p>
                     </Col>
                 </Row>
                 <Row style={center()}>
@@ -268,8 +271,8 @@ export function ViewBoard() {
                                 </Col>
                                 <Col style={center()}>
                                     <Row style={center()}>
-                                        <p style={centerText()}>Group Name:</p>
-                                        <p style={centerText()}>{groupName}</p>
+                                        <p style={centerText()}> - Menu - </p>
+                                        {/* <p style={centerText()}>{groupName}</p> */}
                                     </Row>
                                 </Col>
                             </Row>
@@ -352,8 +355,8 @@ export function ViewBoard() {
     
     function center() {
         return {
-            display: 'flex', 
-            justifyContent: 'center',
+            // display: 'flex', 
+            // justifyContent: 'center',
             textAlign: 'center',
             alignItems: 'center',
             padding:0,

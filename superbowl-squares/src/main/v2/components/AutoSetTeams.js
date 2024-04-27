@@ -28,7 +28,7 @@ function AutoSetTeams({ autoSetTeams, handleAutoSetTeamsChange, handleSetTeam1, 
     <Row>
       <Col>
         <Row>
-          <div style={{ display: 'flex', alignItems: 'center', paddingLeft:10, paddingRight: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', paddingLeft:10, paddingRight: 10, paddingBottom: 5 }}>
             <label style={{ marginRight: '10px' }}>
               <input
                 className="big-checkbox" // changed class to className
@@ -38,7 +38,7 @@ function AutoSetTeams({ autoSetTeams, handleAutoSetTeamsChange, handleSetTeam1, 
                 onChange={handleToggle}
               />
             </label>
-            <span>Automatically randomize the top & side teams once the board is full?</span>
+            <span>Auto-randomize Teams?</span>
           </div>
         </Row>
         <Row>
@@ -46,7 +46,7 @@ function AutoSetTeams({ autoSetTeams, handleAutoSetTeamsChange, handleSetTeam1, 
               <Col>
                 <Form.Group onChange={handleTeam1Change} style={{margin:0, paddingTop:2, paddingBottom:2}}>
                     {/* <Form.Label>Password</Form.Label> */}
-                    <Form.Control placeholder="Enter Team 1" />
+                    <Form.Control placeholder="Team 1" />
                     {/* <Form.Text className="text-muted">
                         This is optional. If you leave this blank, 
                         anyone with the link to your game will be able to edit squares.
@@ -54,7 +54,7 @@ function AutoSetTeams({ autoSetTeams, handleAutoSetTeamsChange, handleSetTeam1, 
                 </Form.Group>
                 <Form.Group onChange={handleTeam2Change} style={{margin:0, paddingTop:2, paddingBottom:2}}>
                     {/* <Form.Label>Password</Form.Label> */}
-                    <Form.Control placeholder="Enter Team 2" />
+                    <Form.Control placeholder="Team 2" />
                     {/* <Form.Text className="text-muted">
                         This is optional. If you leave this blank, 
                         anyone with the link to your game will be able to edit squares.

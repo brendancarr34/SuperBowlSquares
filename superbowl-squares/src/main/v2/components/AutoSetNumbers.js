@@ -15,7 +15,7 @@ function AutoSetNumbers({ autoSetNumbers, handleToggleChange }) {
     <Row>
       <Col>
         <Row>
-          <div style={{ display: 'flex', alignItems: 'center', paddingLeft:10, paddingRight: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', paddingLeft:10, paddingRight: 10, paddingBottom: 5 }}>
             <label style={{ marginRight: '10px' }}>
               <input
                 className="big-checkbox" // changed class to className
@@ -25,7 +25,7 @@ function AutoSetNumbers({ autoSetNumbers, handleToggleChange }) {
                 onChange={handleToggle}
               />
             </label>
-            <span>Automatically randomize the top & side numbers once the board is full?</span>
+            <span>Auto-randomize Numbers?</span>
           </div>
         </Row>
       </Col>

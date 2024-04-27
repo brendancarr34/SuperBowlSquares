@@ -67,6 +67,7 @@ export function CreateGroupPreferences() {
 
     const [addVenmoInfo, setAddVenmoInfo] = useState(false);
     const [venmoUsername, setVenmoUserName] = useState("");
+    const [paymentAmount, setPaymentAmount] = useState(0);
 
     // Function to handle AutoSetNumbers checkbox change
     const handleAutoSetNumberChange = (newValue) => {
@@ -102,6 +103,10 @@ export function CreateGroupPreferences() {
 
     const handleSetVenmoUsername = (newValue) => {
         setVenmoUserName(newValue);
+    }
+
+    const handleSetVenmoPaymentInfo = (newValue) => {
+        setPaymentAmount(newValue);
     }
 
     const handleButtonClick2 = async () => {
@@ -156,7 +161,8 @@ export function CreateGroupPreferences() {
                     autoSetTeams: autoSetTeams,
                     team1: team1,
                     team2: team2,
-                    venmoUsername: venmoUsername
+                    venmoUsername: venmoUsername,
+                    paymentAmount: paymentAmount
                 },
                 colorData: []
             });
@@ -180,13 +186,24 @@ export function CreateGroupPreferences() {
     return (
         <Container>
             <Row style={fullHeight()}>
-                <Row style = {height15()}>
+                <Row style = {heightTop()}>
+
+                </Row>
+                <Row style = {height15_top()}>
                     <Col style={center()}>
-                        <h1>Set Group Preferences</h1>
+                        <h1>Group Preferences</h1>
                         <p>groupName: {groupName}</p>
                     </Col>
                 </Row>
                 <Row style = {height70()}>
+                    <Row>
+                        <Col style={center()}>
+                            <AddPassword 
+                                addGroupPassword={addGroupPassword} 
+                                handleAddPasswordToggleChange={handleAddPasswordToggleChange} 
+                                handleSetGroupPassword={handleSetGroupPassword}/>
+                        </Col>
+                    </Row>
                     <Row>
                         <Col style={center()}>
                             <AutoSetNumbers 
@@ -203,20 +220,14 @@ export function CreateGroupPreferences() {
                                 handleSetTeam2={handleSetTeam2}/>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col style={center()}>
-                            <AddPassword 
-                                addGroupPassword={addGroupPassword} 
-                                handleAddPasswordToggleChange={handleAddPasswordToggleChange} 
-                                handleSetGroupPassword={handleSetGroupPassword}/>
-                        </Col>
-                    </Row>
+
                     <Row>
                         <Col style={center()}>
                             <AddVenmoInfo
                                 addVenmoInfo={addVenmoInfo} 
                                 handleAddVenmoInfoToggleChange={handleAddVenmoInfoToggleChange} 
-                                handleSetVenmoUsername={handleSetVenmoUsername}/>
+                                handleSetVenmoUsername={handleSetVenmoUsername}
+                                handleSetVenmoPaymentInfo={handleSetVenmoPaymentInfo}/>
                         </Col>
                     </Row>
                     {/* <Row>
@@ -228,7 +239,7 @@ export function CreateGroupPreferences() {
                         </Col>
                     </Row> */}
                 </Row>
-                <Row style = {height15()}>
+                <Row style = {height15_bottom()}>
                     <Col style={center()}>
                         <Button 
                             style={blackButton()} 
@@ -263,12 +274,31 @@ export function CreateGroupPreferences() {
         }
     }
 
-    function height15() {
+    function height15_bottom() {
         return {
-            height: '18vh',
+            height: '16vh',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            // marginBottom: '50px'
+        }
+    }
+
+    function height15_top() {
+        return {
+            height: '10vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        }
+    }
+
+    function heightTop() {
+        return {
+            height: '6vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
         }
     }
 

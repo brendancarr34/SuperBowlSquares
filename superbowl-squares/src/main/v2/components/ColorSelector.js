@@ -88,7 +88,7 @@ function ColorSelector({ setColor }) {
             height: 90,
           }}
         ></div> */}
-        <Button style={{backgroundColor: selectedColor, width: '100%', height: '85%', border: selectedColor,}} onClick={handleColorBoxClick}>
+        <Button style={{backgroundColor: selectedColor, width: '100%', height: '85%', border: '1px solid black', color: 'black'}} onClick={handleColorBoxClick}>
             Select a Color
         </Button>
       </div>

@@ -53,7 +53,7 @@ export function CreateGroup() {
                 // setGroupName(generateUUID().substring(0,6));
                 // console.log('groupName:' + groupName);
                 // console.log('uuid: ' + generateUUID().substring(0,6));
-                let uuid = generateUUID().substring(0,6);
+                let uuid = generateUUID().substring(0,8);
                 navigate('/create-group-preferences', {state: { groupName: uuid }});
                 
             }

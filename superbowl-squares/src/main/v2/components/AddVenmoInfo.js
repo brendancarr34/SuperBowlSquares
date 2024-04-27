@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import '../style/AutoSetNumbersComponent.css'
 
-function AddVenmoInfo({ addVenmoInfo, handleAddVenmoInfoToggleChange, handleSetVenmoUsername }) {
+function AddVenmoInfo({ addVenmoInfo, handleAddVenmoInfoToggleChange, handleSetVenmoUsername, handleSetVenmoPaymentInfo }) {
 
   const handleToggle = () => {
     handleAddVenmoInfoToggleChange(!addVenmoInfo); // Call the function passed from parent
@@ -16,11 +16,16 @@ function AddVenmoInfo({ addVenmoInfo, handleAddVenmoInfoToggleChange, handleSetV
     handleSetVenmoUsername(venmoInfo);
   }
 
+  const handleVenmoPaymentChange = (e) => {
+    const paymentInfo = e.target.value;
+    handleSetVenmoPaymentInfo(paymentInfo);
+  }
+
   return (
     <Row>
       <Col>
         <Row>
-          <div style={{ display: 'flex', alignItems: 'center', paddingLeft:10, paddingRight: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', paddingLeft:10, paddingRight: 10, paddingBottom: 5 }}>
             <label style={{ marginRight: '10px' }}>
               <input
                 className="big-checkbox" // changed class to className
@@ -37,7 +42,10 @@ function AddVenmoInfo({ addVenmoInfo, handleAddVenmoInfoToggleChange, handleSetV
           {addVenmoInfo && (
               <Col>
                 <Form.Group onChange={handleVenmoInfoChange} style={{margin:0, paddingTop:2, paddingBottom:2}}>
-                    <Form.Control placeholder="Enter Venmo username" />
+                    <Form.Control placeholder="Venmo username" />
+                </Form.Group>
+                <Form.Group onChange={handleVenmoPaymentChange} style={{margin:0, paddingTop:2, paddingBottom:2}}>
+                    <Form.Control placeholder="Price per square" />
                 </Form.Group>
               </Col>
             )}
