@@ -173,7 +173,10 @@ export function ViewBoard() {
     }
 
     const updateSelectedOption = (option) => {
-        if (selectedOption != 'None' ) {
+        if (selectedOption == option) {
+            setSelectedOption(option);
+        }
+        else if (selectedOption != 'None' ) {
             setSelectedOption('None');
         }
         else {

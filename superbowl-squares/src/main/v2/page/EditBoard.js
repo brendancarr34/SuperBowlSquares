@@ -8,8 +8,9 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import GridComponent3 from '../components/GridComponent3';
-import { host , api_url} from '../../../config';
+import { api_url} from '../../../config';
 import ColorSelector from '../components/ColorSelector';
+import VenmoPaymentLink from '../components/VenmoPaymentLink';
 
 export function EditBoard() {
   
@@ -24,14 +25,22 @@ export function EditBoard() {
   const [showTakenInitialsModal, setShowTakenInitialsModal] = useState(false);
   const [showClickedButtonsTakenModal, setShowClickedButtonsTakenModal] = useState(false);
   const [selectedColor, setSelectedColor] = useState('');
+  const [showVenmoModal, setShowVenmoModal] = useState(false);
+  const [venmoUsername, setVenmoUsername] = useState('');
+  const [totalPayment, setTotalPayment] = useState('');
 
   let navigate = useNavigate();
 
+  const viewBoard = () => {
+    // Successful submission logic
+    navigate('/super-bowl-squares', { 
+      replace: true, 
+      state: { name: playerName, initials: playerInitials, groupName: groupName } 
+    });
+  }
+
   const handleSubmit = async () => {
     try {
-
-      console.log("selectedColor: " + selectedColor);
-
       // If nothing is clicked or typed, go back to the main page
       if (!playerName.trim() && !playerInitials.trim() && clickedButtons.length == 0) {
         navigate('/super-bowl-squares', { 
@@ -53,20 +62,27 @@ export function EditBoard() {
       }
 
       if (clickedButtons.length > 0) {
-        console.log('MAKING API POST game/api/validateAndClaimSquaresV4/${groupName}');
-
         const url = api_url + 'api/game/api/validateAndClaimSquaresV4/' + groupName;
         const response = await axios.post(url, 
               { maps: clickedButtons, initials: playerInitials, playerName: playerName, color: selectedColor });
-
-        console.log('Submit successful:', response.data);
       }
 
-      // Successful submission logic
-      navigate('/super-bowl-squares', { 
-        replace: true, 
-        state: { name: playerName, initials: playerInitials, groupName: groupName } 
-      });
+      const url = api_url + 'api/group/api/getVenmoInfo/' + groupName;
+      const response = await axios.get(url);
+
+      console.log(response.data);
+      const hasVenmoInfo = response.data.hasVenmoInfo;
+      if (hasVenmoInfo) {
+        setVenmoUsername(response.data.venmoUsername);
+        const paymentAmount = response.data.paymentAmount;
+        setTotalPayment(parseFloat(paymentAmount) * clickedButtons.length);
+        console.log('venmoUsername: ' + venmoUsername + ', totalPayment: ' + totalPayment, ', button count: ' + clickedButtons.length);
+        setShowVenmoModal(true);
+      } else {
+        // Successful submission logic
+        viewBoard();
+      }
+      
     } catch (error) {
       console.error('Error submitting data:', error);
       if (error.response && error.response.data && error.response.data.validMaps) {
@@ -125,16 +141,13 @@ export function EditBoard() {
               <div style={{ height: '100%' }}>
                 <ColorSelector setColor={setSelectedColor} />
               </div>
-              
             </Col>
             <Col style={{'padding':0, 'margin':0, 'paddingLeft':5}}>
               <div style ={{height: '100%'}}>
                 <Button disabled={false} style={black()} onClick={handleSubmit}>
                   Submit
                 </Button>
-
               </div>
-
             </Col>
           </Row>
         </Col>
@@ -190,6 +203,27 @@ export function EditBoard() {
         <Modal.Body>Oh no! Someone took one or more of your squares! Please review your selected squares.</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowClickedButtonsTakenModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Venmo Modal */}
+      <Modal show={showVenmoModal} onHide={() => viewBoard()}>
+        <Modal.Header closeButton>
+          <Modal.Title>Squares Claimed!</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          You successfully claimed {clickedButtons.length} square{clickedButtons.length > 1 && 's'}!
+          <br/>
+          <br/>
+          Your group has Venmo info... open Venmo now?
+          <br/>
+          <br/>
+          <VenmoPaymentLink recipient={venmoUsername} amount={totalPayment}/>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => viewBoard()}>
             Close
           </Button>
         </Modal.Footer>
