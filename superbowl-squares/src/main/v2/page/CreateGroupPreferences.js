@@ -70,6 +70,19 @@ export function CreateGroupPreferences() {
 
     const handleButtonClick2 = async () => {
         try {
+            if (addGroupPassword) {
+                setError('Did you mean to add a password?');
+                setShowErrorModal(true);
+                return; // Exit the function early
+            }
+
+            // Check if addVenmoInfo is true and either venmoUsername or paymentAmount is empty
+            if (addVenmoInfo && (!venmoUsername || !paymentAmount)) {
+                setError('Did you mean to add Venmo info?');
+                setShowErrorModal(true);
+                return; // Exit the function early
+            }
+    
             const url = api_url + 'api/group/add/' + groupName;
             await axios.post(url, {
                 name: groupName,
