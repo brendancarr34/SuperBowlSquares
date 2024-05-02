@@ -13,7 +13,6 @@ import Modal from 'react-bootstrap/Modal';
 export function CreateGroup() {
 
     function generateUUID() {
-        console.log('test2');
         var d = new Date().getTime();
         var d2 = (performance && performance.now && (performance.now()*1000)) || 0;
         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -49,35 +48,26 @@ export function CreateGroup() {
     const handleButtonClick2 = async () => {
         try {
             if (groupName == '') {
-                // console.log('test2')
-                // setGroupName(generateUUID().substring(0,6));
-                // console.log('groupName:' + groupName);
-                // console.log('uuid: ' + generateUUID().substring(0,6));
                 let uuid = generateUUID().substring(0,8);
-                navigate('/create-group-preferences', {state: { groupName: uuid }});
-                
+                navigate('/create-group-preferences', {state: { groupName: uuid }});      
             }
             else {
                 const url = api_url + '/api/game/' + groupName
-                const response = await axios.get(url);
+                await axios.get(url);
     
+                // If group is found, show error modal
                 setError("Group with name '" + groupName + "' already exists");
                 setShowErrorModal(true);
             }
 
         } catch (error) {
-
+            // if groupName is not found, navigate to group preferences with new groupName
             if (error.response != null && 
                     error.response.data.error == 'Document not found') {
 
-                console.log('test');
-
                 if (groupName === "") {
-                    // groupName = generateUUID().substring(0,6);
                     setGroupName(generateUUID().substring(0,6));
                 }
-
-                console.log("groupName: " + groupName);
 
                 navigate('/create-group-preferences', {state: { groupName: groupName }});
             }

@@ -76,7 +76,6 @@ export function EditBoard() {
         setVenmoUsername(response.data.venmoUsername);
         const paymentAmount = response.data.paymentAmount;
         setTotalPayment(parseFloat(paymentAmount) * clickedButtons.length);
-        console.log('venmoUsername: ' + venmoUsername + ', totalPayment: ' + totalPayment, ', button count: ' + clickedButtons.length);
         setShowVenmoModal(true);
       } else {
         // Successful submission logic
@@ -259,10 +258,7 @@ function center2() {
     textAlign: 'center',
     alignItems: 'center',
     padding:0,
-    margin:0,
-    // textAlign: 'center',
-    // width: '100%',
-    // paddingTop: 50
+    margin:0
   }
 }
 
@@ -272,10 +268,7 @@ function black() {
     border: 'black',
     padding: 0,
     width: '100%',
-    height: '85%',
-    // marginLeft: 5,
-    // marginRight: 5,
-    // paddingLeft:5
+    height: '85%'
   }
 }
 
@@ -303,9 +296,7 @@ function pad() {
 function pad2() {
   return {
       display: 'flex', 
-      justifyContent: 'center', 
-      // paddingTop: 15,
-      // paddingBottom: 15,
+      justifyContent: 'center',
       paddingBottom: 15,
       paddingRight: 15,
       paddingLeft:15

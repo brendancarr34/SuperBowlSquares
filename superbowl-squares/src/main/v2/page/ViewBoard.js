@@ -11,15 +11,21 @@ import { ViewBoardRow3 } from '../components/row/ViewBoardRow3.js';
 import { NumberRow } from '../components/row/NumberRow.js';
 import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../data/EmptyBoardData.js';
 import axios from 'axios';
-import { host, api_url } from '../../../config.js';
+import { api_url } from '../../../config.js';
 import { VerticalTextComponent } from '../components/VerticalTextComponent.js';
 
 export function ViewBoard() {
 
     let navigate = useNavigate();
-
     const location = useLocation();
-    let groupName = location.state.groupName;
+
+    let groupName = null;
+    try {
+        groupName = location.state.groupName;
+    }
+    catch (error) {
+        console.log('groupName is null');
+    }
 
     const [gameNameData, setGameNameData] = useState(emptyNameBoard);
     const [gameData, setGameData] = useState(emptyBoard);
@@ -87,6 +93,12 @@ export function ViewBoard() {
     };
 
     useEffect(() => {
+        if (groupName == null) {
+            navigate('/', { replace :
+                true
+            });
+        }
+
         // Function to fetch data from the API
         const fetchData = async () => {
             try {

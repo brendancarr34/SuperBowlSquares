@@ -8,7 +8,7 @@ import '../style/AutoSetNumbersComponent.css'
 function AddVenmoInfo({ addVenmoInfo, handleAddVenmoInfoToggleChange, handleSetVenmoUsername, handleSetVenmoPaymentInfo }) {
 
   const handleToggle = () => {
-    handleAddVenmoInfoToggleChange(!addVenmoInfo); // Call the function passed from parent
+    handleAddVenmoInfoToggleChange(!addVenmoInfo);
   };
 
   const handleVenmoInfoChange = (e) => {
@@ -16,8 +16,17 @@ function AddVenmoInfo({ addVenmoInfo, handleAddVenmoInfoToggleChange, handleSetV
     handleSetVenmoUsername(venmoInfo);
   }
 
+  const [price, setPrice] = useState('');
+
   const handleVenmoPaymentChange = (e) => {
-    const paymentInfo = e.target.value;
+    let paymentInfo = e.target.value;
+    paymentInfo = paymentInfo.replace(/[^0-9.]/g, '');
+    const decimalIndex = paymentInfo.indexOf('.');
+    if (decimalIndex !== -1) {
+        // Limit to two decimal places
+        paymentInfo = paymentInfo.slice(0, decimalIndex + 3);
+    }
+    setPrice(paymentInfo);
     handleSetVenmoPaymentInfo(paymentInfo);
   }
 
@@ -44,8 +53,18 @@ function AddVenmoInfo({ addVenmoInfo, handleAddVenmoInfoToggleChange, handleSetV
                 <Form.Group onChange={handleVenmoInfoChange} style={{margin:0, paddingTop:2, paddingBottom:2}}>
                     <Form.Control placeholder="Venmo username" />
                 </Form.Group>
-                <Form.Group onChange={handleVenmoPaymentChange} style={{margin:0, paddingTop:2, paddingBottom:2}}>
-                    <Form.Control placeholder="Price per square" />
+                <Form.Group style={{ margin: 0, paddingTop: 2, paddingBottom: 2 }}>
+                    <div style={{ position: 'relative' }}>
+                        <span style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)' }}>$</span>
+                        <Form.Control
+                            type="number"
+                            step="0.01"
+                            placeholder="Price per square"
+                            value={price}
+                            onChange={handleVenmoPaymentChange}
+                            style={{ paddingLeft: 25 }}
+                        />
+                    </div>
                 </Form.Group>
               </Col>
             )}

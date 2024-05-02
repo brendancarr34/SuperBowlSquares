@@ -14,42 +14,7 @@ import AddVenmoInfo from '../components/AddVenmoInfo';
 import Modal from 'react-bootstrap/Modal';
 import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, } from "../data/EmptyBoardData";
 
-function generateUUID() {
-    var d = new Date().getTime();
-    var d2 = (performance && performance.now && (performance.now()*1000)) || 0;
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16;
-        if(d > 0){
-            r = (d + r)%16 | 0;
-            d = Math.floor(d/16);
-        } else {
-            r = (d2 + r)%16 | 0;
-            d2 = Math.floor(d2/16);
-        }
-        return (c === 'x' ? r : (r&0x7|0x8)).toString(16);
-    });
-    return uuid;
-};
-
 export function CreateGroupPreferences() {
-
-    function generateUUID() {
-        console.log('test2');
-        var d = new Date().getTime();
-        var d2 = (performance && performance.now && (performance.now()*1000)) || 0;
-        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16;
-            if(d > 0){
-                r = (d + r)%16 | 0;
-                d = Math.floor(d/16);
-            } else {
-                r = (d2 + r)%16 | 0;
-                d2 = Math.floor(d2/16);
-            }
-            return (c === 'x' ? r : (r&0x7|0x8)).toString(16);
-        });
-        return uuid;
-    };
 
     const location = useLocation();
     let groupName = location.state.groupName;
@@ -64,7 +29,6 @@ export function CreateGroupPreferences() {
     const [team2, setTeam2] = useState("");
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState(null);
-
     const [addVenmoInfo, setAddVenmoInfo] = useState(false);
     const [venmoUsername, setVenmoUserName] = useState("");
     const [paymentAmount, setPaymentAmount] = useState(0);
@@ -74,50 +38,37 @@ export function CreateGroupPreferences() {
         setAutoSetNumbers(newValue);
     };
 
-    // Function to handle AutoSetTeams checkbox change
+    // Add teams functions
     const handleAutoSetTeamsChange = (newValue) => {
         setAutoSetTeams(newValue);
     }
-
     const handleSetTeam1 = (newValue) => {
         setTeam1(newValue);
     }
-
     const handleSetTeam2 = (newValue) => {
         setTeam2(newValue);
     }
 
-    // Function to handle add password checkbox change
+    // Add password function
     const handleAddPasswordToggleChange = (newValue) => {
         setAddGroupPassword(newValue);
     }
-
     const handleSetGroupPassword = (newValue) => {
         setGroupPassword(newValue);
     }
 
-    // Function to handle add Venmo info
+    // Add Venmo info function
     const handleAddVenmoInfoToggleChange = (newValue) => {
         setAddVenmoInfo(newValue);
     }
-
     const handleSetVenmoUsername = (newValue) => {
         setVenmoUserName(newValue);
     }
-
     const handleSetVenmoPaymentInfo = (newValue) => {
         setPaymentAmount(newValue);
     }
 
     const handleButtonClick2 = async () => {
-
-        // if groupName is empty, create a group name
-        if (groupName === "") {
-            groupName = generateUUID().substring(0,6);
-        }
-
-        console.log('groupName: ' + groupName);
-
         try {
             const url = api_url + 'api/group/add/' + groupName;
             await axios.post(url, {
@@ -186,9 +137,7 @@ export function CreateGroupPreferences() {
     return (
         <Container>
             <Row style={fullHeight()}>
-                <Row style = {heightTop()}>
-
-                </Row>
+                <Row style = {heightTop()}/>
                 <Row style = {height15_top()}>
                     <Col style={center()}>
                         <h1>Group Preferences</h1>
@@ -230,14 +179,6 @@ export function CreateGroupPreferences() {
                                 handleSetVenmoPaymentInfo={handleSetVenmoPaymentInfo}/>
                         </Col>
                     </Row>
-                    {/* <Row>
-                        <Col style={center()}>
-                            {/* <AddVenmoInfo
-                                addVenmoInfo={addVenmoInfo} 
-                                handleAddVenmoInfoToggleChange={handleAddVenmoInfoToggleChange} 
-                                handleSetVenmoUsername={handleSetVenmoUsername}/>
-                        </Col>
-                    </Row> */}
                 </Row>
                 <Row style = {height15_bottom()}>
                     <Col style={center()}>
@@ -279,8 +220,7 @@ export function CreateGroupPreferences() {
             height: '16vh',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
-            // marginBottom: '50px'
+            alignItems: 'center'
         }
     }
 
@@ -327,6 +267,4 @@ export function CreateGroupPreferences() {
             padding: 20
         }
     }
-
-
 }
