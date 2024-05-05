@@ -103,7 +103,6 @@ export function ViewBoard() {
         const fetchData = async () => {
             try {
                 const url = api_url + 'api/game/' + groupName;
-                // const response = await axios.get('http://localhost:3001/api/game/' + groupName);
                 const response = await axios.get(url);
 
                 var gameRows = [];

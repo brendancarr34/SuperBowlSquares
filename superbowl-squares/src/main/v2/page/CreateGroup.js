@@ -117,10 +117,19 @@ export function CreateGroup() {
                         </Form>
                     </Col>
                 </Row>
-                <Row>
+                <Row style={width100()}>
                     <Col style={center()}>
                         <Button style={blackButton()} onClick={handleButtonClick2}>
                             Next
+                        </Button>
+                        <br/>
+                        <br/>
+                        <Button style={grayButton()} onClick={() => {
+                            navigate('/super-bowl-squares', { 
+                                replace: true
+                            });
+                        }}>
+                            Cancel
                         </Button>
                     </Col>
                 </Row>
@@ -166,12 +175,30 @@ export function CreateGroup() {
         }
     }
 
+    function width100() {
+        return {
+            width:'100%',
+            margin:0,
+            padding:0
+        }
+    }
+
     function blackButton() {
         return {
             backgroundColor:"black",
             border:'black',
             width:'75vw',
-            padding:20
+            // padding:20
+        }
+    }
+
+    function grayButton() {
+        return {
+            backgroundColor:"gray",
+            color:"black",
+            border:'black',
+            width:'75vw',
+            // padding:20
         }
     }
 }
