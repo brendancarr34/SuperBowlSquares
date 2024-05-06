@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import AutoSetNumbers from './components/AutoSetNumbers';
 import axios from 'axios';
-import { api_url} from '../../../config';
+import { api_url} from '../../common/config';
 import AddPassword from './components/AddPassword';
 import AutoSetTeams from './components/AutoSetTeams';
 import AddVenmoInfo from './components/AddVenmoInfo';

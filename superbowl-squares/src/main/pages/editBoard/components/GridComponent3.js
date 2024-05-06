@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { MDBBtn } from "mdb-react-ui-kit";
 import '../../../common/style/Button.css';
 import axios from 'axios';
-import { api_url} from '../../../../config';
+import { api_url} from '../../../common/config';
 
 const GridComponent3 = (props) => {
   const { groupId, setClickedButtons, clickedButtons } = props;

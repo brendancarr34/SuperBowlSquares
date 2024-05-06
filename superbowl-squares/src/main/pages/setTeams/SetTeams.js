@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
-import { host , api_url} from '../../../config';
+import { host , api_url} from '../../common/config';
 
 export function SetTeams() {
     const location = useLocation();

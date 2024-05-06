@@ -11,7 +11,7 @@ import { ViewBoardRow3} from './components/ViewBoardRow3.js'
 import { NumberRow } from './components/NumberRow.js';
 import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../../common/data/EmptyBoardData.js';
 import axios from 'axios';
-import { api_url } from '../../../config.js';
+import { api_url } from '../../common/config.js';
 import { VerticalTextComponent } from './components/VerticalTextComponent.js';
 
 export function ViewBoard() {

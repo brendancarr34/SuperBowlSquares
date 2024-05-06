@@ -1,3 +1,3 @@
 # SuperBowlSquares
 
-This repo is a placeholder for a simple web app for creating a Super Bowl Squares game.
+This project is the front-end for creating or joining a Super Bowl Squares game.

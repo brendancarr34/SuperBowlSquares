@@ -8,7 +8,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import NumberInputBoxes from './NumberInputBoxes';
 import axios from 'axios';
 import { emptyTopNumbers } from '../../common/data/EmptyBoardData';
-import { host , api_url} from '../../../config';
+import { host , api_url} from '../../common/config';
 
 export function SetNumbers() {
     const location = useLocation();
