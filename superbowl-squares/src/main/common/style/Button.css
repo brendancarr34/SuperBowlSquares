@@ -1,0 +1,49 @@
+.square-md {
+    width: 25px !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    height: 25px !important;
+    text-align: center;
+    padding: 0px;
+    border: "1px solid black";
+  }
+
+/* -- remove form control bootstrap style -- */
+#my-form-id .form-control:focus{
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.button-container {
+  position: relative;
+  /* position: absolute; */
+  /* top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;*/
+  /* pointer-events: none;   */
+  padding:0px;
+  margin:0px
+}
+
+.unclickable-button {
+  position: relative;
+  /* Add any other styles you want for your button */
+}
+
+.hover-text {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.button-container:hover .hover-text {
+  display: block;
+}
