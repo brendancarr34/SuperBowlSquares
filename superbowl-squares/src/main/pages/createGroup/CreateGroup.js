@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 // import '../style/Button.css'
 import '../../common/style/Button.css'
-import { api_url} from '../../common/config';
+import { api_url} from '../../../config';
 import Modal from 'react-bootstrap/Modal';
 
 export function CreateGroup() {

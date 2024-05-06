@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import GridComponent3 from './components/GridComponent3';
-import { api_url} from '../../common/config';
+import { api_url} from '../../../config';
 import ColorSelector from './components/ColorSelector';
 import VenmoPaymentLink from './components/VenmoPaymentLink';
 

@@ -1,11 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { firebaseApiKey } from "../config";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCo6pPvZofjXYjXYaoGMYKSjY6D9uQcPWQ",
+  apiKey: firebaseApiKey,
   authDomain: "superbowlsquares-db1.firebaseapp.com",
   databaseURL: "https://superbowlsquares-db1-default-rtdb.firebaseio.com",
   projectId: "superbowlsquares-db1",

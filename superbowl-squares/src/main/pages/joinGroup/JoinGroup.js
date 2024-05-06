@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate, useParams } from "react-router-dom";
-import { api_url} from '../../common/config';
+import { api_url} from '../../../config';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 
