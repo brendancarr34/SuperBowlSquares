@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -17,8 +17,8 @@ export function EditBoard() {
   const location = useLocation();
   let groupName =  location.state.groupName;
   
-  const [playerName, setPlayerName] = useState("");
-  const [playerInitials, setPlayerInitials] = useState("");
+  const [playerName, setPlayerName] = useState('');
+  const [playerInitials, setPlayerInitials] = useState('');
   const [clickedButtons, setClickedButtons] = useState([]);
   const [showErrorModal, setShowErrorModal] = useState(false); // State for showing error modal
   const [showApiErrorModal, setShowApiErrorModal] = useState(false); // State for showing API error modal

@@ -6,10 +6,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-// import '../style/Button.css'
 import '../../common/style/Button.css'
 import { api_url} from '../../../config';
 import Modal from 'react-bootstrap/Modal';
+import { fullHeight } from '../../common/style/CommonStyles';
 
 export function CreateGroup() {
 
@@ -118,7 +118,7 @@ export function CreateGroup() {
                         </Form>
                     </Col>
                 </Row>
-                <Row style={width100()}>
+                <Row style={width75()}>
                     <Col style={center()}>
                         <Button style={blackButton()} onClick={handleButtonClick2}>
                             Next
@@ -151,15 +151,6 @@ export function CreateGroup() {
         </Container>
     )
 
-    function fullHeight() {
-        return {
-            height:'90vh',
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center'
-        }
-    }
-
     function center() {
         return {
             textAlign:'center',
@@ -176,30 +167,21 @@ export function CreateGroup() {
         }
     }
 
-    function width100() {
-        return {
-            width:'100%',
-            margin:0,
-            padding:0
-        }
-    }
-
     function blackButton() {
         return {
             backgroundColor:"black",
             border:'black',
-            width:'75vw',
-            // padding:20
+            width:'100%',
+            height:75
         }
     }
 
     function grayButton() {
         return {
-            backgroundColor:"gray",
+            backgroundColor:"lightgray",
             color:"black",
-            border:'black',
-            width:'75vw',
-            // padding:20
+            border:'lightgray',
+            width: '100%'
         }
     }
 }

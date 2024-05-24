@@ -151,7 +151,6 @@ export function ViewBoard() {
 
                 const existingColorData = response.data.colorData;
                 setColorData(existingColorData);
-                // console.log(response.data.colorData);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -344,17 +343,6 @@ export function ViewBoard() {
         }
     }
 
-    function blue() {
-        return {
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            backgroundColor: 'blue', 
-            color: 'black',
-            padding: 15
-        }
-    }
-
     function pad() {
         return {
             display: 'flex', 
@@ -369,8 +357,6 @@ export function ViewBoard() {
     
     function center() {
         return {
-            // display: 'flex', 
-            // justifyContent: 'center',
             textAlign: 'center',
             alignItems: 'center',
             padding:0,
@@ -415,23 +401,6 @@ export function ViewBoard() {
         }
     }
 
-    function center4() {
-        return {
-            // display: 'grid', 
-            // gridTemplateColumns: '1fr',
-            // justifySelf: 'end',
-            // justifyContent: 'flex-end',
-            // textAlign: 'center',
-            // alignItems: 'center',
-            padding:0,
-            margin:0,
-            transform: 'rotate(-90deg) translateX(-75px) translateY(-10px)', // TODO
-            transformOrigin: 'center', 
-            whiteSpace: 'nowrap', 
-            // flexWrap: 'nowrap'
-        }
-    }
-
     function center5() {
         return {
             display: 'flex', 
@@ -441,19 +410,6 @@ export function ViewBoard() {
             padding:0,
             margin:0,
             flexWrap: 'nowrap',
-            // display: 'inline-block'
-        }
-    }
-
-    function minDiv() {
-        return {
-            display: 'inline-block',
-            // width: 0,
-            // height: 0
-            height: '20',
-            'white-space': 'nowrap',
-            padding: 0,
-            margin: 0
         }
     }
     

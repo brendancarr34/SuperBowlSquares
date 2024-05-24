@@ -8,11 +8,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { api_url} from '../../../config';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
+import { fullHeight } from '../../common/style/CommonStyles';
 
 export function JoinGroup() {
 
     const [groupName, setGroupName] = useState(useParams()['groupName']);
-    const [groupPassword, setGroupPassword] = useState("");
+    const [groupPassword, setGroupPassword] = useState('');
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState(null);
 
@@ -119,9 +120,18 @@ export function JoinGroup() {
                     </Col>
                 </Row>
                 <Row>
-                    <Col style={center()}>
+                    <Col style={width75()}>
                         <Button style={black()} onClick={superBowlSquares}>
                             Join a Game
+                        </Button>
+                        <br/>
+                        <br/>
+                        <Button style={grayButton()} onClick={() => {
+                            navigate('/', { 
+                                replace: true
+                            });
+                        }}>
+                            Cancel
                         </Button>
                     </Col>
                 </Row>
@@ -141,15 +151,6 @@ export function JoinGroup() {
         </Container>
     )
 
-    function fullHeight() {
-        return {
-            height:'90vh',
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center'
-        }
-    }
-
     function center() {
         return {
             textAlign:'center'
@@ -160,12 +161,29 @@ export function JoinGroup() {
         return {
             backgroundColor:"black",
             border:'black',
-            width:'75vw',
-            padding:20
+            width:'100%',
+            height:75
         }
     }
 
     function wide() {
+        return {
+            width:'75vw',
+            margin:0,
+            padding:0
+        }
+    }
+
+    function grayButton() {
+        return {
+            backgroundColor:"lightgray",
+            color:"black",
+            border:'black',
+            width: '100%'
+        }
+    }
+
+    function width75() {
         return {
             width:'75vw',
             margin:0,

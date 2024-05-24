@@ -13,6 +13,7 @@ import AutoSetTeams from './components/AutoSetTeams';
 import AddVenmoInfo from './components/AddVenmoInfo';
 import Modal from 'react-bootstrap/Modal';
 import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, } from "../../common/data/EmptyBoardData";
+import { fullHeight } from '../../common/style/CommonStyles';
 
 export function CreateGroupPreferences() {
 
@@ -70,7 +71,7 @@ export function CreateGroupPreferences() {
 
     const handleButtonClick2 = async () => {
         try {
-            if (addGroupPassword) {
+            if (addGroupPassword && !groupPassword) {
                 setError('Did you mean to add a password?');
                 setShowErrorModal(true);
                 return; // Exit the function early
@@ -218,15 +219,6 @@ export function CreateGroupPreferences() {
             </Modal>
         </Container>
     )
-
-    function fullHeight() {
-        return {
-            height: '90vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-        }
-    }
 
     function height15_bottom() {
         return {

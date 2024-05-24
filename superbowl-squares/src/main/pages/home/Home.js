@@ -1,9 +1,12 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
+
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import { useNavigate } from "react-router-dom";
+
+import { fullHeight } from '../../common/style/CommonStyles';
 
 export function Home() {
 
@@ -58,15 +61,6 @@ export function Home() {
             </Row>
         </Container>
     )
-
-    function fullHeight() {
-        return {
-            height: '90vh',
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center'
-        }
-    }
 
     function center() {
         return {
