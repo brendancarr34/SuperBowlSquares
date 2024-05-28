@@ -50,7 +50,7 @@ export function CreateGroup() {
         try {
             if (groupName == '') {
                 let uuid = generateUUID().substring(0,8);
-                navigate('/create-group-preferences', {state: { groupName: uuid }});      
+                navigate('/create-group-preferences', {state: { groupName: uuid }});
             }
             else {
                 const url = api_url + '/api/game/' + groupName

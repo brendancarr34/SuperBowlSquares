@@ -94,6 +94,15 @@ export function ViewBoard() {
 
         toggleModal();
     };
+
+    const openMenu = () => {
+        
+        navigate('/create-group-preferences', 
+        {replace: true, 
+            state: {
+                groupName: groupName
+            } });
+    }
     
     const toggleModal = () => {
         setShowModal(!showModal);
@@ -106,9 +115,7 @@ export function ViewBoard() {
             });
         }
 
-        let hasVenmoInfo = null;
         if (JSON.parse(window.sessionStorage.getItem('showVenmoModal'))) {
-            hasVenmoInfo = location.state.hasVenmoInfo;
             setShowVenmoModal(true);
             setTotalPayment(location.state.totalPayment);
             setClickedButtons(location.state.clickedButtons);
@@ -219,7 +226,7 @@ export function ViewBoard() {
                     alignItems: 'center',
                 }}>
                     <Col xs={12} style={center()}>
-                        <h1 style={{'paddingTop':50}}>Super Bowl Squares</h1>
+                        <h1 style={{'paddingTop':30}}>Super Bowl Squares</h1>
                         <p>groupName: {groupName}</p>
                     </Col>
                 </Row>
@@ -267,8 +274,7 @@ export function ViewBoard() {
                                                 <ViewBoardRow3 number={sideNumbers[8]} active={gameData[8]} text={gameNameData[8]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed} colorData={colorData} updateSelectedOption={updateSelectedOption}/>
                                                 <ViewBoardRow3 number={sideNumbers[9]} active={gameData[9]} text={gameNameData[9]} playerNames={players} selectedOption={selectedOption} allSquaresClaimed={allSquaresClaimed} colorData={colorData} updateSelectedOption={updateSelectedOption}/>
                                             </tbody>
-                                        </Table>
-                                    
+                                        </Table>                                
                                     </Col>
                                 </Row>
                             </Container>
@@ -284,8 +290,8 @@ export function ViewBoard() {
                         </Col>
                         <Col xs={10} sm={8} md={6} lg={4} style={{'padding':0, 'margin':0}}>
                             <Container style={{'padding':0, 'margin':0}}>
-                                <Row style={pad2()}>
-                                    <Col style={{'height':135}}>
+                                <Row style={pad()}>
+                                    <Col style={{'height':135, width:'35%'}}>
                                         <Row style={{'padding':0,'paddingBottom':5, 'margin':0, height:'35%'}}>
                                             <Select className="custom-select"
                                                     style={{'padding':0, 'margin':0,}} 
@@ -303,7 +309,7 @@ export function ViewBoard() {
                                         </Row>
                                         <Row style={{'padding':0,'paddingTop':5, 'margin':0, height:'65%'}}>
                                             <Col style={{'padding':0,'paddingRight':5, 'margin':0, height:'100%'}}>
-                                                <Button style={grayButton()} onClick={copyToClipboard}>
+                                                <Button style={grayButton()} onClick={openMenu}>
                                                     Menu
                                                 </Button>
                                             </Col>
@@ -314,7 +320,7 @@ export function ViewBoard() {
                                             </Col>
                                         </Row>
                                     </Col>
-                                    <Col style={{'height':135, 'paddingLeft':0}}>
+                                    <Col style={{'height':135, 'paddingLeft':0, width:'65%'}}>
                                         {
                                             !allSquaresClaimed ? 
                                             <Button style={black()} onClick={claimSquares}>
@@ -336,6 +342,7 @@ export function ViewBoard() {
                 </Row>
                 <Row>
                     <br/>
+                    <br/>
                 </Row>
             </Row>
 
@@ -353,21 +360,11 @@ export function ViewBoard() {
                 <Modal.Title>Success! 🎉</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    You claimed {clickedButtons.length} square{clickedButtons.length > 1 && 's'}!
-                <br/>
-                <br/>
+                    You claimed {clickedButtons.length} square{clickedButtons.length > 1 && 's'}!<br/>
+                    <br/>
                     Pay for your squares with Venmo?
-                {/* <br/>
-                <br/> */}
-                {/* <VenmoPaymentButton recipient={venmoUsername} amount={totalPayment}/> */}
                 </Modal.Body>
                 <Modal.Footer>     
-                    {/* <Button variant="secondary" onClick={() => {
-                        window.sessionStorage.setItem("showVenmoModal", false);
-                        setShowVenmoModal(false);
-                    }}>
-                        Close
-                    </Button> */}
                     <VenmoPaymentButton recipient={venmoUsername} amount={totalPayment}/>
                 </Modal.Footer>
             </Modal>
@@ -383,7 +380,8 @@ export function ViewBoard() {
             color: 'black',
             padding: 0,
             margin: 0,
-            paddingBottom: 15
+            paddingBottom: 15,
+            borderRadius: 5
         }
     }
 
@@ -392,20 +390,9 @@ export function ViewBoard() {
             display: 'flex', 
             justifyContent: 'center', 
             alignItems: 'center',
-            paddingTop: 15,
-            paddingBottom: 15,
-            paddingRight:10,
-            paddingLeft:10
-        }
-    }
-
-    function pad2() {
-        return {
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center',
             padding: 0,
-            paddingTop: 15
+            paddingTop: 15,
+            // width:'100%'
         }
     }
     

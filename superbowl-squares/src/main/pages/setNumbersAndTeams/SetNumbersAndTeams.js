@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import { useNavigate, useLocation } from "react-router-dom";
+import { fullHeight } from '../../common/style/CommonStyles';
 
 export function SetNumbersAndTeams() {
 
@@ -40,7 +41,7 @@ export function SetNumbersAndTeams() {
         <Container>
             <Row style={fullHeight()}>
                 <Col style={center()}>
-                    <Row style={center()}>
+                    <Row style={center2()}>
                         <h1>
                             Set Numbers & Teams
                         </h1>
@@ -80,19 +81,17 @@ export function SetNumbersAndTeams() {
         </Container>
     )
 
-    function fullHeight() {
-        return {
-            height:'90vh',
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center'
-        }
-    }
-
     function center() {
         return {
             textAlign:'center',
             height: '30vh'
+        }
+    }
+
+    function center2() {
+        return {
+            textAlign:'center',
+            height: '20vh'
         }
     }
 
@@ -107,7 +106,8 @@ export function SetNumbersAndTeams() {
 
     function grayButton() {
         return {
-            backgroundColor: 'gray',
+            backgroundColor: 'lightgray',
+            color: 'black',
             padding: 20,
             border: 'black',
             width: 155
