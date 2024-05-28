@@ -155,7 +155,7 @@ export function EditGroupPreferences() {
                 <Row style = {heightTop()}/>
                 <Row style = {height15_top()}>
                     <Col style={center()}>
-                        <h1>Group Preferences</h1>
+                        <h1>Update Group Settings</h1>
                         <p>groupName: {groupName}</p>
                     </Col>
                 </Row>
@@ -201,13 +201,26 @@ export function EditGroupPreferences() {
                     </Row>
                 </Row>
                 <Row style = {height15_bottom()}>
-                    <Col style={center()}>
-                        <Button 
-                            style={blackButton()} 
-                            onClick={handleButtonClick2}>
-                                TODO - Save Changes/Go Back
-                        </Button>
-                    </Col>
+                    <Row>
+                        <Col style={center()}>
+                            <Button 
+                                style={blackButton()} 
+                                // onClick={handleButtonClick2}
+                                >
+                                    TODO - Save Changes
+                            </Button>
+                        </Col>
+                    </Row>
+                    <br/>
+                    <Row >
+                        <Col style={center()}>
+                            <Button 
+                                style={backButton()} 
+                                onClick={handleButtonClick2}>
+                                    Go Back
+                            </Button>
+                        </Col>
+                    </Row>
                 </Row>
             </Row>
 
@@ -228,7 +241,7 @@ export function EditGroupPreferences() {
 
     function height15_bottom() {
         return {
-            height: '16vh',
+            height: '20vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
@@ -255,7 +268,7 @@ export function EditGroupPreferences() {
 
     function height70() {
         return {
-            height: '54vh',
+            height: '49vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
@@ -276,6 +289,16 @@ export function EditGroupPreferences() {
             border: 'black',
             width: '75vw',
             padding: 20
+        }
+    }
+
+    function backButton() {
+        return {
+            backgroundColor: "lightgray",
+            color: 'black',
+            border: 'black',
+            width: '75vw',
+            padding: 10
         }
     }
 }

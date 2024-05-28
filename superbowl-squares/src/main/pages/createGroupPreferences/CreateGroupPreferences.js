@@ -154,7 +154,7 @@ export function CreateGroupPreferences() {
                 <Row style = {heightTop()}/>
                 <Row style = {height15_top()}>
                     <Col style={center()}>
-                        <h1>Group Preferences</h1>
+                        <h1>Group Settings</h1>
                         <p>groupName: {groupName}</p>
                     </Col>
                 </Row>

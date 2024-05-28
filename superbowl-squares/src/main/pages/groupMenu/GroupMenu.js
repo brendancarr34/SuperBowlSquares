@@ -34,28 +34,36 @@ export function GroupMenu() {
                 <Row style = {height70()}>
                     <Row>
                         <Col style={center()}>
-                            <Button>💲 Payment Info</Button>
+                            <Button style={{backgroundColor:'black'}}>
+                                💲 Payment Info
+                            </Button>
                         </Col>
                     </Row>
                     <Row>
                         <Col style={center()}>
-                            <Button>📲 Share Game Link</Button>
+                            <Button style={{backgroundColor:'black'}}>
+                                📲 Share Game Link
+                            </Button>
                         </Col>
                     </Row>
                     <Row>
                         <Col style={center()}>
-                            <Button>ℹ️ How to Play</Button>
+                            <Button style={{backgroundColor:'black'}}>
+                                ℹ️ How to Play
+                            </Button>
                         </Col>
                     </Row>
                     <Row>
                         <Col style={center()}>
-                            <Button>Player Payment Ledger</Button>
+                            <Button style={{backgroundColor:'black'}}>
+                                Player Payment Ledger
+                            </Button>
                         </Col>
                     </Row>
                     <Row>
                         <Col style={center()}>
-                            <Button>
-                            👨‍💻 Reach out to the Developer
+                            <Button style={{backgroundColor:'black'}}>
+                                👨‍💻 Reach out to the Developer
                             </Button>
                         </Col>
                     </Row>
