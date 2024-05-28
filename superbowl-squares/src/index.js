@@ -14,6 +14,7 @@ import { SetNumbers } from './main/pages/setNumbers/SetNumbers.js';
 import { CreateGroupPreferences } from './main/pages/createGroupPreferences/CreateGroupPreferences.js';
 import { SetTeams } from './main/pages/setTeams/SetTeams.js';
 import { GroupMenu } from './main/pages/groupMenu/GroupMenu.js';
+import { EditGroupPreferences } from './main/pages/editGroupPreferences/EditGroupPreferences.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -32,6 +33,7 @@ root.render(
                 <Route path='/set-numbers' element={<SetNumbers />} />
                 <Route path='/set-teams' element={<SetTeams />}/>
                 <Route path='/group-menu' element={<GroupMenu />} />
+                <Route path='/edit-group-preferences' element={<EditGroupPreferences />} />
                 <Route path="/*" element={<NotFound />} />
             </Routes>
         </Router>

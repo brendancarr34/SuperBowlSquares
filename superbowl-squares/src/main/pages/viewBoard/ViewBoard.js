@@ -96,7 +96,7 @@ export function ViewBoard() {
     };
 
     const openPreferences = () => {
-        navigate('/create-group-preferences', 
+        navigate('/edit-group-preferences', 
         {replace: true, 
             state: {
                 groupName: groupName
@@ -123,6 +123,10 @@ export function ViewBoard() {
         }
 
         if (JSON.parse(window.sessionStorage.getItem('showVenmoModal'))) {
+            // setTimeout(function(){ 
+
+            //     setShowVenmoModal(true);
+            // }, 2000);
             setShowVenmoModal(true);
             setTotalPayment(location.state.totalPayment);
             setClickedButtons(location.state.clickedButtons);
@@ -299,7 +303,7 @@ export function ViewBoard() {
                             <Container style={{'padding':0, 'margin':0}}>
                                 <Row style={pad()}>
                                     <Col style={{'height':115, flex: '0 0 65%'}}>
-                                        <Row style={{'padding':0,'paddingBottom':5, 'margin':0, height:'35%'}}>
+                                        <Row style={{'padding':0,'paddingBottom':5, 'margin':0, height:'40%'}}>
                                             <Select className="custom-select"
                                                     style={{'padding':0, 'margin':0,}} 
                                                     options={selectOptions} 
@@ -314,7 +318,7 @@ export function ViewBoard() {
                                                     menuPlacement="top"
                                             />
                                         </Row>
-                                        <Row style={{'padding':0,'paddingTop':5, 'margin':0, height:'65%'}}>
+                                        <Row style={{'padding':0,'paddingTop':5, 'margin':0, height:'60%'}}>
                                             <Col style={{'padding':0,'paddingRight':5, 'margin':0, height:'100%'}}>
                                                 <Button style={grayButton()} onClick={openPreferences}>
                                                     ⚙️
