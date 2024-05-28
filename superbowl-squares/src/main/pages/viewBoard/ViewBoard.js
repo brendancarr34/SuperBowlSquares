@@ -110,6 +110,10 @@ export function ViewBoard() {
                 groupName: groupName
             } });
     }
+
+    const home = () => {
+        navigate('/');
+    }
     
     const toggleModal = () => {
         setShowModal(!showModal);
@@ -237,8 +241,22 @@ export function ViewBoard() {
                     alignItems: 'center',
                 }}>
                     <Col xs={12} style={center()}>
-                        <h1 style={{'paddingTop':30}}>Super Bowl Squares</h1>
-                        <p>groupName: {groupName}</p>
+                        <Button style={{
+                            backgroundColor:'lightgray',
+                            color:'black',
+                            fontSize: 26,
+                            fontWeight: 900,
+                            borderRadius:35,
+                            marginTop:30,
+                            padding:15,
+                            border: 'lightgray'
+                        }}
+                        onClick={() => home()}
+                        >
+                            🏈 Super Bowl Squares 🏈
+                        </Button>
+                        {/* <h1 style={{'paddingTop':30}}>🏈 Super Bowl Squares 🏈</h1> */}
+                        <p style={{paddingTop:5}}>groupName: {groupName}</p>
                     </Col>
                 </Row>
                 <Row style={center()}>
