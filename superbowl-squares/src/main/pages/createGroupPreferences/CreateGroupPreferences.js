@@ -169,6 +169,16 @@ export function CreateGroupPreferences() {
                     </Row>
                     <Row>
                         <Col style={center()}>
+                            <p>TODO - "add admin password?"</p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col style={center()}>
+                            <p>TODO - "add payment breakdown?"</p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col style={center()}>
                             <AutoSetNumbers 
                                 autoSetNumbers={autoSetNumbers} 
                                 handleToggleChange={handleAutoSetNumberChange} />

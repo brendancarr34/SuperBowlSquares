@@ -95,9 +95,16 @@ export function ViewBoard() {
         toggleModal();
     };
 
-    const openMenu = () => {
-        
+    const openPreferences = () => {
         navigate('/create-group-preferences', 
+        {replace: true, 
+            state: {
+                groupName: groupName
+            } });
+    }
+
+    const openMenu = () => {
+        navigate('/group-menu', 
         {replace: true, 
             state: {
                 groupName: groupName
@@ -291,7 +298,7 @@ export function ViewBoard() {
                         <Col xs={10} sm={8} md={6} lg={4} style={{'padding':0, 'margin':0}}>
                             <Container style={{'padding':0, 'margin':0}}>
                                 <Row style={pad()}>
-                                    <Col style={{'height':135, width:'35%'}}>
+                                    <Col style={{'height':115, flex: '0 0 65%'}}>
                                         <Row style={{'padding':0,'paddingBottom':5, 'margin':0, height:'35%'}}>
                                             <Select className="custom-select"
                                                     style={{'padding':0, 'margin':0,}} 
@@ -309,18 +316,23 @@ export function ViewBoard() {
                                         </Row>
                                         <Row style={{'padding':0,'paddingTop':5, 'margin':0, height:'65%'}}>
                                             <Col style={{'padding':0,'paddingRight':5, 'margin':0, height:'100%'}}>
+                                                <Button style={grayButton()} onClick={openPreferences}>
+                                                    ⚙️
+                                                </Button>
+                                            </Col>
+                                            <Col style={{'padding':0,'paddingLeft':5,'paddingRight':5, 'margin':0, height:'100%'}}>
                                                 <Button style={grayButton()} onClick={openMenu}>
-                                                    Menu
+                                                    📖
                                                 </Button>
                                             </Col>
                                             <Col style={{'padding':0,'paddingLeft':5, 'margin':0, height:'100%'}}>
                                                 <Button style={grayButton()} onClick={copyToClipboard}>
-                                                    Share Game
+                                                    📲
                                                 </Button>
                                             </Col>
                                         </Row>
                                     </Col>
-                                    <Col style={{'height':135, 'paddingLeft':0, width:'65%'}}>
+                                    <Col style={{'height':115, 'paddingLeft':0, flex: '0 0 35%'}}>
                                         {
                                             !allSquaresClaimed ? 
                                             <Button style={black()} onClick={claimSquares}>
@@ -348,7 +360,7 @@ export function ViewBoard() {
 
             {/* Modal for Copied Link */}
             <Modal show={showModal} onHide={() => toggleModal(false)}>
-                <Modal.Body>Link copied to clipboard.</Modal.Body>
+                <Modal.Body>Game link copied to clipboard.</Modal.Body>
             </Modal>
 
             {/* Venmo Modal */}
@@ -459,7 +471,8 @@ export function ViewBoard() {
             padding: 5,
             width: '100%',
             color: 'black',
-            height: '100%'
+            height: '100%',
+            fontSize: 30
         }
     }
 }
