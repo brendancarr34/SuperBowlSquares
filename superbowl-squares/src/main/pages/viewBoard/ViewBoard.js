@@ -13,6 +13,8 @@ import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '.
 import axios from 'axios';
 import { api_url } from '../../../config.js';
 import { VerticalTextComponent } from './components/VerticalTextComponent.js';
+import { fullHeight } from '../../common/style/CommonStyles.js';
+import '../../common/style/Select.css'
 
 export function ViewBoard() {
 
@@ -197,15 +199,18 @@ export function ViewBoard() {
     return (
         <Container>
             <Row style={fullHeight()}>
-                <Row style={{display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',}}>
+                <Row style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
                     <Col xs={12} style={center()}>
                         <h1 style={{'paddingTop':50}}>Super Bowl Squares</h1>
                         <p>groupName: {groupName}</p>
                     </Col>
                 </Row>
                 <Row style={center()}>
+                    {/* Top Team */}
                     <Row style={center5()}>
                         <Col xs={1} style={{'padding':0, 'margin':0}}>
                             <VerticalTextComponent style={{'padding':0, 'margin':0}} text={' '} />
@@ -217,6 +222,7 @@ export function ViewBoard() {
                             <VerticalTextComponent style={{'padding':0, 'margin':0}} text={' '} />
                         </Col>
                     </Row>
+                    {/* Game Board */}
                     <Row style={center5()}>
                         <Col xs={1} style={{'padding':0, 'margin':0}}>
                             <VerticalTextComponent style={{'padding':0, 'margin':0}} text={sideTeam} />
@@ -257,61 +263,65 @@ export function ViewBoard() {
                             <VerticalTextComponent style={{'padding':0, 'margin':0, color:'white'}} text={'test'} />
                         </Col>
                     </Row>
-
-                </Row>
-                <Row style={{'paddingRight':10, 'margin':0, 'paddingLeft':10}}>
-                    <Col style={{'padding':0, 'margin':0}}>
-                        <Container style={{'padding':0, 'margin':0}}>
-                            <Row style={pad()}>
-                                <Col style={{'padding':0, 'margin':0}}>
-                                    <Row style={{'padding':0, 'margin':0}}>
-                                        <Select style={{'padding':0, 'margin':0}} 
-                                                options={selectOptions} 
-                                                onChange={handleInitialSelect} 
-                                                defaultValue={{ value: 'None', label: null }}
-                                                value={
-                                                    selectedOption === 'none' || selectedOption === 'None'
-                                                        ? 'None'
-                                                        : { value: selectedOption, label: players[selectedOption] }
-                                                }
-                                                isSearchable={false}
-                                                menuPlacement="top"
-                                                // menuPortalTarget={document.body} // Render the menu outside the DOM tree
-                                                // menuPosition="fixed" // Ensures the menu stays fixed in its position
-                                                // menuStyle={{ maxHeight: '6000px' }} // Set the max height of the menu
-                                        />
-                                    </Row>
-                                </Col>
-                                <Col style={center()}>
-                                    <Row style={center()}>
-                                        <p style={centerText()}> --- Insert Menu --- </p>
-                                        {/* <p style={centerText()}>{groupName}</p> */}
-                                    </Row>
-                                </Col>
-                            </Row>
-                            <Row style={pad()}>
-                                {
-                                    !allSquaresClaimed ?
-                                        <Row style={{ 'padding': 0, 'margin': 0 }}>
-                                            <Col style={{ 'padding': 0, 'margin': 0, 'paddingRight': 10 , 'paddingLeft':10}}>
+                    {/* Button Row */}
+                    <Row style={center5()}>
+                        <Col xs={1} style={{'padding':0, 'margin':0}}>
+                            <VerticalTextComponent style={{'padding':0, 'margin':0, color:'white'}} text={' '} />
+                        </Col>
+                        <Col xs={10} sm={8} md={6} lg={4} style={{'padding':0, 'margin':0}}>
+                            <Container style={{'padding':0, 'margin':0}}>
+                                <Row style={pad2()}>
+                                    <Col style={{'height':135}}>
+                                        <Row style={{'padding':0,'padding-bottom':5, 'margin':0, height:'35%'}}>
+                                            <Select className="custom-select"
+                                                    style={{'padding':0, 'margin':0,}} 
+                                                    options={selectOptions} 
+                                                    onChange={handleInitialSelect} 
+                                                    defaultValue={{ value: 'None', label: null }}
+                                                    value={
+                                                        selectedOption === 'none' || selectedOption === 'None'
+                                                            ? 'None'
+                                                            : { value: selectedOption, label: players[selectedOption] }
+                                                    }
+                                                    isSearchable={false}
+                                                    menuPlacement="top"
+                                            />
+                                        </Row>
+                                        <Row style={{'padding':0,'padding-top':5, 'margin':0, height:'65%'}}>
+                                            <Col style={{'padding':0,'padding-right':5, 'margin':0, height:'100%'}}>
+                                                <Button style={grayButton()} onClick={copyToClipboard}>
+                                                    Menu
+                                                </Button>
+                                            </Col>
+                                            <Col style={{'padding':0,'padding-left':5, 'margin':0, height:'100%'}}>
                                                 <Button style={grayButton()} onClick={copyToClipboard}>
                                                     Share Game
                                                 </Button>
                                             </Col>
-                                            <Col style={{ 'padding': 0, 'margin': 0, 'paddingLeft': 10, 'paddingRight': 10 }}>
-                                                <Button style={black()} onClick={claimSquares}>
-                                                    Claim Squares
-                                                </Button>
-                                            </Col>
                                         </Row>
-                                        : 
-                                        <Button style={black()} onClick={setNumbersAndTeams}>
-                                            Set Numbers & Teams
-                                        </Button>
-                                }
-                            </Row>
-                        </Container>
-                    </Col>
+                                    </Col>
+                                    <Col style={{'height':135, 'padding-left':0}}>
+                                        {
+                                            !allSquaresClaimed ? 
+                                            <Button style={black()} onClick={claimSquares}>
+                                                Select Squares
+                                            </Button> 
+                                            :                         
+                                            <Button style={black()} onClick={setNumbersAndTeams}>
+                                                Set Numbers & Teams
+                                            </Button>
+                                        }
+                                    </Col>
+                                </Row>
+                            </Container>
+                        </Col>
+                        <Col xs={1} style={{'padding':0, 'margin':0}}>
+                            <VerticalTextComponent style={{'padding':0, 'margin':0, color:'white'}} text={' '} />
+                        </Col>
+                    </Row>
+                </Row>
+                <Row>
+                    <br/>
                 </Row>
             </Row>
 
@@ -354,6 +364,16 @@ export function ViewBoard() {
             paddingLeft:10
         }
     }
+
+    function pad2() {
+        return {
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center',
+            padding: 0,
+            paddingTop: 15
+        }
+    }
     
     function center() {
         return {
@@ -361,18 +381,6 @@ export function ViewBoard() {
             alignItems: 'center',
             padding:0,
             margin:0,
-        }
-    }
-
-    function centerText() {
-        return {
-            display: 'flex', 
-            justifyContent: 'center',
-            textAlign: 'center',
-            alignItems: 'center',
-            padding:0,
-            margin:0,
-            fontSize:15
         }
     }
 
@@ -418,28 +426,20 @@ export function ViewBoard() {
             backgroundColor: 'black',
             border: 'black',
             padding: 20,
+            // marginLeft:0,
             width: '100%',
-
+            height: '100%'
         }
     }
 
     function grayButton() {
         return {
-            backgroundColor: 'gray',
+            backgroundColor: 'lightgray',
             border: 'gray',
-            padding: 20,
+            padding: 5,
             width: '100%',
-            color: 'black'
-        }
-    }
-
-    function fullHeight() {
-        return {
-            height: '85vh',
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center',
-
+            color: 'black',
+            height: '100%'
         }
     }
 }

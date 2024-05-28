@@ -227,7 +227,6 @@ export function EditBoard() {
           </Button>
         </Modal.Footer>
       </Modal>
-
     </Container>
     
   );
