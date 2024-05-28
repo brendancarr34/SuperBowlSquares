@@ -15,6 +15,7 @@ import { api_url } from '../../../config.js';
 import { VerticalTextComponent } from './components/VerticalTextComponent.js';
 import { fullHeight } from '../../common/style/CommonStyles.js';
 import '../../common/style/Select.css'
+import VenmoPaymentButton from '../editBoard/components/VenmoPaymentButton.js';
 
 export function ViewBoard() {
 
@@ -40,7 +41,11 @@ export function ViewBoard() {
     const [sideTeam, setSideTeam] = useState('');
     const [selectedOption, setSelectedOption] = useState("None");
     const [showModal, setShowModal] = useState(false);
-    const [colorData, setColorData] = useState([])
+    const [colorData, setColorData] = useState([]);
+    const [showVenmoModal, setShowVenmoModal] = useState(false);
+    const [totalPayment, setTotalPayment] = useState('');
+    const [clickedButtons, setClickedButtons] = useState([]);
+    const [venmoUsername, setVenmoUsername] = useState('');
 
     // Function to update select options
     const updateSelectOptions = (playerData) => {
@@ -99,6 +104,15 @@ export function ViewBoard() {
             navigate('/', { replace :
                 true
             });
+        }
+
+        let hasVenmoInfo = null;
+        if (JSON.parse(window.sessionStorage.getItem('showVenmoModal'))) {
+            hasVenmoInfo = location.state.hasVenmoInfo;
+            setShowVenmoModal(true);
+            setTotalPayment(location.state.totalPayment);
+            setClickedButtons(location.state.clickedButtons);
+            setVenmoUsername(location.state.venmoUsername);
         }
 
         // Function to fetch data from the API
@@ -272,7 +286,7 @@ export function ViewBoard() {
                             <Container style={{'padding':0, 'margin':0}}>
                                 <Row style={pad2()}>
                                     <Col style={{'height':135}}>
-                                        <Row style={{'padding':0,'padding-bottom':5, 'margin':0, height:'35%'}}>
+                                        <Row style={{'padding':0,'paddingBottom':5, 'margin':0, height:'35%'}}>
                                             <Select className="custom-select"
                                                     style={{'padding':0, 'margin':0,}} 
                                                     options={selectOptions} 
@@ -287,20 +301,20 @@ export function ViewBoard() {
                                                     menuPlacement="top"
                                             />
                                         </Row>
-                                        <Row style={{'padding':0,'padding-top':5, 'margin':0, height:'65%'}}>
-                                            <Col style={{'padding':0,'padding-right':5, 'margin':0, height:'100%'}}>
+                                        <Row style={{'padding':0,'paddingTop':5, 'margin':0, height:'65%'}}>
+                                            <Col style={{'padding':0,'paddingRight':5, 'margin':0, height:'100%'}}>
                                                 <Button style={grayButton()} onClick={copyToClipboard}>
                                                     Menu
                                                 </Button>
                                             </Col>
-                                            <Col style={{'padding':0,'padding-left':5, 'margin':0, height:'100%'}}>
+                                            <Col style={{'padding':0,'paddingLeft':5, 'margin':0, height:'100%'}}>
                                                 <Button style={grayButton()} onClick={copyToClipboard}>
                                                     Share Game
                                                 </Button>
                                             </Col>
                                         </Row>
                                     </Col>
-                                    <Col style={{'height':135, 'padding-left':0}}>
+                                    <Col style={{'height':135, 'paddingLeft':0}}>
                                         {
                                             !allSquaresClaimed ? 
                                             <Button style={black()} onClick={claimSquares}>
@@ -327,15 +341,35 @@ export function ViewBoard() {
 
             {/* Modal for Copied Link */}
             <Modal show={showModal} onHide={() => toggleModal(false)}>
-                {/* <Modal.Header closeButton>
-                <Modal.Title></Modal.Title>
-                </Modal.Header> */}
                 <Modal.Body>Link copied to clipboard.</Modal.Body>
-                {/* <Modal.Footer>
-                {/* <Button variant="secondary" onClick={() => toggleModal(false)}>
-                    Close
-                </Button>
-            </Modal.Footer> */}
+            </Modal>
+
+            {/* Venmo Modal */}
+            <Modal show={showVenmoModal} onHide={() => {
+                    window.sessionStorage.setItem("showVenmoModal", false);
+                    setShowVenmoModal(false);
+                }}>
+                <Modal.Header closeButton>
+                <Modal.Title>Success! 🎉</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    You claimed {clickedButtons.length} square{clickedButtons.length > 1 && 's'}!
+                <br/>
+                <br/>
+                    Pay for your squares with Venmo?
+                {/* <br/>
+                <br/> */}
+                {/* <VenmoPaymentButton recipient={venmoUsername} amount={totalPayment}/> */}
+                </Modal.Body>
+                <Modal.Footer>     
+                    {/* <Button variant="secondary" onClick={() => {
+                        window.sessionStorage.setItem("showVenmoModal", false);
+                        setShowVenmoModal(false);
+                    }}>
+                        Close
+                    </Button> */}
+                    <VenmoPaymentButton recipient={venmoUsername} amount={totalPayment}/>
+                </Modal.Footer>
             </Modal>
         </Container>
     );
@@ -426,7 +460,6 @@ export function ViewBoard() {
             backgroundColor: 'black',
             border: 'black',
             padding: 20,
-            // marginLeft:0,
             width: '100%',
             height: '100%'
         }

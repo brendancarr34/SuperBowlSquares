@@ -11,6 +11,7 @@ import GridComponent3 from './components/GridComponent3';
 import { api_url} from '../../../config';
 import ColorSelector from './components/ColorSelector';
 import VenmoPaymentLink from './components/VenmoPaymentLink';
+import VenmoPaymentButton from './components/VenmoPaymentButton';
 
 export function EditBoard() {
   
@@ -25,9 +26,10 @@ export function EditBoard() {
   const [showTakenInitialsModal, setShowTakenInitialsModal] = useState(false);
   const [showClickedButtonsTakenModal, setShowClickedButtonsTakenModal] = useState(false);
   const [selectedColor, setSelectedColor] = useState('');
-  const [showVenmoModal, setShowVenmoModal] = useState(false);
+  // const [showVenmoModal, setShowVenmoModal] = useState(false);
   const [venmoUsername, setVenmoUsername] = useState('');
   const [totalPayment, setTotalPayment] = useState('');
+  const [venmoInfoExists, setVenmoInfoExists] = useState(false);
 
   let navigate = useNavigate();
 
@@ -35,7 +37,28 @@ export function EditBoard() {
     // Successful submission logic
     navigate('/super-bowl-squares', { 
       replace: true, 
-      state: { name: playerName, initials: playerInitials, groupName: groupName } 
+      state: { 
+        name: playerName, 
+        initials: playerInitials, 
+        groupName: groupName } 
+    });
+  }
+
+  const viewBoard2 = (venmoUsernameProp, totalPaymentProp) => {
+    window.sessionStorage.setItem("showVenmoModal", true);
+
+    // Successful submission logic
+    navigate('/super-bowl-squares', { 
+      replace: true, 
+      state: { 
+        name: playerName, 
+        initials: playerInitials, 
+        groupName: groupName,
+        hasVenmoInfo: true,
+        clickedButtons: clickedButtons,
+        totalPayment: totalPaymentProp,
+        venmoUsername: venmoUsernameProp,
+        showVenmoModal: true } 
     });
   }
 
@@ -73,10 +96,12 @@ export function EditBoard() {
       console.log(response.data);
       const hasVenmoInfo = response.data.hasVenmoInfo;
       if (hasVenmoInfo) {
+        setVenmoInfoExists(true);
         setVenmoUsername(response.data.venmoUsername);
         const paymentAmount = response.data.paymentAmount;
         setTotalPayment(parseFloat(paymentAmount) * clickedButtons.length);
-        setShowVenmoModal(true);
+        // setShowVenmoModal(true);
+        viewBoard2(response.data.venmoUsername, parseFloat(paymentAmount) * clickedButtons.length);
       } else {
         // Successful submission logic
         viewBoard();
@@ -208,7 +233,7 @@ export function EditBoard() {
       </Modal>
 
       {/* Venmo Modal */}
-      <Modal show={showVenmoModal} onHide={() => viewBoard()}>
+      {/* <Modal show={showVenmoModal} onHide={() => viewBoard()}>
         <Modal.Header closeButton>
           <Modal.Title>Squares Claimed!</Modal.Title>
         </Modal.Header>
@@ -219,14 +244,14 @@ export function EditBoard() {
           Your group has Venmo info... open Venmo now?
           <br/>
           <br/>
-          <VenmoPaymentLink recipient={venmoUsername} amount={totalPayment}/>
+          <VenmoPaymentButton recipient={venmoUsername} amount={totalPayment}/>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => viewBoard()}>
             Close
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
     </Container>
     
   );
