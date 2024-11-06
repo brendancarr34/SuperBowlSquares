@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/SuperBowlSquares/static/css/main.fc402212.css",
-    "main.js": "/SuperBowlSquares/static/js/main.695efdb7.js",
+    "main.js": "/SuperBowlSquares/static/js/main.b67527cf.js",
     "index.html": "/SuperBowlSquares/index.html",
     "main.fc402212.css.map": "/SuperBowlSquares/static/css/main.fc402212.css.map",
-    "main.695efdb7.js.map": "/SuperBowlSquares/static/js/main.695efdb7.js.map"
+    "main.b67527cf.js.map": "/SuperBowlSquares/static/js/main.b67527cf.js.map"
   },
   "entrypoints": [
     "static/css/main.fc402212.css",
-    "static/js/main.695efdb7.js"
+    "static/js/main.b67527cf.js"
   ]
 }
