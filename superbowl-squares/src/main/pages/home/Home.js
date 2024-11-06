@@ -56,7 +56,7 @@ export function Home() {
                     </Col>
                 </Row>
                 <Row style={center()}>
-                    <p style={lowerText()}>by brendan carr</p>
+                    <p style={lowerText()}>by Brendan Carr</p>
                 </Row>
             </Row>
         </Container>

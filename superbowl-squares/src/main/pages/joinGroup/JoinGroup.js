@@ -119,10 +119,10 @@ export function JoinGroup() {
                         </Form>
                     </Col>
                 </Row>
-                <Row>
+                <Row style={width75()}>
                     <Col style={width75()}>
                         <Button style={black()} onClick={superBowlSquares}>
-                            Join a Game
+                            Join
                         </Button>
                         <br/>
                         <br/>

@@ -6,9 +6,11 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
 import Select from 'react-select'
 import { ViewBoardRow3} from './components/ViewBoardRow3.js'
 import { NumberRow } from './components/NumberRow.js';
+
 import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../../common/data/EmptyBoardData.js';
 import axios from 'axios';
 import { ws_url } from '../../../config.js';
@@ -47,6 +49,11 @@ export function ViewBoardV2() {
     const [clickedButtons, setClickedButtons] = useState([]);
     const [venmoUsername, setVenmoUsername] = useState('');
 
+    const [adminPassword, setAdminPassword] = useState('');
+    const [showAdminPasswordModal, setShowAdminPasswordModal] = useState(false);
+    const [userInputAdminPassword, setUserInputAdminPassword] = useState('');
+    const [showIncorrectAdminPasswordModal, setShowIncorrectAdminPasswordModal] = useState(false);
+
     // const [data, setData] = useState([]);
     const [connectionStatus, setConnectionStatus] = useState('Disconnected');
 
@@ -55,7 +62,6 @@ export function ViewBoardV2() {
         setMenuIsOpen(true);
         setTimeout(() => setMenuIsOpen(false), 0); // Immediately reopen the menu
     };
-
 
     // Function to update select options
     const updateSelectOptions = (playerData) => {
@@ -106,11 +112,34 @@ export function ViewBoardV2() {
     };
 
     const openPreferences = () => {
-        navigate('/edit-group-preferences', 
-        {replace: true, 
-            state: {
-                groupName: groupName
-            } });
+        if (adminPassword != '')
+        {
+            setShowAdminPasswordModal(true);
+        }
+        else
+        {
+            navigate('/edit-group-preferences', 
+            {replace: true, 
+                state: {
+                    groupName: groupName
+                } });
+        }
+    }
+
+    const handleSubmitAdminPasswordClick = () => {
+        if (userInputAdminPassword === adminPassword)
+        {
+            setUserInputAdminPassword('');
+            navigate('/edit-group-preferences', 
+            {replace: true, 
+                state: {
+                    groupName: groupName
+                } });
+        }
+        else
+        {
+            setShowIncorrectAdminPasswordModal(true);
+        }
     }
 
     const openMenu = () => {
@@ -153,7 +182,7 @@ export function ViewBoardV2() {
             console.log('WebSocket connected');
             setConnectionStatus('Connected');
 
-// TODO - add a disconnected pop-up after ten minutes of inactivity?
+            // TODO - add a disconnected pop-up after ten minutes of inactivity?
 
             // Start sending pings every 30 seconds
             const pingInterval = setInterval(() => {
@@ -224,6 +253,12 @@ export function ViewBoardV2() {
 
                 const existingColorData = doc.colorData;
                 setColorData(existingColorData);
+
+                if (doc.adminPassword)
+                {
+                    const adminPassword = doc.adminPassword;
+                    setAdminPassword(adminPassword);
+                }                
         };
 
         ws.onclose = () => console.log('WebSocket closed');
@@ -437,6 +472,35 @@ export function ViewBoardV2() {
                 </Modal.Body>
                 <Modal.Footer>     
                     <VenmoPaymentButton recipient={venmoUsername} amount={totalPayment}/>
+                </Modal.Footer>
+            </Modal>
+
+            {/* Admin Password Modal */}
+            <Modal show={showAdminPasswordModal} onHide={() => {
+                    window.sessionStorage.setItem("showAdminPasswordModal", false);
+                    setShowAdminPasswordModal(false);
+                }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Group Admin Access Only</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Group 
+                        onChange={(e) => {
+                            setShowIncorrectAdminPasswordModal(false);
+                            setUserInputAdminPassword(e.target.value)}
+                        } 
+                        style={{margin:0, paddingTop:2, paddingBottom:2}}
+                    >
+                        <Form.Control placeholder="Enter admin password" />
+                    </Form.Group>
+                </Modal.Body>
+                <Modal.Footer> 
+                    {showIncorrectAdminPasswordModal && 
+                    <p>Incorrect Admin Password</p>
+                    }  
+                    <Button style={{backgroundColor: 'black', border: 'black'}} onClick={handleSubmitAdminPasswordClick}>
+                        Submit
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </Container>

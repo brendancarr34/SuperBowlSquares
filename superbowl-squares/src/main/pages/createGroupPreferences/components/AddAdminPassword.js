@@ -7,21 +7,25 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import '../style/AutoSetNumbersComponent.css';
 
-function AddPassword({ addGroupPassword, handleAddPasswordToggleChange, handleSetGroupPassword }) {
+function AddAdminPassword({ addAdminPassword, handleAddAdminPasswordToggleChange, handleSetAdminPassword }) {
 
   const handleToggle = () => {
-    handleAddPasswordToggleChange(!addGroupPassword); // Call the function passed from parent
+    handleAddAdminPasswordToggleChange(!addAdminPassword); // Call the function passed from parent
   };
 
-  const handleGroupPasswordChange = (e) => {
+  const handleAdminPasswordChange = (e) => {
     const newPassword = e.target.value;
-    handleSetGroupPassword(newPassword);
+    handleSetAdminPassword(newPassword);
   }
 
   // Tooltip text
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
-      Check this box to add a custom password for the group. You will need to send this to anyone who you want to join your group.
+      Check this box to add an admin password for the group. 
+      This is recommended to prevent anyone in your group from making changes to group settings.
+      <br/>
+      <br/>
+      This app is not very secure, so don't make this a sensitive password.
     </Tooltip>
   );
 
@@ -35,11 +39,11 @@ function AddPassword({ addGroupPassword, handleAddPasswordToggleChange, handleSe
                 className="big-checkbox" // changed class to className
                 type="checkbox"
                 id="autoSetNumbersToggle"
-                checked={addGroupPassword}
+                checked={addAdminPassword}
                 onChange={handleToggle}
               />
             </label>
-            <span>Add Group Password?</span>
+            <span>Add Admin Password?</span>
             <OverlayTrigger
               placement="right"
               delay={{ show: 250, hide: 400 }}
@@ -50,9 +54,9 @@ function AddPassword({ addGroupPassword, handleAddPasswordToggleChange, handleSe
           </div>
         </Row>
         <Row>
-          {addGroupPassword && (
+          {addAdminPassword && (
               <Col>
-                <Form.Group onChange={handleGroupPasswordChange} style={{margin:0, paddingTop:2, paddingBottom:2}}>
+                <Form.Group onChange={handleAdminPasswordChange} style={{margin:0, paddingTop:2, paddingBottom:2}}>
                     <Form.Control placeholder="Enter custom password" />
                 </Form.Group>
               </Col>
@@ -63,4 +67,4 @@ function AddPassword({ addGroupPassword, handleAddPasswordToggleChange, handleSe
   );
 }
 
-export default AddPassword;
+export default AddAdminPassword;

@@ -34,35 +34,35 @@ export function GroupMenu() {
                 <Row style = {height70()}>
                     <Row>
                         <Col style={center()}>
-                            <Button style={{backgroundColor:'black'}}>
+                            <Button style={buttons()}>
                                 💲 Payment Info
                             </Button>
                         </Col>
                     </Row>
                     <Row>
                         <Col style={center()}>
-                            <Button style={{backgroundColor:'black'}}>
+                            <Button style={buttons()}>
                                 📲 Share Game Link
                             </Button>
                         </Col>
                     </Row>
                     <Row>
                         <Col style={center()}>
-                            <Button style={{backgroundColor:'black'}}>
+                            <Button style={buttons()}>
                                 ℹ️ How to Play
                             </Button>
                         </Col>
                     </Row>
                     <Row>
                         <Col style={center()}>
-                            <Button style={{backgroundColor:'black'}}>
-                                Player Payment Ledger
+                            <Button style={buttons()}>
+                                Group Payment Ledger
                             </Button>
                         </Col>
                     </Row>
                     <Row>
                         <Col style={center()}>
-                            <Button style={{backgroundColor:'black'}}>
+                            <Button style={buttons()}>
                                 👨‍💻 Reach out to the Developer
                             </Button>
                         </Col>
@@ -141,6 +141,16 @@ export function GroupMenu() {
             textAlign: 'center',
             margin: 0,
             padding: 0
+        }
+    }
+
+    function buttons() {
+        return {
+            backgroundColor: "black",
+            color: 'white',
+            border: 'black',
+            width: '75vw',
+            padding: 10
         }
     }
 

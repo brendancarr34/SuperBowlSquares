@@ -14,6 +14,7 @@ import AddVenmoInfo from './components/AddVenmoInfo';
 import Modal from 'react-bootstrap/Modal';
 import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, } from "../../common/data/EmptyBoardData";
 import { fullHeight } from '../../common/style/CommonStyles';
+import AddAdminPassword from './components/AddAdminPassword';
 
 export function CreateGroupPreferences() {
 
@@ -24,8 +25,10 @@ export function CreateGroupPreferences() {
 
     const [autoSetNumbers, setAutoSetNumbers] = useState(false);
     const [addGroupPassword, setAddGroupPassword] = useState(false);
+    const [addAdminPassword, setAddAdminPassword] = useState(false);
     const [autoSetTeams, setAutoSetTeams] = useState(false);
     const [groupPassword, setGroupPassword] = useState("");
+    const [adminPassword, setAdminPassword] = useState("");
     const [team1, setTeam1] = useState("");
     const [team2, setTeam2] = useState("");
     const [showErrorModal, setShowErrorModal] = useState(false);
@@ -58,6 +61,14 @@ export function CreateGroupPreferences() {
         setGroupPassword(newValue);
     }
 
+    // Add admin password function
+    const handleAddAdminPasswordToggleChange = (newValue) => {
+        setAddAdminPassword(newValue);
+    }
+    const handleSetAdminPassword = (newValue) => {
+        setAdminPassword(newValue);
+    }
+
     // Add Venmo info function
     const handleAddVenmoInfoToggleChange = (newValue) => {
         setAddVenmoInfo(newValue);
@@ -72,7 +83,13 @@ export function CreateGroupPreferences() {
     const handleButtonClick2 = async () => {
         try {
             if (addGroupPassword && !groupPassword) {
-                setError('Did you mean to add a password?');
+                setError('Did you mean to add a group password? If not, deselect this option.');
+                setShowErrorModal(true);
+                return; // Exit the function early
+            }
+
+            if (addAdminPassword && !adminPassword) {
+                setError('Did you mean to add an admin password? If not, deselect this option.');
                 setShowErrorModal(true);
                 return; // Exit the function early
             }
@@ -88,6 +105,7 @@ export function CreateGroupPreferences() {
             await axios.post(url, {
                 name: groupName,
                 password: groupPassword,
+                adminPassword: adminPassword,
                 gameData: {
                     row0: empty_row,
                     row0_players: emptyNameRow,
@@ -154,8 +172,8 @@ export function CreateGroupPreferences() {
                 <Row style = {heightTop()}/>
                 <Row style = {height15_top()}>
                     <Col style={center()}>
-                        <h1>Group Settings</h1>
-                        <p>groupName: {groupName}</p>
+                        <h1>Create Settings</h1>
+                        <p><b>Group</b>: {groupName}</p>
                     </Col>
                 </Row>
                 <Row style = {height70()}>
@@ -169,7 +187,10 @@ export function CreateGroupPreferences() {
                     </Row>
                     <Row>
                         <Col style={center()}>
-                            <p>TODO - "add admin password?"</p>
+                            <AddAdminPassword
+                                addAdminPassword={addAdminPassword}
+                                handleAddAdminPasswordToggleChange={handleAddAdminPasswordToggleChange}
+                                handleSetAdminPassword={handleSetAdminPassword}/>
                         </Col>
                     </Row>
                     <Row>
