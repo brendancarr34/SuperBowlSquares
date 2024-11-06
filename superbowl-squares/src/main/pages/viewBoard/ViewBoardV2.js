@@ -52,7 +52,7 @@ export function ViewBoardV2() {
     const [clickedButtons, setClickedButtons] = useState([]);
     const [venmoUsername, setVenmoUsername] = useState('');
 
-    const [adminPassword, setAdminPassword] = useState('non-empty default password for page loading...'); // TODO - fix this
+    const [adminPassword, setAdminPassword] = useState('');
     const [showAdminPasswordModal, setShowAdminPasswordModal] = useState(false);
     const [userInputAdminPassword, setUserInputAdminPassword] = useState('');
     const [showIncorrectAdminPasswordModal, setShowIncorrectAdminPasswordModal] = useState(false);
