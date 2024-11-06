@@ -276,7 +276,7 @@ function black() {
 
 function blackPad() {
   return {
-    backgroundColor: "grey",
+    backgroundColor: "lightgray",
     color: 'black',
     border: 'black',
     padding: 10,
