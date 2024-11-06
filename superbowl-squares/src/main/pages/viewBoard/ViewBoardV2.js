@@ -57,8 +57,10 @@ export function ViewBoardV2() {
     const [userInputAdminPassword, setUserInputAdminPassword] = useState('');
     const [showIncorrectAdminPasswordModal, setShowIncorrectAdminPasswordModal] = useState(false);
 
-    // const [data, setData] = useState([]);
-    const [connectionStatus, setConnectionStatus] = useState('Disconnected');
+    const [refresh, setRefresh] = useState(0);
+
+    // const [connectionStatus, setConnectionStatus] = useState('Disconnected');
+    const [showDisconnectedModal, setShowDisconnectedModal] = useState(false);
 
     const [menuIsOpen, setMenuIsOpen] = useState(false);
     const handleMenuClose = () => {
@@ -190,7 +192,7 @@ export function ViewBoardV2() {
 
         ws.onopen = () => {
             console.log('WebSocket connected');
-            setConnectionStatus('Connected');
+            // setConnectionStatus('Connected');
 
             // TODO - add a disconnected pop-up after ten minutes of inactivity?
 
@@ -205,10 +207,17 @@ export function ViewBoardV2() {
             // Cleanup ping interval on close or component unmount
             ws.onclose = () => {
                 console.log('WebSocket disconnected');
-                setConnectionStatus('Disconnected');
-                ws.send(JSON.stringify({ type: 'ping' }));
-                console.log('Ping sent to keep the connection alive (after disconnect)');
+                // setConnectionStatus('Disconnected');
                 clearInterval(pingInterval);
+                if (refresh < 3)
+                {
+                    console.log('refresh #' + refresh);
+                    setRefresh(refresh+1);
+                }
+                else
+                {
+                    setShowDisconnectedModal(true);
+                }
             };
         };
 
@@ -277,7 +286,7 @@ export function ViewBoardV2() {
         ws.onerror = (error) => console.error('WebSocket error:', error);
 
         return () => ws.close();
-    }, []);
+    }, [refresh]);
 
     const claimSquares = () => { 
         if (!isLoading)
@@ -527,6 +536,20 @@ export function ViewBoardV2() {
                     <Modal.Body>
                         Loading...
                     </Modal.Body>
+            </Modal>
+
+            <Modal show={showDisconnectedModal} onHide={() => {
+                setShowDisconnectedModal(false);
+                setRefresh(0);
+                console.log(refresh)
+            }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Disconnected</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Disconnected from group updates due to inactivity. Close this to reconnect.
+                </Modal.Body>
+                
             </Modal>
         </Container>
     );

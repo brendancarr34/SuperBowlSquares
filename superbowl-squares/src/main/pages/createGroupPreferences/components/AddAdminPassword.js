@@ -45,7 +45,7 @@ function AddAdminPassword({ addAdminPassword, handleAddAdminPasswordToggleChange
             </label>
             <span>Add Admin Password?</span>
             <OverlayTrigger
-              placement="right"
+              placement="bottom"
               delay={{ show: 250, hide: 400 }}
               overlay={renderTooltip}
             >

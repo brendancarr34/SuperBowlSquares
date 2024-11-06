@@ -41,7 +41,7 @@ function AddPassword({ addGroupPassword, handleAddPasswordToggleChange, handleSe
             </label>
             <span>Add Group Password?</span>
             <OverlayTrigger
-              placement="right"
+              placement="bottom"
               delay={{ show: 250, hide: 400 }}
               overlay={renderTooltip}
             >
