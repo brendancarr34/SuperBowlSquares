@@ -50,6 +50,12 @@ export function ViewBoardV2() {
     // const [data, setData] = useState([]);
     const [connectionStatus, setConnectionStatus] = useState('Disconnected');
 
+    const [menuIsOpen, setMenuIsOpen] = useState(false);
+    const handleMenuClose = () => {
+        setMenuIsOpen(true);
+        setTimeout(() => setMenuIsOpen(false), 0); // Immediately reopen the menu
+    };
+
 
     // Function to update select options
     const updateSelectOptions = (playerData) => {
@@ -140,8 +146,6 @@ export function ViewBoardV2() {
             setClickedButtons(location.state.clickedButtons);
             setVenmoUsername(location.state.venmoUsername);
         }
-
-
 
         const ws = new WebSocket(ws_url);
 
@@ -366,6 +370,7 @@ export function ViewBoardV2() {
                                                     }
                                                     isSearchable={false}
                                                     menuPlacement="top"
+                                                    onMenuClose={handleMenuClose}
                                             />
                                         </Row>
                                         <Row style={{'padding':0,'paddingTop':5, 'margin':0, height:'60%'}}>
@@ -458,7 +463,6 @@ export function ViewBoardV2() {
             alignItems: 'center',
             padding: 0,
             paddingTop: 15,
-            // width:'100%'
         }
     }
     
