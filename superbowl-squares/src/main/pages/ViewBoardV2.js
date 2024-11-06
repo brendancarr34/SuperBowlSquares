@@ -288,7 +288,7 @@ export function ViewBoardV2() {
                             Super Bowl Squares
                         </Button>
                         {/* <h1 style={{'paddingTop':30}}>🏈 Super Bowl Squares 🏈</h1> */}
-                        <p style={{paddingTop:5}}>Group Name: {groupName}</p>
+                        <p style={{paddingTop:5}}><b>Group:</b> {groupName}</p>
                     </Col>
                 </Row>
                 <Row style={center()}>

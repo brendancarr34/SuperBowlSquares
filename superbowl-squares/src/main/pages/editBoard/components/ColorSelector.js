@@ -27,13 +27,80 @@ function ColorSelector({ setColor }) {
     "#FF007F" // Rose
   ];
 
+  const newEligibleColors = [
+    "#E6E6FA",
+    "#D8BFD8",
+    "#DDA0DD",
+    "#DA70D6",
+    "#FF00FF",
+   
+    "#BA55D3",
+    "#9932CC",
+    "#8B008B",
+    "#FF69B4",
+    "#FF1493",
+   
+    "#FFC0CB",
+    "#DB7093",
+    "#C71585",
+    "#FFA07A",
+    "#F08080",
+
+    "#DC143C",
+    "#FF0000",
+    "#B22222",
+    "#FFA500",
+    "#FF6347",
+
+    "#FF4500",
+    "#FFD700",
+    "#FFFF00",
+    "#FFFACD",
+    "#FFDAB9",
+    
+    "#BDB76B",
+    "#ADFF2F",
+    "#00FF00",
+    "#32CD32",
+    "#00FA9A",
+
+    "#3CB371",
+    "#008000",
+    "#9ACD32",
+    "#6B8E23",
+    "#556B2F",
+
+    "#20B2AA",
+    "#008080",
+    "#00FFFF",
+    "#E0FFFF",
+    "#AFEEEE",
+
+    "#7FFFD4",
+    "#5F9EA0",
+    "#4682B4",
+    "#B0C4DE",
+    "#87CEFA",
+
+    "#6495ED",
+    "#00BFFF",
+    "#1E90FF",
+    "#4169E1",
+    "#0000FF",
+
+  ];
+
+  // const generateShades = (color) => {
+  //   const lightest = lightenDarkenColor(color, 40);
+  //   const lighter = lightenDarkenColor(color, 20);
+  //   const mid = color;
+  //   const darker = lightenDarkenColor(color, -20);
+  //   const darkest = lightenDarkenColor(color, -40);
+  //   return [lightest, lighter, mid, darker, darkest];
+  // };
+
   const generateShades = (color) => {
-    const lightest = lightenDarkenColor(color, 40);
-    const lighter = lightenDarkenColor(color, 20);
-    const mid = color;
-    const darker = lightenDarkenColor(color, -20);
-    const darkest = lightenDarkenColor(color, -40);
-    return [lightest, lighter, mid, darker, darkest];
+    return [color];
   };
 
   const lightenDarkenColor = (col, amt) => {
@@ -66,8 +133,8 @@ function ColorSelector({ setColor }) {
   };
 
   const getRandomColor = () => {
-    const randomIndex = Math.floor(Math.random() * rainbowColors.length);
-    return rainbowColors[randomIndex];
+    const randomIndex = Math.floor(Math.random() * newEligibleColors.length);
+    return newEligibleColors[randomIndex];
   };
 
   return (
@@ -98,7 +165,7 @@ function ColorSelector({ setColor }) {
         </Modal.Header>
         <Modal.Body>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {rainbowColors.map((color, index) => {
+            {newEligibleColors.map((color, index) => {
               const shades = generateShades(color);
               return shades.map((shade, i) => (
                 <div

@@ -206,7 +206,7 @@ export function EditBoard() {
         </Modal.Footer>
       </Modal>
 
-      {/* Error Modal for Empty Clicked Buttons */}
+      {/* Error Modal for Taken Initials */}
       <Modal show={showTakenInitialsModal} onHide={() => setShowTakenInitialsModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Error</Modal.Title>
@@ -231,29 +231,7 @@ export function EditBoard() {
           </Button>
         </Modal.Footer>
       </Modal>
-
-      {/* Venmo Modal */}
-      {/* <Modal show={showVenmoModal} onHide={() => viewBoard()}>
-        <Modal.Header closeButton>
-          <Modal.Title>Squares Claimed!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          You successfully claimed {clickedButtons.length} square{clickedButtons.length > 1 && 's'}!
-          <br/>
-          <br/>
-          Your group has Venmo info... open Venmo now?
-          <br/>
-          <br/>
-          <VenmoPaymentButton recipient={venmoUsername} amount={totalPayment}/>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => viewBoard()}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
     </Container>
-    
   );
 }
 
