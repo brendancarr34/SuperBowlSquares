@@ -267,7 +267,7 @@ export function ViewBoardV2() {
     };
 
     return (
-        <Container>
+        <Container className={menuIsOpen ? "select-overlay" : ""}>
             <Row style={fullHeight()}>
                 <Row style={{
                     display: 'flex',

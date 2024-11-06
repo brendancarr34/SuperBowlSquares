@@ -6,3 +6,7 @@
     min-height: 1px !important;
     max-height: 1px !important;
 }
+
+.select-overlay {
+    pointer-events: none;
+  }
