@@ -15,6 +15,8 @@ import { CreateGroupPreferences } from './main/pages/createGroupPreferences/Crea
 import { SetTeams } from './main/pages/setTeams/SetTeams.js';
 import { GroupMenu } from './main/pages/groupMenu/GroupMenu.js';
 import { EditGroupPreferences } from './main/pages/editGroupPreferences/EditGroupPreferences.js';
+import RealTimeComponent from './main/pages/RealTimeComponent.js';
+import { ViewBoardV2 } from './main/pages/ViewBoardV2.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -27,13 +29,15 @@ root.render(
                 <Route path="/create-group-preferences" element={<CreateGroupPreferences />} />
                 <Route path="/join-group" element={<JoinGroup />} />
                 <Route path='/join-group/:groupName' element={<JoinGroup />} />
-                <Route path="/super-bowl-squares" element={<ViewBoard />} />
+                <Route path="/super-bowl-squares" element={<ViewBoardV2 />} />
                 <Route path='/claim-squares' element={<EditBoard />} />
                 <Route path='/set-number-and-teams' element={<SetNumbersAndTeams />} />
                 <Route path='/set-numbers' element={<SetNumbers />} />
                 <Route path='/set-teams' element={<SetTeams />}/>
                 <Route path='/group-menu' element={<GroupMenu />} />
                 <Route path='/edit-group-preferences' element={<EditGroupPreferences />} />
+                <Route path='/real-time' element={<RealTimeComponent/>} />
+                <Route path='view-board-v2' element={<ViewBoardV2/>}/>
                 <Route path="/*" element={<NotFound />} />
             </Routes>
         </Router>
