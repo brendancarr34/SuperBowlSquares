@@ -32,6 +32,9 @@ export function ViewBoardV2() {
         console.log('groupName is null');
     }
 
+    const [isLoading, setIsLoading] = useState(true);
+
+
     const [gameNameData, setGameNameData] = useState(emptyNameBoard);
     const [gameData, setGameData] = useState(emptyBoard);
     const [players, setPlayers] = useState({});
@@ -49,7 +52,7 @@ export function ViewBoardV2() {
     const [clickedButtons, setClickedButtons] = useState([]);
     const [venmoUsername, setVenmoUsername] = useState('');
 
-    const [adminPassword, setAdminPassword] = useState('');
+    const [adminPassword, setAdminPassword] = useState('non-empty default password for page loading...'); // TODO - fix this
     const [showAdminPasswordModal, setShowAdminPasswordModal] = useState(false);
     const [userInputAdminPassword, setUserInputAdminPassword] = useState('');
     const [showIncorrectAdminPasswordModal, setShowIncorrectAdminPasswordModal] = useState(false);
@@ -127,27 +130,34 @@ export function ViewBoardV2() {
     }
 
     const handleSubmitAdminPasswordClick = () => {
-        if (userInputAdminPassword === adminPassword)
+        if (!isLoading)
         {
-            setUserInputAdminPassword('');
-            navigate('/edit-group-preferences', 
+            if (userInputAdminPassword === adminPassword)
+            {
+                setUserInputAdminPassword('');
+                navigate('/edit-group-preferences', 
+                {replace: true, 
+                    state: {
+                        groupName: groupName
+                    } });
+            }
+            else
+            {
+                setShowIncorrectAdminPasswordModal(true);
+            }
+        }
+    }
+
+    const openMenu = () => {
+        if (!isLoading)
+        {
+            navigate('/group-menu', 
             {replace: true, 
                 state: {
                     groupName: groupName
                 } });
         }
-        else
-        {
-            setShowIncorrectAdminPasswordModal(true);
-        }
-    }
-
-    const openMenu = () => {
-        navigate('/group-menu', 
-        {replace: true, 
-            state: {
-                groupName: groupName
-            } });
+        
     }
 
     const home = () => {
@@ -258,7 +268,9 @@ export function ViewBoardV2() {
                 {
                     const adminPassword = doc.adminPassword;
                     setAdminPassword(adminPassword);
-                }                
+                }    
+                
+                setIsLoading(false);
         };
 
         ws.onclose = () => console.log('WebSocket closed');
@@ -268,21 +280,28 @@ export function ViewBoardV2() {
     }, []);
 
     const claimSquares = () => { 
-        navigate('/claim-squares', { 
-            replace: true, 
-            state: {
-                groupName: groupName
-            } 
-        });
+        if (!isLoading)
+        {
+            navigate('/claim-squares', { 
+                replace: true, 
+                state: {
+                    groupName: groupName
+                } 
+            });
+        }
+        
     }
 
     const setNumbersAndTeams = () => {
-        navigate('/set-number-and-teams', { 
-            replace: true, 
-            state: {
-                groupName: groupName
-            } 
-        });
+        if (!isLoading)
+        {
+            navigate('/set-number-and-teams', { 
+                replace: true, 
+                state: {
+                    groupName: groupName
+                } 
+            });
+        }
     }
 
     const handleInitialSelect = selectedOption => {
@@ -502,6 +521,12 @@ export function ViewBoardV2() {
                         Submit
                     </Button>
                 </Modal.Footer>
+            </Modal>
+
+            <Modal show={isLoading} centered>
+                    <Modal.Body>
+                        Loading...
+                    </Modal.Body>
             </Modal>
         </Container>
     );

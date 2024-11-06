@@ -54,6 +54,7 @@ export function Home() {
                             </Col>
                         </Row>
                     </Col>
+                    {/* TODO - add 'How to Play */}
                 </Row>
                 <Row style={center()}>
                     <p style={lowerText()}>by Brendan Carr</p>
