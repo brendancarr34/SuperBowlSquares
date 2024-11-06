@@ -7,15 +7,15 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Select from 'react-select'
-import { ViewBoardRow3} from './viewBoard/components/ViewBoardRow3.js'
-import { NumberRow } from './viewBoard/components/NumberRow.js';
-import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from './../common/data/EmptyBoardData.js';
+import { ViewBoardRow3} from './components/ViewBoardRow3.js'
+import { NumberRow } from './components/NumberRow.js';
+import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../../common/data/EmptyBoardData.js';
 import axios from 'axios';
-import { ws_url } from './../../config.js';
-import { VerticalTextComponent } from './viewBoard/components/VerticalTextComponent.js';
-import { fullHeight } from './../common/style/CommonStyles.js';
-import './../common/style/Select.css'
-import VenmoPaymentButton from './editBoard/components/VenmoPaymentButton.js';
+import { ws_url } from '../../../config.js';
+import { VerticalTextComponent } from './components/VerticalTextComponent.js';
+import { fullHeight } from '../../common/style/CommonStyles.js';
+import '../../common/style/Select.css'
+import VenmoPaymentButton from '../editBoard/components/VenmoPaymentButton.js';
 
 export function ViewBoardV2() {
 
