@@ -24,8 +24,8 @@ export function CreateGroupPreferences() {
     const navigate = useNavigate();
 
     const [autoSetNumbers, setAutoSetNumbers] = useState(false);
-    const [addGroupPassword, setAddGroupPassword] = useState(false);
-    const [addAdminPassword, setAddAdminPassword] = useState(false);
+    const [addGroupPassword, setAddGroupPassword] = useState(true);
+    const [addAdminPassword, setAddAdminPassword] = useState(true);
     const [autoSetTeams, setAutoSetTeams] = useState(false);
     const [groupPassword, setGroupPassword] = useState("");
     const [adminPassword, setAdminPassword] = useState("");
@@ -33,7 +33,7 @@ export function CreateGroupPreferences() {
     const [team2, setTeam2] = useState("");
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState(null);
-    const [addVenmoInfo, setAddVenmoInfo] = useState(false);
+    const [addVenmoInfo, setAddVenmoInfo] = useState(true);
     const [venmoUsername, setVenmoUserName] = useState("");
     const [paymentAmount, setPaymentAmount] = useState(0);
 
@@ -193,7 +193,7 @@ export function CreateGroupPreferences() {
                                 handleSetAdminPassword={handleSetAdminPassword}/>
                         </Col>
                     </Row>
-                    <Row>
+                    {/* <Row>
                         <Col style={center()}>
                             <p>TODO - "add payment breakdown?"</p>
                         </Col>
@@ -213,7 +213,7 @@ export function CreateGroupPreferences() {
                                 handleSetTeam1={handleSetTeam1} 
                                 handleSetTeam2={handleSetTeam2}/>
                         </Col>
-                    </Row>
+                    </Row> */}
 
                     <Row>
                         <Col style={center()}>

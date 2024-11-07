@@ -21,7 +21,8 @@ function AddPassword({ addGroupPassword, handleAddPasswordToggleChange, handleSe
   // Tooltip text
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
-      Check this box to add a custom password for the group. You will need to send this to anyone who you want to join your group.
+      Add a password for your friends to join your group. 
+      You will need to send this to anyone who wants to join.
     </Tooltip>
   );
 

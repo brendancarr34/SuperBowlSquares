@@ -3,6 +3,8 @@ import React, { useState} from 'react';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import '../style/AutoSetNumbersComponent.css';
 
 function AddVenmoInfo({ addVenmoInfo, handleAddVenmoInfoToggleChange, handleSetVenmoUsername, handleSetVenmoPaymentInfo }) {
@@ -30,6 +32,13 @@ function AddVenmoInfo({ addVenmoInfo, handleAddVenmoInfoToggleChange, handleSetV
     handleSetVenmoPaymentInfo(paymentInfo);
   }
 
+    // Tooltip text
+    const renderTooltip = (props) => (
+      <Tooltip id="button-tooltip" {...props}>
+        Add your Venmo information and the price-per-square so your friends can easily pay for their squares.
+      </Tooltip>
+    );
+
   return (
     <Row>
       <Col>
@@ -45,6 +54,13 @@ function AddVenmoInfo({ addVenmoInfo, handleAddVenmoInfoToggleChange, handleSetV
               />
             </label>
             <span>Add Venmo Info?</span>
+            <OverlayTrigger
+              placement="bottom"
+              delay={{ show: 250, hide: 400 }}
+              overlay={renderTooltip}
+            >
+              <span style={{ marginLeft: '5px', cursor: 'pointer', color: 'blue' }}>ℹ</span>
+            </OverlayTrigger>
           </div>
         </Row>
         <Row>

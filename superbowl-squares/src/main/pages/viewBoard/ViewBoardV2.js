@@ -13,7 +13,7 @@ import { NumberRow } from './components/NumberRow.js';
 
 import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../../common/data/EmptyBoardData.js';
 import axios from 'axios';
-import { ws_url } from '../../../config.js';
+import { base_url, ws_url } from '../../../config.js';
 import { VerticalTextComponent } from './components/VerticalTextComponent.js';
 import { fullHeight } from '../../common/style/CommonStyles.js';
 import '../../common/style/Select.css'
@@ -95,7 +95,7 @@ export function ViewBoardV2() {
 
     const copyToClipboard = () => {
         // const gameLink = window.location.href;
-        const gameLink = 'https://brendancarr34.github.io/SuperBowlSquares/#/join-group/' + groupName
+        const gameLink = base_url + '#/join-group/' + groupName
     
         // Create a temporary textarea element
         const tempTextArea = document.createElement('textarea');
@@ -496,10 +496,10 @@ export function ViewBoardV2() {
                 <Modal.Body>
                     You claimed {clickedButtons.length} square{clickedButtons.length > 1 && 's'}!<br/>
                     <br/>
-                    Pay for your squares with Venmo?
+                    Pay for your square{clickedButtons.length > 1 && 's'} with Venmo?
                 </Modal.Body>
                 <Modal.Footer>     
-                    <VenmoPaymentButton recipient={venmoUsername} amount={totalPayment}/>
+                    <VenmoPaymentButton recipient={venmoUsername} amount={totalPayment} squares={clickedButtons.length} groupName={groupName}/>
                 </Modal.Footer>
             </Modal>
 
@@ -524,7 +524,7 @@ export function ViewBoardV2() {
                 </Modal.Body>
                 <Modal.Footer> 
                     {showIncorrectAdminPasswordModal && 
-                    <p>Incorrect Admin Password</p>
+                    <p style={{color:'red'}}>Incorrect Admin Password</p>
                     }  
                     <Button style={{backgroundColor: 'black', border: 'black'}} onClick={handleSubmitAdminPasswordClick}>
                         Submit
