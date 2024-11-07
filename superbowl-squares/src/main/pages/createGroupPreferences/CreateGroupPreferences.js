@@ -5,11 +5,11 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import AutoSetNumbers from './components/AutoSetNumbers';
+import AutoSetNumbers from '../editGroupPreferences/components/AutoSetNumbers';
 import axios from 'axios';
 import { api_url} from '../../../config';
 import AddPassword from './components/AddPassword';
-import AutoSetTeams from './components/AutoSetTeams';
+import AutoSetTeams from '../editGroupPreferences/components/AutoSetTeams';
 import AddVenmoInfo from './components/AddVenmoInfo';
 import Modal from 'react-bootstrap/Modal';
 import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, } from "../../common/data/EmptyBoardData";
@@ -100,6 +100,8 @@ export function CreateGroupPreferences() {
                 setShowErrorModal(true);
                 return; // Exit the function early
             }
+
+            // TODO - check if venmo user name exists
     
             const url = api_url + 'api/group/add/' + groupName;
             await axios.post(url, {

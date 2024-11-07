@@ -6,11 +6,11 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 // import AutoSetNumbers from './components/AutoSetNumbers';
-import AutoSetNumbers from '../createGroupPreferences/components/AutoSetNumbers';
+import AutoSetNumbers from './components/AutoSetNumbers';
 import axios from 'axios';
 import { api_url} from '../../../config';
-import AddPassword from '../createGroupPreferences/components/AddPassword';
-import AutoSetTeams from '../createGroupPreferences/components/AutoSetTeams';
+import UpdatePassword from './components/UpdatePassword';
+import AutoSetTeams from './components/AutoSetTeams';
 import AddVenmoInfo from '../createGroupPreferences/components/AddVenmoInfo';
 import Modal from 'react-bootstrap/Modal';
 import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, } from "../../common/data/EmptyBoardData";
@@ -162,7 +162,7 @@ export function EditGroupPreferences() {
                 <Row style = {height70()}>
                     <Row>
                         <Col style={center()}>
-                            <AddPassword 
+                            <UpdatePassword 
                                 addGroupPassword={addGroupPassword} 
                                 handleAddPasswordToggleChange={handleAddPasswordToggleChange} 
                                 handleSetGroupPassword={handleSetGroupPassword}/>
@@ -170,7 +170,12 @@ export function EditGroupPreferences() {
                     </Row>
                     <Row>
                         <Col style={{'textAlign':'left'}}>
-                            <p>TODO - "update payment breakdown?"</p>
+                            <p>TODO - "update payment breakdown"</p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col style={{'textAlign':'left'}}>
+                            <p>TODO - "update payment ledger"</p>
                         </Col>
                     </Row>
                     <Row>
