@@ -1,5 +1,5 @@
 // CreateGroupPreferences.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
@@ -11,7 +11,7 @@ import axios from 'axios';
 import { api_url} from '../../../config';
 import UpdatePassword from './components/UpdatePassword';
 import AutoSetTeams from './components/AutoSetTeams';
-import AddVenmoInfo from '../createGroupPreferences/components/AddVenmoInfo';
+import UpdateVenmoInfo from './components/UpdateVenmoInfo';
 import Modal from 'react-bootstrap/Modal';
 import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, } from "../../common/data/EmptyBoardData";
 import { fullHeight } from '../../common/style/CommonStyles';
@@ -22,6 +22,9 @@ export function EditGroupPreferences() {
     let groupName = location.state.groupName;
 
     const navigate = useNavigate();
+
+
+    const [isLoading, setIsLoading] = useState(true);
 
     const [autoSetNumbers, setAutoSetNumbers] = useState(false);
     const [addGroupPassword, setAddGroupPassword] = useState(false);
@@ -34,6 +37,10 @@ export function EditGroupPreferences() {
     const [addVenmoInfo, setAddVenmoInfo] = useState(false);
     const [venmoUsername, setVenmoUserName] = useState("");
     const [paymentAmount, setPaymentAmount] = useState(0);
+
+    const [existingPassword, setExistingPassword] = useState('');
+    const [existingVenmoUserName, setExistingVenmoUserName] = useState('');
+    const [existingPricePerSquare, setExistingPricePerSquare] = useState(0.0);
 
     // Function to handle AutoSetNumbers checkbox change
     const handleAutoSetNumberChange = (newValue) => {
@@ -59,6 +66,7 @@ export function EditGroupPreferences() {
         setGroupPassword(newValue);
     }
 
+
     // Add Venmo info function
     const handleAddVenmoInfoToggleChange = (newValue) => {
         setAddVenmoInfo(newValue);
@@ -70,68 +78,23 @@ export function EditGroupPreferences() {
         setPaymentAmount(newValue);
     }
 
+    // TODO - add button for testing venmo link?
+
     const handleButtonClick2 = async () => {
         try {
-            if (addGroupPassword && !groupPassword) {
+            if (addGroupPassword && !groupPassword && existingPassword == '') {
                 setError('Did you mean to add a password?');
                 setShowErrorModal(true);
                 return; // Exit the function early
             }
 
             // Check if addVenmoInfo is true and either venmoUsername or paymentAmount is empty
-            if (addVenmoInfo && (!venmoUsername || !paymentAmount)) {
+            if (addVenmoInfo && (!venmoUsername || !paymentAmount) && existingVenmoUserName != '' && !existingPricePerSquare) {
                 setError('Did you mean to add Venmo info?');
                 setShowErrorModal(true);
                 return; // Exit the function early
             }
     
-            // const url = api_url + 'api/group/add/' + groupName;
-            // await axios.post(url, {
-            //     name: groupName,
-            //     password: groupPassword,
-            //     gameData: {
-            //         row0: empty_row,
-            //         row0_players: emptyNameRow,
-            //         row1: empty_row,
-            //         row1_players: emptyNameRow,
-            //         row2: empty_row,
-            //         row2_players: emptyNameRow,
-            //         row3: empty_row,
-            //         row3_players: emptyNameRow,
-            //         row4: empty_row,
-            //         row4_players: emptyNameRow,
-            //         row5: empty_row,
-            //         row5_players: emptyNameRow,
-            //         row6: empty_row,
-            //         row6_players: emptyNameRow,
-            //         row7: empty_row,
-            //         row7_players: emptyNameRow,
-            //         row8: empty_row,
-            //         row8_players: emptyNameRow,
-            //         row9: empty_row,
-            //         row9_players: emptyNameRow
-            //     },
-            //     players: [],
-            //     allSquaresClaimed: false,
-            //     numbersSet: false,
-            //     teamsSet: false,
-            //     topNumbers: emptyTopNumbers,
-            //     sideNumbers: emptySideNumbers,
-            //     teams: {
-            //         top: '',
-            //         side: ''
-            //     },
-            //     preferences: {
-            //         groupPassword: groupPassword,
-            //         autoSetNumbers: autoSetNumbers,
-            //         autoSetTeams: autoSetTeams,
-            //         team1: team1,
-            //         team2: team2,
-            //         venmoUsername: venmoUsername,
-            //         paymentAmount: paymentAmount
-            //     },
-            //     colorData: []
-            // });
 
             navigate('/super-bowl-squares', { state: { groupName: groupName } });
         } catch (error) {
@@ -149,14 +112,85 @@ export function EditGroupPreferences() {
         }
     }
 
+    // const handleSaveClick = 
+
+    const updatePreferences = async (groupId, updatedPreferences) => {
+        try {
+            // Validate input
+            if (!groupId || typeof updatedPreferences !== 'object' || Object.keys(updatedPreferences).length === 0) {
+                console.error('Group ID and updated preferences data are required');
+                return;
+            }
+    
+            // Make the POST request to your Node.js API endpoint
+            const response = await axios.post(api_url + `api/group/api/updatePreferences/${groupId}`, updatedPreferences);
+    
+            // Handle the success response
+            console.log('Update successful:', response.data);
+            alert('Preferences updated successfully!');
+        } catch (error) {
+            // Handle any errors that occur during the request
+            console.error('Error updating preferences:', error);
+            alert('Failed to update preferences. Please try again.');
+        }
+    };
+    
+    // Usage example
+    // Call this function with appropriate arguments when needed (e.g., from a form submission handler)
+    const handleUpdatePreferences = () => {
+        const groupId = groupName; // Replace with the actual group ID
+        const updatedPreferences = {
+            groupPassword: groupPassword,
+            venmoUsername: venmoUsername,
+            paymentAmount: paymentAmount
+        };
+    
+        updatePreferences(groupId, updatedPreferences);
+    };
+
+    const fetchData = async () => {
+        try {
+            const url = api_url + 'api/game/' + groupName;
+            const response = await axios.get(url);
+            const existingPasswordFromDB = response.data.preferences.groupPassword;
+            setExistingPassword(existingPasswordFromDB);
+            setGroupPassword(existingPasswordFromDB);
+            const existingVenmoUserNameFromDB = response.data.preferences.venmoUsername;
+            setExistingVenmoUserName(existingVenmoUserNameFromDB);
+            setVenmoUserName(existingVenmoUserNameFromDB);
+            const existingPricePerSquareFromDB = response.data.preferences.paymentAmount;
+            setExistingPricePerSquare(existingPricePerSquareFromDB);
+            setPaymentAmount(existingPricePerSquareFromDB);
+
+            setIsLoading(false);
+            
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    useEffect(() => {
+        fetchData();
+        if (existingPassword != '')
+        {
+            console.log('existing password not empty');
+            setAddGroupPassword(true);
+        }
+
+        if (existingVenmoUserName != '' && existingPricePerSquare)
+        {
+            setAddVenmoInfo(true);
+        }
+      }, [isLoading]);
+
     return (
         <Container>
             <Row style={fullHeight()}>
                 <Row style = {heightTop()}/>
                 <Row style = {height15_top()}>
                     <Col style={center()}>
-                        <h1>Update Group Settings</h1>
-                        <p>groupName: {groupName}</p>
+                        <h1>Update Settings</h1>
+                        <p><b>Group</b>: {groupName}</p>
                     </Col>
                 </Row>
                 <Row style = {height70()}>
@@ -165,17 +199,29 @@ export function EditGroupPreferences() {
                             <UpdatePassword 
                                 addGroupPassword={addGroupPassword} 
                                 handleAddPasswordToggleChange={handleAddPasswordToggleChange} 
-                                handleSetGroupPassword={handleSetGroupPassword}/>
+                                handleSetGroupPassword={handleSetGroupPassword}
+                                existingGroupPassword={existingPassword}/>
                         </Col>
                     </Row>
                     <Row>
-                        <Col style={{'textAlign':'left'}}>
-                            <p>TODO - "update payment breakdown"</p>
+                        <Col style={center()}>
+                            <UpdateVenmoInfo
+                                addVenmoInfo={addVenmoInfo} 
+                                handleAddVenmoInfoToggleChange={handleAddVenmoInfoToggleChange} 
+                                handleSetVenmoUsername={handleSetVenmoUsername}
+                                handleSetVenmoPaymentInfo={handleSetVenmoPaymentInfo}
+                                existingVenmoUserName={existingVenmoUserName}
+                                existingPaymentAmount={existingPricePerSquare}/>
                         </Col>
                     </Row>
                     <Row>
-                        <Col style={{'textAlign':'left'}}>
-                            <p>TODO - "update payment ledger"</p>
+                        <Col style={center()}>
+                            <Button style={backButton()} >Update Payout Info</Button>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col style={center()}>
+                        <Button style={backButton()} >Update Payment Ledger</Button>
                         </Col>
                     </Row>
                     <Row>
@@ -194,25 +240,15 @@ export function EditGroupPreferences() {
                                 handleSetTeam2={handleSetTeam2}/>
                         </Col>
                     </Row>
-
-                    <Row>
-                        <Col style={center()}>
-                            <AddVenmoInfo
-                                addVenmoInfo={addVenmoInfo} 
-                                handleAddVenmoInfoToggleChange={handleAddVenmoInfoToggleChange} 
-                                handleSetVenmoUsername={handleSetVenmoUsername}
-                                handleSetVenmoPaymentInfo={handleSetVenmoPaymentInfo}/>
-                        </Col>
-                    </Row>
                 </Row>
                 <Row style = {height15_bottom()}>
                     <Row>
                         <Col style={center()}>
                             <Button 
                                 style={blackButton()} 
-                                // onClick={handleButtonClick2}
+                                onClick={handleUpdatePreferences}
                                 >
-                                    TODO - Save Changes
+                                    Save Changes
                             </Button>
                         </Col>
                     </Row>
@@ -240,6 +276,12 @@ export function EditGroupPreferences() {
                     Close
                 </Button>
                 </Modal.Footer>
+            </Modal>
+
+            <Modal show={isLoading} centered>
+                    <Modal.Body>
+                        Loading...
+                    </Modal.Body>
             </Modal>
         </Container>
     )
@@ -284,7 +326,8 @@ export function EditGroupPreferences() {
         return {
             textAlign: 'center',
             margin: 0,
-            padding: 0
+            padding: 0,
+            
         }
     }
 

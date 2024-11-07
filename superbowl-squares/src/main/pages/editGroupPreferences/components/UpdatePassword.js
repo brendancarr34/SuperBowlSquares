@@ -1,5 +1,5 @@
 // AutoSetNumbers.js
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -7,7 +7,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import '../style/AutoSetNumbersComponent.css';
 
-function UpdatePassword({ addGroupPassword, handleAddPasswordToggleChange, handleSetGroupPassword }) {
+function UpdatePassword({ addGroupPassword, handleAddPasswordToggleChange, handleSetGroupPassword, existingGroupPassword }) {
 
   const handleToggle = () => {
     handleAddPasswordToggleChange(!addGroupPassword); // Call the function passed from parent
@@ -26,6 +26,15 @@ function UpdatePassword({ addGroupPassword, handleAddPasswordToggleChange, handl
     </Tooltip>
   );
 
+  const [groupPassword, setGroupPassword] = useState('');
+  useEffect(() => {
+    if (existingGroupPassword != '')
+    {
+      setGroupPassword(existingGroupPassword);
+    }
+  }, [existingGroupPassword]);
+
+
   return (
     <Row>
       <Col>
@@ -40,7 +49,7 @@ function UpdatePassword({ addGroupPassword, handleAddPasswordToggleChange, handl
                 onChange={handleToggle}
               />
             </label>
-            <span>Update Group Password?</span>
+            <span>Group Password</span>
             <OverlayTrigger
               placement="bottom"
               delay={{ show: 250, hide: 400 }}
@@ -54,7 +63,7 @@ function UpdatePassword({ addGroupPassword, handleAddPasswordToggleChange, handl
           {addGroupPassword && (
               <Col>
                 <Form.Group onChange={handleGroupPasswordChange} style={{margin:0, paddingTop:2, paddingBottom:2}}>
-                    <Form.Control placeholder="Enter custom password" />
+                    <Form.Control placeholder="Enter custom password" defaultValue={groupPassword}/>
                 </Form.Group>
               </Col>
             )}

@@ -18,6 +18,8 @@ import AddAdminPassword from './components/AddAdminPassword';
 
 export function CreateGroupPreferences() {
 
+    // TODO - split up venmo username and price per square
+
     const location = useLocation();
     let groupName = location.state.groupName;
 
@@ -102,6 +104,7 @@ export function CreateGroupPreferences() {
             }
 
             // TODO - check if venmo user name exists
+            // TODO - add button for testing venmo link?
     
             const url = api_url + 'api/group/add/' + groupName;
             await axios.post(url, {
