@@ -171,8 +171,15 @@ export function CreateGroupPreferences() {
         }
     }
 
+    const handleSubmit = (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault(); // Prevents the default behavior of Enter key (e.g., adding a newline)
+          handleButtonClick2();
+        }
+      };
+
     return (
-        <Container>
+        <Container onKeyDown={handleSubmit}>
             <Row style={fullHeight()}>
                 <Row style = {heightTop()}/>
                 <Row style = {height15_top()}>
@@ -187,7 +194,8 @@ export function CreateGroupPreferences() {
                             <AddPassword 
                                 addGroupPassword={addGroupPassword} 
                                 handleAddPasswordToggleChange={handleAddPasswordToggleChange} 
-                                handleSetGroupPassword={handleSetGroupPassword}/>
+                                handleSetGroupPassword={handleSetGroupPassword}
+                                handleSubmit={handleSubmit}/>
                         </Col>
                     </Row>
                     <Row>
@@ -195,7 +203,8 @@ export function CreateGroupPreferences() {
                             <AddAdminPassword
                                 addAdminPassword={addAdminPassword}
                                 handleAddAdminPasswordToggleChange={handleAddAdminPasswordToggleChange}
-                                handleSetAdminPassword={handleSetAdminPassword}/>
+                                handleSetAdminPassword={handleSetAdminPassword}
+                                handleSubmit={handleSubmit}/>
                         </Col>
                     </Row>
                     {/* <Row>

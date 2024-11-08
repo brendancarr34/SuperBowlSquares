@@ -444,12 +444,16 @@ export function ViewBoardV2() {
                                             </Col>
                                             <Col style={{'padding':0,'paddingLeft':5,'paddingRight':5, 'margin':0, height:'100%'}}>
                                                 <Button style={grayButton()} onClick={openMenu}>
-                                                    📖
+                                                    {/* ℹ */}
+                                                    {/* 📖 */}
+                                                    🗒️
                                                 </Button>
                                             </Col>
                                             <Col style={{'padding':0,'paddingLeft':5, 'margin':0, height:'100%'}}>
                                                 <Button style={grayButton()} onClick={copyToClipboard}>
-                                                    📲
+                                                    {/* 🔗 */}
+                                                    {/* 📲 */}
+                                                    💬
                                                 </Button>
                                             </Col>
                                         </Row>

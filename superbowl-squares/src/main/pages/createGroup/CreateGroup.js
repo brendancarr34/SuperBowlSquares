@@ -86,6 +86,13 @@ export function CreateGroup() {
         }
     };
 
+    const handleSubmit = (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault(); // Prevents the default behavior of Enter key (e.g., adding a newline)
+          handleButtonClick2();
+        }
+      };
+
     return (
         <Container>
             <Row style={fullHeight()}>
@@ -107,7 +114,8 @@ export function CreateGroup() {
                                 <Form.Control 
                                     placeholder="Enter custom group name" 
                                     onChange={handleGroupNameChange}
-                                    value={groupName}/>
+                                    value={groupName}
+                                    onKeyDown={handleSubmit}/>
                                 <Form.Text className="text-muted">
                                     This is optional. If you leave this blank, 
                                     a group name will be generated for you. Your 

@@ -7,7 +7,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import '../style/AutoSetNumbersComponent.css';
 
-function AddAdminPassword({ addAdminPassword, handleAddAdminPasswordToggleChange, handleSetAdminPassword }) {
+function AddAdminPassword({ addAdminPassword, handleAddAdminPasswordToggleChange, handleSetAdminPassword, handleSubmit }) {
 
   const handleToggle = () => {
     handleAddAdminPasswordToggleChange(!addAdminPassword); // Call the function passed from parent
@@ -57,7 +57,9 @@ function AddAdminPassword({ addAdminPassword, handleAddAdminPasswordToggleChange
           {addAdminPassword && (
               <Col>
                 <Form.Group onChange={handleAdminPasswordChange} style={{margin:0, paddingTop:2, paddingBottom:2}}>
-                    <Form.Control placeholder="Enter custom password" />
+                    <Form.Control 
+                      placeholder="Enter custom password"
+                      onKeyDown={handleSubmit} />
                 </Form.Group>
               </Col>
             )}

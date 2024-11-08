@@ -90,6 +90,13 @@ export function JoinGroup() {
         
     }
 
+      const handleSubmit = (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault(); // Prevents the default behavior of Enter key (e.g., adding a newline)
+          superBowlSquares();
+        }
+      };
+
     return (
         <Container>
             <Row style={fullHeight()}>
@@ -106,15 +113,21 @@ export function JoinGroup() {
                 <Row style={wide()}>
                     <Col style={wide()}>
                         <Form>
-                            <Form.Group className="mb-3" >
+                            <Form.Group className="mb-3" controlId="formBasicInput">
                                 <Form.Label>Group Code</Form.Label>
-                                <Form.Control placeholder=""
+                                <Form.Control 
+                                type="text"
+                                placeholder=""
                                 onChange={handleGroupNameChange}
-                                value={groupName} />
+                                value={groupName} 
+                                onKeyDown={handleSubmit}/>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicPassword" onChange={(e) => setGroupPassword(e.target.value)}>
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="" />
+                                <Form.Control 
+                                    type="password" 
+                                    placeholder=""
+                                    onKeyDown={handleSubmit} />
                             </Form.Group>
                         </Form>
                     </Col>
