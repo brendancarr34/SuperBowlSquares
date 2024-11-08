@@ -15,6 +15,8 @@ import UpdateVenmoInfo from './components/UpdateVenmoInfo';
 import Modal from 'react-bootstrap/Modal';
 import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, } from "../../common/data/EmptyBoardData";
 import { fullHeight } from '../../common/style/CommonStyles';
+import UpdatePaymentInfoAndLedger from './components/UpdatePaymentInfoAndLedger';
+import ToggleButton from './components/ToggleButton';
 
 export function EditGroupPreferences() {
 
@@ -186,15 +188,16 @@ export function EditGroupPreferences() {
     return (
         <Container>
             <Row style={fullHeight()}>
-                <Row style = {heightTop()}/>
-                <Row style = {height15_top()}>
+                <Row style = {spacer()}/>
+                <Row style = {pageTitleSection()}>
                     <Col style={center()}>
                         <h1>Update Settings</h1>
                         <p><b>Group</b>: {groupName}</p>
                     </Col>
                 </Row>
-                <Row style = {height70()}>
-                    <Row>
+                <Row style = {middleSection()}>
+                    {/* Group Password Section */}
+                    <Row style={{padding:0, margin:0, width:'75vw'}}>
                         <Col style={center()}>
                             <UpdatePassword 
                                 addGroupPassword={addGroupPassword} 
@@ -203,7 +206,10 @@ export function EditGroupPreferences() {
                                 existingGroupPassword={existingPassword}/>
                         </Col>
                     </Row>
-                    <Row>
+
+
+                    {/* Venmo Info Section */}
+                    <Row style={{padding:0, margin:0, width:'75vw'}}>
                         <Col style={center()}>
                             <UpdateVenmoInfo
                                 addVenmoInfo={addVenmoInfo} 
@@ -214,7 +220,39 @@ export function EditGroupPreferences() {
                                 existingPaymentAmount={existingPricePerSquare}/>
                         </Col>
                     </Row>
-                    <Row>
+
+
+                    {/* Auto-set Teams and Numbers Section */}
+                    {/* <Row style={{padding:0, margin:0, width:'75vw'}}>
+                        <Col style={center()}>
+                            <AutoSetNumbers 
+                                autoSetNumbers={autoSetNumbers} 
+                                handleToggleChange={handleAutoSetNumberChange} />
+                        </Col>
+                    </Row>
+                    <Row style={{padding:0, margin:0, width:'75vw'}}>
+                        <Col style={center()}>
+                            <AutoSetTeams 
+                                autoSetTeams={autoSetTeams} 
+                                handleAutoSetTeamsChange={handleAutoSetTeamsChange} 
+                                handleSetTeam1={handleSetTeam1} 
+                                handleSetTeam2={handleSetTeam2}/>
+                        </Col>
+                    </Row> */}
+                    <Row style={{padding:0, margin:0, width:'75vw'}}>
+                        <ToggleButton/>
+                    </Row>
+                    
+
+
+
+                    {/* Payment Info and Ledger Section */}
+                    <Row style={{paddingLeft:0, paddingRight:0, margin:0, width:'75vw'}}>
+                        <Col style={center2()}>
+                            <UpdatePaymentInfoAndLedger groupId={groupName}/>
+                        </Col>
+                    </Row>
+                    {/* <Row>
                         <Col style={center()}>
                             <Button style={backButton()} >Update Payout Info</Button>
                         </Col>
@@ -223,25 +261,9 @@ export function EditGroupPreferences() {
                         <Col style={center()}>
                         <Button style={backButton()} >Update Payment Ledger</Button>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col style={center()}>
-                            <AutoSetNumbers 
-                                autoSetNumbers={autoSetNumbers} 
-                                handleToggleChange={handleAutoSetNumberChange} />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col style={center()}>
-                            <AutoSetTeams 
-                                autoSetTeams={autoSetTeams} 
-                                handleAutoSetTeamsChange={handleAutoSetTeamsChange} 
-                                handleSetTeam1={handleSetTeam1} 
-                                handleSetTeam2={handleSetTeam2}/>
-                        </Col>
-                    </Row>
+                    </Row> */}
                 </Row>
-                <Row style = {height15_bottom()}>
+                <Row style = {buttonSection()}>
                     <Row>
                         <Col style={center()}>
                             <Button 
@@ -252,7 +274,7 @@ export function EditGroupPreferences() {
                             </Button>
                         </Col>
                     </Row>
-                    <br/>
+                    {/* <br/> */}
                     <Row >
                         <Col style={center()}>
                             <Button 
@@ -286,16 +308,16 @@ export function EditGroupPreferences() {
         </Container>
     )
 
-    function height15_bottom() {
+    function buttonSection() {
         return {
-            height: '20vh',
+            height: '15vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
         }
     }
 
-    function height15_top() {
+    function pageTitleSection() {
         return {
             height: '10vh',
             display: 'flex',
@@ -304,18 +326,18 @@ export function EditGroupPreferences() {
         }
     }
 
-    function heightTop() {
+    function spacer() {
         return {
-            height: '6vh',
+            height: '5vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
         }
     }
 
-    function height70() {
+    function middleSection() {
         return {
-            height: '49vh',
+            height: '60vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
@@ -331,12 +353,21 @@ export function EditGroupPreferences() {
         }
     }
 
+    function center2() {
+        return {
+            // textAlign: 'center',
+            margin: 0,
+            padding: 0,
+            // width: '75vw',
+        }
+    }
+
     function blackButton() {
         return {
             backgroundColor: "black",
             border: 'black',
             width: '75vw',
-            padding: 20
+            padding: 15
         }
     }
 
@@ -346,7 +377,7 @@ export function EditGroupPreferences() {
             color: 'black',
             border: 'black',
             width: '75vw',
-            padding: 10
+            padding: 5
         }
     }
 }

@@ -17,7 +17,7 @@ export function JoinGroup() {
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState(null);
 
-    let navigate = useNavigate(); 
+    let navigate = useNavigate();
 
     const handleGroupNameChange = (e) => {
         let value = e.target.value;
