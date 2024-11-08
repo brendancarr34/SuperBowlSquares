@@ -187,7 +187,7 @@ export function EditGroupPreferences() {
 
     return (
         <Container>
-            <Row style={fullHeight()}>
+            <Row style={height85()}>
                 <Row style = {spacer()}/>
                 <Row style = {pageTitleSection()}>
                     <Col style={center()}>
@@ -264,7 +264,7 @@ export function EditGroupPreferences() {
                     </Row> */}
                 </Row>
                 <Row style = {buttonSection()}>
-                    <Row>
+                    <Row style={{padding:0, margin:0}}>
                         <Col style={center()}>
                             <Button 
                                 style={blackButton()} 
@@ -275,7 +275,7 @@ export function EditGroupPreferences() {
                         </Col>
                     </Row>
                     {/* <br/> */}
-                    <Row >
+                    <Row style={{padding:0, margin:0}}>
                         <Col style={center()}>
                             <Button 
                                 style={backButton()} 
@@ -310,16 +310,17 @@ export function EditGroupPreferences() {
 
     function buttonSection() {
         return {
-            height: '15vh',
+            height: '14vh',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            margin:0
         }
     }
 
     function pageTitleSection() {
         return {
-            height: '10vh',
+            height: '9vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -328,7 +329,7 @@ export function EditGroupPreferences() {
 
     function spacer() {
         return {
-            height: '5vh',
+            height: '4vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -337,7 +338,7 @@ export function EditGroupPreferences() {
 
     function middleSection() {
         return {
-            height: '60vh',
+            height: '58vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
@@ -377,7 +378,17 @@ export function EditGroupPreferences() {
             color: 'black',
             border: 'black',
             width: '75vw',
-            padding: 5
+            padding: 5,
+            margin: 0
+        }
+    }
+
+    function height85() {
+        return {
+            height: '85vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
         }
     }
 }
