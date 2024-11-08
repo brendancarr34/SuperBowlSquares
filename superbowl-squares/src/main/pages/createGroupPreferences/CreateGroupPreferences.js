@@ -155,7 +155,7 @@ export function CreateGroupPreferences() {
                 colorData: []
             });
 
-            navigate('/super-bowl-squares', { state: { groupName: groupName } });
+            navigate('/super-bowl-squares', { state: { groupName: groupName, justCreated: true } });
         } catch (error) {
             console.error('Error creating group:', error);
             if (error.response != null) {

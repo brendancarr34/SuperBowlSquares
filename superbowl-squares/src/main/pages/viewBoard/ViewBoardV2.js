@@ -32,8 +32,24 @@ export function ViewBoardV2() {
         console.log('groupName is null');
     }
 
-    const [isLoading, setIsLoading] = useState(true);
+    const [justCreated, setJustCreated] = useState(false);
 
+    const handleJustCreatedChange = (newValue) => {
+        setJustCreated(prev => {
+          if (prev !== newValue) return newValue; // Only update if the value changes
+          return prev; // Otherwise, don't update state
+        });
+      };
+    
+    let justCreatedVar = null;
+    try {
+        justCreatedVar = location.state.justCreated;
+    }
+    catch (error) {
+        console.log('error with justCreated variable');
+    }
+
+    const [isLoading, setIsLoading] = useState(true);
 
     const [gameNameData, setGameNameData] = useState(emptyNameBoard);
     const [gameData, setGameData] = useState(emptyBoard);
@@ -175,6 +191,11 @@ export function ViewBoardV2() {
             navigate('/', { replace :
                 true
             });
+        }
+
+        if (justCreatedVar != null)
+        {
+            handleJustCreatedChange(true);
         }
 
         if (JSON.parse(window.sessionStorage.getItem('showVenmoModal'))) {
@@ -553,7 +574,30 @@ export function ViewBoardV2() {
                 <Modal.Body>
                     Disconnected from group updates due to inactivity. Close this to reconnect.
                 </Modal.Body>
-                
+            </Modal>
+
+            <Modal show={justCreated && !isLoading && !showDisconnectedModal} onHide={() => {
+                setJustCreated(false);
+            }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Success!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Your group, <b>{groupName}</b>, was created successfully
+                    <br/>
+                    <br/>
+                    Start by claiming your own squares, so your friends know they can start claiming squares too.
+                    <br/>
+                    <br/>
+                    Then, be sure to check out the advanced settings to add some group info and make any necessary updates.
+                    {/* TODO - add this if there is an admin password:
+                     You'll need to use your admin password to access this page.
+                     
+                     also - could list the adv setings*/}
+                    <br/>
+                    <br/>
+                    Enjoy!
+                </Modal.Body>
             </Modal>
         </Container>
     );
