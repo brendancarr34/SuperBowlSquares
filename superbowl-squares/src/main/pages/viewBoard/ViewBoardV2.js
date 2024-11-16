@@ -472,9 +472,9 @@ export function ViewBoardV2() {
                                             </Col>
                                             <Col style={{'padding':0,'paddingLeft':5, 'margin':0, height:'100%'}}>
                                                 <Button style={grayButton()} onClick={copyToClipboard}>
-                                                    {/* 🔗 */}
+                                                    🔗
                                                     {/* 📲 */}
-                                                    💬
+                                                    {/* 💬 */}
                                                 </Button>
                                             </Col>
                                         </Row>
@@ -557,10 +557,13 @@ export function ViewBoardV2() {
                 </Modal.Footer>
             </Modal>
 
-            <Modal show={isLoading} centered>
-                    <Modal.Body>
-                        Loading...
+            <Modal show={isLoading && !showVenmoModal} style={{width:'50%',transform: 'translate(50%, 0%)',}}centered>
+                <Modal.Body style={{display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', }}>
+                        Loading
                     </Modal.Body>
+                    
             </Modal>
 
             <Modal show={showDisconnectedModal} onHide={() => {

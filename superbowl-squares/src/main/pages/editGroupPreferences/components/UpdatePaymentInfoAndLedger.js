@@ -9,22 +9,29 @@ function UpdatePaymentInfoAndLedger({groupId}) {
 
     let navigate = useNavigate(); 
 
-
+    const handleEditPaymentBreakdownClick = () => {
+        // TODO - pass payment info from here so no need to hit api again
+        navigate('/edit-payment-breakdown', {
+            replace: true,
+            state: { groupName: groupId }
+          });
+    }
   
     return (
         <Row style={{padding:0, margin:0, width:'100%'}} >
             <Col style={{padding:0, margin:0, width:'100%', paddingRight:2.5}}>
                 <Button 
                     style={backButton()}
+                    onClick={handleEditPaymentBreakdownClick}
                 >
-                    Payment<br/>Breakdown
+                    Edit Payment<br/>Breakdown
                 </Button>
             </Col>
             <Col style={{padding:0, margin:0, width:'100%', paddingLeft:2.5}}>
                 <Button 
                     style={backButton()}
                 >
-                    Payment<br/>Ledger
+                    Edit Payment<br/>Ledger
                 </Button>
             </Col>
         </Row>

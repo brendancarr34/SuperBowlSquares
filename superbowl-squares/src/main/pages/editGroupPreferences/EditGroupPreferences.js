@@ -25,7 +25,6 @@ export function EditGroupPreferences() {
 
     const navigate = useNavigate();
 
-
     const [isLoading, setIsLoading] = useState(true);
 
     const [autoSetNumbers, setAutoSetNumbers] = useState(false);
@@ -137,10 +136,9 @@ export function EditGroupPreferences() {
         }
     };
     
-    // Usage example
-    // Call this function with appropriate arguments when needed (e.g., from a form submission handler)
     const handleUpdatePreferences = () => {
-        const groupId = groupName; // Replace with the actual group ID
+        // TODO - add confirmation modal for changed values
+        const groupId = groupName;
         const updatedPreferences = {
             groupPassword: groupPassword,
             venmoUsername: venmoUsername,
@@ -187,7 +185,7 @@ export function EditGroupPreferences() {
 
     return (
         <Container>
-            <Row style={height85()}>
+            {!isLoading && <Row style={height85()}>
                 <Row style = {spacer()}/>
                 <Row style = {pageTitleSection()}>
                     <Col style={center()}>
@@ -274,7 +272,6 @@ export function EditGroupPreferences() {
                             </Button>
                         </Col>
                     </Row>
-                    {/* <br/> */}
                     <Row style={{padding:0, margin:0}}>
                         <Col style={center()}>
                             <Button 
@@ -285,7 +282,15 @@ export function EditGroupPreferences() {
                         </Col>
                     </Row>
                 </Row>
-            </Row>
+            </Row>}
+
+            {isLoading && <Row style={height85()}>
+                        <p>
+                            Loading...
+                        </p>
+                </Row>
+                }
+
 
             {/* Error Modal for API Failure */}
             <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)}>
@@ -300,11 +305,11 @@ export function EditGroupPreferences() {
                 </Modal.Footer>
             </Modal>
 
-            <Modal show={isLoading} centered>
+            {/* <Modal show={isLoading} centered>
                     <Modal.Body>
                         Loading...
                     </Modal.Body>
-            </Modal>
+            </Modal> */}
         </Container>
     )
 
@@ -388,7 +393,8 @@ export function EditGroupPreferences() {
             height: '85vh',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            textAlign: 'center',
         }
     }
 }

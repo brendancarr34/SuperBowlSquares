@@ -90,7 +90,7 @@ function UpdateVenmoInfo({
                         <span style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)' }}>$</span>
                         <Form.Control
                             type="number"
-                            step="0.01"
+                            step="1"
                             placeholder="Price per square"
                             value={price}
                             onChange={handleVenmoPaymentChange}

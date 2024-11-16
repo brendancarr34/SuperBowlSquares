@@ -14,6 +14,8 @@ import VenmoPaymentLink from './components/VenmoPaymentLink';
 import VenmoPaymentButton from './components/VenmoPaymentButton';
 
 export function EditBoard() {
+
+  // TODO - show existing colors and make selected squares be the user selected color?
   
   const location = useLocation();
   let groupName =  location.state.groupName;
@@ -211,7 +213,13 @@ export function EditBoard() {
         <Modal.Header closeButton>
           <Modal.Title>Error</Modal.Title>
         </Modal.Header>
-        <Modal.Body>These initials are taken.</Modal.Body>
+        <Modal.Body>
+          These initials are taken.
+          <br/>
+          <br/>
+          Hint: You can add a number to your initials if they are taken.
+
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowTakenInitialsModal(false)}>
             Close
