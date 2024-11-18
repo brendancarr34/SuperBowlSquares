@@ -24,14 +24,14 @@ function UpdatePaymentInfoAndLedger({groupId}) {
                     style={backButton()}
                     onClick={handleEditPaymentBreakdownClick}
                 >
-                    Edit Payment<br/>Breakdown
+                    Payment & <br/>Winners
                 </Button>
             </Col>
             <Col style={{padding:0, margin:0, width:'100%', paddingLeft:2.5}}>
                 <Button 
                     style={backButton()}
                 >
-                    Edit Payment<br/>Ledger
+                    Admin <br/>Ledger
                 </Button>
             </Col>
         </Row>
@@ -40,9 +40,9 @@ function UpdatePaymentInfoAndLedger({groupId}) {
 
   function backButton() {
     return {
-        backgroundColor: "lightgray",
-        color: 'black',
-        border: 'black',
+        backgroundColor: "gray",
+        color: 'white',
+        border: 'none',
         width: '100%',
         padding: 10,
         margin:0

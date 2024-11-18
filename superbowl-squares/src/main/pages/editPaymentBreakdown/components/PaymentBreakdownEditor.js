@@ -6,7 +6,6 @@ import Form from 'react-bootstrap/Form';
 
 export function PaymentBreakdownEditor() {
 
-
     const [q1Payout, setq1Payout] = useState(0);
     const handleQ1PayoutChange = (e) => {
         let paymentInfo = e.target.value;
@@ -17,14 +16,50 @@ export function PaymentBreakdownEditor() {
             paymentInfo = paymentInfo.slice(0, decimalIndex + 3);
         }
         setq1Payout(paymentInfo);
-        // handleSetVenmoPaymentInfo(paymentInfo);
+    }
+
+    const [q2Payout, setQ2Payout] = useState(0);
+    const handleQ2PayoutChange = (e) => {
+        let paymentInfo = e.target.value;
+        paymentInfo = paymentInfo.replace(/[^0-9.]/g, '');
+        const decimalIndex = paymentInfo.indexOf('.');
+        if (decimalIndex !== -1) {
+            // Limit to two decimal places
+            paymentInfo = paymentInfo.slice(0, decimalIndex + 3);
+        }
+        setQ2Payout(paymentInfo);
+    }
+
+    const [q3Payout, setQ3Payout] = useState(0);
+    const handleQ3PayoutChange = (e) => {
+        let paymentInfo = e.target.value;
+        paymentInfo = paymentInfo.replace(/[^0-9.]/g, '');
+        const decimalIndex = paymentInfo.indexOf('.');
+        if (decimalIndex !== -1) {
+            // Limit to two decimal places
+            paymentInfo = paymentInfo.slice(0, decimalIndex + 3);
+        }
+        setQ3Payout(paymentInfo);
+    }
+
+    const [q4Payout, setQ4Payout] = useState(0);
+    const handleQ4PayoutChange = (e) => {
+        let paymentInfo = e.target.value;
+        paymentInfo = paymentInfo.replace(/[^0-9.]/g, '');
+        const decimalIndex = paymentInfo.indexOf('.');
+        if (decimalIndex !== -1) {
+            // Limit to two decimal places
+            paymentInfo = paymentInfo.slice(0, decimalIndex + 3);
+        }
+        setQ4Payout(paymentInfo);
     }
 
     return (
         <Row style={center2()}>
             <Row>
                 <p>
-                    You can let your group know what the payout is for each quarter of your game here.
+                    You can let your group know what the payout is for each quarter of your game here. 
+                    Also, you can add the winners names here!
                 </p>
             </Row>
             <Row style={center()}>
@@ -33,26 +68,23 @@ export function PaymentBreakdownEditor() {
                         Q1
                     </h2>
                 </Col>
-                <Col style={rightColumn()}>
+                <Col style={middleColumn()}>
                     <Row>
-                        <Form.Group>
-                            {/* <span style={{ 
-                                position: 'absolute', 
-                                left: 100, 
-                                top: '10%', 
-                                transform: 'translateY(-50%)' 
-                                }}>$</span> */}
+                        <Form.Group style={{ appearance: 'none', MozAppearance: 'textfield' }}>
                             <Form.Control 
                                 placeholder="" 
                                 defaultValue={0}
                                 type="number"
-                                // step="1"
                                 onChange={handleQ1PayoutChange}
                                 value={q1Payout}
-                                // style={{ paddingLeft: 25 }}
                             />
                         </Form.Group>
                     </Row>
+                </Col>
+                <Col style={rightColumn()}>
+                    <Form.Group>
+                        <Form.Control placeholder="Winner" />
+                    </Form.Group>
                 </Col>
             </Row>
             <Row>
@@ -61,9 +93,22 @@ export function PaymentBreakdownEditor() {
                         Q2
                     </h2>
                 </Col>
+                <Col style={middleColumn()}>
+                    <Row>
+                        <Form.Group>
+                            <Form.Control 
+                                placeholder="" 
+                                defaultValue={0}
+                                type="number"
+                                onChange={handleQ2PayoutChange}
+                                value={q2Payout}
+                            />
+                        </Form.Group>
+                    </Row>
+                </Col>
                 <Col style={rightColumn()}>
                     <Form.Group>
-                        <Form.Control placeholder="" defaultValue={0}/>
+                        <Form.Control placeholder="Winner"/>
                     </Form.Group>
                 </Col>
             </Row>
@@ -73,9 +118,22 @@ export function PaymentBreakdownEditor() {
                         Q3
                     </h2>
                 </Col>
+                <Col style={middleColumn()}>
+                    <Row>
+                        <Form.Group>
+                            <Form.Control 
+                                placeholder="" 
+                                defaultValue={0}
+                                type="number"
+                                onChange={handleQ3PayoutChange}
+                                value={q3Payout}
+                            />
+                        </Form.Group>
+                    </Row>
+                </Col>
                 <Col style={rightColumn()}>
                     <Form.Group>
-                        <Form.Control placeholder="" defaultValue={0}/>
+                        <Form.Control placeholder="Winner"/>
                     </Form.Group>
                 </Col>
             </Row>
@@ -85,27 +143,62 @@ export function PaymentBreakdownEditor() {
                         Q4
                     </h2>
                 </Col>
+                <Col style={middleColumn()}>
+                    <Row>
+                        <Form.Group>
+                            <Form.Control 
+                                placeholder="" 
+                                defaultValue={0}
+                                type="number"
+                                onChange={handleQ4PayoutChange}
+                                value={q4Payout}
+                            />
+                        </Form.Group>
+                    </Row>
+                </Col>
                 <Col style={rightColumn()}>
                     <Form.Group>
-                        <Form.Control placeholder="" defaultValue={0}/>
+                        <Form.Control placeholder="Winner"/>
                     </Form.Group>
-                </Col>
-            </Row>
-            <Row>
-                <Col style={leftColumn2()}>
-                    <h2>
-                        Total
-                    </h2>
-                </Col>
-                <Col style={rightColumn2()}>
-                    <h2>
-                        {q1Payout}
-                    </h2>
                 </Col>
             </Row>
             <Row>
                 <br/>
             </Row>
+            <Row>
+                <Col style={leftColumn2()}>
+                    <h4>
+                        Total
+                    </h4>
+                </Col>
+                <Col style={rightColumn2()}>
+                    <h4>
+                        {Number(q1Payout) + Number(q2Payout) + Number(q3Payout) + Number(q4Payout)}
+                    </h4>
+                </Col>
+                <Col style={rightColumn()}>
+                    <p></p>
+                </Col>
+            </Row>
+            <Row>
+                <br/>
+            </Row>
+
+            <style>
+                {`
+                /* Hide the stepper buttons for Chrome, Safari, Edge, and Opera */
+                input[type="number"]::-webkit-outer-spin-button,
+                input[type="number"]::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+
+                /* Hide the stepper buttons for Firefox */
+                input[type="number"] {
+                    -moz-appearance: textfield;
+                }
+                `}
+            </style>
         </Row>
     )
 
@@ -133,7 +226,7 @@ export function PaymentBreakdownEditor() {
             display: 'flex',
             // justifyContent: 'center',
             // alignItems: 'center',
-            flex:'20%',
+            flex:'35%',
             // padding:0,
             // margin:0
         }
@@ -146,7 +239,20 @@ export function PaymentBreakdownEditor() {
             // alignItems: 'center',
             justifyContent: 'right',
             alignItems: 'right',
-            flex: '80%',
+            flex: '40%',
+            // padding:0,
+            // margin:0
+        }
+    }
+
+    function middleColumn() {
+        return {
+            display: 'flex',
+            // justifyContent: 'center',
+            // alignItems: 'center',
+            justifyContent: 'right',
+            alignItems: 'right',
+            flex: '25%',
             // padding:0,
             // margin:0
         }
@@ -168,7 +274,7 @@ export function PaymentBreakdownEditor() {
             display: 'flex',
             justifyContent: 'right',
             alignItems: 'right',
-            flex: '65%',
+            flex: '25%',
             // padding:0,
             // margin:0
         }

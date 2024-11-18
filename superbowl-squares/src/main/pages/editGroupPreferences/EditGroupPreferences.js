@@ -183,6 +183,19 @@ export function EditGroupPreferences() {
         }
       }, [isLoading]);
 
+
+      const setNumbersAndTeams = () => {
+        if (!isLoading)
+        {
+            navigate('/set-number-and-teams', { 
+                replace: true, 
+                state: {
+                    groupName: groupName
+                } 
+            });
+        }
+    }
+
     return (
         <Container>
             {!isLoading && <Row style={height85()}>
@@ -194,8 +207,13 @@ export function EditGroupPreferences() {
                     </Col>
                 </Row>
                 <Row style = {middleSection()}>
+                    <Row style={{padding:0, margin:0, width:'75vw', height:'5%'}}>
+                        <p>
+
+                        </p>
+                    </Row>
                     {/* Group Password Section */}
-                    <Row style={{padding:0, margin:0, width:'75vw'}}>
+                    <Row style={{padding:0, margin:0, width:'75vw', height:'20%'}}>
                         <Col style={center()}>
                             <UpdatePassword 
                                 addGroupPassword={addGroupPassword} 
@@ -207,7 +225,7 @@ export function EditGroupPreferences() {
 
 
                     {/* Venmo Info Section */}
-                    <Row style={{padding:0, margin:0, width:'75vw'}}>
+                    <Row style={{padding:0, margin:0, width:'75vw', height: '27%'}}>
                         <Col style={center()}>
                             <UpdateVenmoInfo
                                 addVenmoInfo={addVenmoInfo} 
@@ -237,15 +255,35 @@ export function EditGroupPreferences() {
                                 handleSetTeam2={handleSetTeam2}/>
                         </Col>
                     </Row> */}
-                    <Row style={{padding:0, margin:0, width:'75vw'}}>
-                        <ToggleButton/>
+                    <Row style={{padding:0, margin:0, width:'75vw', height: '15%'}}>
+                        {/* <ToggleButton/> */}
+                        <Col style={{padding:0, margin:0, width:'100%', height:'100%', display: 'flex',}}>
+                            <Button style={{
+                                padding:0, margin:0, 
+                                width:'100%', height:'100%', 
+                                backgroundColor:'gray', color:'white',
+                                border:'none'}}
+                                
+                                onClick={setNumbersAndTeams}>
+                                <Col style={{display: 'inline-block', width: '80%', marginRight: '5%', height:'100%'}}>
+                                    <Row style={{display: 'flex', justifyContent: 'center',alignItems: 'center', height:'100%'}}>
+                                    Team & Number Settings 
+                                    </Row>
+                                    
+                                </Col>
+                                <Col style={{display: 'inline-block', width: '10%', marginRight: '5%'}}>
+                                    <p >→</p>
+                                </Col>
+                                
+                            </Button>
+                        </Col>
                     </Row>
                     
 
 
 
                     {/* Payment Info and Ledger Section */}
-                    <Row style={{paddingLeft:0, paddingRight:0, margin:0, width:'75vw'}}>
+                    <Row style={{paddingLeft:0, paddingRight:0, margin:0, width:'75vw', height: '18%'}}>
                         <Col style={center2()}>
                             <UpdatePaymentInfoAndLedger groupId={groupName}/>
                         </Col>

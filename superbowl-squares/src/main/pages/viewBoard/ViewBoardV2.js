@@ -209,6 +209,7 @@ export function ViewBoardV2() {
             setVenmoUsername(location.state.venmoUsername);
         }
 
+        // TODO - if all squares are calimed, just make API call - no need for WS
         const ws = new WebSocket(ws_url);
 
         ws.onopen = () => {
@@ -322,16 +323,9 @@ export function ViewBoardV2() {
         
     }
 
-    const setNumbersAndTeams = () => {
-        if (!isLoading)
-        {
-            navigate('/set-number-and-teams', { 
-                replace: true, 
-                state: {
-                    groupName: groupName
-                } 
-            });
-        }
+    const [showPaymentModal, setShowPaymentModal] = useState(false);
+    const handleShowPaymentModal = () => {
+        setShowPaymentModal(true);
     }
 
     const handleInitialSelect = selectedOption => {
@@ -363,7 +357,7 @@ export function ViewBoardV2() {
                             backgroundColor:'lightgray',
                             color:'black',
                             fontSize: 26,
-                            fontWeight: 900,
+                            fontWeight: 500,
                             borderRadius:35,
                             marginTop:30,
                             padding:15,
@@ -481,13 +475,22 @@ export function ViewBoardV2() {
                                     </Col>
                                     <Col style={{'height':115, 'paddingLeft':0, flex: '0 0 35%'}}>
                                         {
+                                            isLoading ? 
+
+                                            <Button style={black()}>
+
+                                            </Button> 
+                                            :
+
                                             !allSquaresClaimed ? 
                                             <Button style={black()} onClick={claimSquares}>
                                                 Select Squares
                                             </Button> 
                                             :                         
-                                            <Button style={black()} onClick={setNumbersAndTeams}>
-                                                Set Numbers & Teams
+                                            <Button style={black2()} onClick={handleShowPaymentModal}>
+                                                {/* 🤑 */}
+                                                {/* 💸 */}
+                                                🏆
                                             </Button>
                                         }
                                     </Col>
@@ -506,8 +509,10 @@ export function ViewBoardV2() {
             </Row>
 
             {/* Modal for Copied Link */}
-            <Modal show={showModal} onHide={() => toggleModal(false)}>
-                <Modal.Body>Game link copied to clipboard.</Modal.Body>
+            <Modal show={showModal} onHide={() => toggleModal(false)} style={{width:'70%',transform: 'translate(22%, 0%)',}} centered>
+                <Modal.Body style={{display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', }}>Game link copied to clipboard.</Modal.Body>
             </Modal>
 
             {/* Venmo Modal */}
@@ -557,7 +562,7 @@ export function ViewBoardV2() {
                 </Modal.Footer>
             </Modal>
 
-            <Modal show={isLoading && !showVenmoModal} style={{width:'50%',transform: 'translate(50%, 0%)',}}centered>
+            <Modal show={isLoading && !showVenmoModal} style={{width:'50%',transform: 'translate(50%, 0%)',}} centered>
                 <Modal.Body style={{display: 'flex', 
             justifyContent: 'center', 
             alignItems: 'center', }}>
@@ -566,7 +571,7 @@ export function ViewBoardV2() {
                     
             </Modal>
 
-            <Modal show={showDisconnectedModal} onHide={() => {
+            <Modal show={showDisconnectedModal && !showModal} onHide={() => {
                 setShowDisconnectedModal(false);
                 setRefresh(0);
                 console.log(refresh)
@@ -600,6 +605,35 @@ export function ViewBoardV2() {
                     <br/>
                     <br/>
                     Enjoy!
+                </Modal.Body>
+            </Modal>
+
+            <Modal show={showPaymentModal} onHide={() => {
+                    window.sessionStorage.setItem("showPaymentModal", false);
+                    setShowPaymentModal(false);
+                }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Winners</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <b>Q1</b> 
+                    <br/>
+                    $ q1Payout - q1Winner
+                    <br/>
+                    <br/>
+                    <b>Q2</b> 
+                    <br/>
+                    $ q2Payout - q2Winner
+                    <br/>
+                    <br/>
+                    <b>Q3</b>
+                    <br/>
+                    $ q3Payout - q3Winner
+                    <br/>
+                    <br/>
+                    <b>Q4</b>
+                    <br/>
+                    $ q4Payout - q4Winner
                 </Modal.Body>
             </Modal>
         </Container>
@@ -682,6 +716,17 @@ export function ViewBoardV2() {
             padding: 20,
             width: '100%',
             height: '100%'
+        }
+    }
+
+    function black2() {
+        return {
+            backgroundColor: 'black',
+            border: 'black',
+            padding: 20,
+            width: '100%',
+            height: '100%',
+            fontSize:'40px'
         }
     }
 

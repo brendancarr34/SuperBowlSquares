@@ -18,6 +18,14 @@ function NumberInputBoxes(props) {
     newInputsTop[index] = value;
     setInputsTop(newInputsTop);
     onInputChange({ inputsTop: newInputsTop, inputsBottom });
+
+    if (value !== '' && index < inputsTop.length - 1) {
+      const nextInput = document.getElementById(`input-top-${index + 1}`);
+      if (nextInput) {
+        nextInput.focus();
+        nextInput.select(); // Highlight the text in the next cell
+      }
+    }
   };
 
   const handleInputChangeBottom = (index, value) => {
@@ -27,6 +35,10 @@ function NumberInputBoxes(props) {
     newInputsBottom[index] = value;
     setInputsBottom(newInputsBottom);
     onInputChange({ inputsTop, inputsBottom: newInputsBottom });
+
+    if (value !== '' && index < inputsBottom.length - 1) {
+      document.getElementById(`input-bottom-${index + 1}`).focus(); // Move focus to the next input
+    }
   };
 
   const handleKeyDownTop = (index, e) => {
