@@ -16,6 +16,13 @@ function UpdatePaymentInfoAndLedger({groupId}) {
             state: { groupName: groupId }
           });
     }
+
+    const handleEditLedgerClick = () => {
+        navigate('/ledger', {
+            replace: true,
+            state: { groupName: groupId}
+        })
+    }
   
     return (
         <Row style={{padding:0, margin:0, width:'100%'}} >
@@ -30,6 +37,7 @@ function UpdatePaymentInfoAndLedger({groupId}) {
             <Col style={{padding:0, margin:0, width:'100%', paddingLeft:2.5}}>
                 <Button 
                     style={backButton()}
+                    onClick={handleEditLedgerClick}
                 >
                     Admin <br/>Ledger
                 </Button>

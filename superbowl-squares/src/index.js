@@ -17,6 +17,7 @@ import { GroupMenu } from './main/pages/groupMenu/GroupMenu.js';
 import { EditGroupPreferences } from './main/pages/editGroupPreferences/EditGroupPreferences.js';
 import { ViewBoardV2 } from './main/pages/viewBoard/ViewBoardV2.js';
 import { EditPaymentBreakdown } from './main/pages/editPaymentBreakdown/EditPaymentBreakdown.js';
+import { Ledger } from './main/pages/ledger/Ledger.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -37,6 +38,7 @@ root.render(
                 <Route path='/group-menu' element={<GroupMenu />} />
                 <Route path='/edit-group-preferences' element={<EditGroupPreferences />} />
                 <Route path='/edit-payment-breakdown' element={<EditPaymentBreakdown/>} />
+                <Route path='/ledger' element={<Ledger/>}/>
                 <Route path="/*" element={<NotFound />} />
             </Routes>
         </Router>

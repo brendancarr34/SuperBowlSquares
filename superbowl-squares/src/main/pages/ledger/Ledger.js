@@ -5,11 +5,11 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import { PaymentBreakdownEditor } from './components/PaymentBreakdownEditor';
+import { LedgerEditor } from './components/LedgerEditor';
 
 import { fullHeight } from '../../common/style/CommonStyles';
 
-export function EditPaymentBreakdown() {
+export function Ledger() {
 
     const location = useLocation();
     let groupName =  location.state.groupName;
@@ -25,6 +25,18 @@ export function EditPaymentBreakdown() {
         });
       };
 
+      const items = [
+        "Item 1",
+        "Item 2",
+        "Item 3",
+        "Item 4",
+        "Item 5",
+        "Item 6",
+        "Item 7",
+        "Item 8",
+        "Item 9",
+      ];
+
     return (
         <Container>
             <Row style={height85()}>
@@ -32,12 +44,12 @@ export function EditPaymentBreakdown() {
                 <Row style={pageTitleSection()}>
                     <Col>
                         <h1 style={center()}>
-                            Payment Breakdown
+                            Ledger
                         </h1>
                     </Col>
                 </Row>
                 <Row style={middleSection()}>
-                    <PaymentBreakdownEditor/>
+                    <LedgerEditor items={items}/>
                 </Row>
                 <Row style={buttonSection()}>
                 <Row style={{padding:0, margin:0}}>
@@ -138,4 +150,5 @@ export function EditPaymentBreakdown() {
             alignItems: 'center'
         }
     }
+
 }
