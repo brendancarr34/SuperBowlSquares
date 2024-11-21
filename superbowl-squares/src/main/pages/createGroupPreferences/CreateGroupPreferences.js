@@ -140,8 +140,8 @@ export function CreateGroupPreferences() {
                 topNumbers: emptyTopNumbers,
                 sideNumbers: emptySideNumbers,
                 teams: {
-                    top: '',
-                    side: ''
+                    top: '???',
+                    side: '???'
                 },
                 preferences: {
                     groupPassword: groupPassword,

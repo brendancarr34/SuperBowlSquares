@@ -58,7 +58,7 @@ export function LedgerEditor({ items }) {
     return (
         <Row style={center2()}>
             <Row>
-                <p>
+                <p style={{padding:0}}>
                     Use this page to keep track of which members of your group have paid for their squares.
                 </p>
             </Row>
@@ -183,9 +183,9 @@ export function LedgerEditor({ items }) {
                     <p></p>
                 </Col>
             </Row> */}
-            <Row>
+            {/* <Row>
                 <br/>
-            </Row>
+            </Row> */}
 
             <style>
                 {`
@@ -220,7 +220,7 @@ export function LedgerEditor({ items }) {
             justifyContent: 'center',
             alignItems: 'center',
             height:'100%',
-            paddingRight:'30px'
+            // paddingRight:'30px'
         }
     }
 

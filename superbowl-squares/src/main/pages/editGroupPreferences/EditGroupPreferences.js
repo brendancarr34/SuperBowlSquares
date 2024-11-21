@@ -225,7 +225,7 @@ export function EditGroupPreferences() {
 
 
                     {/* Venmo Info Section */}
-                    <Row style={{padding:0, margin:0, width:'75vw', height: '27%'}}>
+                    <Row style={{padding:0, margin:0, width:'75vw', height: '30%'}}>
                         <Col style={center()}>
                             <UpdateVenmoInfo
                                 addVenmoInfo={addVenmoInfo} 
@@ -255,19 +255,22 @@ export function EditGroupPreferences() {
                                 handleSetTeam2={handleSetTeam2}/>
                         </Col>
                     </Row> */}
-                    <Row style={{padding:0, margin:0, width:'75vw', height: '15%'}}>
+                    <Row style={{padding:0, margin:0, width:'75vw', height: '12%'}}>
                         {/* <ToggleButton/> */}
                         <Col style={{padding:0, margin:0, width:'100%', height:'100%', display: 'flex',}}>
                             <Button style={{
                                 padding:0, margin:0, 
                                 width:'100%', height:'100%', 
-                                backgroundColor:'gray', color:'white',
-                                border:'none'}}
+                                backgroundColor:'black', color:'white',
+                                // border:'2px solid black',
+                                border:'none'
+                            
+                            }}
                                 
                                 onClick={setNumbersAndTeams}>
                                 <Col style={{display: 'inline-block', width: '80%', marginRight: '5%', height:'100%'}}>
                                     <Row style={{display: 'flex', justifyContent: 'center',alignItems: 'center', height:'100%'}}>
-                                    Team & Number Settings 
+                                    Board Settings 
                                     </Row>
                                     
                                 </Col>
@@ -408,10 +411,11 @@ export function EditGroupPreferences() {
 
     function blackButton() {
         return {
-            backgroundColor: "black",
-            border: 'black',
+            backgroundColor: "#4682b4",
+            border: 'none',
             width: '75vw',
-            padding: 15
+            padding: 12,
+            marginTop: 5
         }
     }
 
@@ -421,7 +425,7 @@ export function EditGroupPreferences() {
             color: 'black',
             border: 'black',
             width: '75vw',
-            padding: 5,
+            padding: 2,
             margin: 0
         }
     }

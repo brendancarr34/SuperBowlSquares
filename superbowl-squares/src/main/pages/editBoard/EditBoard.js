@@ -274,7 +274,7 @@ function center2() {
 
 function black() {
   return {
-    backgroundColor: "black",
+    backgroundColor: "#4682b4",
     border: 'black',
     padding: 0,
     width: '100%',

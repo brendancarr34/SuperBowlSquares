@@ -1,4 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, 
+    // useRef
+    } 
+    from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -32,6 +35,8 @@ export function ViewBoardV2() {
         console.log('groupName is null');
     }
 
+    // const scrollRef = useRef(null);
+
     const [justCreated, setJustCreated] = useState(false);
 
     const handleJustCreatedChange = (newValue) => {
@@ -58,8 +63,8 @@ export function ViewBoardV2() {
     const [allSquaresClaimed, setAllSquaresClaimed] = useState(false);
     const [topNumbers, setTopNumbers] = useState(emptyTopNumbers);
     const [sideNumbers, setSideNumbers] = useState(emptySideNumbers);
-    const [topTeam, setTopTeam] = useState('');
-    const [sideTeam, setSideTeam] = useState('');
+    const [topTeam, setTopTeam] = useState('???');
+    const [sideTeam, setSideTeam] = useState('???');
     const [selectedOption, setSelectedOption] = useState("None");
     const [showModal, setShowModal] = useState(false);
     const [colorData, setColorData] = useState([]);
@@ -370,7 +375,7 @@ export function ViewBoardV2() {
                             Super Bowl Squares
                         </Button>
                         {/* <h1 style={{'paddingTop':30}}>🏈 Super Bowl Squares 🏈</h1> */}
-                        <p style={{paddingTop:5}}><b>Group:</b> {groupName}</p>
+                        <p style={{paddingTop:5, marginBottom:6}}><b>Group:</b> {groupName}</p>
                     </Col>
                 </Row>
                 <Row style={center()}>
@@ -509,10 +514,12 @@ export function ViewBoardV2() {
             </Row>
 
             {/* Modal for Copied Link */}
-            <Modal show={showModal} onHide={() => toggleModal(false)} style={{width:'70%',transform: 'translate(22%, 0%)',}} centered>
-                <Modal.Body style={{display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center', }}>Game link copied to clipboard.</Modal.Body>
+            <Modal show={showModal} onHide={() => {
+                toggleModal(false); window.scrollTo({
+                    top: -1,
+                    behavior: "smooth", // Optional: smooth scrolling
+                  });}} style={{width:'70%',transform: 'translate(22%, 0%)',}} centered>
+                <Modal.Body style={{}}>Game link copied to clipboard.</Modal.Body>
             </Modal>
 
             {/* Venmo Modal */}
@@ -556,7 +563,7 @@ export function ViewBoardV2() {
                     {showIncorrectAdminPasswordModal && 
                     <p style={{color:'red'}}>Incorrect Admin Password</p>
                     }  
-                    <Button style={{backgroundColor: 'black', border: 'black'}} onClick={handleSubmitAdminPasswordClick}>
+                    <Button style={{backgroundColor: '#4682b4', border: 'black'}} onClick={handleSubmitAdminPasswordClick}>
                         Submit
                     </Button>
                 </Modal.Footer>
@@ -711,7 +718,7 @@ export function ViewBoardV2() {
     
     function black() {
         return {
-            backgroundColor: 'black',
+            backgroundColor: '#4682b4',
             border: 'black',
             padding: 20,
             width: '100%',
@@ -721,7 +728,7 @@ export function ViewBoardV2() {
 
     function black2() {
         return {
-            backgroundColor: 'black',
+            backgroundColor: '#4682b4',
             border: 'black',
             padding: 20,
             width: '100%',

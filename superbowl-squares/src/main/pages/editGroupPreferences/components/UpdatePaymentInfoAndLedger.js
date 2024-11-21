@@ -26,7 +26,7 @@ function UpdatePaymentInfoAndLedger({groupId}) {
   
     return (
         <Row style={{padding:0, margin:0, width:'100%'}} >
-            <Col style={{padding:0, margin:0, width:'100%', paddingRight:2.5}}>
+            <Col style={{padding:0, margin:0, width:'100%', paddingRight:5}}>
                 <Button 
                     style={backButton()}
                     onClick={handleEditPaymentBreakdownClick}
@@ -34,7 +34,7 @@ function UpdatePaymentInfoAndLedger({groupId}) {
                     Payment & <br/>Winners
                 </Button>
             </Col>
-            <Col style={{padding:0, margin:0, width:'100%', paddingLeft:2.5}}>
+            <Col style={{padding:0, margin:0, width:'100%', paddingLeft:5}}>
                 <Button 
                     style={backButton()}
                     onClick={handleEditLedgerClick}
@@ -48,9 +48,9 @@ function UpdatePaymentInfoAndLedger({groupId}) {
 
   function backButton() {
     return {
-        backgroundColor: "gray",
+        backgroundColor: "black",
         color: 'white',
-        border: 'none',
+        border: '2px solid black',
         width: '100%',
         padding: 10,
         margin:0
