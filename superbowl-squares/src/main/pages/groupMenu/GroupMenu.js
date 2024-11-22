@@ -103,20 +103,6 @@ export function GroupMenu() {
                 </Row>
                 {/* </Col> */}
             </Row>
-            
-
-            {/* Error Modal for API Failure */}
-            {/* <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)}>
-                <Modal.Header closeButton>
-                <Modal.Title>Error</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>{error}</Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={() => setShowErrorModal(false)}>
-                    Close
-                </Button>
-                </Modal.Footer>
-            </Modal> */}
 
             <Modal show={showPaymentInfoModal} onHide={() => setShowPaymentInfoModal(false)} centered>
                 <Modal.Header closeButton>
@@ -134,6 +120,15 @@ export function GroupMenu() {
                     <Button>
                         Send a Venmo
                     </Button>
+                    <br/>
+                    <br/>
+                    Q1 - q1Payout
+                    <br/>
+                    Q2 - q2Payout
+                    <br/>
+                    Q3 - q3Payout
+                    <br/>
+                    Q4 - q4Payout
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowPaymentInfoModal(false)}>

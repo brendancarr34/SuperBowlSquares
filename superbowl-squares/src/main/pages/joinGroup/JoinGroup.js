@@ -172,7 +172,7 @@ export function JoinGroup() {
 
     function black() {
         return {
-            backgroundColor:"black",
+            backgroundColor:"#4682b4",
             border:'black',
             width:'100%',
             height:75

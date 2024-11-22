@@ -72,7 +72,7 @@ export function Home() {
 
     function blackButton() {
         return {
-            backgroundColor: 'black',
+            backgroundColor: '#4682b4',
             padding: 20,
             border: 'black',
             width: 155
