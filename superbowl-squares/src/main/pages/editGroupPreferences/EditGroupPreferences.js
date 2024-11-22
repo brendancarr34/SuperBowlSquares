@@ -43,6 +43,8 @@ export function EditGroupPreferences() {
     const [existingVenmoUserName, setExistingVenmoUserName] = useState('');
     const [existingPricePerSquare, setExistingPricePerSquare] = useState(0.0);
 
+    const [existingPaymentBreakdown, setExistingPaymentBreakdown] = useState({});
+
     // Function to handle AutoSetNumbers checkbox change
     const handleAutoSetNumberChange = (newValue) => {
         setAutoSetNumbers(newValue);
@@ -161,6 +163,18 @@ export function EditGroupPreferences() {
             const existingPricePerSquareFromDB = response.data.preferences.paymentAmount;
             setExistingPricePerSquare(existingPricePerSquareFromDB);
             setPaymentAmount(existingPricePerSquareFromDB);
+
+            const existingQ1PayoutFromDB = response.data.q1Payout;
+            const existingQ2PayoutFromDB = response.data.q2Payout;
+            const existingQ3PayoutFromDB = response.data.q3Payout;
+            const existingQ4PayoutFromDB = response.data.q4Payout;
+
+            setExistingPaymentBreakdown({
+                q1Payout: existingQ1PayoutFromDB,
+                q2Payout: existingQ2PayoutFromDB,
+                q3Payout: existingQ3PayoutFromDB,
+                q4Payout: existingQ4PayoutFromDB
+            })
 
             setIsLoading(false);
             
@@ -288,7 +302,7 @@ export function EditGroupPreferences() {
                     {/* Payment Info and Ledger Section */}
                     <Row style={{paddingLeft:0, paddingRight:0, margin:0, width:'75vw', height: '18%'}}>
                         <Col style={center2()}>
-                            <UpdatePaymentInfoAndLedger groupId={groupName}/>
+                            <UpdatePaymentInfoAndLedger groupId={groupName} existingPaymentBreakdown={existingPaymentBreakdown}/>
                         </Col>
                     </Row>
                     {/* <Row>

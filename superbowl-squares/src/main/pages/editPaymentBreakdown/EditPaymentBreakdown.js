@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
+import axios from 'axios';
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
@@ -7,135 +8,80 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import { PaymentBreakdownEditor } from './components/PaymentBreakdownEditor';
 
-import { fullHeight } from '../../common/style/CommonStyles';
+import Modal from 'react-bootstrap/Modal';
+import { api_url } from '../../../config';
 
 export function EditPaymentBreakdown() {
-
     const location = useLocation();
-    let groupName =  location.state.groupName;
+    const groupName = location.state.groupName;
+    const existingPaymentBreakdown = location.state.existingPaymentBreakdown;
 
-    let navigate = useNavigate(); 
+    const [paymentBreakdown, setPaymentBreakdown] = useState(existingPaymentBreakdown);
+
+    const [isSaving, setIsSaving] = useState(false);
+    const navigate = useNavigate();
 
     const handleGoBack = () => {
-        // TODO - pass back updated group info 
-        // (should pass back and forth as much as possible to prevent re-loading from db everytime)
         navigate('/edit-group-preferences', {
-          replace: true,
-          state: { groupName: groupName }
+            replace: true,
+            state: { groupName },
         });
-      };
+    };
+
+    const handleSaveBreakdown = async () => {
+        setIsSaving(true);
+        const url = `${api_url}api/group/api/updatePaymentBreakdown/${groupName}`;
+
+        try {
+            const response = await axios.post(url, { paymentBreakdown });
+            if (response.status === 200) {
+                console.log(response.data.message || 'Payment breakdown saved successfully');
+            } else {
+                console.error(response.data.error || 'Failed to update payment breakdown');
+            }
+        } catch (error) {
+            console.error('Error updating payment breakdown:', error.message);
+        } finally {
+            setIsSaving(false);
+            navigate('/edit-group-preferences', {
+                replace: true,
+                state: { groupName },
+            });
+        }
+    };
 
     return (
         <Container>
-            <Row style={height85()}>
-                <Row style={spacer()}/>
-                <Row style={pageTitleSection()}>
+            <Row style={{ height: '85vh', justifyContent: 'center', alignItems: 'center' }}>
+                <Row style={{ height: '4vh' }} />
+                <Row style={{ height: '9vh', justifyContent: 'center', alignItems: 'center' }}>
                     <Col>
-                        <h1 style={center()}>
-                            Payment Breakdown
-                        </h1>
+                        <h1 style={{ textAlign: 'center' }}>Payment Breakdown</h1>
                     </Col>
                 </Row>
-                <Row style={middleSection()}>
-                    <PaymentBreakdownEditor/>
+                <Row style={{ height: '58vh', justifyContent: 'center', alignItems: 'center' }}>
+                    <PaymentBreakdownEditor 
+                        breakdown={paymentBreakdown}
+                        setBreakdown={setPaymentBreakdown}
+                    />
                 </Row>
-                <Row style={buttonSection()}>
-                <Row style={{padding:0, margin:0}}>
-                        <Col style={center()}>
-                            <Button 
-                                style={blackButton()} 
-                                onClick={console.log("save")}
-                                >
-                                    Save Changes
-                            </Button>
-                        </Col>
-                    </Row>
-                    <Row style={{padding:0, margin:0}}>
-                        <Col style={center()}>
-                            <Button 
-                                style={backButton()} 
-                                onClick={handleGoBack}>
-                                    Go Back
-                            </Button>
-                        </Col>
-                    </Row>
+                <Row style={{ height: '14vh', justifyContent: 'center', alignItems: 'center' }}>
+                    <Col style={{ textAlign: 'center' }}>
+                        <Button style={{ backgroundColor: 'black', width: '75vw' }} onClick={handleSaveBreakdown}>
+                            Save Changes
+                        </Button>
+                    </Col>
+                    <Col style={{ textAlign: 'center' }}>
+                        <Button style={{ backgroundColor: 'lightgray', color: 'black', width: '75vw' }} onClick={handleGoBack}>
+                            Go Back
+                        </Button>
+                    </Col>
                 </Row>
             </Row>
+
+            <Modal show={isSaving}>
+                <Modal.Body>Saving...</Modal.Body>
+            </Modal>
         </Container>
-    )
-
-    function center() {
-        return {
-            textAlign: 'center',
-            justifyContent: 'center'
-        }
-    }
-
-    function blackButton() {
-        return {
-            backgroundColor: "black",
-            border: 'black',
-            width: '75vw',
-            padding: 15
-        }
-    }
-
-    function backButton() {
-        return {
-            backgroundColor: "lightgray",
-            color: 'black',
-            border: 'black',
-            width: '75vw',
-            padding: 5,
-            margin: 0
-        }
-    }
-
-    function buttonSection() {
-        return {
-            height: '14vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin:0
-        }
-    }
-
-    function pageTitleSection() {
-        return {
-            height: '9vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-        }
-    }
-
-    function spacer() {
-        return {
-            height: '4vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-        }
-    }
-
-    function middleSection() {
-        return {
-            height: '58vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding:0,
-            margin:0
-        }
-    }
-
-    function height85() {
-        return {
-            height: '85vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-        }
-    }
+    );
 }

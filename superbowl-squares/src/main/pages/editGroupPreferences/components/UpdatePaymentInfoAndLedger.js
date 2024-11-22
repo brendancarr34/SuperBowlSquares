@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 
 
-function UpdatePaymentInfoAndLedger({groupId}) {
+function UpdatePaymentInfoAndLedger({groupId, existingPaymentBreakdown}) {
 
     let navigate = useNavigate(); 
 
@@ -13,7 +13,7 @@ function UpdatePaymentInfoAndLedger({groupId}) {
         // TODO - pass payment info from here so no need to hit api again
         navigate('/edit-payment-breakdown', {
             replace: true,
-            state: { groupName: groupId }
+            state: { groupName: groupId, existingPaymentBreakdown: existingPaymentBreakdown }
           });
     }
 
