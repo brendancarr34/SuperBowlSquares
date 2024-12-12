@@ -169,11 +169,20 @@ export function EditGroupPreferences() {
             const existingQ3PayoutFromDB = response.data.q3Payout;
             const existingQ4PayoutFromDB = response.data.q4Payout;
 
+            const existingQ1WinnerFromDB = response.data.q1Winner;
+            const existingQ2WinnerFromDB = response.data.q2Winner;
+            const existingQ3WinnerFromDB = response.data.q3Winner;
+            const existingQ4WinnerFromDB = response.data.q4Winner;
+
             setExistingPaymentBreakdown({
                 q1Payout: existingQ1PayoutFromDB,
                 q2Payout: existingQ2PayoutFromDB,
                 q3Payout: existingQ3PayoutFromDB,
-                q4Payout: existingQ4PayoutFromDB
+                q4Payout: existingQ4PayoutFromDB,
+                q1Winner: existingQ1WinnerFromDB,
+                q2Winner: existingQ2WinnerFromDB,
+                q3Winner: existingQ3WinnerFromDB,
+                q4Winner: existingQ4WinnerFromDB,
             })
 
             setIsLoading(false);

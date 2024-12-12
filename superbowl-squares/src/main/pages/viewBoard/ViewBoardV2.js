@@ -66,21 +66,25 @@ export function ViewBoardV2() {
     const [topTeam, setTopTeam] = useState('???');
     const [sideTeam, setSideTeam] = useState('???');
     const [selectedOption, setSelectedOption] = useState("None");
-    const [showModal, setShowModal] = useState(false);
     const [colorData, setColorData] = useState([]);
-    const [showVenmoModal, setShowVenmoModal] = useState(false);
     const [totalPayment, setTotalPayment] = useState('');
     const [clickedButtons, setClickedButtons] = useState([]);
     const [venmoUsername, setVenmoUsername] = useState('');
-
+    const [pricePerSquare, setPricePerSquare] = useState(0);
     const [adminPassword, setAdminPassword] = useState('');
-    const [showAdminPasswordModal, setShowAdminPasswordModal] = useState(false);
+    const [quarter1Payout, setQ1Payout] = useState('');
+    const [quarter2Payout, setQ2Payout] = useState('');
+    const [quarter3Payout, setQ3Payout] = useState('');
+    const [quarter4Payout, setQ4Payout] = useState('');
+    
     const [userInputAdminPassword, setUserInputAdminPassword] = useState('');
     const [showIncorrectAdminPasswordModal, setShowIncorrectAdminPasswordModal] = useState(false);
 
     const [refresh, setRefresh] = useState(0);
 
-    // const [connectionStatus, setConnectionStatus] = useState('Disconnected');
+    const [showModal, setShowModal] = useState(false);
+    const [showVenmoModal, setShowVenmoModal] = useState(false);
+    const [showAdminPasswordModal, setShowAdminPasswordModal] = useState(false);
     const [showDisconnectedModal, setShowDisconnectedModal] = useState(false);
 
     const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -177,7 +181,13 @@ export function ViewBoardV2() {
             navigate('/group-menu', 
             {replace: true, 
                 state: {
-                    groupName: groupName
+                    groupName: groupName,
+                    venmoUsername: venmoUsername,
+                    pricePerSquare: pricePerSquare,
+                    q1Payout: quarter1Payout,
+                    q2Payout: quarter2Payout,
+                    q3Payout: quarter3Payout,
+                    q4Payout: quarter4Payout
                 } });
         }
         
@@ -193,6 +203,7 @@ export function ViewBoardV2() {
 
     useEffect(() => {
         if (groupName == null) {
+            console.log('test')
             navigate('/', { replace :
                 true
             });
@@ -304,7 +315,21 @@ export function ViewBoardV2() {
                 {
                     const adminPassword = doc.adminPassword;
                     setAdminPassword(adminPassword);
-                }    
+                } 
+                
+                // console.log(doc);
+                setVenmoUsername(doc.preferences.venmoUsername);
+
+                setPricePerSquare(doc.preferences.paymentAmount);
+
+                const q1Payout = doc.q1Payout;
+                setQ1Payout(q1Payout);
+                const q2Payout = doc.q2Payout;
+                setQ2Payout(q2Payout);
+                const q3Payout = doc.q3Payout;
+                setQ3Payout(q3Payout);
+                const q4Payout = doc.q4Payout;
+                setQ4Payout(q4Payout);
                 
                 setIsLoading(false);
         };
