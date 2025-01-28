@@ -363,6 +363,8 @@ export function ViewBoardV2() {
                 }
                 // const q4Winner = doc.q4Winner;
                 // setQuarter1Winner(q4Winner);
+
+                console.log(q1Payout);
                 
                 setIsLoading(false);
         };
@@ -678,15 +680,15 @@ export function ViewBoardV2() {
                     setShowPaymentModal(false);
                 }} style={{ top: "-10%" }}>
                 {
-                    (quarter1Payout != '' || quarter1Winner != '' || quarter2Payout != '' || quarter2Winner != '' 
-                        || quarter3Payout != '' || quarter3Winner != '' || quarter4Payout != '' || quarter4Winner != '')
+                    (quarter1Payout || quarter1Winner  || quarter2Payout  || quarter2Winner  
+                        || quarter3Payout  || quarter3Winner  || quarter4Payout  || quarter4Winner )
 
                     ?
 
                     <ModalHeader>
                         <Row className="w-100 justify-content-center">
                             <Col xs={{ span: 6, offset: 1 }} className="text-center">
-                                <Modal.Title>No winners for your group yet!</Modal.Title>
+                                <Modal.Title>Winners</Modal.Title>
                             </Col>
                         </Row>
                     </ModalHeader>
@@ -696,7 +698,7 @@ export function ViewBoardV2() {
                     <Modal.Header closeButton>
                         <Row className="w-100 justify-content-center">
                             <Col xs={{ span: 6, offset: 1 }} className="text-center">
-                                <Modal.Title>Winners</Modal.Title>
+                                <Modal.Title>No winners for your group yet!</Modal.Title>
                             </Col>
                         </Row>
                     </Modal.Header>
