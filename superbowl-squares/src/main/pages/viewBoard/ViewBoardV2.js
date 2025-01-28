@@ -685,9 +685,9 @@ export function ViewBoardV2() {
 
                     ?
 
-                    <ModalHeader>
+                    <ModalHeader closeButton>
                         <Row className="w-100 justify-content-center">
-                            <Col xs={{ span: 6, offset: 1 }} className="text-center">
+                            <Col xs={{ span: 4, offset: 1 }} className="text-center">
                                 <Modal.Title>Winners</Modal.Title>
                             </Col>
                         </Row>
@@ -695,7 +695,7 @@ export function ViewBoardV2() {
 
                     :
 
-                    <Modal.Header closeButton>
+                    <Modal.Header>
                         <Row className="w-100 justify-content-center">
                             <Col xs={{ span: 6, offset: 1 }} className="text-center">
                                 <Modal.Title>No winners for your group yet!</Modal.Title>
@@ -733,45 +733,63 @@ export function ViewBoardV2() {
                         >
                             <Col>
                             {
-                                quarter1Payout && 
+                                (quarter1Payout || quarter1Winner) &&
                                 <div>
                                     <h4>
-                                        Q1 - <b style={{color: "green"}}>${quarter1Payout}</b>{quarter1Winner && " - " + quarter1Winner}
+                                        <br/>
+                                        {(quarter1Payout || quarter1Winner) &&"Q1"}{quarter1Payout && " - "}<b style={{color: "green"}}>{quarter1Payout && "$" + quarter1Payout}</b>{quarter1Winner && " - " + quarter1Winner}
                                     </h4>
                                 </div>
                             }
                             {
-                                quarter2Payout && 
+                                (quarter2Payout || quarter2Winner) &&
                                 <div>
-                                    <br/>
                                     <h4>
-                                        Q2 - <b style={{color: "green"}}>${quarter2Payout}</b>{quarter2Winner && " - " + quarter2Winner}
+                                        <br/>
+                                        {(quarter2Payout || quarter2Winner) &&"Q2"}{quarter2Payout && " - "}<b style={{color: "green"}}>{quarter2Payout && "$" + quarter2Payout}</b>{quarter2Winner && " - " + quarter2Winner}
                                     </h4>
                                 </div>
                             }
                             {
-                                quarter3Payout && 
+                                (quarter3Payout || quarter3Winner) &&
                                 <div>
-                                    <br/>
                                     <h4>
-                                        {(quarter3Payout || quarter3Winner) &&"Q3 - "}<b style={{color: "green"}}>{quarter3Payout &&"$" + quarter3Payout}</b>{quarter3Winner && " - " + quarter3Winner}
+                                        <br/>
+                                        {(quarter3Payout || quarter3Winner) &&"Q3"}{quarter3Payout && " - "}<b style={{color: "green"}}>{quarter3Payout && "$" + quarter3Payout}</b>{quarter3Winner && " - " + quarter3Winner}
                                     </h4>
                                 </div>
                             }
                             {
-                                quarter4Payout && 
+                                (quarter4Payout || quarter4Winner) &&
                                 <div>
-                                    <br/>
                                     <h4>
-                                        Q4 - <b style={{color: "green"}}>${quarter4Payout}</b>{quarter4Winner && " - "   + quarter4Winner}
+                                        <br/>
+                                        {(quarter4Payout || quarter4Winner) &&"Q4"}{quarter4Payout && " - "}<b style={{color: "green"}}>{quarter4Payout && "$" + quarter4Payout}</b>{quarter4Winner && " - " + quarter4Winner}
+                                        <br/>
                                     </h4>
                                 </div>
                             }
                             </Col>
                         </Row>
                         <Row>
+                        <br/>
+                        <br/>
+                        </Row>
+                        <Row>
                             <br/>
-                            <br/>
+                            <Col>
+                                <Row style={center2()}>
+                                    <h1>🥂</h1>
+                                </Row>
+                            </Col>
+                            <Col>
+                            
+                            </Col>
+                            <Col>
+                                <Row style={center2()}>
+                                    <h1>🎊</h1>
+                                </Row>
+                            </Col>
                             <br/>
                         </Row>
                     </Modal.Body>
