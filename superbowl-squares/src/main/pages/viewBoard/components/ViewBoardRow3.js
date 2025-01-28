@@ -139,7 +139,7 @@ export function ViewBoardRow3(props) {
             textAlign: 'center',
             padding: 0,
             margin: 0,
-            borderBottom: '1pt solid gray',
+            borderBottom: '1pt solid lightGray',
             display: 'flex',
             justifyContent: 'center',
         }

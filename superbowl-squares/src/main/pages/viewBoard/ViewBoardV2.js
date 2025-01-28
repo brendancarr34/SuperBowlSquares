@@ -21,6 +21,7 @@ import { VerticalTextComponent } from './components/VerticalTextComponent.js';
 import { fullHeight } from '../../common/style/CommonStyles.js';
 import '../../common/style/Select.css'
 import VenmoPaymentButton from '../editBoard/components/VenmoPaymentButton.js';
+import ModalHeader from 'react-bootstrap/esm/ModalHeader.js';
 
 export function ViewBoardV2() {
 
@@ -73,9 +74,14 @@ export function ViewBoardV2() {
     const [pricePerSquare, setPricePerSquare] = useState(0);
     const [adminPassword, setAdminPassword] = useState('');
     const [quarter1Payout, setQ1Payout] = useState('');
+    const [quarter1Winner, setQuarter1Winner] = useState('');
     const [quarter2Payout, setQ2Payout] = useState('');
+    const [quarter2Winner, setQuarter2Winner] = useState('');
     const [quarter3Payout, setQ3Payout] = useState('');
+    const [quarter3Winner, setQuarter3Winner] = useState('');
     const [quarter4Payout, setQ4Payout] = useState('');
+    const [quarter4Winner, setQuarter4Winner] = useState('');
+    
     
     const [userInputAdminPassword, setUserInputAdminPassword] = useState('');
     const [showIncorrectAdminPasswordModal, setShowIncorrectAdminPasswordModal] = useState(false);
@@ -185,9 +191,13 @@ export function ViewBoardV2() {
                     venmoUsername: venmoUsername,
                     pricePerSquare: pricePerSquare,
                     q1Payout: quarter1Payout,
+                    q1Winner: quarter1Winner,
                     q2Payout: quarter2Payout,
+                    q2Winner: quarter2Winner,
                     q3Payout: quarter3Payout,
-                    q4Payout: quarter4Payout
+                    q3Winner: quarter3Winner,
+                    q4Payout: quarter4Payout,
+                    q4Winner: quarter4Winner
                 } });
         }
         
@@ -324,12 +334,35 @@ export function ViewBoardV2() {
 
                 const q1Payout = doc.q1Payout;
                 setQ1Payout(q1Payout);
+                if (doc.q1Winner) {
+                    const q1Winner = doc.q1Winner;
+                    setQuarter1Winner(q1Winner);
+                }
+                
                 const q2Payout = doc.q2Payout;
                 setQ2Payout(q2Payout);
+                if (doc.q2Winner) {
+                    const q2Winner = doc.q2Winner;
+                    setQuarter2Winner(q2Winner);
+                }
+                // const q2Winner = doc.q2Winner;
+                // setQuarter1Winner(q2Winner);
                 const q3Payout = doc.q3Payout;
                 setQ3Payout(q3Payout);
+                if (doc.q3Winner) {
+                    const q3Winner = doc.q3Winner;
+                    setQuarter3Winner(q3Winner);
+                }
+                // const q3Winner = doc.q3Winner;
+                // setQuarter1Winner(q3Winner);
                 const q4Payout = doc.q4Payout;
                 setQ4Payout(q4Payout);
+                if (doc.q4Winner) {
+                    const q4Winner = doc.q4Winner;
+                    setQuarter4Winner(q4Winner);
+                }
+                // const q4Winner = doc.q4Winner;
+                // setQuarter1Winner(q4Winner);
                 
                 setIsLoading(false);
         };
@@ -640,33 +673,107 @@ export function ViewBoardV2() {
                 </Modal.Body>
             </Modal>
 
-            <Modal show={showPaymentModal} onHide={() => {
+            <Modal centered show={showPaymentModal && !showDisconnectedModal} onHide={() => {
                     window.sessionStorage.setItem("showPaymentModal", false);
                     setShowPaymentModal(false);
-                }}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Winners</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <b>Q1</b> 
-                    <br/>
-                    $ q1Payout - q1Winner
-                    <br/>
-                    <br/>
-                    <b>Q2</b> 
-                    <br/>
-                    $ q2Payout - q2Winner
-                    <br/>
-                    <br/>
-                    <b>Q3</b>
-                    <br/>
-                    $ q3Payout - q3Winner
-                    <br/>
-                    <br/>
-                    <b>Q4</b>
-                    <br/>
-                    $ q4Payout - q4Winner
-                </Modal.Body>
+                }} style={{ top: "-10%" }}>
+                {
+                    (quarter1Payout != '' || quarter1Winner != '' || quarter2Payout != '' || quarter2Winner != '' 
+                        || quarter3Payout != '' || quarter3Winner != '' || quarter4Payout != '' || quarter4Winner != '')
+
+                    ?
+
+                    <ModalHeader>
+                        <Row className="w-100 justify-content-center">
+                            <Col xs={{ span: 6, offset: 1 }} className="text-center">
+                                <Modal.Title>No winners for your group yet!</Modal.Title>
+                            </Col>
+                        </Row>
+                    </ModalHeader>
+
+                    :
+
+                    <Modal.Header closeButton>
+                        <Row className="w-100 justify-content-center">
+                            <Col xs={{ span: 6, offset: 1 }} className="text-center">
+                                <Modal.Title>Winners</Modal.Title>
+                            </Col>
+                        </Row>
+                    </Modal.Header>
+                }
+                {
+                    (quarter1Payout || quarter1Winner || quarter2Payout || quarter2Winner 
+                        || quarter3Payout || quarter3Winner || quarter4Payout || quarter4Winner)
+
+                    &&
+
+                    <Modal.Body>
+                        <Row>
+                            <br/>
+                            <Col>
+                                <Row style={center2()}>
+                                    <h1>🎉</h1>
+                                </Row>
+                            </Col>
+                            <Col>
+                            
+                            </Col>
+                            <Col>
+                                <Row style={center2()}>
+                                    <h1>🍾</h1>
+                                </Row>
+                            </Col>
+                            <br/>
+                        </Row>
+                        <Row 
+                            className="justify-content-center align-items-center text-center"
+                            style={{ height: "100%" }} // Ensures vertical centering
+                        >
+                            <Col>
+                            {
+                                quarter1Payout && 
+                                <div>
+                                    <h4>
+                                        Q1 - <b style={{color: "green"}}>${quarter1Payout}</b>{quarter1Winner && " - " + quarter1Winner}
+                                    </h4>
+                                </div>
+                            }
+                            {
+                                quarter2Payout && 
+                                <div>
+                                    <br/>
+                                    <h4>
+                                        Q2 - <b style={{color: "green"}}>${quarter2Payout}</b>{quarter2Winner && " - " + quarter2Winner}
+                                    </h4>
+                                </div>
+                            }
+                            {
+                                quarter3Payout && 
+                                <div>
+                                    <br/>
+                                    <h4>
+                                        {(quarter3Payout || quarter3Winner) &&"Q3 - "}<b style={{color: "green"}}>{quarter3Payout &&"$" + quarter3Payout}</b>{quarter3Winner && " - " + quarter3Winner}
+                                    </h4>
+                                </div>
+                            }
+                            {
+                                quarter4Payout && 
+                                <div>
+                                    <br/>
+                                    <h4>
+                                        Q4 - <b style={{color: "green"}}>${quarter4Payout}</b>{quarter4Winner && " - "   + quarter4Winner}
+                                    </h4>
+                                </div>
+                            }
+                            </Col>
+                        </Row>
+                        <Row>
+                            <br/>
+                            <br/>
+                            <br/>
+                        </Row>
+                    </Modal.Body>
+                }
             </Modal>
         </Container>
     );
@@ -676,7 +783,7 @@ export function ViewBoardV2() {
             display: 'flex', 
             justifyContent: 'center', 
             alignItems: 'center', 
-            backgroundColor: 'gray', 
+            backgroundColor: 'lightGray', 
             color: 'black',
             padding: 0,
             margin: 0,

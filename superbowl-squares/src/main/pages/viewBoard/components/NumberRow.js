@@ -51,7 +51,7 @@ export function NumberRow(props) {
             textAlign:'center',
             padding: '0px',
             margin: '0px',
-            borderBottom: '1pt solid gray',
+            borderBottom: '1pt solid lightGray',
             // paddingBottom: '15px',
             paddingBottom:'8px',
             paddingTop: '8px',

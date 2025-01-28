@@ -8,12 +8,12 @@ export function CornerButton() {
 
     function cornerButtonStyle() {
         return {
-            backgroundColor: "gray" ,
-            color: "gray",
+            backgroundColor: "lightGray" ,
+            color: "lightGray",
             fontSize: 16,
             padding: 0,
             margin:0,
-            border:'1px solid gray'
+            border:'1px solid lightGray'
         }
     }
 }
