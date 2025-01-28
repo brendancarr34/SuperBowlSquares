@@ -248,7 +248,7 @@ function board() {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'gray',
+    backgroundColor: 'lightGray',
     color: 'black',
     padding: 15
   }

@@ -17,10 +17,19 @@ function VenmoPaymentButton({ recipient, amount, squares, groupName }) {
   {
     note = `${squares}%20square%20claimed%20in%20group%20${groupName}`;
   }
+  else {
+    note = `payment%20for%20group%20${groupName}`
+  }
 
   const handleClick = () => {
+    const venmoUrl = '';
     if (isMobileDevice) {
-      const venmoUrl = `venmo://paycharge?txn=pay&recipients=${recipientEncoded}&amount=${amountEncoded}&note=${note}`;
+      if (amount){
+        venmoUrl = `venmo://paycharge?txn=pay&recipients=${recipientEncoded}&amount=${amountEncoded}&note=${note}`;
+      } else {
+        venmoUrl = `venmo://paycharge?txn=pay&recipients=${recipientEncoded}&note=${note}`;
+      }
+      
       console.log(venmoUrl);
       window.location.href = venmoUrl;
     } else {
@@ -31,8 +40,10 @@ function VenmoPaymentButton({ recipient, amount, squares, groupName }) {
   };
 
   return (
-    <Button onClick={handleClick}>
-      Send ${amount} to ${recipient}
+    <Button style={{paddingTop:15, border:"#4682b4", backgroundColor:"#4682b4"}} onClick={handleClick}>
+      {
+        amount ? <h6>Send ${amount} to @{recipient}</h6> : <h4>Send a Venmo to <br/>@{recipient}</h4>
+      }
     </Button>
   );
 }

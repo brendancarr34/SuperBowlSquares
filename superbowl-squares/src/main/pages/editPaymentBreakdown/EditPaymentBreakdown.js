@@ -67,12 +67,12 @@ export function EditPaymentBreakdown() {
                 </Row>
                 <Row style={{ height: '14vh', justifyContent: 'center', alignItems: 'center' }}>
                     <Col style={{ textAlign: 'center' }}>
-                        <Button style={{ backgroundColor: 'black', width: '75vw' }} onClick={handleSaveBreakdown}>
+                        <Button style={{ backgroundColor: 'black', width: '75vw', border:'none' }} onClick={handleSaveBreakdown}>
                             Save Changes
                         </Button>
                     </Col>
                     <Col style={{ textAlign: 'center' }}>
-                        <Button style={{ backgroundColor: 'lightgray', color: 'black', width: '75vw' }} onClick={handleGoBack}>
+                        <Button style={{ backgroundColor: 'lightgray', color: 'black', width: '75vw', border:'none' }} onClick={handleGoBack}>
                             Go Back
                         </Button>
                     </Col>

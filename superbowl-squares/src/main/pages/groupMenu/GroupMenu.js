@@ -9,6 +9,7 @@ import { api_url} from '../../../config';
 import Modal from 'react-bootstrap/Modal';
 import { fullHeight } from '../../common/style/CommonStyles';
 import { base_url } from '../../../config';
+import VenmoPaymentButton from '../editBoard/components/VenmoPaymentButton';
 
 export function GroupMenu() {
     const navigate = useNavigate(); // Ensure this is top-level and accessible
@@ -131,26 +132,45 @@ export function GroupMenu() {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h3>Venmo: @{venmoUsername}</h3>
-                    <br/>
-                    {/* <br/> */}
-                    <h3>Price per square: ${pricePerSquare}</h3>
-                    <br/>
-                    {/* <br/> */}
-                    <Button>
-                        Send a Venmo
-                    </Button>
-                    <br/>
-                    <br/>
-                    <br/>
-                    
-                    <h3>Q1 - ${q1Payout}</h3>
-                    {/* <br/> */}
-                    <h3>Q2 - ${q2Payout}</h3>
-                    {/* <br/> */}
-                    <h3>Q3 - ${q3Payout}</h3>
-                    {/* <br/> */}
-                    <h3>Q4 - ${q4Payout}</h3>
+                    {
+                        (!venmoUsername && !pricePerSquare && !q1Payout && !q2Payout && !q3Payout && !q4Payout) 
+                        && 
+                        <h3>No payment info for your group!</h3>
+                    }
+                    {
+                        venmoUsername && <h3>Venmo: <b style={{color:"#4682b4"}}>@{venmoUsername}</b><br/></h3>
+                    }
+                    {
+                        (pricePerSquare > 0) && <h3>Price per square: <b style={{color:"#4682b4"}}>${pricePerSquare}</b><br/></h3>
+                    }
+                    {
+                        (venmoUsername && pricePerSquare) && 
+                        <div>
+                            <br/>
+                            <VenmoPaymentButton recipient={venmoUsername} amount={0} groupName={groupName}/>
+                            
+                        </div>
+                    }
+                    {
+                        (q1Payout || q2Payout || q3Payout || q4Payout) &&
+                        <div>
+                            <br/>
+                            <br/>
+                            <br/>
+                        </div>
+                    }
+                    {
+                        q1Payout && <h3>Q1 - <b style={{color:"green"}}>${q1Payout}</b></h3>
+                    }
+                    {
+                        q2Payout && <h3>Q2 - <b style={{color:"green"}}>${q2Payout}</b></h3>
+                    }
+                    {
+                        q3Payout && <h3>Q3 - <b style={{color:"green"}}>${q3Payout}</b></h3>
+                    }
+                    {
+                        q4Payout && <h3>Q4 - <b style={{color:"green"}}>${q4Payout}</b></h3>
+                    }
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowPaymentInfoModal(false)}>
