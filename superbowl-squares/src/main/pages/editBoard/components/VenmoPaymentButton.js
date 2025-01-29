@@ -22,7 +22,7 @@ function VenmoPaymentButton({ recipient, amount, squares, groupName }) {
   }
 
   const handleClick = () => {
-    const venmoUrl = '';
+    let venmoUrl = '';
     if (isMobileDevice) {
       if (amount){
         venmoUrl = `venmo://paycharge?txn=pay&recipients=${recipientEncoded}&amount=${amountEncoded}&note=${note}`;

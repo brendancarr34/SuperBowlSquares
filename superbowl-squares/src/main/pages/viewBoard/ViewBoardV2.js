@@ -345,26 +345,18 @@ export function ViewBoardV2() {
                     const q2Winner = doc.q2Winner;
                     setQuarter2Winner(q2Winner);
                 }
-                // const q2Winner = doc.q2Winner;
-                // setQuarter1Winner(q2Winner);
                 const q3Payout = doc.q3Payout;
                 setQ3Payout(q3Payout);
                 if (doc.q3Winner) {
                     const q3Winner = doc.q3Winner;
                     setQuarter3Winner(q3Winner);
                 }
-                // const q3Winner = doc.q3Winner;
-                // setQuarter1Winner(q3Winner);
                 const q4Payout = doc.q4Payout;
                 setQ4Payout(q4Payout);
                 if (doc.q4Winner) {
                     const q4Winner = doc.q4Winner;
                     setQuarter4Winner(q4Winner);
                 }
-                // const q4Winner = doc.q4Winner;
-                // setQuarter1Winner(q4Winner);
-
-                console.log(q1Payout);
                 
                 setIsLoading(false);
         };
