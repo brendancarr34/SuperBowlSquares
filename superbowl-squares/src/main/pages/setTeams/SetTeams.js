@@ -40,9 +40,9 @@ export function SetTeams() {
             await axios.post(url, 
                 { topTeam: teamNames.topTeam, sideTeam: teamNames.leftTeam });
 
-            navigate('/super-bowl-squares', {
+            navigate(`/super-bowl-squares/${groupName}`, {
                 replace: true,
-                state: { groupName: groupName }
+                state: { groupName: groupName, authenticated: true }
             });
         } catch (error) {
             console.error('Error setting teams:', error);

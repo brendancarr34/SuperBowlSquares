@@ -31,6 +31,7 @@ root.render(
                 <Route path="/join-group" element={<JoinGroup />} />
                 <Route path='/join-group/:groupName' element={<JoinGroup />} />
                 <Route path="/super-bowl-squares" element={<ViewBoardV2 />} />
+                <Route path="/super-bowl-squares/:groupName" element={<ViewBoardV2 />} />
                 <Route path='/claim-squares' element={<EditBoard />} />
                 <Route path='/set-number-and-teams' element={<SetNumbersAndTeams />} />
                 <Route path='/set-numbers' element={<SetNumbers />} />

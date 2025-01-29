@@ -83,9 +83,9 @@ export function SetNumbers() {
             await axios.post(url,
                 { topNumbers: inputsState.inputsTop, sideNumbers: inputsState.inputsBottom });
 
-            navigate('/super-bowl-squares', {
+            navigate(`/super-bowl-squares/${groupName}`, {
                 replace: true,
-                state: { groupName: groupName }
+                state: { groupName: groupName, authenticated: true }
             });
         } catch (error) {
             console.error('Error fetching data:', error);

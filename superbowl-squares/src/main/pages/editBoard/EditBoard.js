@@ -37,12 +37,12 @@ export function EditBoard() {
 
   const viewBoard = () => {
     // Successful submission logic
-    navigate('/super-bowl-squares', { 
+    navigate(`/super-bowl-squares/${groupName}`, { 
       replace: true, 
       state: { 
         name: playerName, 
         initials: playerInitials, 
-        groupName: groupName } 
+        groupName: groupName, authenticated: true } 
     });
   }
 
@@ -50,7 +50,7 @@ export function EditBoard() {
     window.sessionStorage.setItem("showVenmoModal", true);
 
     // Successful submission logic
-    navigate('/super-bowl-squares', { 
+    navigate(`/super-bowl-squares/${groupName}`, { 
       replace: true, 
       state: { 
         name: playerName, 
@@ -60,7 +60,7 @@ export function EditBoard() {
         clickedButtons: clickedButtons,
         totalPayment: totalPaymentProp,
         venmoUsername: venmoUsernameProp,
-        showVenmoModal: true } 
+        showVenmoModal: true, authenticated: true } 
     });
   }
 
@@ -68,9 +68,9 @@ export function EditBoard() {
     try {
       // If nothing is clicked or typed, go back to the main page
       if (!playerName.trim() && !playerInitials.trim() && clickedButtons.length == 0) {
-        navigate('/super-bowl-squares', { 
+        navigate(`/super-bowl-squares/${groupName}`, { 
           replace: true, 
-          state: { name: playerName, initials: playerInitials, groupName: groupName } 
+          state: { name: playerName, initials: playerInitials, groupName: groupName, authenticated: true } 
         });
       }
 
@@ -129,9 +129,9 @@ export function EditBoard() {
 
   // Function to handle going back
   const handleGoBack = () => {
-    navigate('/super-bowl-squares', {
+    navigate(`/super-bowl-squares/${groupName}`, {
       replace: true,
-      state: { name: playerName, initials: playerInitials, groupName: groupName }
+      state: { name: playerName, initials: playerInitials, groupName: groupName, authenticated: true }
     });
   };
 

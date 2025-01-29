@@ -40,7 +40,7 @@ export function GroupMenu() {
     }, [location.state, navigate]);
 
     const handleGoBack = () => {
-        navigate('/super-bowl-squares', { state: { groupName: groupName } });
+        navigate(`/super-bowl-squares/${groupName}`, { state: { groupName: groupName, authenticated: true } });
     }
 
     const [showPaymentInfoModal, setShowPaymentInfoModal] = useState(false);

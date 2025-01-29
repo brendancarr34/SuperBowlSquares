@@ -99,7 +99,7 @@ export function EditGroupPreferences() {
             }
     
 
-            navigate('/super-bowl-squares', { state: { groupName: groupName } });
+            navigate(`/super-bowl-squares/${groupName}`, { state: { groupName: groupName, authenticated: true } });
         } catch (error) {
             console.error('Error creating group:', error);
             if (error.response != null) {

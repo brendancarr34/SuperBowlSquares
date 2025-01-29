@@ -35,9 +35,9 @@ export function JoinGroup() {
         axios.get(url)
         .then(response => {
             // Handle the response data
-            console.log(response.data);
+            // console.log(response.data);
             if (!response.data) {
-                navigate('/super-bowl-squares', {state: { groupName: groupName }});
+                navigate(`/super-bowl-squares/${groupName}`, {state: { groupName: groupName, authenticated: true }});
             }
           })
           .catch(error => {
@@ -68,7 +68,7 @@ export function JoinGroup() {
             await axios.post(url, {submittedPassword: groupPassword});
     
             console.log("group: " + groupName + ", password: " + groupPassword)
-            navigate('/super-bowl-squares', {state: { groupName: groupName }});
+            navigate(`/super-bowl-squares/${groupName}`, {state: { groupName: groupName, justJoined: true, authenticated: true }});
         }
         catch (error) {
             if (error.response.data.error == 'Document not found') {

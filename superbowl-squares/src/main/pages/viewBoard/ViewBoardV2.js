@@ -1,8 +1,5 @@
-import React, {useEffect, useState, 
-    // useRef
-    } 
-    from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useEffect, useState, } from 'react';
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -10,33 +7,36 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import Select from 'react-select'
-import { ViewBoardRow3} from './components/ViewBoardRow3.js'
-import { NumberRow } from './components/NumberRow.js';
-
-import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../../common/data/EmptyBoardData.js';
-import axios from 'axios';
-import { base_url, ws_url } from '../../../config.js';
-import { VerticalTextComponent } from './components/VerticalTextComponent.js';
-import { fullHeight } from '../../common/style/CommonStyles.js';
-import '../../common/style/Select.css'
-import VenmoPaymentButton from '../editBoard/components/VenmoPaymentButton.js';
 import ModalHeader from 'react-bootstrap/esm/ModalHeader.js';
+import Select from 'react-select'
+
+import { ViewBoardRow3 } from './components/ViewBoardRow3.js'
+import { NumberRow } from './components/NumberRow.js';
+import { VerticalTextComponent } from './components/VerticalTextComponent.js';
+import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../../common/data/EmptyBoardData.js';
+import { base_url, ws_url } from '../../../config.js';
+import { fullHeight } from '../../common/style/CommonStyles.js';
+import VenmoPaymentButton from '../editBoard/components/VenmoPaymentButton.js';
+
+import '../../common/style/Select.css'
+
 
 export function ViewBoardV2() {
 
     let navigate = useNavigate();
     const location = useLocation();
 
-    let groupName = null;
-    try {
-        groupName = location.state.groupName;
-    }
-    catch (error) {
-        console.log('groupName is null');
-    }
+    let { groupName } = useParams(); 
 
-    // const scrollRef = useRef(null);
+    // const [authenticated, setAuthenticated] = useState(false);
+
+    let authenticatedVar = null;
+    try {
+        authenticatedVar = location.state.authenticated;
+    }
+    catch ( e ) {
+        console.log("authenticated error")
+    }
 
     const [justCreated, setJustCreated] = useState(false);
 
@@ -53,6 +53,23 @@ export function ViewBoardV2() {
     }
     catch (error) {
         console.log('error with justCreated variable');
+    }
+
+    const [justJoined, setJustJoined] = useState(false);
+
+    const handleJustJoinedChange = (newValue) => {
+        setJustJoined(prev => {
+          if (prev !== newValue) return newValue; // Only update if the value changes
+          return prev; // Otherwise, don't update state
+        });
+    };
+
+    let justJoinedVar = null;
+    try {
+        justJoinedVar = location.state.justJoined;
+    }
+    catch (error) {
+        console.log('error with justJoined variable');
     }
 
     const [isLoading, setIsLoading] = useState(true);
@@ -213,15 +230,26 @@ export function ViewBoardV2() {
 
     useEffect(() => {
         if (groupName == null) {
-            console.log('test')
             navigate('/', { replace :
                 true
             });
         }
 
+        if (authenticatedVar != true)
+        {
+            console.log('authenticatedVar' + authenticatedVar);
+            console.log('we are here')
+            navigate(`/join-group/${groupName}`);
+        } 
+
         if (justCreatedVar != null)
         {
             handleJustCreatedChange(true);
+        }
+
+        if (justJoinedVar != null)
+        {
+            handleJustJoinedChange(true);
         }
 
         if (JSON.parse(window.sessionStorage.getItem('showVenmoModal'))) {
@@ -257,6 +285,9 @@ export function ViewBoardV2() {
                 console.log('WebSocket disconnected');
                 // setConnectionStatus('Disconnected');
                 clearInterval(pingInterval);
+
+                // dont show justJoined modal after reconnecting
+                setJustJoined(false);
                 if (refresh < 3)
                 {
                     console.log('refresh #' + refresh);
@@ -480,7 +511,7 @@ export function ViewBoardV2() {
                             </Container>
                         </Col>
                         <Col xs={1} style={{'padding':0, 'margin':0}}>
-                            <VerticalTextComponent style={{'padding':0, 'margin':0, color:'white'}} text={'test'} />
+                            <VerticalTextComponent style={{'padding':0, 'margin':0, color:'white'}} text={' '} />
                         </Col>
                     </Row>
                     {/* Button Row */}
@@ -659,7 +690,6 @@ export function ViewBoardV2() {
                     Then, be sure to check out the advanced settings to add some group info and make any necessary updates.
                     {/* TODO - add this if there is an admin password:
                      You'll need to use your admin password to access this page.
-                     
                      also - could list the adv setings*/}
                     <br/>
                     <br/>
@@ -667,6 +697,49 @@ export function ViewBoardV2() {
                 </Modal.Body>
             </Modal>
 
+            <Modal show={justJoined && !isLoading && !showDisconnectedModal} onHide={() => {
+                setJustJoined(false);
+            }}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Welcome to your group! <br/><b style={{color:'#4682b4'}}>{groupName}</b></Modal.Title>
+                </Modal.Header>
+                <Modal.Body style={{width: '100%'}}>
+                    <Row style={{width: '100%'}}>
+                    {pricePerSquare && <div>
+                        This group has a price of ${pricePerSquare} per square.
+                        <br/>
+                        <br/>
+                    </div>}
+                    <br/>
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col style={{width: '100%'}}>
+                            {/* <h6> */}
+                            You can start by learning how to play, selecting your squares, or closing this to view your group's board.
+                            {/* </h6> */}
+                        </Col>
+                        
+                    </Row>
+                    <Row style={{width: '100%'}}>
+                        <Col style={{width: '100%'}}>
+                            <br/>
+                            <Button style={{width: '100%', backgroundColor:'#4682b4', border:'none', padding:'20px 10px 20px 10px'}}>
+                                Learn to Play
+                            </Button>
+                        </Col>
+                        <Col style={{width: '100%'}}>
+                            <br/>
+                            <Button style={{width: '100%', backgroundColor:'#4682b4', border:'none', padding:'20px 10px 20px 10px'}}>
+                                Select Squares
+                            </Button>
+                        </Col>
+                    </Row>
+                    <br/>
+                    Enjoy!
+                </Modal.Body>
+            </Modal>
+
+            {/* MODAL FOR SHOWING WINNERS AND PAYOUTS */}
             <Modal centered show={showPaymentModal && !showDisconnectedModal} onHide={() => {
                     window.sessionStorage.setItem("showPaymentModal", false);
                     setShowPaymentModal(false);

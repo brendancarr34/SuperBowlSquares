@@ -31,9 +31,9 @@ export function SetNumbersAndTeams() {
     }
 
     const handleGoBackClick = () => {
-        navigate('/super-bowl-squares', {
+        navigate(`/super-bowl-squares/${groupName}`, {
             replace: true,
-            state: { groupName: groupName }
+            state: { groupName: groupName, authenticated: true }
           });
     }
 
