@@ -609,7 +609,7 @@ export function ViewBoardV2() {
             <Modal show={showVenmoModal} onHide={() => {
                     window.sessionStorage.setItem("showVenmoModal", false);
                     setShowVenmoModal(false);
-                }}>
+                }} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
                 <Modal.Title>Success! 🎉</Modal.Title>
                 </Modal.Header>

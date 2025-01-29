@@ -46,6 +46,7 @@ export function GroupMenu() {
     const [showPaymentInfoModal, setShowPaymentInfoModal] = useState(false);
     const [showCopiedGameLinkModal, setShowCopiedGameLinkModal] = useState(false);
     const [showUnderConstruction, setShowUnderConstruction] = useState(false);
+    const [showHowToPlay, setShowHowToPlay] = useState(false);
 
     const copyToClipboard = () => {
         const gameLink = base_url + '#/join-group/' + groupName;
@@ -75,6 +76,10 @@ export function GroupMenu() {
 
     const toggleConstructionModal = () => {
         setShowUnderConstruction(!showUnderConstruction);
+    }
+
+    const toggleHowToPlayModal = () => {
+        setShowHowToPlay(!showHowToPlay);
     }
 
     return (
@@ -107,7 +112,7 @@ export function GroupMenu() {
                             </Button>
                         </Col>
                         <Col style={buttonRight()}>
-                            <Button style={buttons()} onClick={() => setShowUnderConstruction(true)}>
+                            <Button style={buttons()} onClick={() => setShowHowToPlay(true)}>
                                 <h1>ℹ️</h1> How to Play
                             </Button>
                         </Col>
@@ -188,6 +193,39 @@ export function GroupMenu() {
             centered>
                 <Modal.Body>
                     Under construction...
+                </Modal.Body>
+            </Modal>
+
+            <Modal show={showHowToPlay}
+            onHide={toggleHowToPlayModal}
+            centered>
+                <Modal.Header>
+                    <Modal.Title>
+                        How to play Super Bowl Squares
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Once all squares are filled in the board will look something like this:
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    ~insert image~
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    As an example, let's say the score of the Super Bowl is Team A with 
+                    7 points and Team B with 14 points after the first quarter.
+                    <br/>
+                    <br/>
+                    Using our board, the person with with the square corresponding to 7 
+                    for Team A and 4 for Team B would be the winner for that quarter.
+                    <br/>
+                    <br/>
+                    Claim your squares for a chance to win during the big game!
                 </Modal.Body>
             </Modal>
         </Container>
