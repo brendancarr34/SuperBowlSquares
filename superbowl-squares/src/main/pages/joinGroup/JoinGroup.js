@@ -14,7 +14,7 @@ export function JoinGroup() {
 
     const [groupName, setGroupName] = useState(useParams()['groupName']);
     const [groupPassword, setGroupPassword] = useState('');
-    const [maskedPassword, setMaskedPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState(null);
 
@@ -150,47 +150,67 @@ export function JoinGroup() {
                             <Form.Group className="mb-3" controlId="formBasicPassword" onChange={(e) => setGroupPassword(e.target.value)}>
                                 <Form.Label>Password</Form.Label>
                                 <div style={{ position: 'relative', width: '100%' }}>
-                                    {/* Actual input field */}
+                                    {/* Password Input */}
                                     <Form.Control
-                                        type="text"  // Use type="text" to prevent password manager prompts
-                                        value={groupPassword}  // Actual password value
-                                        onChange={handlePasswordChange}
+                                        type={showPassword ? 'text' : 'text'} // Always text to prevent autofill, masking is done manually
+                                        value={groupPassword}
+                                        onChange={(e) => setGroupPassword(e.target.value)}
                                         placeholder=""
                                         autoComplete="off"
                                         style={{
                                             fontFamily: 'inherit',
-                                            letterSpacing: '0.05em',
-                                            position: 'relative',
-                                            zIndex: 2,
-                                            paddingLeft: '12px',  // Align the text position
+                                            letterSpacing: '0.05em', // Adjust spacing when masked
+                                            textIndent: '3px',  // Adds a small space before the text
                                             border: '1px solid #ccc',
                                             padding: '8px',
                                             width: '100%',
-                                            backgroundColor: 'transparent',  // Make the background transparent so it blends
-                                            color: 'transparent',  // Make the actual text transparent
-                                            // caretColor: 'blue',  // Make the caret visible (the typing cursor)
-                                            // borderRadius: '8px',
+                                            backgroundColor: 'transparent',
+                                            color: showPassword ? 'black' : 'transparent', // Hide text when masked
+                                            // caretColor: 'blue', // Blue cursor
+                                            borderRadius: '8px',  // Rounded edges
+                                            position: 'relative',
+                                            zIndex: 2
                                         }}
                                     />
-                                    {/* Masked password display */}
-                                    <div
+
+                                    {
+                                        !showPassword && 
+                                        <div
+                                            style={{
+                                                fontFamily: 'inherit',
+                                                letterSpacing: '0.1em',
+                                                position: 'absolute',
+                                                top: '50%', // Position at the middle
+                                                transform: 'translateY(-68%)', // Move it slightly up
+                                                left: 0,
+                                                color: 'black',  // Color of the masked text
+                                                zIndex: 1,
+                                                paddingLeft: '12px',  // Align with the input text
+                                                width: '100%',
+                                                height: '100%',
+                                                display: 'flex',
+                                                alignItems: 'center',  // Vertically center the dots
+                                                pointerEvents: 'none',  // Prevent interaction with the masked text div
+                                                opacity: showPassword ? 0 : 1,
+                                                textIndent: '3px',  // Adds a small space before the text
+                                            }}
+                                        >
+                                            <b>{maskPassword(groupPassword)}</b>
+                                        </div> 
+                                    }
+
+                                    {/* Show Password Toggle */}
+                                    <div 
                                         style={{
-                                            fontFamily: 'inherit',
-                                            letterSpacing: '0.1em',
-                                            position: 'absolute',
-                                            top: 0,
-                                            left: 0,
-                                            color: 'black',  // Color of the masked text
-                                            zIndex: 1,
-                                            paddingLeft: '12px',  // Align with the input text
-                                            width: '100%',
-                                            height: '100%',
-                                            display: 'flex',
-                                            alignItems: 'center',  // Vertically center the dots
-                                            pointerEvents: 'none',  // Prevent interaction with the masked text div
+                                            fontSize: '12px',
+                                            color: '#4682b4',
+                                            cursor: 'pointer',
+                                            marginTop: '4px',
+                                            textAlign: 'left'
                                         }}
+                                        onClick={() => setShowPassword(!showPassword)}
                                     >
-                                        <b>{maskPassword(groupPassword)}</b>  {/* Masked text */}
+                                        {showPassword ? 'Hide Password' : 'Show Password'}
                                     </div>
                                 </div>
                             </Form.Group>
