@@ -14,6 +14,7 @@ export function JoinGroup() {
 
     const [groupName, setGroupName] = useState(useParams()['groupName']);
     const [groupPassword, setGroupPassword] = useState('');
+    const [maskedPassword, setMaskedPassword] = useState('');
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState(null);
 
@@ -97,6 +98,30 @@ export function JoinGroup() {
         }
       };
 
+    // const handlePasswordChange = (e) => {
+    //     setGroupPassword(e.target.value);
+    // };
+
+    // // Function to mask the password as dots or any other character
+    // const maskPassword = (password) => {
+    //     return '•'.repeat(password.length);  // Replace with bullets (•) or any other masking character
+    // };
+
+    // const handlePasswordChange = (e) => {
+    //     const password = e.target.value;
+    //     setGroupPassword(password);
+    //     setMaskedPassword('•'.repeat(password.length));  // Mask password with bullets
+    // };
+
+    const handlePasswordChange = (e) => {
+        const password = e.target.value;
+        setGroupPassword(password);
+    };
+
+    const maskPassword = (password) => {
+        return '•'.repeat(password.length);  // Replace with bullets (•) or any other masking character
+    };
+
     return (
         <Container>
             <Row style={fullHeight()}>
@@ -124,10 +149,50 @@ export function JoinGroup() {
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicPassword" onChange={(e) => setGroupPassword(e.target.value)}>
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control 
-                                    type="password" 
-                                    placeholder=""
-                                    onKeyDown={handleSubmit} />
+                                <div style={{ position: 'relative', width: '100%' }}>
+                                    {/* Actual input field */}
+                                    <Form.Control
+                                        type="text"  // Use type="text" to prevent password manager prompts
+                                        value={groupPassword}  // Actual password value
+                                        onChange={handlePasswordChange}
+                                        placeholder=""
+                                        autoComplete="off"
+                                        style={{
+                                            fontFamily: 'inherit',
+                                            letterSpacing: '0.05em',
+                                            position: 'relative',
+                                            zIndex: 2,
+                                            paddingLeft: '12px',  // Align the text position
+                                            border: '1px solid #ccc',
+                                            padding: '8px',
+                                            width: '100%',
+                                            backgroundColor: 'transparent',  // Make the background transparent so it blends
+                                            color: 'transparent',  // Make the actual text transparent
+                                            // caretColor: 'blue',  // Make the caret visible (the typing cursor)
+                                            // borderRadius: '8px',
+                                        }}
+                                    />
+                                    {/* Masked password display */}
+                                    <div
+                                        style={{
+                                            fontFamily: 'inherit',
+                                            letterSpacing: '0.1em',
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: 0,
+                                            color: 'black',  // Color of the masked text
+                                            zIndex: 1,
+                                            paddingLeft: '12px',  // Align with the input text
+                                            width: '100%',
+                                            height: '100%',
+                                            display: 'flex',
+                                            alignItems: 'center',  // Vertically center the dots
+                                            pointerEvents: 'none',  // Prevent interaction with the masked text div
+                                        }}
+                                    >
+                                        <b>{maskPassword(groupPassword)}</b>  {/* Masked text */}
+                                    </div>
+                                </div>
                             </Form.Group>
                         </Form>
                     </Col>
