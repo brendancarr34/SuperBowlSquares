@@ -705,12 +705,16 @@ export function ViewBoardV2() {
                 </Modal.Header>
                 <Modal.Body style={{width: '100%'}}>
                     <Row style={{width: '100%'}}>
-                    {pricePerSquare && <div>
-                        This group has a price of ${pricePerSquare} per square.
+                    {(pricePerSquare != 0 || venmoUsername)
+                    && 
+                    <div>
+                        {(pricePerSquare != 0) && `This group has a price of $${pricePerSquare} per square.` }
+                        {venmoUsername && " You'll be able to pay by Venmo after selecting your squares."}
+                        <br/>
                         <br/>
                         <br/>
                     </div>}
-                    <br/>
+                    
                     </Row>
                     <Row style={{width: '100%'}}>
                         <Col style={{width: '100%'}}>
@@ -720,22 +724,23 @@ export function ViewBoardV2() {
                         </Col>
                         
                     </Row>
-                    <Row style={{width: '100%'}}>
+                    <Row style={{width: '100%', paddingLeft:'20px'}}>
                         <Col style={{width: '100%'}}>
                             <br/>
-                            <Button style={{width: '100%', backgroundColor:'#4682b4', border:'none', padding:'20px 10px 20px 10px'}}>
-                                Learn to Play
+                            <Button style={{width: '100%', backgroundColor:'#4682b4', border:'none', padding:'30px 10px 30px 10px'}}>
+                                Learn <br/>to Play
                             </Button>
                         </Col>
                         <Col style={{width: '100%'}}>
                             <br/>
-                            <Button style={{width: '100%', backgroundColor:'#4682b4', border:'none', padding:'20px 10px 20px 10px'}}>
-                                Select Squares
+                            <Button 
+                                style={{width: '100%', backgroundColor:'#4682b4', border:'none', padding:'30px 10px 30px 10px'}}
+                                onClick={claimSquares}
+                            >
+                                Select <br/>Squares
                             </Button>
                         </Col>
                     </Row>
-                    <br/>
-                    Enjoy!
                 </Modal.Body>
             </Modal>
 

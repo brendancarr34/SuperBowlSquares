@@ -18,6 +18,9 @@ export function JoinGroup() {
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState(null);
 
+    // Check if the user is on a mobile device
+    const isMobileDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
     let navigate = useNavigate();
 
     const handleGroupNameChange = (e) => {
@@ -91,31 +94,11 @@ export function JoinGroup() {
         
     }
 
-      const handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         if (event.key === 'Enter') {
-          event.preventDefault(); // Prevents the default behavior of Enter key (e.g., adding a newline)
-          superBowlSquares();
+            event.preventDefault(); // Prevents the default behavior of Enter key (e.g., adding a newline)
+            superBowlSquares();
         }
-      };
-
-    // const handlePasswordChange = (e) => {
-    //     setGroupPassword(e.target.value);
-    // };
-
-    // // Function to mask the password as dots or any other character
-    // const maskPassword = (password) => {
-    //     return '•'.repeat(password.length);  // Replace with bullets (•) or any other masking character
-    // };
-
-    // const handlePasswordChange = (e) => {
-    //     const password = e.target.value;
-    //     setGroupPassword(password);
-    //     setMaskedPassword('•'.repeat(password.length));  // Mask password with bullets
-    // };
-
-    const handlePasswordChange = (e) => {
-        const password = e.target.value;
-        setGroupPassword(password);
     };
 
     const maskPassword = (password) => {
@@ -141,11 +124,11 @@ export function JoinGroup() {
                             <Form.Group className="mb-3" controlId="formBasicInput">
                                 <Form.Label>Group Code</Form.Label>
                                 <Form.Control 
-                                type="text"
-                                placeholder=""
-                                onChange={handleGroupNameChange}
-                                value={groupName} 
-                                onKeyDown={handleSubmit}/>
+                                    type="text"
+                                    placeholder=""
+                                    onChange={handleGroupNameChange}
+                                    value={groupName} 
+                                    onKeyDown={handleSubmit}/>
                             </Form.Group>
                             <Form.Group className="mb-3" controlId="formBasicPassword" onChange={(e) => setGroupPassword(e.target.value)}>
                                 <Form.Label>Password</Form.Label>
@@ -166,7 +149,7 @@ export function JoinGroup() {
                                             width: '100%',
                                             backgroundColor: 'transparent',
                                             color: showPassword ? 'black' : 'transparent', // Hide text when masked
-                                            // caretColor: 'blue', // Blue cursor
+                                            caretColor: !isMobileDevice && 'black' ,
                                             borderRadius: '8px',  // Rounded edges
                                             position: 'relative',
                                             zIndex: 2

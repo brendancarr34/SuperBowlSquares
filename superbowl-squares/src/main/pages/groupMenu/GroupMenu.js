@@ -199,7 +199,7 @@ export function GroupMenu() {
             <Modal show={showHowToPlay}
             onHide={toggleHowToPlayModal}
             centered>
-                <Modal.Header>
+                <Modal.Header closeButton>
                     <Modal.Title>
                         How to play Super Bowl Squares
                     </Modal.Title>
