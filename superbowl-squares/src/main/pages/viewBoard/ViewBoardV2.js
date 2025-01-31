@@ -18,6 +18,8 @@ import { base_url, ws_url } from '../../../config.js';
 import { fullHeight } from '../../common/style/CommonStyles.js';
 import VenmoPaymentButton from '../editBoard/components/VenmoPaymentButton.js';
 
+import blankSquaresBoard from './blankSquaresBoard3.png'
+
 import '../../common/style/Select.css'
 
 
@@ -143,23 +145,23 @@ export function ViewBoardV2() {
 
     const copyToClipboard = () => {
         // const gameLink = window.location.href;
-        const gameLink = base_url + '#/join-group/' + groupName
+        // const gameLink = base_url + '#/join-group/' + groupName
     
-        // Create a temporary textarea element
-        const tempTextArea = document.createElement('textarea');
-        tempTextArea.value = gameLink;
+        // // Create a temporary textarea element
+        // const tempTextArea = document.createElement('textarea');
+        // tempTextArea.value = gameLink;
     
-        // Append the textarea to the document body
-        document.body.appendChild(tempTextArea);
+        // // Append the textarea to the document body
+        // document.body.appendChild(tempTextArea);
     
-        // Select the content of the textarea
-        tempTextArea.select();
+        // // Select the content of the textarea
+        // tempTextArea.select();
         
-        // Copy the selected text
-        document.execCommand('copy');
+        // // Copy the selected text
+        // document.execCommand('copy');
     
-        // Remove the temporary textarea from the document body
-        document.body.removeChild(tempTextArea);
+        // // Remove the temporary textarea from the document body
+        // document.body.removeChild(tempTextArea);
 
         toggleModal();
     };
@@ -549,12 +551,16 @@ export function ViewBoardV2() {
                                                 <Button style={grayButton()} onClick={openMenu}>
                                                     {/* ℹ */}
                                                     {/* 📖 */}
-                                                    🗒️
+                                                    {/* 🗒️ */}
+                                                    ℹ️
                                                 </Button>
                                             </Col>
                                             <Col style={{'padding':0,'paddingLeft':5, 'margin':0, height:'100%'}}>
                                                 <Button style={grayButton()} onClick={copyToClipboard}>
-                                                    🔗
+                                                    🔍
+                                                    {/* 💡 */}
+                                                    {/* ❓ */}
+                                                    {/* 🔗 */}
                                                     {/* 📲 */}
                                                     {/* 💬 */}
                                                 </Button>
@@ -597,12 +603,54 @@ export function ViewBoardV2() {
             </Row>
 
             {/* Modal for Copied Link */}
-            <Modal show={showModal} onHide={() => {
-                toggleModal(false); window.scrollTo({
-                    top: -1,
-                    behavior: "smooth", // Optional: smooth scrolling
-                  });}} style={{width:'70%',transform: 'translate(22%, 0%)',}} centered>
-                <Modal.Body style={{}}>Game link copied to clipboard.</Modal.Body>
+            <Modal show={showModal && !justJoined} 
+                onHide={() => {
+                toggleModal(false); 
+                // window.scrollTo({
+                //     top: -1,
+                //     behavior: "smooth", // Optional: smooth scrolling
+                //   });
+                }} 
+                  style={{width:'70%',transform: 'translate(22%, 0%)',}} centered
+                >
+                {/* <Modal.Body style={{}}>Game link copied to clipboard.</Modal.Body> */}
+                <Modal.Header closeButton>
+                    <Modal.Title>
+                        How to play Super Bowl Squares
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {/* Once all squares are filled in the board will look something like this: */}
+                    <div>
+                        <Row width={'50%'} style={center()}>
+                            <Col>
+                            <img width={'70%'} src={blankSquaresBoard} alt="Example" />
+                            <br/> 
+                            <br/>
+                            </Col>
+                        
+                        </Row>
+                    {/* <img src="/logo192.png" alt="Example" /> */}
+                    
+                    </div>
+
+                    The game is played on a 10x10 grid, with one team assigned to each axis.
+                    Each axis is labeled with a number 0-9 in a random order. 
+                    <br/>
+                    <br/>
+                    Participants claim squares by marking them with their initials and can win 
+                    money or bragging rights if their square matches the last digit of each team's score.
+                    
+                    {/* As an example, let's say the score of the Super Bowl is Team A with 
+                    7 points and Team B with 14 points after the first quarter.
+                    <br/>
+                    <br/>
+                    Using our board, the person with with the square corresponding to 7 
+                    for Team A and 4 for Team B would be the winner for that quarter.
+                    <br/>
+                    <br/>
+                    Claim your squares for a chance to win during the big game! */}
+                </Modal.Body>
             </Modal>
 
             {/* Venmo Modal */}
@@ -699,7 +747,7 @@ export function ViewBoardV2() {
 
             <Modal show={justJoined && !isLoading && !showDisconnectedModal} onHide={() => {
                 setJustJoined(false);
-            }}>
+            }} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Welcome to your group! <br/><b style={{color:'#4682b4'}}>{groupName}</b></Modal.Title>
                 </Modal.Header>
