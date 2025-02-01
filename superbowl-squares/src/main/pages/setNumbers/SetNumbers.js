@@ -104,10 +104,14 @@ export function SetNumbers() {
     };
 
     const handleGoBackClick = () => {
-        navigate('/set-number-and-teams', {
+        // navigate('/set-number-and-teams', {
+        //     replace: true,
+        //     state: { groupName: groupName }
+        // });
+        navigate(`/super-bowl-squares/${groupName}`, {
             replace: true,
             state: { groupName: groupName }
-        });
+          });
     };
 
     // Function to close the modal
@@ -206,7 +210,8 @@ function blackButton() {
 
 function grayButton() {
     return {
-        backgroundColor: 'gray',
+        backgroundColor: 'lightGray',
+        color: 'black',
         padding: 20,
         border: 'black',
         width: 200

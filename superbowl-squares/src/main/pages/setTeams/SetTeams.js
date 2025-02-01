@@ -13,6 +13,17 @@ export function SetTeams() {
     let navigate = useNavigate();
     let groupName =  location.state.groupName;
 
+    // let pricePerSquare = location.state.pricePerSquare;
+    // let venmoUsername = location.state.venmoUsername;
+    // let q1Payout= location.state.q1Payout;
+    // let q1Winner = location.state.q1Winner;
+    // let q2Payout = location.state.q2Payout;
+    // let q2Winner = location.state.q2Winner;
+    // let q3Payout = location.state.q3Payout;
+    // let q3Winner = location.state.q3Winner;
+    // let q4Payout = location.state.q4Payout;
+    // let q4Winner = location.state.q4Winner;
+
     // State to hold team names
     const [teamNames, setTeamNames] = useState({
         topTeam: '',
@@ -61,10 +72,33 @@ export function SetTeams() {
     };
 
     const handleGoBackClick = () => {
-        navigate('/set-number-and-teams', {
+        // navigate('/group-menu', {
+        //     replace: true,
+        //     state: { groupName: groupName }
+        //   });
+
+          navigate(`/super-bowl-squares/${groupName}`, {
             replace: true,
             state: { groupName: groupName }
           });
+
+
+        // navigate('/group-menu', 
+        //     {replace: true, 
+        //         state: {
+        //             groupName: groupName,
+        //             venmoUsername: venmoUsername,
+        //             pricePerSquare: pricePerSquare,
+        //             q1Payout: quarter1Payout,
+        //             q1Winner: quarter1Winner,
+        //             q2Payout: quarter2Payout,
+        //             q2Winner: quarter2Winner,
+        //             q3Payout: quarter3Payout,
+        //             q3Winner: quarter3Winner,
+        //             q4Payout: quarter4Payout,
+        //             q4Winner: quarter4Winner
+        //         } 
+        //     });
     }
 
     // Function to close the modal

@@ -45,22 +45,6 @@ export function EditGroupPreferences() {
 
     const [existingPaymentBreakdown, setExistingPaymentBreakdown] = useState({});
 
-    // Function to handle AutoSetNumbers checkbox change
-    const handleAutoSetNumberChange = (newValue) => {
-        setAutoSetNumbers(newValue);
-    };
-
-    // Add teams functions
-    const handleAutoSetTeamsChange = (newValue) => {
-        setAutoSetTeams(newValue);
-    }
-    const handleSetTeam1 = (newValue) => {
-        setTeam1(newValue);
-    }
-    const handleSetTeam2 = (newValue) => {
-        setTeam2(newValue);
-    }
-
     // Add password function
     const handleAddPasswordToggleChange = (newValue) => {
         setAddGroupPassword(newValue);
@@ -114,8 +98,6 @@ export function EditGroupPreferences() {
             }
         }
     }
-
-    // const handleSaveClick = 
 
     const updatePreferences = async (groupId, updatedPreferences) => {
         try {
@@ -204,13 +186,41 @@ export function EditGroupPreferences() {
         {
             setAddVenmoInfo(true);
         }
-      }, [isLoading]);
+    }, [isLoading]);
 
-
-      const setNumbersAndTeams = () => {
+    const setNumbersNav = () => {
         if (!isLoading)
         {
-            navigate('/set-number-and-teams', { 
+            navigate('/set-numbers', { 
+                replace: true, 
+                state: {
+                    groupName: groupName
+                } 
+            });
+
+            // navigate('/set-numbers', 
+            //     {replace: true, 
+            //         state: {
+            //             groupName: groupName,
+            //             venmoUsername: venmoUsername,
+            //             pricePerSquare: pricePerSquare,
+            //             q1Payout: quarter1Payout,
+            //             q1Winner: quarter1Winner,
+            //             q2Payout: quarter2Payout,
+            //             q2Winner: quarter2Winner,
+            //             q3Payout: quarter3Payout,
+            //             q3Winner: quarter3Winner,
+            //             q4Payout: quarter4Payout,
+            //             q4Winner: quarter4Winner
+            //         } 
+            //     });
+        }
+    }
+
+    const setTeamsNav = () => {
+        if (!isLoading)
+        {
+            navigate('/set-teams', { 
                 replace: true, 
                 state: {
                     groupName: groupName
@@ -227,16 +237,18 @@ export function EditGroupPreferences() {
                     <Col style={center()}>
                         <h1>Update Settings</h1>
                         <p><b>Group</b>: {groupName}</p>
+                        <br/>
+                        <br/> 
                     </Col>
                 </Row>
                 <Row style = {middleSection()}>
-                    <Row style={{padding:0, margin:0, width:'75vw', height:'5%'}}>
+                    {/* <Row style={{padding:0, margin:0, width:'75vw', height:'5%'}}>
                         <p>
 
                         </p>
-                    </Row>
+                    </Row> */}
                     {/* Group Password Section */}
-                    <Row style={{padding:0, margin:0, width:'75vw', height:'20%'}}>
+                    <Row style={{padding:0, margin:0, width:'75vw', height:'18%'}}>
                         <Col style={center()}>
                             <UpdatePassword 
                                 addGroupPassword={addGroupPassword} 
@@ -259,71 +271,41 @@ export function EditGroupPreferences() {
                                 existingPaymentAmount={existingPricePerSquare}/>
                         </Col>
                     </Row>
-
-
-                    {/* Auto-set Teams and Numbers Section */}
-                    {/* <Row style={{padding:0, margin:0, width:'75vw'}}>
-                        <Col style={center()}>
-                            <AutoSetNumbers 
-                                autoSetNumbers={autoSetNumbers} 
-                                handleToggleChange={handleAutoSetNumberChange} />
-                        </Col>
-                    </Row>
-                    <Row style={{padding:0, margin:0, width:'75vw'}}>
-                        <Col style={center()}>
-                            <AutoSetTeams 
-                                autoSetTeams={autoSetTeams} 
-                                handleAutoSetTeamsChange={handleAutoSetTeamsChange} 
-                                handleSetTeam1={handleSetTeam1} 
-                                handleSetTeam2={handleSetTeam2}/>
-                        </Col>
-                    </Row> */}
-                    <Row style={{padding:0, margin:0, width:'75vw', height: '12%'}}>
-                        {/* <ToggleButton/> */}
-                        <Col style={{padding:0, margin:0, width:'100%', height:'100%', display: 'flex',}}>
-                            <Button style={{
-                                padding:0, margin:0, 
-                                width:'100%', height:'100%', 
-                                backgroundColor:'black', color:'white',
-                                // border:'2px solid black',
-                                border:'none'
-                            
-                            }}
-                                
-                                onClick={setNumbersAndTeams}>
-                                <Col style={{display: 'inline-block', width: '80%', marginRight: '5%', height:'100%'}}>
-                                    <Row style={{display: 'flex', justifyContent: 'center',alignItems: 'center', height:'100%'}}>
-                                    Board Settings 
-                                    </Row>
-                                    
-                                </Col>
-                                <Col style={{display: 'inline-block', width: '10%', marginRight: '5%'}}>
-                                    <p >→</p>
-                                </Col>
-                                
+                    {/* Board Number and Team Settings */}
+                    <Row style={{padding:0, margin:0, width:'75vw', height: '18%'}}>
+                        <Col style={{padding:0, margin:0, width:'100%', height:'100%', display: 'flex', paddingRight:7}}>
+                            <Button 
+                                style={{
+                                    padding:0, margin:0, 
+                                    width:'100%', height:'100%', 
+                                    backgroundColor:'black', color:'white',
+                                    border:'none'
+                                }}
+                                onClick={setNumbersNav}
+                            >
+                                Board Number<br/>Settings 
                             </Button>
                         </Col>
-                    </Row>
-                    
-
-
-
+                        <Col style={{padding:0, margin:0, width:'100%', height:'100%', display: 'flex', paddingLeft:7}}>
+                            <Button 
+                                style={{
+                                    padding:0, margin:0, 
+                                    width:'100%', height:'100%', 
+                                    backgroundColor:'black', color:'white',
+                                    border:'none'
+                                }}
+                                onClick={setTeamsNav}
+                            >
+                                Board Team<br/>Settings 
+                            </Button>
+                        </Col>
+                    </Row>             
                     {/* Payment Info and Ledger Section */}
                     <Row style={{paddingLeft:0, paddingRight:0, margin:0, width:'75vw', height: '18%'}}>
                         <Col style={center2()}>
                             <UpdatePaymentInfoAndLedger groupId={groupName} existingPaymentBreakdown={existingPaymentBreakdown}/>
                         </Col>
                     </Row>
-                    {/* <Row>
-                        <Col style={center()}>
-                            <Button style={backButton()} >Update Payout Info</Button>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col style={center()}>
-                        <Button style={backButton()} >Update Payment Ledger</Button>
-                        </Col>
-                    </Row> */}
                 </Row>
                 <Row style = {buttonSection()}>
                     <Row style={{padding:0, margin:0}}>
@@ -340,7 +322,8 @@ export function EditGroupPreferences() {
                         <Col style={center()}>
                             <Button 
                                 style={backButton()} 
-                                onClick={handleButtonClick2}>
+                                onClick={handleButtonClick2}
+                            >
                                     Go Back
                             </Button>
                         </Col>
@@ -348,13 +331,15 @@ export function EditGroupPreferences() {
                 </Row>
             </Row>}
 
-            {isLoading && <Row style={height85()}>
+            {
+                isLoading 
+                && 
+                <Row style={height85()}>
                         <p>
                             Loading...
                         </p>
                 </Row>
-                }
-
+            }
 
             {/* Error Modal for API Failure */}
             <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)}>
@@ -368,18 +353,12 @@ export function EditGroupPreferences() {
                 </Button>
                 </Modal.Footer>
             </Modal>
-
-            {/* <Modal show={isLoading} centered>
-                    <Modal.Body>
-                        Loading...
-                    </Modal.Body>
-            </Modal> */}
         </Container>
     )
 
     function buttonSection() {
         return {
-            height: '14vh',
+            height: '18vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -389,7 +368,7 @@ export function EditGroupPreferences() {
 
     function pageTitleSection() {
         return {
-            height: '9vh',
+            height: '11vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -398,7 +377,7 @@ export function EditGroupPreferences() {
 
     function spacer() {
         return {
-            height: '4vh',
+            height: '2vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -407,7 +386,7 @@ export function EditGroupPreferences() {
 
     function middleSection() {
         return {
-            height: '58vh',
+            height: '54vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
@@ -437,7 +416,7 @@ export function EditGroupPreferences() {
             backgroundColor: "#4682b4",
             border: 'none',
             width: '75vw',
-            padding: 12,
+            padding: 20,
             marginTop: 5
         }
     }
@@ -448,7 +427,7 @@ export function EditGroupPreferences() {
             color: 'black',
             border: 'black',
             width: '75vw',
-            padding: 2,
+            padding: 6,
             margin: 0
         }
     }
