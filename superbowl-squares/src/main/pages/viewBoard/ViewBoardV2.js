@@ -18,10 +18,9 @@ import { base_url, ws_url } from '../../../config.js';
 import { fullHeight } from '../../common/style/CommonStyles.js';
 import VenmoPaymentButton from '../editBoard/components/VenmoPaymentButton.js';
 
-import blankSquaresBoard from './blankSquaresBoard3.png'
+import exampleBoard from './exampleBoard.png'
 
 import '../../common/style/Select.css'
-
 
 export function ViewBoardV2() {
 
@@ -29,8 +28,6 @@ export function ViewBoardV2() {
     const location = useLocation();
 
     let { groupName } = useParams(); 
-
-    // const [authenticated, setAuthenticated] = useState(false);
 
     let authenticatedVar = null;
     try {
@@ -540,12 +537,10 @@ export function ViewBoardV2() {
                                     <Col style={{'height':115, 'paddingLeft':0, flex: '0 0 35%'}}>
                                         {
                                             isLoading ? 
-
                                             <Button style={black()}>
 
                                             </Button> 
                                             :
-
                                             !allSquaresClaimed ? 
                                             <Button style={black()} onClick={claimSquares}>
                                                 Select Squares
@@ -572,10 +567,10 @@ export function ViewBoardV2() {
                 </Row>
             </Row>
 
-            {/* Modal for Copied Link */}
+            {/* How to Play Modal*/}
             <Modal show={showModal && !justJoined} 
                 onHide={() => {
-                toggleModal(false); 
+                    toggleModal(false); 
                 }} 
                    centered
                 >
@@ -585,20 +580,15 @@ export function ViewBoardV2() {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* Once all squares are filled in the board will look something like this: */}
                     <div>
                         <Row width={'50%'} style={center()}>
                             <Col>
-                            <img width={'70%'} src={blankSquaresBoard} alt="Example" />
+                            <img width={'70%'} src={exampleBoard} alt="Example" />
                             <br/> 
                             <br/>
                             </Col>
-                        
                         </Row>
-                    {/* <img src="/logo192.png" alt="Example" /> */}
-                    
                     </div>
-
                     The game is played on a 10x10 grid, with one team assigned to each axis.
                     Each axis is also labeled with a number 0-9 in a random order. 
                     <br/>
@@ -657,6 +647,7 @@ export function ViewBoardV2() {
                 </Modal.Footer>
             </Modal>
 
+            {/* LOADING MODAL */}
             <Modal show={isLoading && !showVenmoModal} style={{width:'50%',transform: 'translate(50%, 0%)',}} centered>
                 <Modal.Body style={{display: 'flex', 
             justifyContent: 'center', 
@@ -666,6 +657,7 @@ export function ViewBoardV2() {
                     
             </Modal>
 
+            {/* DISCONNECTED MODAL */}
             <Modal show={showDisconnectedModal && !showModal} onHide={() => {
                 setShowDisconnectedModal(false);
                 setRefresh(0);
@@ -679,6 +671,7 @@ export function ViewBoardV2() {
                 </Modal.Body>
             </Modal>
 
+            {/* GROUP CREATED MODAL */}
             <Modal show={justCreated && !isLoading && !showDisconnectedModal} onHide={() => {
                 setJustCreated(false);
             }}>
@@ -702,6 +695,7 @@ export function ViewBoardV2() {
                 </Modal.Body>
             </Modal>
 
+            {/* GROUP JOINED MODAL */}
             <Modal show={justJoined && !isLoading && !showDisconnectedModal} onHide={() => {
                 setJustJoined(false);
             }} centered>
@@ -709,43 +703,54 @@ export function ViewBoardV2() {
                     <Modal.Title>Welcome to your group! <br/><b style={{color:'#4682b4'}}>{groupName}</b></Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{width: '100%'}}>
-                    <Row style={{width: '100%'}}>
-                    {(pricePerSquare != 0 || venmoUsername)
-                    && 
-                    <div>
-                        {(pricePerSquare != 0) && `This group has a price of $${pricePerSquare} per square.` }
-                        {venmoUsername && " You'll be able to pay by Venmo after selecting your squares."}
-                        <br/>
-                        <br/>
-                        <br/>
-                    </div>}
-                    
-                    </Row>
-                    <Row style={{width: '100%'}}>
-                        <Col style={{width: '100%'}}>
-                            {/* <h6> */}
-                            You can start by learning how to play, selecting your squares, or closing this to view your group's board.
-                            {/* </h6> */}
-                        </Col>
-                        
-                    </Row>
-                    <Row style={{width: '100%', paddingLeft:'20px'}}>
-                        <Col style={{width: '100%'}}>
-                            <br/>
-                            <Button style={{width: '100%', backgroundColor:'#4682b4', border:'none', padding:'30px 10px 30px 10px'}}>
-                                Learn <br/>to Play
-                            </Button>
-                        </Col>
-                        <Col style={{width: '100%'}}>
-                            <br/>
-                            <Button 
-                                style={{width: '100%', backgroundColor:'#4682b4', border:'none', padding:'30px 10px 30px 10px'}}
-                                onClick={claimSquares}
-                            >
-                                Select <br/>Squares
-                            </Button>
-                        </Col>
-                    </Row>
+                    {
+                        !allSquaresClaimed ?
+                        <div>
+                            <Row style={{width: '100%'}}>
+                                {(pricePerSquare != 0 || venmoUsername)
+                                && 
+                                <div>
+                                    {(pricePerSquare != 0) && `This group has a price of $${pricePerSquare} per square.`}
+                                    {venmoUsername && " You'll be able to pay by Venmo after selecting your squares."}
+                                    <br/>
+                                    <br/>
+                                </div>}
+                            </Row>
+                            <Row style={{width: '100%'}}>
+                                <Col style={{width: '100%'}}>
+                                    You can start by learning how to play, selecting your squares, or closing this to view your group's board.
+                                </Col>
+                            </Row>
+                            <Row style={{width: '100%', paddingLeft:'20px'}}>
+                                <Col style={{width: '100%'}}>
+                                    <br/>
+                                    <Button 
+                                        style={{width: '100%', backgroundColor:'#4682b4', border:'none', padding:'30px 10px 30px 10px'}}
+                                        onClick={() => {
+                                            setShowModal(true);
+                                            setJustJoined(false);
+                                        }}
+                                    >
+                                        Learn <br/>to Play
+                                    </Button>
+                                </Col>
+                                <Col style={{width: '100%'}}>
+                                    <br/>
+                                    <Button 
+                                        style={{width: '100%', backgroundColor:'#4682b4', border:'none', padding:'30px 10px 30px 10px'}}
+                                        onClick={claimSquares}
+                                    >
+                                        Select <br/>Squares
+                                    </Button>
+                                </Col>
+                            </Row>  
+                        </div>
+                        :
+                        <div>
+                            All squares in this group have been claimed, but you can check this group's board. 
+                            Winner information will be updated here as well.  
+                        </div>
+                    }  
                 </Modal.Body>
             </Modal>
 
