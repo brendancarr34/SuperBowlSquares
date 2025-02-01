@@ -11,6 +11,8 @@ import { fullHeight } from '../../common/style/CommonStyles';
 import { base_url } from '../../../config';
 import VenmoPaymentButton from '../editBoard/components/VenmoPaymentButton';
 
+import blankSquaresBoard from '../viewBoard/blankSquaresBoard3.png'
+
 export function GroupMenu() {
     const navigate = useNavigate(); // Ensure this is top-level and accessible
     const location = useLocation();
@@ -205,27 +207,23 @@ export function GroupMenu() {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Once all squares are filled in the board will look something like this:
+                    <div>
+                        <Row width={'50%'} style={center()}>
+                            <Col>
+                            <img width={'70%'} src={blankSquaresBoard} alt="Example" />
+                            <br/> 
+                            <br/>
+                            </Col>
+                        </Row>
+                    </div>
+                    The game is played on a 10x10 grid, with one team assigned to each axis.
+                    Each axis is also labeled with a number 0-9 in a random order. 
                     <br/>
                     <br/>
+                    Claim squares by marking them with your initials. Once the board is full, the teams and numbers will be randomized.
                     <br/>
                     <br/>
-                    <br/>
-                    ~insert image~
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    As an example, let's say the score of the Super Bowl is Team A with 
-                    7 points and Team B with 14 points after the first quarter.
-                    <br/>
-                    <br/>
-                    Using our board, the person with with the square corresponding to 7 
-                    for Team A and 4 for Team B would be the winner for that quarter.
-                    <br/>
-                    <br/>
-                    Claim your squares for a chance to win during the big game!
+                    You win if your square matches the last digit of each team's score at the end of each quarter.
                 </Modal.Body>
             </Modal>
         </Container>

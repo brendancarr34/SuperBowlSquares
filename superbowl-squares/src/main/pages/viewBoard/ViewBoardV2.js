@@ -101,12 +101,9 @@ export function ViewBoardV2() {
     const [quarter4Payout, setQ4Payout] = useState('');
     const [quarter4Winner, setQuarter4Winner] = useState('');
     
-    
     const [userInputAdminPassword, setUserInputAdminPassword] = useState('');
     const [showIncorrectAdminPasswordModal, setShowIncorrectAdminPasswordModal] = useState(false);
-
     const [refresh, setRefresh] = useState(0);
-
     const [showModal, setShowModal] = useState(false);
     const [showVenmoModal, setShowVenmoModal] = useState(false);
     const [showAdminPasswordModal, setShowAdminPasswordModal] = useState(false);
@@ -144,25 +141,6 @@ export function ViewBoardV2() {
     };
 
     const copyToClipboard = () => {
-        // const gameLink = window.location.href;
-        // const gameLink = base_url + '#/join-group/' + groupName
-    
-        // // Create a temporary textarea element
-        // const tempTextArea = document.createElement('textarea');
-        // tempTextArea.value = gameLink;
-    
-        // // Append the textarea to the document body
-        // document.body.appendChild(tempTextArea);
-    
-        // // Select the content of the textarea
-        // tempTextArea.select();
-        
-        // // Copy the selected text
-        // document.execCommand('copy');
-    
-        // // Remove the temporary textarea from the document body
-        // document.body.removeChild(tempTextArea);
-
         toggleModal();
     };
 
@@ -217,9 +195,9 @@ export function ViewBoardV2() {
                     q3Winner: quarter3Winner,
                     q4Payout: quarter4Payout,
                     q4Winner: quarter4Winner
-                } });
-        }
-        
+                } 
+            });
+        } 
     }
 
     const home = () => {
@@ -255,10 +233,6 @@ export function ViewBoardV2() {
         }
 
         if (JSON.parse(window.sessionStorage.getItem('showVenmoModal'))) {
-            // setTimeout(function(){ 
-
-            //     setShowVenmoModal(true);
-            // }, 2000);
             setShowVenmoModal(true);
             setTotalPayment(location.state.totalPayment);
             setClickedButtons(location.state.clickedButtons);
@@ -270,10 +244,6 @@ export function ViewBoardV2() {
 
         ws.onopen = () => {
             console.log('WebSocket connected');
-            // setConnectionStatus('Connected');
-
-            // TODO - add a disconnected pop-up after ten minutes of inactivity?
-
             // Start sending pings every 30 seconds
             const pingInterval = setInterval(() => {
                 if (ws.readyState === WebSocket.OPEN) {
@@ -606,14 +576,9 @@ export function ViewBoardV2() {
             <Modal show={showModal && !justJoined} 
                 onHide={() => {
                 toggleModal(false); 
-                // window.scrollTo({
-                //     top: -1,
-                //     behavior: "smooth", // Optional: smooth scrolling
-                //   });
                 }} 
-                  style={{width:'70%',transform: 'translate(22%, 0%)',}} centered
+                   centered
                 >
-                {/* <Modal.Body style={{}}>Game link copied to clipboard.</Modal.Body> */}
                 <Modal.Header closeButton>
                     <Modal.Title>
                         How to play Super Bowl Squares
@@ -635,21 +600,13 @@ export function ViewBoardV2() {
                     </div>
 
                     The game is played on a 10x10 grid, with one team assigned to each axis.
-                    Each axis is labeled with a number 0-9 in a random order. 
+                    Each axis is also labeled with a number 0-9 in a random order. 
                     <br/>
                     <br/>
-                    Participants claim squares by marking them with their initials and can win 
-                    money or bragging rights if their square matches the last digit of each team's score.
-                    
-                    {/* As an example, let's say the score of the Super Bowl is Team A with 
-                    7 points and Team B with 14 points after the first quarter.
+                    Claim squares by marking them with your initials. Once the board is full, the teams and numbers will be randomized.
                     <br/>
                     <br/>
-                    Using our board, the person with with the square corresponding to 7 
-                    for Team A and 4 for Team B would be the winner for that quarter.
-                    <br/>
-                    <br/>
-                    Claim your squares for a chance to win during the big game! */}
+                    You win if your square matches the last digit of each team's score at the end of each quarter.
                 </Modal.Body>
             </Modal>
 
