@@ -242,11 +242,6 @@ export function EditGroupPreferences() {
                     </Col>
                 </Row>
                 <Row style = {middleSection()}>
-                    {/* <Row style={{padding:0, margin:0, width:'75vw', height:'5%'}}>
-                        <p>
-
-                        </p>
-                    </Row> */}
                     {/* Group Password Section */}
                     <Row style={{padding:0, margin:0, width:'75vw', height:'18%'}}>
                         <Col style={center()}>

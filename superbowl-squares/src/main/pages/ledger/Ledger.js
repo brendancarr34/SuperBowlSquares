@@ -85,8 +85,8 @@ export function Ledger() {
 
     function blackButton() {
         return {
-            backgroundColor: "black",
-            border: 'black',
+            backgroundColor: "#4682b4",
+            border: '#4682b4',
             width: '75vw',
             padding: 15
         }

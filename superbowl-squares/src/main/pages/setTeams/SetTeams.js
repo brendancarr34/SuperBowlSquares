@@ -71,35 +71,14 @@ export function SetTeams() {
         }
     };
 
-    const handleGoBackClick = () => {
-        // navigate('/group-menu', {
-        //     replace: true,
-        //     state: { groupName: groupName }
-        //   });
-
-          navigate(`/super-bowl-squares/${groupName}`, {
-            replace: true,
-            state: { groupName: groupName }
-          });
-
-
-        // navigate('/group-menu', 
-        //     {replace: true, 
-        //         state: {
-        //             groupName: groupName,
-        //             venmoUsername: venmoUsername,
-        //             pricePerSquare: pricePerSquare,
-        //             q1Payout: quarter1Payout,
-        //             q1Winner: quarter1Winner,
-        //             q2Payout: quarter2Payout,
-        //             q2Winner: quarter2Winner,
-        //             q3Payout: quarter3Payout,
-        //             q3Winner: quarter3Winner,
-        //             q4Payout: quarter4Payout,
-        //             q4Winner: quarter4Winner
-        //         } 
-        //     });
-    }
+    const handleGoBack = () => {
+        // TODO - pass back updated group info 
+        // (should pass back and forth as much as possible to prevent re-loading from db everytime)
+        navigate('/edit-group-preferences', {
+          replace: true,
+          state: { groupName: groupName }
+        });
+    };
 
     // Function to close the modal
     const handleCloseModal = () => {
@@ -117,11 +96,11 @@ export function SetTeams() {
                             <br/>
                             <br/>
                             <Row>
-                                <Col>
+                                <Col >
                                     <Row>
                                         <label htmlFor="topTeam">Top Team</label>
                                     </Row>
-                                    <Row>
+                                    <Row style={{margin:'0px 50px 0px 50px'}}>
                                         <input type="text" id="topTeam" name="topTeam" value={teamNames.topTeam} onChange={handleInputChange} />
                                     </Row>
                                 </Col>
@@ -132,7 +111,7 @@ export function SetTeams() {
                                     <Row>
                                         <label htmlFor="leftTeam">Left-Side Team</label>
                                     </Row>
-                                    <Row>
+                                    <Row style={{margin:'0px 50px 0px 50px'}}>
                                         <input type="text" id="leftTeam" name="leftTeam" value={teamNames.leftTeam} onChange={handleInputChange} />
                                     </Row>
                                 </Col>
@@ -157,7 +136,7 @@ export function SetTeams() {
                     </Row>
                     <Row>
                         <Col>
-                            <Button style={grayButton()} onClick={handleGoBackClick}>
+                            <Button style={grayButton()} onClick={handleGoBack}>
                                 Cancel
                             </Button>
                         </Col>
@@ -191,7 +170,7 @@ function fullHeight() {
 
 function blackButton() {
     return {
-        backgroundColor: 'black',
+        backgroundColor: '#4682b4',
         padding: 20,
         border: 'black',
         width: 155
@@ -200,7 +179,8 @@ function blackButton() {
 
 function grayButton() {
     return {
-        backgroundColor: 'gray',
+        backgroundColor: 'lightGray',
+        color: 'black',
         padding: 20,
         border: 'black',
         width: 155

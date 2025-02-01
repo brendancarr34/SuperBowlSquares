@@ -163,7 +163,9 @@ export function GroupMenu() {
                         <div>
                             <br/>
                             <br/>
-                            <br/>
+                            {/* <br/> */}
+                            <h2 style={{margin:0}}>Payouts</h2>
+                            <h2>---------</h2>
                         </div>
                     }
                     {
@@ -180,7 +182,7 @@ export function GroupMenu() {
                     }
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowPaymentInfoModal(false)}>
+                    <Button style={{backgroundColor:'lightGray', color:'black', border:'none'}}variant="secondary" onClick={() => setShowPaymentInfoModal(false)}>
                         Close
                     </Button>
                 </Modal.Footer>

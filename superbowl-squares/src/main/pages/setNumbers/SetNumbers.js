@@ -114,6 +114,15 @@ export function SetNumbers() {
           });
     };
 
+    const handleGoBack = () => {
+        // TODO - pass back updated group info 
+        // (should pass back and forth as much as possible to prevent re-loading from db everytime)
+        navigate('/edit-group-preferences', {
+          replace: true,
+          state: { groupName: groupName }
+        });
+    };
+
     // Function to close the modal
     const handleCloseModal = () => {
         setShowModal(false);
@@ -127,7 +136,7 @@ export function SetNumbers() {
                         <Col>
                             <h1>Set Numbers</h1>
                             <h6>Group: {groupName}</h6>
-                            <br />
+                            {/* <br /> */}
                             <br />
                             {/* Pass handleInputChange function as a prop */}
                             <NumberInputBoxes 
@@ -138,8 +147,18 @@ export function SetNumbers() {
                         </Col>
                     </Row>
                     <Row>
+                        {/* <br />
+                        <br /> */}
                         <br />
-                        <br />
+                    </Row>
+                    <Row>
+                    <Col>
+                            <Button style={blackButton()}>
+                                Reset Numbers
+                            </Button>
+                        </Col>
+                    </Row>
+                    <Row>
                         <br />
                     </Row>
                     <Row>
@@ -156,7 +175,7 @@ export function SetNumbers() {
                     <Row>
                         <Col>
                             {/* Attach event handler to the button */}
-                            <Button style={blackButton()} onClick={handleSetNumbersClick}>
+                            <Button style={blueButton()} onClick={handleSetNumbersClick}>
                                 Set Numbers
                             </Button>
                         </Col>
@@ -167,7 +186,7 @@ export function SetNumbers() {
                     <Row>
                         <Col>
                             {/* Attach event handler to the button */}
-                            <Button style={grayButton()} onClick={handleGoBackClick}>
+                            <Button style={grayButton()} onClick={handleGoBack}>
                                 Cancel
                             </Button>
                         </Col>
@@ -196,6 +215,15 @@ function fullHeight() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
+    };
+}
+
+function blueButton() {
+    return {
+        backgroundColor: '#4682b4',
+        padding: 20,
+        border: 'black',
+        width: 200
     };
 }
 
