@@ -82,6 +82,24 @@ export function Ledger() {
         setIsLoading(false);
     }
 
+    const handlePostRequest = () => {
+        const data = playerData; // Your array data
+    
+        axios.post(api_url + 'api/game/api/ledger/' + groupName, data, {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+          .then(res => {
+            // setResponse(res.data); // Handle successful response
+            console.log(res.data);
+          })
+          .catch(err => {
+            // setError(err); // Handle error
+            console.log(err);
+          });
+      };
+
     return (
         <Container>
             <Row style={height85()}>
@@ -101,7 +119,7 @@ export function Ledger() {
                         <Col style={center()}>
                             <Button 
                                 style={blackButton()} 
-                                onClick={() => {console.log(playerData)}}
+                                onClick={handlePostRequest}
                                 >
                                     Save Changes
                             </Button>
