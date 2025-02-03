@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import { LedgerEditor } from './components/LedgerEditor';
 import { api_url} from '../../../config';
 import axios from 'axios';
@@ -14,6 +15,8 @@ import { fullHeight } from '../../common/style/CommonStyles';
 export function Ledger() {
 
     const [isLoading, setIsLoading] = useState(true);
+
+    const [successSaving, setSuccessSaving] = useState(false);
 
     const location = useLocation();
     let groupName =  location.state.groupName;
@@ -93,6 +96,7 @@ export function Ledger() {
           .then(res => {
             // setResponse(res.data); // Handle successful response
             console.log(res.data);
+            setSuccessSaving(true);
           })
           .catch(err => {
             // setError(err); // Handle error
@@ -136,6 +140,12 @@ export function Ledger() {
                     </Row>
                 </Row>
             </Row>
+
+            <Modal show={successSaving} onHide={() => {setSuccessSaving(false)}}>
+                <Modal.Header>
+                    Success
+                </Modal.Header>
+            </Modal>
         </Container>
     )
 
