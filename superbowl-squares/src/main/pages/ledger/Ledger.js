@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 
 import Container from 'react-bootstrap/Container';
@@ -6,10 +6,14 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import { LedgerEditor } from './components/LedgerEditor';
+import { api_url} from '../../../config';
+import axios from 'axios';
 
 import { fullHeight } from '../../common/style/CommonStyles';
 
 export function Ledger() {
+
+    const [isLoading, setIsLoading] = useState(true);
 
     const location = useLocation();
     let groupName =  location.state.groupName;
@@ -23,19 +27,60 @@ export function Ledger() {
           replace: true,
           state: { groupName: groupName }
         });
+    };
+
+    const [playerData, setPlayerData] = useState([]);
+
+    const [ledger, setLedger] = useState([]);
+
+    const updateItems = (newItems) => {
+        setPlayerData(newItems);
       };
 
-      const items = [
-        "Item 1",
-        "Item 2",
-        "Item 3",
-        "Item 4",
-        "Item 5",
-        "Item 6",
-        "Item 7",
-        "Item 8",
-        "Item 9",
-      ];
+    useEffect(() => {
+        fetchAllPlayers();
+    }, [isLoading])
+
+    const extractInitials = (str) => {
+        const match = str.match(/\((\w{1,3})\)/);
+        return match ? match[1] : null; // Returns the initials or null if not found
+      };
+  
+    const fetchAllPlayers = async () => {
+        let playerList;
+        let ledger;
+        let mergedList;
+        try {
+            const url = api_url + 'api/game/' + groupName;
+            const response = await axios.get(url);
+            playerList = response.data.players;
+            if (response.data.ledger) {
+                ledger = response.data.ledger;
+            }
+            
+
+            mergedList = playerList.map(player => {
+                let ledgerEntry;
+                if (ledger) {
+                    console.log(ledger);
+                    ledgerEntry = ledger.find(entry => extractInitials(entry.label) === player.initials) || { paid: false, notes: "" };
+                }
+                
+                return {
+                    label: `${player.playerName} (${player.initials})`,
+                    paid: ledgerEntry ? ledgerEntry.paid : false,
+                    notes: ledgerEntry ? ledgerEntry.notes : ''
+                };
+            });
+            
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+
+        setPlayerData(mergedList);
+
+        setIsLoading(false);
+    }
 
     return (
         <Container>
@@ -49,14 +94,14 @@ export function Ledger() {
                     </Col>
                 </Row>
                 <Row style={middleSection()}>
-                    <LedgerEditor items={items}/>
+                    <LedgerEditor items={playerData} updateItems={updateItems}/>
                 </Row>
                 <Row style={buttonSection()}>
                 <Row style={{padding:0, margin:0}}>
                         <Col style={center()}>
                             <Button 
                                 style={blackButton()} 
-                                onClick={console.log("save")}
+                                onClick={() => {console.log(playerData)}}
                                 >
                                     Save Changes
                             </Button>
