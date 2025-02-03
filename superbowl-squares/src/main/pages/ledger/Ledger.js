@@ -31,15 +31,15 @@ export function Ledger() {
 
     const [playerData, setPlayerData] = useState([]);
 
-    const [ledger, setLedger] = useState([]);
-
     const updateItems = (newItems) => {
         setPlayerData(newItems);
       };
 
-    useEffect(() => {
-        fetchAllPlayers();
-    }, [isLoading])
+      useEffect(() => {
+        if (isLoading) {  // Only fetch once when loading is true
+            fetchAllPlayers();
+        }
+    }, [isLoading]); // Use isLoading as the dependency here
 
     const extractInitials = (str) => {
         const match = str.match(/\((\w{1,3})\)/);
@@ -62,7 +62,7 @@ export function Ledger() {
             mergedList = playerList.map(player => {
                 let ledgerEntry;
                 if (ledger) {
-                    console.log(ledger);
+                    // console.log(ledger);
                     ledgerEntry = ledger.find(entry => extractInitials(entry.label) === player.initials) || { paid: false, notes: "" };
                 }
                 
@@ -85,7 +85,7 @@ export function Ledger() {
     return (
         <Container>
             <Row style={height85()}>
-                <Row style={spacer()}/>
+                {/* <Row style={spacer()}/> */}
                 <Row style={pageTitleSection()}>
                     <Col>
                         <h1 style={center()}>

@@ -3,8 +3,7 @@ import React, { useState, useEffect } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-const ScrollableList = ({ items }) => {
-  console.log("Initial items:", items);
+const ScrollableList = ({ items, updateItems }) => {
 
   const [itemsList, setItemsList] = useState(items || []);
 
@@ -14,18 +13,18 @@ const ScrollableList = ({ items }) => {
     }
   }, [items]);
 
-  console.log("Current state:", itemsList);
-
   const handleCheckboxChange = (label, event) => {
-    console.log(`${label} Checkbox clicked! New value: ${event.target.checked}`);
 
-    setItemsList(prevItems =>
-      prevItems.map(item =>
-        item.label === label
-          ? { ...item, paid: !item.paid, notes: "test" } // Create new object
-          : item
-      )
+    const updatedItems = itemsList.map(item =>
+      item.label === label
+        ? { ...item, paid: !item.paid, notes: "" } // Create new object with updated values
+        : item
     );
+
+    setItemsList(updatedItems);
+    
+    // Pass the updated list back to the parent (Ledger)
+    updateItems(updatedItems); // This will update playerData in Ledger
   };
 
   return (

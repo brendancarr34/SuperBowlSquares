@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import ScrollableList from './ScrollableList';
 
-export function LedgerEditor({ items }) {
+export function LedgerEditor({ items, updateItems }) {
 
     const [q1Payout, setq1Payout] = useState(0);
     const handleQ1PayoutChange = (e) => {
@@ -62,108 +62,19 @@ export function LedgerEditor({ items }) {
                     Use this page to keep track of which members of your group have paid for their squares.
                 </p>
             </Row>
-            {/* <Row style={center()}>
-                <Col style={leftColumn()}>
-                    <h2>
-                        Q1
-                    </h2>
+            <Row style={{ display: "grid", gridTemplateColumns: "45% 15% 40%", paddingBottom:10 }}>
+                <Col>
+                    Name
                 </Col>
-                <Col style={middleColumn()}>
-                    <Row>
-                        <Form.Group style={{ appearance: 'none', MozAppearance: 'textfield' }}>
-                            <Form.Control 
-                                placeholder="" 
-                                defaultValue={0}
-                                type="number"
-                                onChange={handleQ1PayoutChange}
-                                value={q1Payout}
-                            />
-                        </Form.Group>
-                    </Row>
+                <Col>
+                    Paid?
                 </Col>
-                <Col style={rightColumn()}>
-                    <Form.Group>
-                        <Form.Control placeholder="Winner" />
-                    </Form.Group>
+                <Col>
+                    Notes
                 </Col>
             </Row>
             <Row>
-                <Col style={leftColumn()}>
-                    <h2>
-                        Q2
-                    </h2>
-                </Col>
-                <Col style={middleColumn()}>
-                    <Row>
-                        <Form.Group>
-                            <Form.Control 
-                                placeholder="" 
-                                defaultValue={0}
-                                type="number"
-                                onChange={handleQ2PayoutChange}
-                                value={q2Payout}
-                            />
-                        </Form.Group>
-                    </Row>
-                </Col>
-                <Col style={rightColumn()}>
-                    <Form.Group>
-                        <Form.Control placeholder="Winner"/>
-                    </Form.Group>
-                </Col>
-            </Row>
-            <Row>
-                <Col style={leftColumn()}>
-                    <h2>
-                        Q3
-                    </h2>
-                </Col>
-                <Col style={middleColumn()}>
-                    <Row>
-                        <Form.Group>
-                            <Form.Control 
-                                placeholder="" 
-                                defaultValue={0}
-                                type="number"
-                                onChange={handleQ3PayoutChange}
-                                value={q3Payout}
-                            />
-                        </Form.Group>
-                    </Row>
-                </Col>
-                <Col style={rightColumn()}>
-                    <Form.Group>
-                        <Form.Control placeholder="Winner"/>
-                    </Form.Group>
-                </Col>
-            </Row>
-            <Row>
-                <Col style={leftColumn()}>
-                    <h2>
-                        Q4
-                    </h2>
-                </Col>
-                <Col style={middleColumn()}>
-                    <Row>
-                        <Form.Group>
-                            <Form.Control 
-                                placeholder="" 
-                                defaultValue={0}
-                                type="number"
-                                onChange={handleQ4PayoutChange}
-                                value={q4Payout}
-                            />
-                        </Form.Group>
-                    </Row>
-                </Col>
-                <Col style={rightColumn()}>
-                    <Form.Group>
-                        <Form.Control placeholder="Winner"/>
-                    </Form.Group>
-                </Col>
-            </Row> */}
-            <Row>
-                <ScrollableList items={items} />
+                <ScrollableList items={items} updateItems={updateItems}/>
             </Row>
             <Row>
                 <br/>
