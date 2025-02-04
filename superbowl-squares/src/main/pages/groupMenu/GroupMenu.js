@@ -98,12 +98,12 @@ export function GroupMenu() {
                     <Row style={{height:'50%', padding:0}}>
                         <Col style={buttonLeft()}>
                             <Button style={buttons()} onClick={() => setShowPaymentInfoModal(true)}>
-                                <h1>💲</h1> Payment Info
+                                <h1>💵</h1> Payment Info
                             </Button>
                         </Col>
                         <Col style={buttonRight()}>
                             <Button style={buttons()} onClick={copyToClipboard}>
-                                <h1>📲</h1> Share Game Link
+                                <h1>📤</h1> Share Game Link
                             </Button>
                         </Col>
                     </Row>
@@ -115,7 +115,7 @@ export function GroupMenu() {
                         </Col>
                         <Col style={buttonRight()}>
                             <Button style={buttons()} onClick={() => setShowHowToPlay(true)}>
-                                <h1>ℹ️</h1> How to Play
+                                <h1>🔍</h1> How to Play
                             </Button>
                         </Col>
                     </Row>

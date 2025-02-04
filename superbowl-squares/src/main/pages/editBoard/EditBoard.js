@@ -15,7 +15,7 @@ import VenmoPaymentButton from './components/VenmoPaymentButton';
 
 export function EditBoard() {
 
-  // TODO - show existing colors and make selected squares be the user selected color?
+  // TODO - show existing colors and make selected squares be the user selected color
   
   const location = useLocation();
   let groupName =  location.state.groupName;
@@ -28,10 +28,10 @@ export function EditBoard() {
   const [showTakenInitialsModal, setShowTakenInitialsModal] = useState(false);
   const [showClickedButtonsTakenModal, setShowClickedButtonsTakenModal] = useState(false);
   const [selectedColor, setSelectedColor] = useState('');
-  // const [showVenmoModal, setShowVenmoModal] = useState(false);
   const [venmoUsername, setVenmoUsername] = useState('');
   const [totalPayment, setTotalPayment] = useState('');
   const [venmoInfoExists, setVenmoInfoExists] = useState(false);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   let navigate = useNavigate();
 
@@ -64,35 +64,28 @@ export function EditBoard() {
     });
   }
 
-  const handleSubmit = async () => {
-    try {
-      // If nothing is clicked or typed, go back to the main page
-      if (!playerName.trim() && !playerInitials.trim() && clickedButtons.length == 0) {
-        navigate(`/super-bowl-squares/${groupName}`, { 
-          replace: true, 
-          state: { name: playerName, initials: playerInitials, groupName: groupName, authenticated: true } 
-        });
-      }
+  const openConfirmModal = async () => {
+    // If nothing is clicked or typed, go back to the main page
+    if (!playerName.trim() && !playerInitials.trim() && clickedButtons.length == 0) {
+      navigate(`/super-bowl-squares/${groupName}`, { 
+        replace: true, 
+        state: { name: playerName, initials: playerInitials, groupName: groupName, authenticated: true } 
+      });
+    }
 
-      // Check if playerName and playerInitials are not empty
-      if ((!playerName.trim() || !playerInitials.trim()) && (clickedButtons.length > 0)) {
-        setShowErrorModal(true); // Show error modal if fields are empty
-        return; // Exit early if fields are empty
-      }
+    // Check if playerName and playerInitials are not empty
+    if ((!playerName.trim() || !playerInitials.trim()) && (clickedButtons.length > 0)) {
+      setShowErrorModal(true); // Show error modal if fields are empty
+      return; // Exit early if fields are empty
+    }
 
-      // Check if clickedButtons is empty
-      if (clickedButtons.length === 0) {
-        setShowApiErrorModal(true); // Show API error modal if clickedButtons is empty
-        return; // Exit early if clickedButtons is empty
-      }
+    // Check if clickedButtons is empty
+    if (clickedButtons.length === 0) {
+      setShowApiErrorModal(true); // Show API error modal if clickedButtons is empty
+      return; // Exit early if clickedButtons is empty
+    }
 
-      if (clickedButtons.length > 0) {
-        const url = api_url + 'api/game/api/validateAndClaimSquaresV4/' + groupName;
-        const response = await axios.post(url, 
-              { maps: clickedButtons, initials: playerInitials, playerName: playerName, color: selectedColor });
-      }
-
-      const url = api_url + 'api/group/api/getVenmoInfo/' + groupName;
+    const url = api_url + 'api/group/api/getVenmoInfo/' + groupName;
       const response = await axios.get(url);
 
       console.log(response.data);
@@ -102,14 +95,30 @@ export function EditBoard() {
         setVenmoUsername(response.data.venmoUsername);
         const paymentAmount = response.data.paymentAmount;
         setTotalPayment(parseFloat(paymentAmount) * clickedButtons.length);
-        // setShowVenmoModal(true);
-        viewBoard2(response.data.venmoUsername, parseFloat(paymentAmount) * clickedButtons.length);
+      }
+
+    // TODO - check for taken initials first
+
+    setShowConfirmationModal(true);
+  }
+
+  const handleSubmit = async () => {
+    try {
+
+      if (clickedButtons.length > 0) {
+        const url = api_url + 'api/game/api/validateAndClaimSquaresV4/' + groupName;
+        await axios.post(url, 
+              { maps: clickedButtons, initials: playerInitials, playerName: playerName, color: selectedColor });
+      }
+
+      if (venmoInfoExists) {
+        viewBoard2(venmoUsername, totalPayment);
       } else {
-        // Successful submission logic
         viewBoard();
       }
       
     } catch (error) {
+      setShowConfirmationModal(false);
       console.error('Error submitting data:', error);
       if (error.response && error.response.data && error.response.data.validMaps) {
         // Set the clicked buttons and update the grid
@@ -170,7 +179,7 @@ export function EditBoard() {
             </Col>
             <Col style={{'padding':0, 'margin':0, 'paddingLeft':5}}>
               <div style ={{height: '100%'}}>
-                <Button disabled={false} style={black()} onClick={handleSubmit}>
+                <Button disabled={false} style={black()} onClick={openConfirmModal}>
                   Submit
                 </Button>
               </div>
@@ -237,6 +246,38 @@ export function EditBoard() {
           <Button variant="secondary" onClick={() => setShowClickedButtonsTakenModal(false)}>
             Close
           </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showConfirmationModal} onHide={() => setShowConfirmationModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Confirm
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to claim 
+          <h1 style={{color:'#4682b4', paddingTop:'5px'}}>{clickedButtons.length}</h1> 
+          squares{totalPayment ? ' for' : ''}
+          {totalPayment ? <h1 style={{color:'green', paddingTop:'10px'}}>${totalPayment}?</h1> : '?'}
+        </Modal.Body>
+        <Modal.Footer>
+          <Row className="w-100">
+            <Col>
+              <Button className="w-100" onClick={() => {setShowConfirmationModal(false)}} 
+                style={{padding:'20px', backgroundColor:'lightGray', color:'black', border:'none'}}
+              >
+                Go Back
+              </Button>
+            </Col>
+            <Col>
+              <Button className="w-100" onClick={handleSubmit}
+                style={{padding:'20px', backgroundColor:'#4682b4',  border:'none'}}
+              >
+                <b>Confirm</b>
+              </Button>
+            </Col>
+          </Row>
         </Modal.Footer>
       </Modal>
     </Container>
