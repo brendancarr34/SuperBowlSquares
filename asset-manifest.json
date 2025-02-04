@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/SuperBowlSquares/static/css/main.fc402212.css",
-    "main.js": "/SuperBowlSquares/static/js/main.a1e0d2f8.js",
+    "main.js": "/SuperBowlSquares/static/js/main.a2b046b5.js",
     "static/media/blankSquaresBoard3.png": "/SuperBowlSquares/static/media/blankSquaresBoard3.4f2aa70c1101f0820515.png",
     "static/media/exampleBoard.png": "/SuperBowlSquares/static/media/exampleBoard.ae0468daf818b852fda5.png",
     "index.html": "/SuperBowlSquares/index.html",
     "main.fc402212.css.map": "/SuperBowlSquares/static/css/main.fc402212.css.map",
-    "main.a1e0d2f8.js.map": "/SuperBowlSquares/static/js/main.a1e0d2f8.js.map"
+    "main.a2b046b5.js.map": "/SuperBowlSquares/static/js/main.a2b046b5.js.map"
   },
   "entrypoints": [
     "static/css/main.fc402212.css",
-    "static/js/main.a1e0d2f8.js"
+    "static/js/main.a2b046b5.js"
   ]
 }
