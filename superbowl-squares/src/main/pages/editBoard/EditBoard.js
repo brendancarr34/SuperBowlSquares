@@ -258,7 +258,7 @@ export function EditBoard() {
         <Modal.Body>
           Are you sure you want to claim 
           <h1 style={{color:'#4682b4', paddingTop:'5px'}}>{clickedButtons.length}</h1> 
-          squares{totalPayment ? ' for' : ''}
+          square{clickedButtons.length == 1 ? '' : 's'}{totalPayment ? ' for' : ''}
           {totalPayment ? <h1 style={{color:'green', paddingTop:'10px'}}>${totalPayment}?</h1> : '?'}
         </Modal.Body>
         <Modal.Footer>
