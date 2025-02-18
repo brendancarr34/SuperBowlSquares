@@ -27,6 +27,19 @@ const ScrollableList = ({ items, updateItems }) => {
     updateItems(updatedItems); // This will update playerData in Ledger
   };
 
+  const handleNotesChange = (label, notes) => {
+    const updatedItems = itemsList.map(item =>
+      item.label === label
+        ? { ...item, paid: item.paid, notes: notes } // Create new object with updated values
+        : item
+    );
+
+    setItemsList(updatedItems);
+    
+    // Pass the updated list back to the parent (Ledger)
+    updateItems(updatedItems);
+  }
+
   return (
     <>
       <style>
@@ -54,21 +67,31 @@ const ScrollableList = ({ items, updateItems }) => {
       <div className="scrollable-container">
         {itemsList.map((item, index) => ( // ✅ Use itemsList here
           <div key={index} className="list-row">
-            <Row style={{ display: "grid", gridTemplateColumns: "45% 15% 40%" }}>
+            <Row style={{ display: "grid", gridTemplateColumns: "35% 10% 15% 40%" }}>
               <Col style={{ padding: 0 }}>
                 <p style={{ margin: 0, fontSize: 14, padding: 0 }}>{item.label}</p>
               </Col>
-              <Col>
+              <Col style={{ height: "100%", padding: 0}}>
+                <p style={{ margin: 0, fontSize: 14, padding: 0 }}>{item.squares}</p>
+              </Col>
+              <Col style={{ height: "100%"}}>
                 <input
                   className="big-checkbox"
                   type="checkbox"
                   id={`checkbox-${index}`}
                   checked={!!item.paid}
                   onChange={(e) => handleCheckboxChange(item.label, e)}
+                  style={{ height: "100%", padding:'10px' }}
                 />
               </Col>
-              <Col>
-                <p style={{ margin: 0, fontSize: 14 }}>{item.notes}</p>
+              <Col style={{ height: "100%", }}>
+                  <input
+                    type="text"
+                    value={item.notes || ""}
+                    onChange={(e) => handleNotesChange(item.label, e.target.value)}
+                    placeholder="Add notes..."
+                    style={{ width: "100%", fontSize: "14px", }}
+                  />
               </Col>
             </Row>
           </div>

@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 import { PaymentBreakdownEditor } from './components/PaymentBreakdownEditor';
 
 import Modal from 'react-bootstrap/Modal';
-import { api_url } from '../../../config';
+import { api_url } from '../../../config.js';
 
 export function EditPaymentBreakdown() {
     const location = useLocation();

@@ -18,6 +18,7 @@ import { EditGroupPreferences } from './main/pages/editGroupPreferences/EditGrou
 import { ViewBoardV2 } from './main/pages/viewBoard/ViewBoardV2.js';
 import { EditPaymentBreakdown } from './main/pages/editPaymentBreakdown/EditPaymentBreakdown.js';
 import { Ledger } from './main/pages/ledger/Ledger.js';
+import { AddBetaPassword } from './main/pages/addBetaPassword/AddBetaPassword.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -40,6 +41,7 @@ root.render(
                 <Route path='/edit-group-preferences' element={<EditGroupPreferences />} />
                 <Route path='/edit-payment-breakdown' element={<EditPaymentBreakdown/>} />
                 <Route path='/ledger' element={<Ledger/>}/>
+                <Route path='/add-beta-password' element={<AddBetaPassword/>} />
                 <Route path="/*" element={<NotFound />} />
             </Routes>
         </Router>

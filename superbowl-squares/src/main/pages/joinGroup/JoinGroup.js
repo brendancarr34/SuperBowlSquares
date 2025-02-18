@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate, useParams } from "react-router-dom";
-import { api_url} from '../../../config';
+import { api_url} from '../../../config.js';
 import axios from 'axios';
 import Modal from 'react-bootstrap/Modal';
 import { fullHeight } from '../../common/style/CommonStyles';
@@ -41,7 +41,7 @@ export function JoinGroup() {
             // Handle the response data
             // console.log(response.data);
             if (!response.data) {
-                navigate(`/super-bowl-squares/${groupName}`, {state: { groupName: groupName, authenticated: true }});
+                navigate(`/super-bowl-squares/${groupName}`, {state: { groupName: groupName, justJoined: true, authenticated: true }});
             }
           })
           .catch(error => {

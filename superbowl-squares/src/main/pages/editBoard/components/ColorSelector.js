@@ -43,38 +43,38 @@ function ColorSelector({ setColor }) {
     "#FF4500",
     "#FFD700",
     "#FFFF00",
+    "#fcff8a",
     "#FFFACD",
-    "#FFDAB9",
     
+    "#FFDAB9",
     "#BDB76B",
     "#ADFF2F",
     "#00FF00",
     "#32CD32",
+    
     "#00FA9A",
-
     "#3CB371",
     "#008000",
     "#9ACD32",
     "#6B8E23",
+    
     "#556B2F",
-
     "#20B2AA",
     "#008080",
     "#00FFFF",
     "#E0FFFF",
+    
     "#AFEEEE",
-
     "#7FFFD4",
     "#5F9EA0",
     "#4682B4",
     "#B0C4DE",
+    
     "#87CEFA",
-
     "#6495ED",
     "#00BFFF",
     "#1E90FF",
     "#4169E1",
-    "#0000FF",
 
   ];
 

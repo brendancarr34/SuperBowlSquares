@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 // import AutoSetNumbers from './components/AutoSetNumbers';
 import AutoSetNumbers from './components/AutoSetNumbers';
 import axios from 'axios';
-import { api_url} from '../../../config';
+import { api_url} from '../../../config.js';
 import UpdatePassword from './components/UpdatePassword';
 import AutoSetTeams from './components/AutoSetTeams';
 import UpdateVenmoInfo from './components/UpdateVenmoInfo';

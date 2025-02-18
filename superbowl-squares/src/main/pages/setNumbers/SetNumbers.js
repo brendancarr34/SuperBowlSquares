@@ -8,7 +8,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import NumberInputBoxes from './NumberInputBoxes';
 import axios from 'axios';
 import { emptyTopNumbers } from '../../common/data/EmptyBoardData';
-import { host , api_url} from '../../../config';
+import { host , api_url} from '../../../config.js';
 
 export function SetNumbers() {
     const location = useLocation();
@@ -74,6 +74,13 @@ export function SetNumbers() {
         setInputsState(numbersMap);
     };
 
+    const handleResetNumbersClick = () => {
+        setInputsState({
+            inputsTop: Array(10).fill('?'),
+            inputsBottom: Array(10).fill('?')
+        })
+    }
+
     // Function to handle button click to set numbers
     const handleSetNumbersClick = async () => {
         // console.log('handleSetNumbersClick...');
@@ -101,17 +108,6 @@ export function SetNumbers() {
                 setShowModal(true);
             }
         }
-    };
-
-    const handleGoBackClick = () => {
-        // navigate('/set-number-and-teams', {
-        //     replace: true,
-        //     state: { groupName: groupName }
-        // });
-        navigate(`/super-bowl-squares/${groupName}`, {
-            replace: true,
-            state: { groupName: groupName }
-          });
     };
 
     const handleGoBack = () => {
@@ -153,7 +149,7 @@ export function SetNumbers() {
                     </Row>
                     <Row>
                     <Col>
-                            <Button style={blackButton()}>
+                            <Button style={blackButton()} onClick={handleResetNumbersClick}>
                                 Reset Numbers
                             </Button>
                         </Col>

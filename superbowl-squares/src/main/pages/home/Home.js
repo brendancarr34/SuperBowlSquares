@@ -1,19 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
 
 import { fullHeight } from '../../common/style/CommonStyles';
+import { api_url } from '../../../config';
+import axios from 'axios';
 
 export function Home() {
 
+    const [betaPasswordInput, setBetaPasswordInput] = useState('');
+    const [showBetaAccessModal, setShowBetaAccessModal] = useState(false);
+    const [showIncorrectBetaPassword, setShowIncorrectBetaPassword] = useState(false);
+
     let navigate = useNavigate(); 
-    const createGroup = () => { 
-        navigate('/create-group');
+
+    const createGroup = () => {
+        setShowBetaAccessModal(true);
     }
+
+    const handleBetaPasswordInputChange = (e) => {
+        setBetaPasswordInput(e.target.value)
+    }
+
+
+    const checkBetaAccess = async () => {
+
+        setShowIncorrectBetaPassword(false);
+        try {
+            const url = api_url + 'api/beta-access/' +  betaPasswordInput;
+            console.log(url);
+            await axios.get(url);
+
+            navigate('/create-group', {state: {betaPasswordInput: betaPasswordInput}});
+        }
+        catch (error)
+        {
+            setShowIncorrectBetaPassword(true);
+            // console.log('beta error: ' + error)
+        }
+    }
+
     const joinGroup = () => {
         navigate('/join-group');
     }
@@ -60,6 +92,43 @@ export function Home() {
                     <p style={lowerText()}>by Brendan Carr</p>
                 </Row>
             </Row>
+
+            <Modal show={showBetaAccessModal} onHide={() => {setShowBetaAccessModal(false);setShowIncorrectBetaPassword(false)}}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Beta Access Only</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Row>
+                        <Col>
+                            <p>
+                                Some of the group administrator features still have bugs. 
+                                If you want to create a group, reach out to me, Brendan 
+                                Carr, for a beta password and I'll let you know what to 
+                                look out for.
+                            </p>
+                            <br/>
+                        </Col>
+                    </Row>
+                    <Form>
+                        <Form.Group className="mb-3" >
+                            <Form.Control 
+                                placeholder='Beta Password'
+                                onChange={handleBetaPasswordInputChange}
+                                value={betaPasswordInput}
+                                />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    {
+                        showIncorrectBetaPassword &&
+                        <p style={{color:'red'}}>Incorrect Beta Password</p>
+                    }
+                    <Button onClick={checkBetaAccess} style={{backgroundColor:'#4682b4', border:'none'}}>
+                        Submit
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     )
 

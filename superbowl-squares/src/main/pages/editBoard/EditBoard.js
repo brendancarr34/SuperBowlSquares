@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import GridComponent3 from './components/GridComponent3';
-import { api_url} from '../../../config';
+import { api_url} from '../../../config.js';
 import ColorSelector from './components/ColorSelector';
 import VenmoPaymentLink from './components/VenmoPaymentLink';
 import VenmoPaymentButton from './components/VenmoPaymentButton';
@@ -249,14 +249,14 @@ export function EditBoard() {
         </Modal.Footer>
       </Modal>
 
-      <Modal show={showConfirmationModal} onHide={() => setShowConfirmationModal(false)}>
+      <Modal show={showConfirmationModal} onHide={() => setShowConfirmationModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>
             Confirm
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you want to claim 
+          Claim
           <h1 style={{color:'#4682b4', paddingTop:'5px'}}>{clickedButtons.length}</h1> 
           square{clickedButtons.length == 1 ? '' : 's'}{totalPayment ? ' for' : ''}
           {totalPayment ? <h1 style={{color:'green', paddingTop:'10px'}}>${totalPayment}?</h1> : '?'}

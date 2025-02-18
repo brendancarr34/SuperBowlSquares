@@ -4,11 +4,9 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';
-import { api_url} from '../../../config';
 import Modal from 'react-bootstrap/Modal';
 import { fullHeight } from '../../common/style/CommonStyles';
-import { base_url } from '../../../config';
+import { base_url } from '../../../config.js';
 import VenmoPaymentButton from '../editBoard/components/VenmoPaymentButton';
 
 import blankSquaresBoard from '../viewBoard/blankSquaresBoard3.png'
@@ -24,10 +22,8 @@ export function GroupMenu() {
     const [q4Payout, setQ4Payout] = useState('');
     const [groupName, setGroupName] = useState(null);
     const [pricePerSquare, setPricePerSquare] = useState(0);
-    // let groupName = null;
 
     useEffect(() => {
-        console.log(q1Payout);
         if (location.state) {
             setVenmoUserName(location.state.venmoUsername);
             setPricePerSquare(location.state.pricePerSquare);
@@ -95,10 +91,21 @@ export function GroupMenu() {
                     </Col>
                 </Row>
                 <Row style = {height70()}>
-                    <Row style={{height:'50%', padding:0}}>
+                    <Row style={{height:'30%', padding:0}}>
+                        <Col style={center()}>
+                            <p> 
+                                This app is designed to be simple. <br/>
+                                <br/>
+                                No accounts, usernames, or individual
+                                passwords.<br/>
+                                <br/>
+                            </p>
+                        </Col>
+                    </Row>
+                    <Row style={{height:'35%', padding:0}}>
                         <Col style={buttonLeft()}>
                             <Button style={buttons()} onClick={() => setShowPaymentInfoModal(true)}>
-                                <h1>💵</h1> Payment Info
+                                <h1 style={{fontSize:'40px', margin:0}}>💵</h1>Payment Info
                             </Button>
                         </Col>
                         <Col style={buttonRight()}>
@@ -107,7 +114,7 @@ export function GroupMenu() {
                             </Button>
                         </Col>
                     </Row>
-                    <Row style={{height:'50%', padding:0}}>
+                    <Row style={{height:'35%', padding:0}}>
                         <Col style={buttonLeft()}>
                             <Button style={buttons()} onClick={() => setShowUnderConstruction(true)}>
                                 <h1>👨‍💻</h1> Reach out to the Developer
@@ -197,6 +204,12 @@ export function GroupMenu() {
             centered>
                 <Modal.Body>
                     Under construction...
+                    <br/>
+                    <br/>
+                    For now, please feel free to text me if you have my number. If not, you can email me at 
+                    <br/>
+                    <br/>
+                    brendancarr25@gmail.com
                 </Modal.Body>
             </Modal>
 
@@ -233,7 +246,7 @@ export function GroupMenu() {
 
     function height15_bottom() {
         return {
-            height: '16vh',
+            height: '10vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center'
@@ -260,7 +273,7 @@ export function GroupMenu() {
 
     function height70() {
         return {
-            height: '50vh',
+            height: '56vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',

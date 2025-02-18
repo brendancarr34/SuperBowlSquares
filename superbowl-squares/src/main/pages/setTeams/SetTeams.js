@@ -6,23 +6,12 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
-import { host , api_url} from '../../../config';
+import { host , api_url} from '../../../config.js';
 
 export function SetTeams() {
     const location = useLocation();
     let navigate = useNavigate();
     let groupName =  location.state.groupName;
-
-    // let pricePerSquare = location.state.pricePerSquare;
-    // let venmoUsername = location.state.venmoUsername;
-    // let q1Payout= location.state.q1Payout;
-    // let q1Winner = location.state.q1Winner;
-    // let q2Payout = location.state.q2Payout;
-    // let q2Winner = location.state.q2Winner;
-    // let q3Payout = location.state.q3Payout;
-    // let q3Winner = location.state.q3Winner;
-    // let q4Payout = location.state.q4Payout;
-    // let q4Winner = location.state.q4Winner;
 
     // State to hold team names
     const [teamNames, setTeamNames] = useState({

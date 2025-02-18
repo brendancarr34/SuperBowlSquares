@@ -7,54 +7,6 @@ import ScrollableList from './ScrollableList';
 
 export function LedgerEditor({ items, updateItems }) {
 
-    const [q1Payout, setq1Payout] = useState(0);
-    const handleQ1PayoutChange = (e) => {
-        let paymentInfo = e.target.value;
-        paymentInfo = paymentInfo.replace(/[^0-9.]/g, '');
-        const decimalIndex = paymentInfo.indexOf('.');
-        if (decimalIndex !== -1) {
-            // Limit to two decimal places
-            paymentInfo = paymentInfo.slice(0, decimalIndex + 3);
-        }
-        setq1Payout(paymentInfo);
-    }
-
-    const [q2Payout, setQ2Payout] = useState(0);
-    const handleQ2PayoutChange = (e) => {
-        let paymentInfo = e.target.value;
-        paymentInfo = paymentInfo.replace(/[^0-9.]/g, '');
-        const decimalIndex = paymentInfo.indexOf('.');
-        if (decimalIndex !== -1) {
-            // Limit to two decimal places
-            paymentInfo = paymentInfo.slice(0, decimalIndex + 3);
-        }
-        setQ2Payout(paymentInfo);
-    }
-
-    const [q3Payout, setQ3Payout] = useState(0);
-    const handleQ3PayoutChange = (e) => {
-        let paymentInfo = e.target.value;
-        paymentInfo = paymentInfo.replace(/[^0-9.]/g, '');
-        const decimalIndex = paymentInfo.indexOf('.');
-        if (decimalIndex !== -1) {
-            // Limit to two decimal places
-            paymentInfo = paymentInfo.slice(0, decimalIndex + 3);
-        }
-        setQ3Payout(paymentInfo);
-    }
-
-    const [q4Payout, setQ4Payout] = useState(0);
-    const handleQ4PayoutChange = (e) => {
-        let paymentInfo = e.target.value;
-        paymentInfo = paymentInfo.replace(/[^0-9.]/g, '');
-        const decimalIndex = paymentInfo.indexOf('.');
-        if (decimalIndex !== -1) {
-            // Limit to two decimal places
-            paymentInfo = paymentInfo.slice(0, decimalIndex + 3);
-        }
-        setQ4Payout(paymentInfo);
-    }
-
     return (
         <Row style={center2()}>
             <Row>
@@ -62,9 +14,12 @@ export function LedgerEditor({ items, updateItems }) {
                     Use this page to keep track of which members of your group have paid for their squares.
                 </p>
             </Row>
-            <Row style={{ display: "grid", gridTemplateColumns: "45% 15% 40%", paddingBottom:10 }}>
+            <Row style={{ display: "grid", gridTemplateColumns: "35% 10% 15% 40%", paddingBottom:10 }}>
                 <Col>
                     Name
+                </Col>
+                <Col style={{padding:0}}>
+                    #
                 </Col>
                 <Col>
                     Paid?

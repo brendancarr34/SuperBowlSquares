@@ -43,7 +43,10 @@ function AddAdminPassword({ addAdminPassword, handleAddAdminPasswordToggleChange
                 onChange={handleToggle}
               />
             </label>
-            <span>Add Admin Password?</span>
+            <span>
+              <p style={{ display: "inline", marginRight: "5px" }}>Add Admin Password?</p> 
+              <p style={{ display: "inline", fontSize: "smaller", color: "gray" }}>Recommended</p>
+            </span>
             <OverlayTrigger
               placement="bottom"
               delay={{ show: 250, hide: 400 }}

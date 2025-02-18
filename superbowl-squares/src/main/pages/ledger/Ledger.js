@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { LedgerEditor } from './components/LedgerEditor';
-import { api_url} from '../../../config';
+import { api_url} from '../../../config.js';
 import axios from 'axios';
 
 import { fullHeight } from '../../common/style/CommonStyles';
@@ -60,7 +60,6 @@ export function Ledger() {
             if (response.data.ledger) {
                 ledger = response.data.ledger;
             }
-            
 
             mergedList = playerList.map(player => {
                 let ledgerEntry;
@@ -71,6 +70,7 @@ export function Ledger() {
                 
                 return {
                     label: `${player.playerName} (${player.initials})`,
+                    squares: player.squaresClaimed,
                     paid: ledgerEntry ? ledgerEntry.paid : false,
                     notes: ledgerEntry ? ledgerEntry.notes : ''
                 };
@@ -141,11 +141,19 @@ export function Ledger() {
                 </Row>
             </Row>
 
-            <Modal show={successSaving} onHide={() => {setSuccessSaving(false)}}>
-                <Modal.Header>
-                    Success
-                </Modal.Header>
+            <Modal
+                show={successSaving} 
+                onHide={() => {setSuccessSaving(false)}} 
+                centered
+                style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+            >
+                <div style={{width:"50%", display: "flex", justifyContent: "center", alignItems: "center"}}>
+                    <Modal.Body >
+                        Success
+                    </Modal.Body>
+                </div>
             </Modal>
+            
         </Container>
     )
 

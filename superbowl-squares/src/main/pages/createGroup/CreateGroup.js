@@ -4,14 +4,21 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 import '../../common/style/Button.css'
-import { api_url} from '../../../config';
+import { api_url} from '../../../config.js';
 import Modal from 'react-bootstrap/Modal';
 import { fullHeight } from '../../common/style/CommonStyles';
 
 export function CreateGroup() {
+
+    const location = useLocation();
+
+    let betaPasswordInput = '';
+    if (location.state.betaPasswordInput) {
+        betaPasswordInput = location.state.betaPasswordInput;
+    }
 
     function generateUUID() {
         var d = new Date().getTime();
@@ -50,10 +57,10 @@ export function CreateGroup() {
         try {
             if (groupName == '') {
                 let uuid = generateUUID().substring(0,8);
-                navigate('/create-group-preferences', {state: { groupName: uuid }});
+                navigate('/create-group-preferences', {state: { groupName: uuid, betaPasswordInput: betaPasswordInput }});
             }
             else {
-                const url = api_url + '/api/game/' + groupName
+                const url = api_url + 'api/game/' + groupName
                 await axios.get(url);
     
                 // If group is found, show error modal
@@ -70,7 +77,7 @@ export function CreateGroup() {
                     setGroupName(generateUUID().substring(0,6));
                 }
 
-                navigate('/create-group-preferences', {state: { groupName: groupName }});
+                navigate('/create-group-preferences', {state: { groupName: groupName, betaPasswordInput: betaPasswordInput }});
             }
             else if (error.response != null) {
                 setError(error.response.data.error);
@@ -147,7 +154,7 @@ export function CreateGroup() {
             {/* Error Modal for Taken Group Name */}
             <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)}>
                 <Modal.Header closeButton>
-                <Modal.Title>Error</Modal.Title>
+                    <Modal.Title>Error</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>{error}</Modal.Body>
                 <Modal.Footer>

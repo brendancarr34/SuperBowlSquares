@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import AutoSetNumbers from '../editGroupPreferences/components/AutoSetNumbers';
 import axios from 'axios';
-import { api_url} from '../../../config';
+import { api_url} from '../../../config.js';
 import AddPassword from './components/AddPassword';
 import AutoSetTeams from '../editGroupPreferences/components/AutoSetTeams';
 import AddVenmoInfo from './components/AddVenmoInfo';
@@ -22,38 +22,23 @@ export function CreateGroupPreferences() {
 
     const location = useLocation();
     let groupName = location.state.groupName;
+    let betaPasswordInput = location.state.betaPasswordInput;
 
     const navigate = useNavigate();
 
-    const [autoSetNumbers, setAutoSetNumbers] = useState(false);
+    // const [autoSetNumbers, setAutoSetNumbers] = useState(false);
     const [addGroupPassword, setAddGroupPassword] = useState(true);
     const [addAdminPassword, setAddAdminPassword] = useState(true);
-    const [autoSetTeams, setAutoSetTeams] = useState(false);
+    // const [autoSetTeams, setAutoSetTeams] = useState(false);
     const [groupPassword, setGroupPassword] = useState("");
     const [adminPassword, setAdminPassword] = useState("");
-    const [team1, setTeam1] = useState("");
-    const [team2, setTeam2] = useState("");
+    // const [team1, setTeam1] = useState("");
+    // const [team2, setTeam2] = useState("");
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState(null);
     const [addVenmoInfo, setAddVenmoInfo] = useState(true);
     const [venmoUsername, setVenmoUserName] = useState("");
     const [paymentAmount, setPaymentAmount] = useState(0);
-
-    // Function to handle AutoSetNumbers checkbox change
-    const handleAutoSetNumberChange = (newValue) => {
-        setAutoSetNumbers(newValue);
-    };
-
-    // Add teams functions
-    const handleAutoSetTeamsChange = (newValue) => {
-        setAutoSetTeams(newValue);
-    }
-    const handleSetTeam1 = (newValue) => {
-        setTeam1(newValue);
-    }
-    const handleSetTeam2 = (newValue) => {
-        setTeam2(newValue);
-    }
 
     // Add password function
     const handleAddPasswordToggleChange = (newValue) => {
@@ -84,24 +69,26 @@ export function CreateGroupPreferences() {
 
     const handleButtonClick2 = async () => {
         try {
-            if (addGroupPassword && !groupPassword) {
-                setError('Did you mean to add a group password? If not, deselect this option.');
+            if (addAdminPassword && !adminPassword) {
+                setError('Did you want to add an admin password? If not, deselect this box.');
                 setShowErrorModal(true);
                 return; // Exit the function early
             }
 
-            if (addAdminPassword && !adminPassword) {
-                setError('Did you mean to add an admin password? If not, deselect this option.');
+            if (addGroupPassword && !groupPassword) {
+                setError('Did you want to add a group password? If not, deselect this box.');
                 setShowErrorModal(true);
                 return; // Exit the function early
             }
 
             // Check if addVenmoInfo is true and either venmoUsername or paymentAmount is empty
             if (addVenmoInfo && (!venmoUsername || !paymentAmount)) {
-                setError('Did you mean to add Venmo info?');
+                setError('Did you want to add Venmo info? If not, deselect this box.');
                 setShowErrorModal(true);
                 return; // Exit the function early
             }
+
+            const hasAdminPassword = adminPassword ? true : false;
 
             // TODO - check if venmo user name exists
             // TODO - add button for testing venmo link?
@@ -109,8 +96,10 @@ export function CreateGroupPreferences() {
             const url = api_url + 'api/group/add/' + groupName;
             await axios.post(url, {
                 name: groupName,
+                betaPassword: betaPasswordInput,
                 password: groupPassword,
                 adminPassword: adminPassword,
+                hasAdminPassword: hasAdminPassword,
                 gameData: {
                     row0: empty_row,
                     row0_players: emptyNameRow,
@@ -145,10 +134,10 @@ export function CreateGroupPreferences() {
                 },
                 preferences: {
                     groupPassword: groupPassword,
-                    autoSetNumbers: autoSetNumbers,
-                    autoSetTeams: autoSetTeams,
-                    team1: team1,
-                    team2: team2,
+                    // autoSetNumbers: autoSetNumbers,
+                    // autoSetTeams: autoSetTeams,
+                    // team1: team1,
+                    // team2: team2,
                     venmoUsername: venmoUsername,
                     paymentAmount: paymentAmount
                 },
@@ -191,20 +180,22 @@ export function CreateGroupPreferences() {
                 <Row style = {height70()}>
                     <Row>
                         <Col style={center()}>
-                            <AddPassword 
-                                addGroupPassword={addGroupPassword} 
-                                handleAddPasswordToggleChange={handleAddPasswordToggleChange} 
-                                handleSetGroupPassword={handleSetGroupPassword}
-                                handleSubmit={handleSubmit}/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col style={center()}>
                             <AddAdminPassword
                                 addAdminPassword={addAdminPassword}
                                 handleAddAdminPasswordToggleChange={handleAddAdminPasswordToggleChange}
                                 handleSetAdminPassword={handleSetAdminPassword}
-                                handleSubmit={handleSubmit}/>
+                                handleSubmit={handleSubmit}
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col style={center()}>
+                            <AddPassword 
+                                addGroupPassword={addGroupPassword} 
+                                handleAddPasswordToggleChange={handleAddPasswordToggleChange} 
+                                handleSetGroupPassword={handleSetGroupPassword}
+                                handleSubmit={handleSubmit}
+                            />
                         </Col>
                     </Row>
                     {/* <Row>
@@ -311,8 +302,8 @@ export function CreateGroupPreferences() {
 
     function blackButton() {
         return {
-            backgroundColor: "black",
-            border: 'black',
+            backgroundColor: "#4682b4",
+            border: 'none',
             width: '75vw',
             padding: 20
         }

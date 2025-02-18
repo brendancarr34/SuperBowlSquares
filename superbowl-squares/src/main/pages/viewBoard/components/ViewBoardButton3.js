@@ -3,6 +3,9 @@ import { MDBBtn } from 'mdb-react-ui-kit';
 
 export function ViewBoardButton3(props) {
 
+      // Check if the user is on a mobile device
+    const isMobileDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
     const active = props.active;
     const text = props.text;
     const playerNames = props.playerNames;
@@ -22,9 +25,7 @@ export function ViewBoardButton3(props) {
 
     // console.log('ViewBoardButton3 allSquaresClaimed: ' + allSquaresClaimed);
     const handleClick = () => {
-        // if (active) {
-        //     updateSelectedOption(text);
-        // }
+
         if (text) {
             updateSelectedOption(text);
         }
@@ -61,7 +62,7 @@ export function ViewBoardButton3(props) {
     };
 
     function nullify() {
-        if (!text) {
+        if (!text || (selectedOption != text && isMobileDevice) ) {
             return {
                 display: 'none'
             }

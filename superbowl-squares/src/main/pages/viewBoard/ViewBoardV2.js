@@ -14,9 +14,10 @@ import { ViewBoardRow3 } from './components/ViewBoardRow3.js'
 import { NumberRow } from './components/NumberRow.js';
 import { VerticalTextComponent } from './components/VerticalTextComponent.js';
 import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../../common/data/EmptyBoardData.js';
-import { base_url, ws_url } from '../../../config.js';
+import { api_url, base_url, ws_url } from '../../../config.js';
 import { fullHeight } from '../../common/style/CommonStyles.js';
 import VenmoPaymentButton from '../editBoard/components/VenmoPaymentButton.js';
+import axios from 'axios';
 
 import exampleBoard from './exampleBoard.png'
 
@@ -88,7 +89,7 @@ export function ViewBoardV2() {
     const [clickedButtons, setClickedButtons] = useState([]);
     const [venmoUsername, setVenmoUsername] = useState('');
     const [pricePerSquare, setPricePerSquare] = useState(0);
-    const [adminPassword, setAdminPassword] = useState('');
+    const [hasAdminPassword, setHasAdminPassword] = useState(false);
     const [quarter1Payout, setQ1Payout] = useState('');
     const [quarter1Winner, setQuarter1Winner] = useState('');
     const [quarter2Payout, setQ2Payout] = useState('');
@@ -105,6 +106,7 @@ export function ViewBoardV2() {
     const [showVenmoModal, setShowVenmoModal] = useState(false);
     const [showAdminPasswordModal, setShowAdminPasswordModal] = useState(false);
     const [showDisconnectedModal, setShowDisconnectedModal] = useState(false);
+    const [squaresCount, setSquaresCount] = useState(0);
 
     const [menuIsOpen, setMenuIsOpen] = useState(false);
     const handleMenuClose = () => {
@@ -142,7 +144,7 @@ export function ViewBoardV2() {
     };
 
     const openPreferences = () => {
-        if (adminPassword != '')
+        if (hasAdminPassword)
         {
             setShowAdminPasswordModal(true);
         }
@@ -159,19 +161,21 @@ export function ViewBoardV2() {
     const handleSubmitAdminPasswordClick = () => {
         if (!isLoading)
         {
-            if (userInputAdminPassword === adminPassword)
-            {
+            axios.get(api_url + 'api/game/auth-admin/' + groupName + '/' + userInputAdminPassword)
+            .then(res => {
+                // setResponse(res.data); // Handle successful response
+                console.log(res.data);
                 setUserInputAdminPassword('');
                 navigate('/edit-group-preferences', 
                 {replace: true, 
                     state: {
                         groupName: groupName
                     } });
-            }
-            else
-            {
-                setShowIncorrectAdminPasswordModal(true);
-            }
+              })
+            .catch(err => {
+                setShowIncorrectAdminPasswordModal(true); // Handle error
+                console.log(err);
+            });;
         }
     }
 
@@ -214,8 +218,6 @@ export function ViewBoardV2() {
 
         if (authenticatedVar != true)
         {
-            console.log('authenticatedVar' + authenticatedVar);
-            console.log('we are here')
             navigate(`/join-group/${groupName}`);
         } 
 
@@ -241,6 +243,7 @@ export function ViewBoardV2() {
 
         ws.onopen = () => {
             console.log('WebSocket connected');
+            ws.send(JSON.stringify({ docId: groupName }));
             // Start sending pings every 30 seconds
             const pingInterval = setInterval(() => {
                 if (ws.readyState === WebSocket.OPEN) {
@@ -271,8 +274,9 @@ export function ViewBoardV2() {
 
         ws.onmessage = (event) => {
             const newData = JSON.parse(event.data);
+            // console.log(newData);
             // setData((prevData) => [...prevData, newData]);
-            const doc = newData.find(item => Object.keys(item)[0] === groupName)[groupName];
+            const doc = newData[groupName];
 
             var gameRows = [];
                 gameRows.push(doc.gameData.row0);
@@ -305,6 +309,8 @@ export function ViewBoardV2() {
 
                 const allSquaresClaimedResponse = doc.allSquaresClaimed;
                 setAllSquaresClaimed(allSquaresClaimedResponse);
+                
+                setSquaresCount(gameRows.flat().filter(Boolean).length);
 
                 const topNumbersResponse = doc.topNumbers;
                 setTopNumbers(topNumbersResponse);
@@ -321,11 +327,13 @@ export function ViewBoardV2() {
                 const existingColorData = doc.colorData;
                 setColorData(existingColorData);
 
-                if (doc.adminPassword)
-                {
-                    const adminPassword = doc.adminPassword;
-                    setAdminPassword(adminPassword);
-                } 
+                // if (doc.adminPassword)
+                // {
+                //     const adminPassword = doc.adminPassword;
+                //     setAdminPassword(adminPassword);
+                // } 
+
+                setHasAdminPassword(doc.hasAdminPassword);
                 
                 // console.log(doc);
                 setVenmoUsername(doc.preferences.venmoUsername);
@@ -427,7 +435,7 @@ export function ViewBoardV2() {
                             Super Bowl Squares
                         </Button>
                         {/* <h1 style={{'paddingTop':30}}>🏈 Super Bowl Squares 🏈</h1> */}
-                        <p style={{paddingTop:5, marginBottom:6}}><b>Group:</b> {groupName}</p>
+                        <p style={{paddingTop:5, marginBottom:6}}><b>Group:</b> {groupName}{allSquaresClaimed ? '' : ` - (${squaresCount}/100)`}</p>
                     </Col>
                 </Row>
                 <Row style={center()}>
@@ -622,6 +630,7 @@ export function ViewBoardV2() {
             <Modal show={showAdminPasswordModal} onHide={() => {
                     window.sessionStorage.setItem("showAdminPasswordModal", false);
                     setShowAdminPasswordModal(false);
+                    setShowIncorrectAdminPasswordModal(false);
                 }}>
                 <Modal.Header closeButton>
                     <Modal.Title>Group Admin Access Only</Modal.Title>
@@ -700,12 +709,20 @@ export function ViewBoardV2() {
                 setJustJoined(false);
             }} centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Welcome to your group! <br/><b style={{color:'#4682b4'}}>{groupName}</b></Modal.Title>
+                    <Modal.Title>Welcome to your group, <br/><b style={{color:'#4682b4'}}>{groupName}</b></Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{width: '100%'}}>
                     {
                         !allSquaresClaimed ?
                         <div>
+                            <Row>
+                                <Col>
+                                This app is simple and account-free. 
+                                Once you claim squares, you can't edit or remove them, 
+                                but you can add more with different initials. <br/>
+                                <br/>
+                                </Col>
+                            </Row>
                             <Row style={{width: '100%'}}>
                                 {(pricePerSquare != 0 || venmoUsername)
                                 && 
@@ -718,7 +735,8 @@ export function ViewBoardV2() {
                             </Row>
                             <Row style={{width: '100%'}}>
                                 <Col style={{width: '100%'}}>
-                                    You can start by learning how to play, selecting your squares, or closing this to view your group's board.
+                                    Get started by learning how-to-play, claiming squares, 
+                                    or closing this to view your group's board.
                                 </Col>
                             </Row>
                             <Row style={{width: '100%', paddingLeft:'20px'}}>
