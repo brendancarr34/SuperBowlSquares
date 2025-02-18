@@ -26,7 +26,7 @@ import exampleBoard from './exampleBoard.png'
 import { fullHeight } from '../../common/style/CommonStyles.js';
 import '../../common/style/Select.css'
 
-export function ViewBoardV2() {
+export function ViewBoard() {
 
     let navigate = useNavigate();
     const location = useLocation();
@@ -41,7 +41,6 @@ export function ViewBoardV2() {
         console.log("authenticated error")
     }
 
-    // show 
     const [justCreated, setJustCreated] = useState(false);
     const handleJustCreatedChange = (newValue) => {
         setJustCreated(prev => {
@@ -792,9 +791,7 @@ export function ViewBoardV2() {
                 {
                     (quarter1Payout || quarter1Winner || quarter2Payout || quarter2Winner 
                         || quarter3Payout || quarter3Winner || quarter4Payout || quarter4Winner)
-
                     &&
-
                     <Modal.Body>
                         <Row>
                             <br/>
@@ -818,48 +815,48 @@ export function ViewBoardV2() {
                             style={{ height: "100%" }} // Ensures vertical centering
                         >
                             <Col>
-                            {
-                                (quarter1Payout || quarter1Winner) &&
-                                <div>
-                                    <h4>
-                                        <br/>
-                                        {(quarter1Payout || quarter1Winner) &&"Q1"}{quarter1Payout && " - "}<b style={{color: "green"}}>{quarter1Payout && "$" + quarter1Payout}</b>{quarter1Winner && " - " + quarter1Winner}
-                                    </h4>
-                                </div>
-                            }
-                            {
-                                (quarter2Payout || quarter2Winner) &&
-                                <div>
-                                    <h4>
-                                        <br/>
-                                        {(quarter2Payout || quarter2Winner) &&"Q2"}{quarter2Payout && " - "}<b style={{color: "green"}}>{quarter2Payout && "$" + quarter2Payout}</b>{quarter2Winner && " - " + quarter2Winner}
-                                    </h4>
-                                </div>
-                            }
-                            {
-                                (quarter3Payout || quarter3Winner) &&
-                                <div>
-                                    <h4>
-                                        <br/>
-                                        {(quarter3Payout || quarter3Winner) &&"Q3"}{quarter3Payout && " - "}<b style={{color: "green"}}>{quarter3Payout && "$" + quarter3Payout}</b>{quarter3Winner && " - " + quarter3Winner}
-                                    </h4>
-                                </div>
-                            }
-                            {
-                                (quarter4Payout || quarter4Winner) &&
-                                <div>
-                                    <h4>
-                                        <br/>
-                                        {(quarter4Payout || quarter4Winner) &&"Q4"}{quarter4Payout && " - "}<b style={{color: "green"}}>{quarter4Payout && "$" + quarter4Payout}</b>{quarter4Winner && " - " + quarter4Winner}
-                                        <br/>
-                                    </h4>
-                                </div>
-                            }
+                                {
+                                    (quarter1Payout || quarter1Winner) &&
+                                    <div>
+                                        <h4>
+                                            <br/>
+                                            {(quarter1Payout || quarter1Winner) &&"Q1"}{quarter1Payout && " - "}<b style={{color: "green"}}>{quarter1Payout && "$" + quarter1Payout}</b>{quarter1Winner && " - " + quarter1Winner}
+                                        </h4>
+                                    </div>
+                                }
+                                {
+                                    (quarter2Payout || quarter2Winner) &&
+                                    <div>
+                                        <h4>
+                                            <br/>
+                                            {(quarter2Payout || quarter2Winner) &&"Q2"}{quarter2Payout && " - "}<b style={{color: "green"}}>{quarter2Payout && "$" + quarter2Payout}</b>{quarter2Winner && " - " + quarter2Winner}
+                                        </h4>
+                                    </div>
+                                }
+                                {
+                                    (quarter3Payout || quarter3Winner) &&
+                                    <div>
+                                        <h4>
+                                            <br/>
+                                            {(quarter3Payout || quarter3Winner) &&"Q3"}{quarter3Payout && " - "}<b style={{color: "green"}}>{quarter3Payout && "$" + quarter3Payout}</b>{quarter3Winner && " - " + quarter3Winner}
+                                        </h4>
+                                    </div>
+                                }
+                                {
+                                    (quarter4Payout || quarter4Winner) &&
+                                    <div>
+                                        <h4>
+                                            <br/>
+                                            {(quarter4Payout || quarter4Winner) &&"Q4"}{quarter4Payout && " - "}<b style={{color: "green"}}>{quarter4Payout && "$" + quarter4Payout}</b>{quarter4Winner && " - " + quarter4Winner}
+                                            <br/>
+                                        </h4>
+                                    </div>
+                                }
                             </Col>
                         </Row>
                         <Row>
-                        <br/>
-                        <br/>
+                            <br/>
+                            <br/>
                         </Row>
                         <Row>
                             <br/>

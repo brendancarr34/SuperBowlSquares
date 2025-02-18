@@ -16,7 +16,7 @@ import { Ledger } from './main/pages/ledger/Ledger.js';
 import { NotFound } from './main/pages/notFound/NotFound.js';
 import { SetNumbers } from './main/pages/setNumbers/SetNumbers.js';
 import { SetTeams } from './main/pages/setTeams/SetTeams.js';
-import { ViewBoardV2 } from './main/pages/viewBoard/ViewBoardV2.js';
+import { ViewBoard } from './main/pages/viewBoard/ViewBoard.js';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -39,8 +39,8 @@ root.render(
                 <Route path='/ledger' element={<Ledger/>} />
                 <Route path='/set-numbers' element={<SetNumbers/>} />
                 <Route path='/set-teams' element={<SetTeams/>} />
-                <Route path="/super-bowl-squares" element={<ViewBoardV2/>} />
-                <Route path="/super-bowl-squares/:groupName" element={<ViewBoardV2/>} />
+                <Route path="/super-bowl-squares" element={<ViewBoard/>} />
+                <Route path="/super-bowl-squares/:groupName" element={<ViewBoard/>} />
                 <Route path="/*" element={<NotFound/>} />
             </Routes>
         </Router>
