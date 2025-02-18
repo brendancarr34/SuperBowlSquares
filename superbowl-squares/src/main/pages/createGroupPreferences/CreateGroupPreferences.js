@@ -1,20 +1,22 @@
-// CreateGroupPreferences.js
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
+
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import AutoSetNumbers from '../editGroupPreferences/components/AutoSetNumbers';
+import Modal from 'react-bootstrap/Modal';
+
 import axios from 'axios';
 import { api_url} from '../../../config.js';
+
 import AddPassword from './components/AddPassword';
-import AutoSetTeams from '../editGroupPreferences/components/AutoSetTeams';
 import AddVenmoInfo from './components/AddVenmoInfo';
-import Modal from 'react-bootstrap/Modal';
-import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, } from "../../common/data/EmptyBoardData";
-import { fullHeight } from '../../common/style/CommonStyles';
 import AddAdminPassword from './components/AddAdminPassword';
+
+import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, } from "../../common/data/EmptyBoardData";
+
+import { fullHeight } from '../../common/style/CommonStyles';
 
 export function CreateGroupPreferences() {
 
@@ -26,14 +28,10 @@ export function CreateGroupPreferences() {
 
     const navigate = useNavigate();
 
-    // const [autoSetNumbers, setAutoSetNumbers] = useState(false);
     const [addGroupPassword, setAddGroupPassword] = useState(true);
     const [addAdminPassword, setAddAdminPassword] = useState(true);
-    // const [autoSetTeams, setAutoSetTeams] = useState(false);
     const [groupPassword, setGroupPassword] = useState("");
     const [adminPassword, setAdminPassword] = useState("");
-    // const [team1, setTeam1] = useState("");
-    // const [team2, setTeam2] = useState("");
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState(null);
     const [addVenmoInfo, setAddVenmoInfo] = useState(true);
@@ -134,10 +132,6 @@ export function CreateGroupPreferences() {
                 },
                 preferences: {
                     groupPassword: groupPassword,
-                    // autoSetNumbers: autoSetNumbers,
-                    // autoSetTeams: autoSetTeams,
-                    // team1: team1,
-                    // team2: team2,
                     venmoUsername: venmoUsername,
                     paymentAmount: paymentAmount
                 },
@@ -184,8 +178,7 @@ export function CreateGroupPreferences() {
                                 addAdminPassword={addAdminPassword}
                                 handleAddAdminPasswordToggleChange={handleAddAdminPasswordToggleChange}
                                 handleSetAdminPassword={handleSetAdminPassword}
-                                handleSubmit={handleSubmit}
-                            />
+                                handleSubmit={handleSubmit}/>
                         </Col>
                     </Row>
                     <Row>
@@ -194,32 +187,9 @@ export function CreateGroupPreferences() {
                                 addGroupPassword={addGroupPassword} 
                                 handleAddPasswordToggleChange={handleAddPasswordToggleChange} 
                                 handleSetGroupPassword={handleSetGroupPassword}
-                                handleSubmit={handleSubmit}
-                            />
+                                handleSubmit={handleSubmit}/>
                         </Col>
                     </Row>
-                    {/* <Row>
-                        <Col style={center()}>
-                            <p>TODO - "add payment breakdown?"</p>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col style={center()}>
-                            <AutoSetNumbers 
-                                autoSetNumbers={autoSetNumbers} 
-                                handleToggleChange={handleAutoSetNumberChange} />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col style={center()}>
-                            <AutoSetTeams 
-                                autoSetTeams={autoSetTeams} 
-                                handleAutoSetTeamsChange={handleAutoSetTeamsChange} 
-                                handleSetTeam1={handleSetTeam1} 
-                                handleSetTeam2={handleSetTeam2}/>
-                        </Col>
-                    </Row> */}
-
                     <Row>
                         <Col style={center()}>
                             <AddVenmoInfo
@@ -244,13 +214,17 @@ export function CreateGroupPreferences() {
             {/* Error Modal for API Failure */}
             <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)}>
                 <Modal.Header closeButton>
-                <Modal.Title>Error</Modal.Title>
+                    <Modal.Title>
+                        Error
+                    </Modal.Title>
                 </Modal.Header>
-                <Modal.Body>{error}</Modal.Body>
+                <Modal.Body>
+                    {error}
+                </Modal.Body>
                 <Modal.Footer>
-                <Button variant="secondary" onClick={() => setShowErrorModal(false)}>
-                    Close
-                </Button>
+                    <Button variant="secondary" onClick={() => setShowErrorModal(false)}>
+                        Close
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </Container>

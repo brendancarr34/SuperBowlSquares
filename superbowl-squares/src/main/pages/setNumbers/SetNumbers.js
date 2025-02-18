@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from "react-router-dom";
+
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useNavigate, useLocation } from "react-router-dom";
-import NumberInputBoxes from './NumberInputBoxes';
+
 import axios from 'axios';
+import { api_url} from '../../../config.js';
+
+import NumberInputBoxes from './components/NumberInputBoxes.js';
+
 import { emptyTopNumbers } from '../../common/data/EmptyBoardData';
-import { host , api_url} from '../../../config.js';
 
 export function SetNumbers() {
     const location = useLocation();

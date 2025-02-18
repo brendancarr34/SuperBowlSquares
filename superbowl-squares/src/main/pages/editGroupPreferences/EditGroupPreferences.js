@@ -1,22 +1,16 @@
-// CreateGroupPreferences.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-// import AutoSetNumbers from './components/AutoSetNumbers';
-import AutoSetNumbers from './components/AutoSetNumbers';
+
 import axios from 'axios';
 import { api_url} from '../../../config.js';
 import UpdatePassword from './components/UpdatePassword';
-import AutoSetTeams from './components/AutoSetTeams';
 import UpdateVenmoInfo from './components/UpdateVenmoInfo';
 import Modal from 'react-bootstrap/Modal';
-import { empty_row, emptyNameRow, emptySideNumbers, emptyTopNumbers, } from "../../common/data/EmptyBoardData";
-import { fullHeight } from '../../common/style/CommonStyles';
 import UpdatePaymentInfoAndLedger from './components/UpdatePaymentInfoAndLedger';
-import ToggleButton from './components/ToggleButton';
 
 export function EditGroupPreferences() {
 
@@ -26,15 +20,11 @@ export function EditGroupPreferences() {
     const navigate = useNavigate();
 
     const [isLoading, setIsLoading] = useState(true);
-
-    const [autoSetNumbers, setAutoSetNumbers] = useState(false);
-    const [addGroupPassword, setAddGroupPassword] = useState(false);
-    const [autoSetTeams, setAutoSetTeams] = useState(false);
-    const [groupPassword, setGroupPassword] = useState("");
-    const [team1, setTeam1] = useState("");
-    const [team2, setTeam2] = useState("");
-    const [showErrorModal, setShowErrorModal] = useState(false);
     const [error, setError] = useState(null);
+
+    const [addGroupPassword, setAddGroupPassword] = useState(false);
+    const [groupPassword, setGroupPassword] = useState("");
+
     const [addVenmoInfo, setAddVenmoInfo] = useState(false);
     const [venmoUsername, setVenmoUserName] = useState("");
     const [paymentAmount, setPaymentAmount] = useState(0);
@@ -42,10 +32,11 @@ export function EditGroupPreferences() {
     const [existingPassword, setExistingPassword] = useState('');
     const [existingVenmoUserName, setExistingVenmoUserName] = useState('');
     const [existingPricePerSquare, setExistingPricePerSquare] = useState(0.0);
-
     const [existingPaymentBreakdown, setExistingPaymentBreakdown] = useState({});
 
-    // Add password function
+    const [showErrorModal, setShowErrorModal] = useState(false);
+
+    // Add password functions
     const handleAddPasswordToggleChange = (newValue) => {
         setAddGroupPassword(newValue);
     }
@@ -53,8 +44,7 @@ export function EditGroupPreferences() {
         setGroupPassword(newValue);
     }
 
-
-    // Add Venmo info function
+    // Add Venmo info functions
     const handleAddVenmoInfoToggleChange = (newValue) => {
         setAddVenmoInfo(newValue);
     }
@@ -65,7 +55,7 @@ export function EditGroupPreferences() {
         setPaymentAmount(newValue);
     }
 
-    // TODO - add button for testing venmo link?
+    // TODO - add button for testing venmo link
 
     const handleButtonClick2 = async () => {
         try {
@@ -81,7 +71,6 @@ export function EditGroupPreferences() {
                 setShowErrorModal(true);
                 return; // Exit the function early
             }
-    
 
             navigate(`/super-bowl-squares/${groupName}`, { state: { groupName: groupName, authenticated: true } });
         } catch (error) {
@@ -136,12 +125,15 @@ export function EditGroupPreferences() {
         try {
             const url = api_url + 'api/game/' + groupName;
             const response = await axios.get(url);
+            
             const existingPasswordFromDB = response.data.preferences.groupPassword;
             setExistingPassword(existingPasswordFromDB);
             setGroupPassword(existingPasswordFromDB);
+            
             const existingVenmoUserNameFromDB = response.data.preferences.venmoUsername;
             setExistingVenmoUserName(existingVenmoUserNameFromDB);
             setVenmoUserName(existingVenmoUserNameFromDB);
+            
             const existingPricePerSquareFromDB = response.data.preferences.paymentAmount;
             setExistingPricePerSquare(existingPricePerSquareFromDB);
             setPaymentAmount(existingPricePerSquareFromDB);
@@ -189,37 +181,18 @@ export function EditGroupPreferences() {
     }, [isLoading]);
 
     const setNumbersNav = () => {
-        if (!isLoading)
-        {
+        if (!isLoading) {
             navigate('/set-numbers', { 
                 replace: true, 
                 state: {
                     groupName: groupName
                 } 
             });
-
-            // navigate('/set-numbers', 
-            //     {replace: true, 
-            //         state: {
-            //             groupName: groupName,
-            //             venmoUsername: venmoUsername,
-            //             pricePerSquare: pricePerSquare,
-            //             q1Payout: quarter1Payout,
-            //             q1Winner: quarter1Winner,
-            //             q2Payout: quarter2Payout,
-            //             q2Winner: quarter2Winner,
-            //             q3Payout: quarter3Payout,
-            //             q3Winner: quarter3Winner,
-            //             q4Payout: quarter4Payout,
-            //             q4Winner: quarter4Winner
-            //         } 
-            //     });
         }
     }
 
     const setTeamsNav = () => {
-        if (!isLoading)
-        {
+        if (!isLoading) {
             navigate('/set-teams', { 
                 replace: true, 
                 state: {
@@ -253,7 +226,6 @@ export function EditGroupPreferences() {
                         </Col>
                     </Row>
 
-
                     {/* Venmo Info Section */}
                     <Row style={{padding:0, margin:0, width:'75vw', height: '30%'}}>
                         <Col style={center()}>
@@ -266,6 +238,7 @@ export function EditGroupPreferences() {
                                 existingPaymentAmount={existingPricePerSquare}/>
                         </Col>
                     </Row>
+
                     {/* Board Number and Team Settings */}
                     <Row style={{padding:0, margin:0, width:'75vw', height: '18%'}}>
                         <Col style={{padding:0, margin:0, width:'100%', height:'100%', display: 'flex', paddingRight:7}}>
@@ -294,10 +267,11 @@ export function EditGroupPreferences() {
                                 Board Team<br/>Settings 
                             </Button>
                         </Col>
-                    </Row>             
+                    </Row>     
+
                     {/* Payment Info and Ledger Section */}
                     <Row style={{paddingLeft:0, paddingRight:0, margin:0, width:'75vw', height: '18%'}}>
-                        <Col style={center2()}>
+                        <Col style={{margin: 0,padding: 0}}>
                             <UpdatePaymentInfoAndLedger groupId={groupName} existingPaymentBreakdown={existingPaymentBreakdown}/>
                         </Col>
                     </Row>
@@ -325,7 +299,6 @@ export function EditGroupPreferences() {
                     </Row>
                 </Row>
             </Row>}
-
             {
                 isLoading 
                 && 
@@ -394,15 +367,6 @@ export function EditGroupPreferences() {
             margin: 0,
             padding: 0,
             
-        }
-    }
-
-    function center2() {
-        return {
-            // textAlign: 'center',
-            margin: 0,
-            padding: 0,
-            // width: '75vw',
         }
     }
 

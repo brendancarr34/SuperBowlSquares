@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+
 import axios from 'axios';
-import GridComponent3 from './components/GridComponent3';
 import { api_url} from '../../../config.js';
+
+import GridComponent3 from './components/GridComponent3';
 import ColorSelector from './components/ColorSelector';
-import VenmoPaymentLink from './components/VenmoPaymentLink';
-import VenmoPaymentButton from './components/VenmoPaymentButton';
 
 export function EditBoard() {
 
@@ -23,14 +24,16 @@ export function EditBoard() {
   const [playerName, setPlayerName] = useState('');
   const [playerInitials, setPlayerInitials] = useState('');
   const [clickedButtons, setClickedButtons] = useState([]);
-  const [showErrorModal, setShowErrorModal] = useState(false); // State for showing error modal
-  const [showApiErrorModal, setShowApiErrorModal] = useState(false); // State for showing API error modal
-  const [showTakenInitialsModal, setShowTakenInitialsModal] = useState(false);
-  const [showClickedButtonsTakenModal, setShowClickedButtonsTakenModal] = useState(false);
   const [selectedColor, setSelectedColor] = useState('');
   const [venmoUsername, setVenmoUsername] = useState('');
   const [totalPayment, setTotalPayment] = useState('');
   const [venmoInfoExists, setVenmoInfoExists] = useState(false);
+
+  // Modal States
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showApiErrorModal, setShowApiErrorModal] = useState(false);
+  const [showTakenInitialsModal, setShowTakenInitialsModal] = useState(false);
+  const [showClickedButtonsTakenModal, setShowClickedButtonsTakenModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   let navigate = useNavigate();
@@ -96,8 +99,6 @@ export function EditBoard() {
         const paymentAmount = response.data.paymentAmount;
         setTotalPayment(parseFloat(paymentAmount) * clickedButtons.length);
       }
-
-    // TODO - check for taken initials first
 
     setShowConfirmationModal(true);
   }
@@ -196,7 +197,9 @@ export function EditBoard() {
         <Modal.Header closeButton>
           <Modal.Title>Error</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Please enter both your name and initials.</Modal.Body>
+        <Modal.Body>
+          Please enter both your name and initials.
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowErrorModal(false)}>
             Close
@@ -209,7 +212,9 @@ export function EditBoard() {
         <Modal.Header closeButton>
           <Modal.Title>Error</Modal.Title>
         </Modal.Header>
-        <Modal.Body>No squares have been selected.</Modal.Body>
+        <Modal.Body>
+          No squares have been selected.
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowApiErrorModal(false)}>
             Close
@@ -227,7 +232,6 @@ export function EditBoard() {
           <br/>
           <br/>
           Hint: You can add a number to your initials if they are taken.
-
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowTakenInitialsModal(false)}>
@@ -241,7 +245,9 @@ export function EditBoard() {
         <Modal.Header closeButton>
           <Modal.Title>Error</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Oh no! Someone took one or more of your squares! Please review your selected squares.</Modal.Body>
+        <Modal.Body>
+          Oh no! Someone took one or more of your squares! Please review your selected squares.
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowClickedButtonsTakenModal(false)}>
             Close
@@ -265,15 +271,13 @@ export function EditBoard() {
           <Row className="w-100">
             <Col>
               <Button className="w-100" onClick={() => {setShowConfirmationModal(false)}} 
-                style={{padding:'20px', backgroundColor:'lightGray', color:'black', border:'none'}}
-              >
+                style={{padding:'20px', backgroundColor:'lightGray', color:'black', border:'none'}}>
                 Go Back
               </Button>
             </Col>
             <Col>
               <Button className="w-100" onClick={handleSubmit}
-                style={{padding:'20px', backgroundColor:'#4682b4',  border:'none'}}
-              >
+                style={{padding:'20px', backgroundColor:'#4682b4',  border:'none'}}>
                 <b>Confirm</b>
               </Button>
             </Col>

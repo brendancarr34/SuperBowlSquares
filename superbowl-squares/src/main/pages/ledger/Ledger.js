@@ -6,11 +6,11 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { LedgerEditor } from './components/LedgerEditor';
-import { api_url} from '../../../config.js';
-import axios from 'axios';
 
-import { fullHeight } from '../../common/style/CommonStyles';
+import axios from 'axios';
+import { api_url} from '../../../config.js';
+
+import { LedgerEditor } from './components/LedgerEditor';
 
 export function Ledger() {
 

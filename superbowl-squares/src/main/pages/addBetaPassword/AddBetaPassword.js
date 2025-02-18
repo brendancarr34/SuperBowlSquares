@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import axios from 'axios';
-import { api_url} from '../../../config.js';
+
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -9,16 +7,17 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
-export function AddBetaPassword() {
+import axios from 'axios';
+import { api_url} from '../../../config.js';
 
-    const navigate = useNavigate();
+export function AddBetaPassword() {
 
     const [betaPasswordInput, setBetaPasswordInput] = useState('');
     const [godPasswordInput, setGodPasswordInput] = useState('')
-    const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [apiError, setApiError] = useState('');
-    const [showErrorModal, setShowErrorModal] = useState(false);
 
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [showErrorModal, setShowErrorModal] = useState(false);
 
     const handleBetaPasswordInputChange = (e) => {
         setBetaPasswordInput(e.target.value);
@@ -37,7 +36,6 @@ export function AddBetaPassword() {
         }
         catch (error)
         {
-            // console.log(error.response.data.error);
             setApiError(error.response.data.error);
             setShowErrorModal(true);
         }
@@ -87,5 +85,4 @@ export function AddBetaPassword() {
             </Modal>
         </Container>
     )
-
 }

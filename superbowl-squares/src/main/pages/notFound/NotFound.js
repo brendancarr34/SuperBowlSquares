@@ -1,13 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { readSingleDocument } from '../../../firebase/firebase';
 
 export function NotFound() {
-
-    // const [data3,setData3] = useState("");
-    // readSingleDocument().then(result => setData3(result));
 
     return (
         <Container>
@@ -16,6 +12,7 @@ export function NotFound() {
                     <p>
                         bad link. go back.
                     </p>
+                    {/* TODO - Add a Button to go Home */}
                 </Col>
             </Row>
         </Container>

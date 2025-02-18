@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
+
+import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+
 import { fullHeight } from '../../common/style/CommonStyles';
 import { base_url } from '../../../config.js';
 import VenmoPaymentButton from '../editBoard/components/VenmoPaymentButton';
 
-import blankSquaresBoard from '../viewBoard/blankSquaresBoard3.png'
+import exampleBoard from '../viewBoard/exampleBoard.png'
 
 export function GroupMenu() {
     const navigate = useNavigate(); // Ensure this is top-level and accessible
@@ -225,7 +227,7 @@ export function GroupMenu() {
                     <div>
                         <Row width={'50%'} style={center()}>
                             <Col>
-                            <img width={'70%'} src={blankSquaresBoard} alt="Example" />
+                            <img width={'70%'} src={exampleBoard} alt="Example" />
                             <br/> 
                             <br/>
                             </Col>

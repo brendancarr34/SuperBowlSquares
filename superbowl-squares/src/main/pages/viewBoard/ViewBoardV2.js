@@ -1,5 +1,6 @@
 import React, { useEffect, useState, } from 'react';
 import { useNavigate, useLocation, useParams } from "react-router-dom";
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,19 +9,21 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import ModalHeader from 'react-bootstrap/esm/ModalHeader.js';
-import Select from 'react-select'
+import Select from 'react-select';
+
+import axios from 'axios';
+import { api_url, ws_url } from '../../../config.js';
 
 import { ViewBoardRow3 } from './components/ViewBoardRow3.js'
 import { NumberRow } from './components/NumberRow.js';
 import { VerticalTextComponent } from './components/VerticalTextComponent.js';
-import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../../common/data/EmptyBoardData.js';
-import { api_url, base_url, ws_url } from '../../../config.js';
-import { fullHeight } from '../../common/style/CommonStyles.js';
 import VenmoPaymentButton from '../editBoard/components/VenmoPaymentButton.js';
-import axios from 'axios';
+
+import { emptyTopNumbers, emptySideNumbers, emptyBoard, emptyNameBoard } from '../../common/data/EmptyBoardData.js';
 
 import exampleBoard from './exampleBoard.png'
 
+import { fullHeight } from '../../common/style/CommonStyles.js';
 import '../../common/style/Select.css'
 
 export function ViewBoardV2() {
@@ -38,8 +41,8 @@ export function ViewBoardV2() {
         console.log("authenticated error")
     }
 
+    // show 
     const [justCreated, setJustCreated] = useState(false);
-
     const handleJustCreatedChange = (newValue) => {
         setJustCreated(prev => {
           if (prev !== newValue) return newValue; // Only update if the value changes
@@ -56,7 +59,6 @@ export function ViewBoardV2() {
     }
 
     const [justJoined, setJustJoined] = useState(false);
-
     const handleJustJoinedChange = (newValue) => {
         setJustJoined(prev => {
           if (prev !== newValue) return newValue; // Only update if the value changes
@@ -72,24 +74,32 @@ export function ViewBoardV2() {
         console.log('error with justJoined variable');
     }
 
+    const [refresh, setRefresh] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+
+    const [allSquaresClaimed, setAllSquaresClaimed] = useState(false);
 
     const [gameNameData, setGameNameData] = useState(emptyNameBoard);
     const [gameData, setGameData] = useState(emptyBoard);
+    const [colorData, setColorData] = useState([]);
     const [players, setPlayers] = useState({});
     const [selectOptions, setSelectOptions] = useState([]);
-    const [allSquaresClaimed, setAllSquaresClaimed] = useState(false);
+
     const [topNumbers, setTopNumbers] = useState(emptyTopNumbers);
     const [sideNumbers, setSideNumbers] = useState(emptySideNumbers);
+
     const [topTeam, setTopTeam] = useState('???');
     const [sideTeam, setSideTeam] = useState('???');
+
     const [selectedOption, setSelectedOption] = useState("None");
-    const [colorData, setColorData] = useState([]);
+
+    const [squaresCount, setSquaresCount] = useState(0);
     const [totalPayment, setTotalPayment] = useState('');
     const [clickedButtons, setClickedButtons] = useState([]);
     const [venmoUsername, setVenmoUsername] = useState('');
     const [pricePerSquare, setPricePerSquare] = useState(0);
     const [hasAdminPassword, setHasAdminPassword] = useState(false);
+
     const [quarter1Payout, setQ1Payout] = useState('');
     const [quarter1Winner, setQuarter1Winner] = useState('');
     const [quarter2Payout, setQ2Payout] = useState('');
@@ -101,12 +111,12 @@ export function ViewBoardV2() {
     
     const [userInputAdminPassword, setUserInputAdminPassword] = useState('');
     const [showIncorrectAdminPasswordModal, setShowIncorrectAdminPasswordModal] = useState(false);
-    const [refresh, setRefresh] = useState(0);
+
     const [showModal, setShowModal] = useState(false);
+    const [showPaymentModal, setShowPaymentModal] = useState(false);
     const [showVenmoModal, setShowVenmoModal] = useState(false);
     const [showAdminPasswordModal, setShowAdminPasswordModal] = useState(false);
     const [showDisconnectedModal, setShowDisconnectedModal] = useState(false);
-    const [squaresCount, setSquaresCount] = useState(0);
 
     const [menuIsOpen, setMenuIsOpen] = useState(false);
     const handleMenuClose = () => {
@@ -274,8 +284,7 @@ export function ViewBoardV2() {
 
         ws.onmessage = (event) => {
             const newData = JSON.parse(event.data);
-            // console.log(newData);
-            // setData((prevData) => [...prevData, newData]);
+
             const doc = newData[groupName];
 
             var gameRows = [];
@@ -327,15 +336,8 @@ export function ViewBoardV2() {
                 const existingColorData = doc.colorData;
                 setColorData(existingColorData);
 
-                // if (doc.adminPassword)
-                // {
-                //     const adminPassword = doc.adminPassword;
-                //     setAdminPassword(adminPassword);
-                // } 
-
                 setHasAdminPassword(doc.hasAdminPassword);
                 
-                // console.log(doc);
                 setVenmoUsername(doc.preferences.venmoUsername);
 
                 setPricePerSquare(doc.preferences.paymentAmount);
@@ -388,7 +390,6 @@ export function ViewBoardV2() {
         
     }
 
-    const [showPaymentModal, setShowPaymentModal] = useState(false);
     const handleShowPaymentModal = () => {
         setShowPaymentModal(true);
     }
@@ -434,13 +435,12 @@ export function ViewBoardV2() {
                         >
                             Super Bowl Squares
                         </Button>
-                        {/* <h1 style={{'paddingTop':30}}>🏈 Super Bowl Squares 🏈</h1> */}
                         <p style={{paddingTop:5, marginBottom:6}}><b>Group:</b> {groupName}{allSquaresClaimed ? '' : ` - (${squaresCount}/100)`}</p>
                     </Col>
                 </Row>
                 <Row style={center()}>
                     {/* Top Team */}
-                    <Row style={center5()}>
+                    <Row style={center2()}>
                         <Col xs={1} style={{'padding':0, 'margin':0}}>
                             <VerticalTextComponent style={{'padding':0, 'margin':0}} text={' '} />
                         </Col>
@@ -452,7 +452,7 @@ export function ViewBoardV2() {
                         </Col>
                     </Row>
                     {/* Game Board */}
-                    <Row style={center5()}>
+                    <Row style={center2()}>
                         <Col xs={1} style={{'padding':0, 'margin':0}}>
                             <VerticalTextComponent style={{'padding':0, 'margin':0}} text={sideTeam} />
                         </Col>
@@ -492,7 +492,7 @@ export function ViewBoardV2() {
                         </Col>
                     </Row>
                     {/* Button Row */}
-                    <Row style={center5()}>
+                    <Row style={center2()}>
                         <Col xs={1} style={{'padding':0, 'margin':0}}>
                             <VerticalTextComponent style={{'padding':0, 'margin':0, color:'white'}} text={' '} />
                         </Col>
@@ -524,20 +524,12 @@ export function ViewBoardV2() {
                                             </Col>
                                             <Col style={{'padding':0,'paddingLeft':5,'paddingRight':5, 'margin':0, height:'100%'}}>
                                                 <Button style={grayButton()} onClick={openMenu}>
-                                                    {/* ℹ */}
-                                                    {/* 📖 */}
-                                                    {/* 🗒️ */}
                                                     ℹ️
                                                 </Button>
                                             </Col>
                                             <Col style={{'padding':0,'paddingLeft':5, 'margin':0, height:'100%'}}>
                                                 <Button style={grayButton()} onClick={copyToClipboard}>
                                                     🔍
-                                                    {/* 💡 */}
-                                                    {/* ❓ */}
-                                                    {/* 🔗 */}
-                                                    {/* 📲 */}
-                                                    {/* 💬 */}
                                                 </Button>
                                             </Col>
                                         </Row>
@@ -575,6 +567,13 @@ export function ViewBoardV2() {
                 </Row>
             </Row>
 
+            {/* LOADING MODAL */}
+            <Modal show={isLoading && !showVenmoModal} style={{width:'50%',transform: 'translate(50%, 0%)',}} centered>
+                <Modal.Body style={{display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
+                    Loading
+                </Modal.Body>
+            </Modal>
+
             {/* How to Play Modal*/}
             <Modal show={showModal && !justJoined} 
                 onHide={() => {
@@ -601,10 +600,12 @@ export function ViewBoardV2() {
                     Each axis is also labeled with a number 0-9 in a random order. 
                     <br/>
                     <br/>
-                    Claim squares by marking them with your initials. Once the board is full, the teams and numbers will be randomized.
+                    Claim squares by marking them with your initials. Once the board is full, 
+                    the teams and numbers will be randomized.
                     <br/>
                     <br/>
-                    You win if your square matches the last digit of each team's score at the end of each quarter.
+                    You win if your square matches the last digit of each team's score at the 
+                    end of each quarter.
                 </Modal.Body>
             </Modal>
 
@@ -641,8 +642,7 @@ export function ViewBoardV2() {
                             setShowIncorrectAdminPasswordModal(false);
                             setUserInputAdminPassword(e.target.value)}
                         } 
-                        style={{margin:0, paddingTop:2, paddingBottom:2}}
-                    >
+                        style={{margin:0, paddingTop:2, paddingBottom:2}}>
                         <Form.Control placeholder="Enter admin password" />
                     </Form.Group>
                 </Modal.Body>
@@ -654,16 +654,6 @@ export function ViewBoardV2() {
                         Submit
                     </Button>
                 </Modal.Footer>
-            </Modal>
-
-            {/* LOADING MODAL */}
-            <Modal show={isLoading && !showVenmoModal} style={{width:'50%',transform: 'translate(50%, 0%)',}} centered>
-                <Modal.Body style={{display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center', }}>
-                        Loading
-                    </Modal.Body>
-                    
             </Modal>
 
             {/* DISCONNECTED MODAL */}
@@ -717,10 +707,10 @@ export function ViewBoardV2() {
                         <div>
                             <Row>
                                 <Col>
-                                This app is simple and account-free. 
-                                Once you claim squares, you can't edit or remove them, 
-                                but you can add more with different initials. <br/>
-                                <br/>
+                                    This app is simple and account-free. 
+                                    Once you claim squares, you can't edit or remove them, 
+                                    but you can add more with different initials. <br/>
+                                    <br/>
                                 </Col>
                             </Row>
                             <Row style={{width: '100%'}}>
@@ -747,17 +737,15 @@ export function ViewBoardV2() {
                                         onClick={() => {
                                             setShowModal(true);
                                             setJustJoined(false);
-                                        }}
-                                    >
+                                        }}>
                                         Learn <br/>to Play
                                     </Button>
                                 </Col>
                                 <Col style={{width: '100%'}}>
                                     <br/>
                                     <Button 
-                                        style={{width: '100%', backgroundColor:'#4682b4', border:'none', padding:'30px 10px 30px 10px'}}
-                                        onClick={claimSquares}
-                                    >
+                                            style={{width: '100%', backgroundColor:'#4682b4', border:'none', padding:'30px 10px 30px 10px'}}
+                                            onClick={claimSquares}>
                                         Select <br/>Squares
                                     </Button>
                                 </Col>
@@ -951,18 +939,6 @@ export function ViewBoardV2() {
             margin:0,
             flexWrap: 'nowrap',
             paddingLeft:0
-        }
-    }
-
-    function center5() {
-        return {
-            display: 'flex', 
-            justifyContent: 'center',
-            textAlign: 'center',
-            alignItems: 'center',
-            padding:0,
-            margin:0,
-            flexWrap: 'nowrap',
         }
     }
     

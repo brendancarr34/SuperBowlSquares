@@ -2,24 +2,27 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from 'axios';
 
+import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
 import { PaymentBreakdownEditor } from './components/PaymentBreakdownEditor';
 
-import Modal from 'react-bootstrap/Modal';
+
 import { api_url } from '../../../config.js';
 
 export function EditPaymentBreakdown() {
+
+    const navigate = useNavigate();
     const location = useLocation();
+
     const groupName = location.state.groupName;
     const existingPaymentBreakdown = location.state.existingPaymentBreakdown;
 
     const [paymentBreakdown, setPaymentBreakdown] = useState(existingPaymentBreakdown);
-
     const [isSaving, setIsSaving] = useState(false);
-    const navigate = useNavigate();
 
     const handleGoBack = () => {
         navigate('/edit-group-preferences', {
