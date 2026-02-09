@@ -42,6 +42,7 @@ export function Home() {
         catch (error)
         {
             setShowIncorrectBetaPassword(true);
+            // console.log('beta error: ' + error)
         }
     }
 
